@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Controllers\BaseController;
+use Myth\Auth\Models\UserModel;
+use CodeIgniter\API\ResponseTrait;
+
+class ProfileController extends BaseController
+{
+    use ResponseTrait;
+
+    public function index()
+    {
+        //model(Ruangan::class)->join('kunjunganpasien_t', 'kunjunganpasien_t.ruanganfk = ruangan_m.id')->select(['ruangan_m.*'])->where('kunjunganpasien_t.id', $id)->findAll();
+        $data['profile'] = model(UserModel::class)->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id')->join('asosiasi_m','users.asosiasifk = asosiasi_m.id')->join('alamat_m','alamat_m.usersfk = users.id')->where('users.id', user_id())->first();
+
+        return view('profile/index',$data);
+    }
+
+}
