@@ -45,6 +45,10 @@
 								<!--end::Col-->
 							</div>
 							<!--end::Input group-->
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">Nama Peternak</label>
+								<input class="form-control form-control-lg form-control-solid <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" type="text" placeholder="Nama Peternak" name="username" autocomplete="off" value="<?= old('username') ?>"/>
+							</div>
 							<!--begin::Input group-->
 							<div class="fv-row mb-7">
 								<label class="form-label fw-bolder text-dark fs-6">Nama Peternakan</label>

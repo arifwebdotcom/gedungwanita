@@ -21,18 +21,12 @@ class Validation extends BaseConfig
      * @var string[]
      */
 
-     public $register = [
-        'username' => 'permit_empty|min_length[5]|max_length[255]|is_unique[users.username]',
-        'email'    => 'required|valid_email|is_unique[users.email]',
-        'password' => 'required|min_length[8]',
-        // Add more fields if needed
-    ];
     
-    public array $ruleSets = [
-        Rules::class,
-        FormatRules::class,
-        FileRules::class,
-        CreditCardRules::class,
+    public $ruleSets = [
+        \CodeIgniter\Validation\Rules::class,
+        \CodeIgniter\Validation\FormatRules::class,
+        \CodeIgniter\Validation\FileRules::class,
+        \CodeIgniter\Validation\CreditCardRules::class,
         \Myth\Auth\Authentication\Passwords\ValidationRules::class,
     ];
 
