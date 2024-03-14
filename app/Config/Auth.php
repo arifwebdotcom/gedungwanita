@@ -184,7 +184,7 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var string|null Name of the ActivatorInterface class
      */
-    public $requireActivation = 'Myth\Auth\Authentication\Activators\EmailActivator';
+    public $requireActivation = 'App\Authentication\Activators\EmailActivator';
     //public $requireActivation = null;
 
     /**
@@ -197,7 +197,7 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var string|null Name of the ResetterInterface class
      */
-    public $activeResetter = 'Myth\Auth\Authentication\Resetters\EmailResetter';
+    public $activeResetter = 'App\Authentication\Resetters\EmailResetter';
     // public $activeResetter = null;
 
     /**
@@ -346,7 +346,7 @@ class Auth extends \Myth\Auth\Config\Auth
      * @var array
      */
     public $userActivators = [
-        'Myth\Auth\Authentication\Activators\EmailActivator' => [
+        'App\Authentication\Activators\EmailActivator' => [
             'fromEmail' => 'no-reply@koperasippn.com',
             'fromName'  => 'Admin Web Koperasi PPN',
         ],
@@ -362,7 +362,7 @@ class Auth extends \Myth\Auth\Config\Auth
      * @var array
      */
     public $userResetters = [
-        'Myth\Auth\Authentication\Resetters\EmailResetter' => [
+        'App\Authentication\Resetters\EmailResetter' => [
             'fromEmail' => 'no-reply@koperasippn.com',
             'fromName'  => 'Admin Web Koperasi PPN',
         ],
