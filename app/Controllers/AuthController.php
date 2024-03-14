@@ -401,7 +401,7 @@ class AuthController extends Controller
         $sent      = $activator->send($user);
 
         if (!$sent) { 
-            return redirect()->back()->withInput()->with('error', $sent ?? lang('Auth.unknownError'));
+            return redirect()->back()->withInput()->with('error', $sent );
         }
 
         // Success!
