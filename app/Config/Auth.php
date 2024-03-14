@@ -330,9 +330,9 @@ class Auth extends \Myth\Auth\Config\Auth
      * @var string[]
      */
     public $passwordValidators = [
-        'Myth\Auth\Authentication\Passwords\CompositionValidator',
-        'Myth\Auth\Authentication\Passwords\NothingPersonalValidator',
-        'Myth\Auth\Authentication\Passwords\DictionaryValidator',
+        // 'Myth\Auth\Authentication\Passwords\CompositionValidator',
+        // 'Myth\Auth\Authentication\Passwords\NothingPersonalValidator',
+        // 'Myth\Auth\Authentication\Passwords\DictionaryValidator',
         // 'Myth\Auth\Authentication\Passwords\PwnedValidator',
     ];
 
@@ -347,8 +347,8 @@ class Auth extends \Myth\Auth\Config\Auth
      */
     public $userActivators = [
         'Myth\Auth\Authentication\Activators\EmailActivator' => [
-            'fromEmail' => null,
-            'fromName'  => null,
+            'fromEmail' => 'no-reply@koperasippn.com',
+            'fromName'  => 'Admin Web Koperasi PPN',
         ],
     ];
 
@@ -363,8 +363,8 @@ class Auth extends \Myth\Auth\Config\Auth
      */
     public $userResetters = [
         'Myth\Auth\Authentication\Resetters\EmailResetter' => [
-            'fromEmail' => null,
-            'fromName'  => null,
+            'fromEmail' => 'no-reply@koperasippn.com',
+            'fromName'  => 'Admin Web Koperasi PPN',
         ],
     ];
 
