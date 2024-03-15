@@ -167,8 +167,20 @@ class AuthController extends Controller
         }
 
         // Save the user 
-        $allowedPostFields = array_merge(['password','namapeternakan','nohp'], $this->config->validFields, $this->config->personalFields);
-        $user              = new User($this->request->getPost($allowedPostFields));
+        // $allowedPostFields = array_merge(['password','namapeternakan','nohp'], $this->config->validFields, $this->config->personalFields);
+        // $user              = new User($this->request->getPost($allowedPostFields));
+
+        $user = $this->UserModel->register($this->request->getPost('email'), $this->request->getPost('password'), [
+            'namapeternakan' => $this->request->getPost('namapeternakan'),
+            'nohp' => $this->request->getPost('nohp'),
+            'username' => $this->request->getPost('username'),
+            // Pass custom fields data here
+        ]);
+
+        if (!$user) {
+            return redirect()->back()->withInput()->with('error', $this->userModel->errors());
+        }
+
 
         $this->config->requireActivation === null ? $user->activate() : $user->generateActivateHash();
 
