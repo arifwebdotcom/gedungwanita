@@ -193,17 +193,17 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('errors', $users->errors());
         }
 
-        if ($this->config->requireActivation !== null) {
-            $activator = service('activator');
-            $sent      = $activator->send($user);
+        // if ($this->config->requireActivation !== null) {
+        //     $activator = service('activator');
+        //     $sent      = $activator->send($user);
 
-            if (!$sent) {
-                return redirect()->back()->withInput()->with('error', $activator->error() ?? lang('Auth.unknownError'));
-            }
+        //     if (!$sent) {
+        //         return redirect()->back()->withInput()->with('error', $activator->error() ?? lang('Auth.unknownError'));
+        //     }
 
-            // Success!
-            return redirect()->route('login')->with('message', lang('Auth.activationSuccess'));
-        }
+        //     // Success!
+        //     return redirect()->route('login')->with('message', lang('Auth.activationSuccess'));
+        // }
 
         // Success!
         return redirect()->route('login')->with('message', lang('Auth.registerSuccess'));
