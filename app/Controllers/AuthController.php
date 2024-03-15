@@ -166,7 +166,7 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Save the user
+        // Save the user 
         $allowedPostFields = array_merge(['password','namapeternakan','nohp'], $this->config->validFields, $this->config->personalFields);
         $user              = new User($this->request->getPost($allowedPostFields));
 
