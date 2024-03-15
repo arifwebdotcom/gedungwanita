@@ -28,26 +28,16 @@
 								<a href="<?= url_to('login'); ?>" class="link-primary fw-bolder">Login disini</a></div>
 								<!--end::Link-->
 							</div>
-							<!--end::Separator-->
-							<!--begin::Input group-->
-							<div class="row fv-row mb-7">
-								<!--begin::Col-->
-								<div class="col-xl-6">
-									<label class="form-label fw-bolder text-dark fs-6"><?=lang('Auth.firstName')?></label>
-									<input class="form-control form-control-lg form-control-solid" type="text" placeholder="<?=lang('Auth.firstName')?>" name="first-name" autocomplete="off" />
-								</div>
-								<!--end::Col-->
-								<!--begin::Col-->
-								<div class="col-xl-6">
-									<label class="form-label fw-bolder text-dark fs-6"><?=lang('Auth.lastName')?></label>
-									<input class="form-control form-control-lg form-control-solid" type="text" placeholder="<?=lang('Auth.lastName')?>" name="last-name" autocomplete="off" />
-								</div>
-								<!--end::Col-->
-							</div>
+							<!--end::Separator-->							
 							<!--end::Input group-->
 							<div class="fv-row mb-7">
 								<label class="form-label fw-bolder text-dark fs-6">Nama Peternak</label>
 								<input class="form-control form-control-lg form-control-solid <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" type="text" placeholder="Nama Peternak" name="username" autocomplete="off" value="<?= old('username') ?>"/>
+							</div>
+							<!--end::Input group-->
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">No HP</label>
+								<input class="form-control form-control-lg form-control-solid " type="text" placeholder="Nama Peternak" name="nohp" autocomplete="off" value="<?= old('nohp') ?>"/>
 							</div>
 							<!--begin::Input group-->
 							<div class="fv-row mb-7">
