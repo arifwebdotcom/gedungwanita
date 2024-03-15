@@ -2,7 +2,7 @@
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="../../../">
-		<title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by Keenthemes</title>
+		<title>Koperasi Pinsar Petelur Nasional</title>
 		<meta name="description" content="Login Member Area Koperasi PPN." />
 		<meta name="keywords" content="Login, Koperasi PPN" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
