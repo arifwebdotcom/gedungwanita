@@ -9,7 +9,7 @@
 		<meta charset="utf-8" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme" />
+		<meta property="og:title" content="Koperasi Pinsar Petelur Nasional" />
 		<meta property="og:url" content="https://koperasippn.com/" />
 		<meta property="og:site_name" content="Koperasi PPN" />
 		<link rel="shortcut icon" href="<?= base_url() ?>assets/media/logos/favicon.ico" />

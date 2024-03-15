@@ -9,7 +9,7 @@
 		<meta charset="utf-8" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Login - Koperasi PPN" />
+		<meta property="og:title" content="Koperasi Pinsar Petelur Nasional" />
 		<meta property="og:url" content="https://keenthemes.com/metronic" />
 		<meta property="og:site_name" content="Keenthemes | Metronic" />
 		<!--begin::Fonts-->

@@ -14,37 +14,30 @@ class Email extends BaseConfig
      * The "user agent"
      */
     public string $userAgent = 'CodeIgniter';
-
     /**
      * The mail sending protocol: mail, sendmail, smtp
      */
     public string $protocol = 'smtp';
-
     /**
      * The server path to Sendmail.
      */
     public string $mailPath = '/usr/sbin/sendmail';
-
     /**
      * SMTP Server Hostname
      */
-    public string $SMTPHost = 'koperasippn.com';
-
+    public string $SMTPHost = '156.67.211.5';
     /**
      * SMTP Username
      */
     public string $SMTPUser = 'no-reply@koperasippn.com';
-
     /**
      * SMTP Password
      */
     public string $SMTPPass = 'k0p3r4s1ppn';
-
     /**
      * SMTP Port
      */
     public int $SMTPPort = 465;
-
     /**
      * SMTP Timeout (in seconds)
      */
