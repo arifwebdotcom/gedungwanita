@@ -28,7 +28,7 @@ class Email extends BaseConfig
     /**
      * SMTP Server Hostname
      */
-    public string $SMTPHost = 'srv114.niagahoster.com';
+    public string $SMTPHost = 'koperasippn.com';
 
     /**
      * SMTP Username
