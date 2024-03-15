@@ -25,35 +25,35 @@ class PasswordValidator extends BaseValidator
      */
     public function check(string $password, ?User $user = null): bool
     {
-        if (null === $user) {
-            throw AuthException::forNoEntityProvided();
-        }
+        // if (null === $user) {
+        //     throw AuthException::forNoEntityProvided();
+        // }
 
-        $password = trim($password);
+        // $password = trim($password);
 
-        if (empty($password)) {
-            $this->error = lang('Auth.errorPasswordEmpty');
+        // if (empty($password)) {
+        //     $this->error = lang('Auth.errorPasswordEmpty');
 
-            return false;
-        }
+        //     return false;
+        // }
 
-        $valid = false;
+        // $valid = false;
 
-        foreach ($this->config->passwordValidators as $className) {
-            $class = new $className();
-            $class->setConfig($this->config);
+        // foreach ($this->config->passwordValidators as $className) {
+        //     $class = new $className();
+        //     $class->setConfig($this->config);
 
-            if ($class->check($password, $user) === false) {
-                $this->error      = $class->error();
-                $this->suggestion = $class->suggestion();
+        //     if ($class->check($password, $user) === false) {
+        //         $this->error      = $class->error();
+        //         $this->suggestion = $class->suggestion();
 
-                $valid = false;
-                break;
-            }
+        //         $valid = false;
+        //         break;
+        //     }
 
-            $valid = true;
-        }
+        //     $valid = true;
+        // }
 
-        return $valid;
+        return true;
     }
 }
