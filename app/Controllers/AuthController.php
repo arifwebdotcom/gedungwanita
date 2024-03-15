@@ -6,7 +6,7 @@ use CodeIgniter\Controller;
 use CodeIgniter\Session\Session;
 use Config\Auth as AuthConfig;
 use Myth\Auth\Entities\User;
-use App\Models\UserModel;
+use App\Models\UserModels;
 
 class AuthController extends Controller
 {
@@ -143,7 +143,7 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('error', lang('Auth.registerDisabled'));
         }
 
-        $users = model(UserModel::class);
+        $users = model(UserModels::class);
 
         // Validate basics first since some password rules rely on these fields
         $rules = config('Validation')->registrationRules ?? [
@@ -239,7 +239,7 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $users = model(UserModel::class);
+        $users = model(UserModels::class);
 
         $user = $users->where('email', $this->request->getPost('email'))->first();
 
@@ -290,7 +290,7 @@ class AuthController extends Controller
             return redirect()->route('login')->with('error', lang('Auth.forgotDisabled'));
         }
 
-        $users = model(UserModel::class);
+        $users = model(UserModels::class);
 
         // First things first - log the reset attempt.
         $users->logResetAttempt(
@@ -342,7 +342,7 @@ class AuthController extends Controller
      */
     public function activateAccount()
     {
-        $users = model(UserModel::class);
+        $users = model(UserModels::class);
 
         // First things first - log the activation attempt.
         $users->logActivationAttempt(
@@ -392,7 +392,7 @@ class AuthController extends Controller
         $login = urldecode($this->request->getGet('login'));
         $type  = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $users = model(UserModel::class);
+        $users = model(UserModels::class);
 
         $user = $users->where($type, $login)
             ->where('active', 0)

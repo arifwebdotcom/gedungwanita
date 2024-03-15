@@ -10,7 +10,7 @@ use Myth\Auth\Entities\User;
 /**
  * @method User|null first()
  */
-class UserModel extends Model
+class UserModels extends Model
 {
     protected $table          = 'users';
     protected $primaryKey     = 'id';

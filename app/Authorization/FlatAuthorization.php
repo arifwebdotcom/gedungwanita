@@ -5,7 +5,7 @@ namespace Myth\Auth\Authorization;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Model;
 use App\Entities\User;
-use App\Models\UserModel;
+use App\Models\UserModels;
 
 class FlatAuthorization implements AuthorizeInterface
 {
