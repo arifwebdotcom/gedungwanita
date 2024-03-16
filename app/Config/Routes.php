@@ -2,6 +2,7 @@
 
 use CodeIgniter\Router\RouteCollection;
 use App\Controllers\AgamaController;
+use App\Controllers\AnnouncementController;
 use App\Controllers\AsosiasiController;
 use App\Controllers\DocController;
 use App\Controllers\JenisPakanController;
@@ -56,6 +57,14 @@ $routes->group('agama', ['filter' => 'login'],function ($routes) {
     $routes->get('datatable', [AgamaController::class, 'datatable'], ['as' => 'agama.datatable']);
     $routes->post('(:num)/edit', [AgamaController::class, 'update'], ['as' => 'agama.update']);
     $routes->post('delete/(:num)', [AgamaController::class, 'delete'], ['as' => 'agama.delete']);
+});
+
+$routes->group('announcement', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [AnnouncementController::class, 'index'], ['as' => 'announcement.index']);
+    $routes->post('store', [AnnouncementController::class, 'store'], ['as' => 'announcement.store']);
+    $routes->get('datatable', [AnnouncementController::class, 'datatable'], ['as' => 'announcement.datatable']);
+    $routes->post('(:num)/edit', [AnnouncementController::class, 'update'], ['as' => 'announcement.update']);
+    $routes->post('delete/(:num)', [AnnouncementController::class, 'delete'], ['as' => 'announcement.delete']);
 });
 
 $routes->group('asosiasi', ['filter' => 'login'],function ($routes) {
