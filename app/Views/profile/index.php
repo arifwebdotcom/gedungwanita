@@ -269,7 +269,7 @@
             <!--end::Card body-->
         </div>
         <!--end::details View-->
-        <div class="card mb-5 mb-xl-10 tab-pane fade show active" id="kt_tab_pane_2" role="tabpanel" aria-labelledby="kt_tab_pane_2">
+        <div class="card mb-5 mb-xl-10 tab-pane fade " id="kt_tab_pane_2" role="tabpanel" aria-labelledby="kt_tab_pane_2">
             <!--begin::Card header-->
             <div class="card-header cursor-pointer">
                 <!--begin::Card title-->

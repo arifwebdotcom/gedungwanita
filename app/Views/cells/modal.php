@@ -7,7 +7,10 @@
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Tambah Anggota</h2>
+                <h2><?php if(user()->isadmin != 1)
+                { echo "Lengkapi Data Pemilik";}else{
+                                        echo "Tambah Anggota";
+                                    } ?></h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -136,7 +139,7 @@
                         <form class="form" novalidate="novalidate" id="kt_modal_create_app_form">
                             <!--begin::Step 1-->
                             <div class="current" data-kt-stepper-element="content">
-                                <div class="w-100">
+                                <div class="w-100">                                    
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-10">
                                         <!--begin::Label-->
@@ -146,7 +149,8 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-lg form-control-solid" name="first_name" placeholder="" value="" />
+                                        <input type="text" class="form-control form-control-lg form-control-solid" name="first_name" id="first_name" placeholder="" value="<?= user()->username; ?>" />
+                                        <input type="hidden" class="form-control form-control-lg form-control-solid" name="email" id="email" placeholder="" value="<?= user()->email; ?>" />
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
@@ -159,7 +163,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-lg form-control-solid" name="notelp" placeholder="" value="" />
+                                        <input type="text" class="form-control form-control-lg form-control-solid" name="notelp" placeholder="" value="<?= user()->notelp; ?>" />
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
@@ -172,7 +176,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-lg form-control-solid" name="nohp" placeholder="" value="" />
+                                        <input type="text" class="form-control form-control-lg form-control-solid" name="nohp" id="nohp" placeholder="" value="<?= user()->nohp; ?>" />
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->                                    
@@ -354,12 +358,13 @@
                                     <div class="d-flex flex-stack">
                                         <!--begin::Switch-->
                                         <label class="form-check form-switch form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox" value="1" checked="checked" />
+                                                <input class="form-check-input" id="bersedia" type="checkbox" value="0" />
                                                 <span class="form-check-label fw-bold text-muted">Bersedia</span>
                                             </label>
                                             <!--end::Switch-->
                                         <!--end::Input group-->
                                     </div>
+                                    <div id="snap-container"></div>
                                 </div>
                             </div>
                             <!--end::Step 4-->

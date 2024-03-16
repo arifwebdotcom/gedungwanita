@@ -132,11 +132,65 @@
 		<script src="<?= base_url() ?>assets/js/custom/modals/create-app.js"></script>
 		<script src="<?= base_url() ?>assets/js/custom/modals/upgrade-plan.js"></script>
 		<script src="<?= base_url() ?>assets/js/custom/documentation/general/toastr.js"></script>
+		<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-LWmdCm3ybl8nFlXU"></script>
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->
 		
 		
 			<script> 
+
+				if(<?= user()->iscomplete ?> == 0 && <?= user()->isadmin ?> != 1){				
+					$(window).on('load', function() {
+						$('#kt_modal_create_app').modal('show');
+					});
+					var def = 0;
+
+					$("#bersedia").on('change', function() {
+
+						if ($(this).is(':checked') && def == 0) {
+							
+							$.ajax({
+								url: '<?= route_to('dashboard.payment') ?>',
+								method: 'POST',
+								dataType: 'json',
+								data: { first_name: $("#first_name").val(), email: $("#email").val(),phone: $("#nohp").val()},
+								success: function(data) {		
+									def = 1;
+									window.snap.embed(data.snapToken, {
+										embedId: 'snap-container'
+									});
+									// SnapToken acquired from previous step
+									snap.pay(data.snapToken, {
+									// Optional
+									onSuccess: function(result){
+										/* You may add your own implementation here */
+										alert("payment success!"); console.log(result);
+									},
+									onPending: function(result){
+										/* You may add your own implementation here */
+										alert("wating your payment!"); console.log(result);
+									},
+									onError: function(result){
+										/* You may add your own implementation here */
+										alert("payment failed!"); console.log(result);
+									},
+									onClose: function(){
+										/* You may add your own implementation here */
+										alert('you closed the popup without finishing the payment');
+									}
+									});						
+								}
+							});
+							
+						} else if($(this).is(':checked') && def == 1){
+							$("#snap-container").show();
+						}else if(!$(this).is(':checked')){
+							$("#snap-container").hide();
+						}
+					});
+					
+				}
+				
 				// var input1 = document.querySelector("#jenispakan");
 
 				// // Initialize Tagify components on the above inputs

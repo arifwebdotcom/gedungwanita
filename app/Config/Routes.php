@@ -101,6 +101,7 @@ $routes->group('user', ['filter' => 'login'],function ($routes) {
 
 $routes->group('dashboard', ['filter' => 'login'], function ($routes) {
     $routes->get('/', [DashboardController::class, 'index'], ['as' => 'dashboard.index']);    
+    $routes->post('payment', [DashboardController::class, 'payment'], ['as' => 'dashboard.payment']); 
 });
 
 

@@ -4,10 +4,10 @@
 <!-- Content Header (Page header) -->
 <?php
 $breadcrumb_items = [
-    'title' => 'User',
+    'title' => 'Member',
     'items' => [
         ['name' => 'Master', 'active' => false],
-        ['name' => 'User', 'active' => true]
+        ['name' => 'Member', 'active' => true]
     ]
 ];
 ?>
@@ -16,8 +16,8 @@ $breadcrumb_items = [
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-3 mb-1">Master User</span>
-            <span class="text-muted mt-1 fw-bold fs-7">Data User</span>
+            <span class="card-label fw-bolder fs-3 mb-1">Master Member</span>
+            <span class="text-muted mt-1 fw-bold fs-7">Data Member</span>
         </h3>
         <div class="card-toolbar">
             <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_user">
