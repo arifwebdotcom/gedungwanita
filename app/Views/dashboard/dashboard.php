@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/app'); ?>
 
 <?= $this->section('content'); ?>
-
+  
 <div class="row gy-5 g-xl-8">
     <!--begin::Col-->
     <div class="col-xxl-6">
