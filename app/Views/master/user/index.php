@@ -181,7 +181,8 @@ $breadcrumb_items = [
                 width: "10%",
                 sortable: false,
                 render: function(data, type, row, meta) {
-                    return `<button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit" id="edit">
+                    return `<a href="<?= base_url() ?>user/user-edit/`+row.id+`" target='_blank' >
+                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit" id="edit">
                                 <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                 <span class="svg-icon svg-icon-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -191,6 +192,7 @@ $breadcrumb_items = [
                                 </span>
                                 <!--end::Svg Icon-->
                             </button>
+                            </a>
                             <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm delete" id="delete">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                 <span class="svg-icon svg-icon-3">

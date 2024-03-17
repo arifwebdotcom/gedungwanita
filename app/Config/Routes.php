@@ -102,6 +102,9 @@ $routes->group('jenispakan', ['filter' => 'login'],function ($routes) {
 
 $routes->group('user', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [UserController::class, 'index'], ['as' => 'user.index']);
+    //$routes->get('user-edit/(:num)', 'UserController::userEdit/$1', ['as' => 'user.user_edit']);
+    $routes->get('user-edit/(:num)', [UserController::class, 'UserEdit'], ['as' => 'user.user_edit']);
+    $routes->get('user-baru', [UserController::class, 'UserBaru'], ['as' => 'user.user_baru']);
     $routes->post('store', [UserController::class, 'store'], ['as' => 'user.store']);
     $routes->get('datatable', [UserController::class, 'datatable'], ['as' => 'user.datatable']);
     $routes->post('(:num)/edit', [UserController::class, 'update'], ['as' => 'user.update']);

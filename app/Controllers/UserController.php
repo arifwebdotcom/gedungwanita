@@ -80,4 +80,21 @@ class UserController extends BaseController
             'messages' => 'Data user berhasil diubah.',
         ]);
     }
+
+    public function UserBaru()
+    {
+        $data['suplierpakan'] =  $this->dataglobal;
+        return view('master/user/add', $data);
+    }
+
+    public function UserEdit(int $id)
+    {
+        $data['user'] = model(UserModels::class)
+        ->select('users.*,alamat_m.*,suplierpakan_m.nama,suplierpakan_m.id as idsuplierpakan')
+        ->join('alamat_m','alamat_m.usersfk = users.id')
+        ->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id')
+        ->where('users.id',$id)->first();
+        $data['suplierpakan'] =  $this->dataglobal;
+        return view('master/user/edit', $data);
+    }
 }
