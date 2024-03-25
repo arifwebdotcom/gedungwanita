@@ -3,6 +3,7 @@
 use CodeIgniter\Router\RouteCollection;
 use App\Controllers\AgamaController;
 use App\Controllers\AnnouncementController;
+use App\Controllers\PengajuanController;
 use App\Controllers\AsosiasiController;
 use App\Controllers\DocController;
 use App\Controllers\JenisPakanController;
@@ -67,6 +68,14 @@ $routes->group('announcement', ['filter' => 'login'],function ($routes) {
     $routes->post('delete/(:num)', [AnnouncementController::class, 'delete'], ['as' => 'announcement.delete']);
 });
 
+$routes->group('pengajuan', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [PengajuanController::class, 'index'], ['as' => 'pengajuan.index']);
+    $routes->post('store', [PengajuanController::class, 'store'], ['as' => 'pengajuan.store']);
+    $routes->get('datatable', [PengajuanController::class, 'datatable'], ['as' => 'pengajuan.datatable']);
+    $routes->post('(:num)/edit', [PengajuanController::class, 'update'], ['as' => 'pengajuan.update']);
+    $routes->post('delete/(:num)', [PengajuanController::class, 'delete'], ['as' => 'pengajuan.delete']);
+});
+
 $routes->group('asosiasi', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [AsosiasiController::class, 'index'], ['as' => 'asosiasi.index']);
     $routes->post('store', [AsosiasiController::class, 'store'], ['as' => 'asosiasi.store']);
@@ -108,6 +117,8 @@ $routes->group('user', ['filter' => 'login'],function ($routes) {
     $routes->post('store', [UserController::class, 'store'], ['as' => 'user.store']);
     $routes->get('datatable', [UserController::class, 'datatable'], ['as' => 'user.datatable']);
     $routes->post('(:num)/edit', [UserController::class, 'update'], ['as' => 'user.update']);
+    $routes->post('(:num)/editmodal', [UserController::class, 'updatemodal'], ['as' => 'user.updatemodal']);
+    $routes->get('search2', [UserController::class, 'search2'], ['as' => 'user.search2']);
     $routes->post('delete/(:num)', [UserController::class, 'delete'], ['as' => 'user.delete']);
 });
 

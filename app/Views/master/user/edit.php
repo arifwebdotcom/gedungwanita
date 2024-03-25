@@ -22,6 +22,7 @@ $breadcrumb_items = [
     </div>
     <!--end::Header-->
     <!--begin::Body-->
+    <form action="<?= base_url() ?>user/<?= $id ?>/edit" method="post" enctype="multipart/form-data" id="form_import">
     <div class="card-body py-3 row">
         <!--begin::Table container-->
         <div class="fv-row mb-10 col-lg-6">
@@ -32,8 +33,20 @@ $breadcrumb_items = [
             </label>
             <!--end::Label-->
             <!--begin::Input-->
-            <input type="text" class="form-control form-control-lg form-control-solid" name="first_name" id="first_name" placeholder="" value="<?= $user->username; ?>" />
-            <input type="hidden" class="form-control form-control-lg form-control-solid" name="email" id="email" placeholder="" value="<?= $user->email; ?>" />
+            <input type="text" class="form-control form-control-lg form-control-solid" name="username" id="username" placeholder="" value="<?= $user->username; ?>" />
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="fv-row mb-10 col-lg-6">
+            <!--begin::Label-->
+            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                <span class="required">Email</span>
+                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Nomor Telfon Kantor"></i>
+            </label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="email" class="form-control form-control-lg form-control-solid" name="email" placeholder="" value="<?= $user->email; ?>" readonly/>
             <!--end::Input-->
         </div>
         <!--end::Input group-->
@@ -62,142 +75,196 @@ $breadcrumb_items = [
             <input type="text" class="form-control form-control-lg form-control-solid" name="nohp" id="nohp" placeholder="" value="<?= $user->nohp; ?>" />
             <!--end::Input-->
         </div>
-        <!--end::Input group--> 
-        <div class="fv-row mb-10 col-lg-6">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                <span class="required">Nama Peternakan</span>
-                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Nama Peternakan"></i>
-            </label>
-            <!--end::Label-->
-            <!--begin::Input-->
-            <input type="text" class="form-control form-control-lg form-control-solid" name="namapeternakan" placeholder="" value="<?= $user->namapeternakan; ?>" />
-            <!--end::Input-->
-        </div>
-        <!--end::Input group-->
         <!--begin::Input group-->
         <div class="fv-row mb-10 col-lg-6">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                <span class="required">Populasi</span>
-                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Populasi"></i>
-            </label>
-            <!--end::Label-->
-            <!--begin::Input-->
-            <input type="number" class="form-control form-control-lg form-control-solid" name="populasi" placeholder="" value="<?= $user->populasi; ?>" />
-            <!--end::Input-->
-        </div>
-        <!--end::Input group-->
-        <!--begin::Input group-->
-        <div class="fv-row mb-10 col-lg-6">
-            <label class="required fs-6 fw-bold mb-2">Suplier Pakan</label>
-            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="target_assign">
-            <?php foreach ($suplierpakan as $row) : ?>
-                <option value="<?= $row->id ?>" <?php echo ($user->idsuplierpakan == $row->id?'selected':''); ?>><?= $row->nama ?></option>
+            <label class="required fs-6 fw-bold mb-2">Asosiasi</label>
+            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="asosiasifk">
+            <?php foreach ($asosiasi as $row) : ?>
+                <option value="<?= $row->id ?>" <?php echo ($user->asosiasifk == $row->id?'selected':''); ?>><?= $row->asosiasi ?></option>
             <?php endforeach ?>
             </select>
         </div>
+        <!--end::Input group--> 
         <!--end::Input group-->
-        <!--begin::Input group-->
-        <div class="d-flex flex-column mb-8 fv-row col-lg-6">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                <span class="required">Jenis Pakan</span>
-                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Jenis Pakan"></i>
-            </label>
-            <!--end::Label-->
-            <input class="form-control form-control-solid" value="<?= $user->jenispakan; ?>" name="jenispakan" id="jenispakan" />
+        <div class='row'>
+            <div class='col-md-4'>
+            <div class='form-group'>
+                <label class='form-label'>Alamat <span class='text-danger'>*</span></label>
+                <textarea rows='5' class='form-control form-control-lg form-control-solid' placeholder='Alamat' name='alamat'><?= old('alamat') ?></textarea>
+                <div class="invalid-feedback">
+                </div>
+            </div>
+            </div>
+            <div class='col-md-8 row alamat' >
+            <div class='col-md-6' >
+                <div class='form-group'>
+                <label class='form-label'>Kelurahan</label>
+                <select class='form-control form-control-lg form-control-solid' name="kelurahanfk" style='width: 100%;' id='kelurahanfk'>
+
+                </select>
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='kelurahan' id='kelurahan' value="<?= old('kelurahan') ?>">
+                </div>
+            </div>
+            <div class='col-md-6' >
+                <div class='form-group'>
+                <label class='form-label'>Kecamatan</label>
+                <input type='text' class='form-control form-control-lg form-control-solid' name='kecamatan' id='kecamatan' placeholder='Kecamatan' readonly value="<?= old('kecamatan') ?>">
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='kecamatanfk' id='kecamatanfk' value="<?= old('kecamatanfk') ?>">
+                </div>
+            </div>
+            <div class='col-md-6' >
+                <div class='form-group'>
+                <label class='form-label'>Kabupaten</label>
+                <input type='text' class='form-control form-control-lg form-control-solid' name='kotakabupaten' id='kotakabupaten' placeholder='Kabupaten' readonly value="<?= old('kotakabupaten') ?>">
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='kotakabupatenfk' id='kotakabupatenfk' value="<?= old('kotakabupatenfk') ?>">
+                </div>
+            </div>
+            <div class='col-md-6' >
+                <div class='form-group'>
+                <label class='form-label'>Provinsi</label>
+                <input type='text' class='form-control form-control-lg form-control-solid' name='provinsi' id='provinsi' placeholder='Provinsi' readonly value="<?= old('provinsi') ?>">
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='provinsifk' id='provinsifk' value="<?= old('provinsifk') ?>">
+                </div>
+            </div>
+            </div>
         </div>
-        <!--end::Input group-->   
-        <!--begin::Input group-->
-        <div class="d-flex flex-column mb-8 fv-row col-lg-6">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                <span class="required">Jenis Pullet</span>
-                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Jenis Pullet"></i>
-            </label>
-            <!--end::Label-->
-            <input class="form-control form-control-solid" value="<?= $user->pullet; ?>" name="pullet" id="pullet" />
-        </div>
-        <!--end::Input group-->   
-        <!--begin::Input group-->
-        <div class="fv-row mb-10 col-lg-6">
-            <label class="required fs-6 fw-bold mb-2">Frekuensi</label>
-            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="frekuensireplacement">                                        
-                <option value="2 Kali" <?php echo ($user->frekuensireplacement == "2 Kali"?'selected':''); ?>>2 Kali</option>
-                <option value="2 - 3 Kali" <?php echo ($user->frekuensireplacement == "2 - 3 Kali"?'selected':''); ?>>2 - 3 Kali</option>
-                <option value="3 - 5 Kali" <?php echo ($user->frekuensireplacement == "3 - 5 Kali"?'selected':''); ?>>3 - 5 Kali</option>
-                <option value="> 5 Kali" <?php echo ($user->frekuensireplacement == "> 5 Kali"?'selected':''); ?>>> 5 Kali</option>
-            </select>
-        </div>
-        <!--end::Input group-->
-        <!--begin::Input group-->                                
-        <div class="fv-row col-lg-6">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center fs-5 fw-bold mb-4">
-                <span class="required">Replacement</span>
-                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your apps framework"></i>
-            </label>
-            <!--end::Label-->
-            <!--begin:Option-->
-            <label class="d-flex flex-stack cursor-pointer mb-5">
-                <!--begin:Label-->
-                <span class="d-flex align-items-center me-2">                                                
-                    <!--begin:Info-->
-                    <span class="d-flex flex-column">
-                        <span class="fw-bolder fs-6">DOC</span>
-                        <span class="fs-7 text-muted">Day Old Chick</span>
+        <div class='row'>
+            <div class="fv-row mb-10 col-lg-6">
+                <!--begin::Label-->
+                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                    <span class="required">Nama Peternakan</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Nama Peternakan"></i>
+                </label>
+                <!--end::Label-->
+                <!--begin::Input-->
+                <input type="text" class="form-control form-control-lg form-control-solid" name="namapeternakan" placeholder="" value="<?= $user->namapeternakan; ?>" />
+                <!--end::Input-->
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <div class="fv-row mb-10 col-lg-6">
+                <!--begin::Label-->
+                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                    <span class="required">Populasi</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Populasi"></i>
+                </label>
+                <!--end::Label-->
+                <!--begin::Input-->
+                <input type="number" class="form-control form-control-lg form-control-solid" name="populasi" placeholder="" value="<?= $user->populasi; ?>" />
+                <!--end::Input-->
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <div class="fv-row mb-10 col-lg-6">
+                <label class="required fs-6 fw-bold mb-2">Suplier Pakan</label>
+                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Suplier Pakan" name="suplierpakanfk">
+                <?php foreach ($suplierpakan as $row) : ?>
+                    <option value="<?= $row->id ?>" <?php echo ($user->idsuplierpakan == $row->id?'selected':''); ?>><?= $row->nama ?></option>
+                <?php endforeach ?>
+                </select>
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <div class="d-flex flex-column mb-8 fv-row col-lg-6">
+                <!--begin::Label-->
+                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                    <span class="required">Jenis Pakan</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Jenis Pakan"></i>
+                </label>
+                <!--end::Label-->
+                <input class="form-control form-control-solid" value="<?= $user->jenispakan; ?>" name="jenispakan" id="jenispakan" />
+            </div>
+            <!--end::Input group-->   
+            <!--begin::Input group-->
+            <div class="d-flex flex-column mb-8 fv-row col-lg-6">
+                <!--begin::Label-->
+                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                    <span class="required">Jenis Pullet</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Jenis Pullet"></i>
+                </label>
+                <!--end::Label-->
+                <input class="form-control form-control-solid" value="<?= $user->pullet; ?>" name="pullet" id="pullet" />
+            </div>
+            <!--end::Input group-->   
+            <!--begin::Input group-->
+            <div class="fv-row mb-10 col-lg-6">
+                <label class="required fs-6 fw-bold mb-2">Frekuensi</label>
+                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Frequensi Replacement" name="frekuensireplacement">                                        
+                    <option value="2 Kali" <?php echo ($user->frekuensireplacement == "2 Kali"?'selected':''); ?>>2 Kali</option>
+                    <option value="2 - 3 Kali" <?php echo ($user->frekuensireplacement == "2 - 3 Kali"?'selected':''); ?>>2 - 3 Kali</option>
+                    <option value="3 - 5 Kali" <?php echo ($user->frekuensireplacement == "3 - 5 Kali"?'selected':''); ?>>3 - 5 Kali</option>
+                    <option value="> 5 Kali" <?php echo ($user->frekuensireplacement == "> 5 Kali"?'selected':''); ?>>> 5 Kali</option>
+                </select>
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->                                
+            <div class="fv-row col-lg-6">
+                <!--begin::Label-->
+                <label class="d-flex align-items-center fs-5 fw-bold mb-4">
+                    <span class="required">Replacement</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your apps framework"></i>
+                </label>
+                <!--end::Label-->
+                <!--begin:Option-->
+                <label class="d-flex flex-stack cursor-pointer mb-5">
+                    <!--begin:Label-->
+                    <span class="d-flex align-items-center me-2">                                                
+                        <!--begin:Info-->
+                        <span class="d-flex flex-column">
+                            <span class="fw-bolder fs-6">DOC</span>
+                            <span class="fs-7 text-muted">Day Old Chick</span>
+                        </span>
+                        <!--end:Info-->
                     </span>
-                    <!--end:Info-->
-                </span>
-                <!--end:Label-->
-                <!--begin:Input-->
-                <span class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="radio" checked="checked" name="replacement" value="doc" />
-                </span>
-                <!--end:Input-->
-            </label>
-            <!--end::Option-->
-            <!--begin:Option-->
-            <label class="d-flex flex-stack cursor-pointer mb-5">
-                <!--begin:Label-->
-                <span class="d-flex align-items-center me-2">                                               
-                    <!--begin:Info-->
-                    <span class="d-flex flex-column">
-                        <span class="fw-bolder fs-6">Pullet</span>
-                        <span class="fs-7 text-muted">Ayam siap Produksi</span>
+                    <!--end:Label-->
+                    <!--begin:Input-->
+                    <span class="form-check form-check-custom form-check-solid">
+                        <input class="form-check-input" type="radio" name="replacement" value="doc"  <?php echo ($user->replacement == "doc"?'checked="checked"':''); ?>/>
                     </span>
-                    <!--end:Info-->
-                </span>
-                <!--end:Label-->
-                <!--begin:Input-->
-                <span class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="radio" name="replacement" value="pullet" />
-                </span>
-                <!--end:Input-->
-            </label>
-            <!--end::Option-->
-            <!--begin:Option-->
-            <label class="d-flex flex-stack cursor-pointer mb-5">
-                <!--begin:Label-->
-                <span class="d-flex align-items-center me-2">                                               
-                    <!--begin:Info-->
-                    <span class="d-flex flex-column">
-                        <span class="fw-bolder fs-6">Keduanya</span>
-                        <span class="fs-7 text-muted">DOC & Pullet</span>
+                    <!--end:Input-->
+                </label>
+                <!--end::Option-->
+                <!--begin:Option-->
+                <label class="d-flex flex-stack cursor-pointer mb-5">
+                    <!--begin:Label-->
+                    <span class="d-flex align-items-center me-2">                                               
+                        <!--begin:Info-->
+                        <span class="d-flex flex-column">
+                            <span class="fw-bolder fs-6">Pullet</span>
+                            <span class="fs-7 text-muted">Ayam siap Produksi</span>
+                        </span>
+                        <!--end:Info-->
                     </span>
-                    <!--end:Info-->
-                </span>
-                <!--end:Label-->
-                <!--begin:Input-->
-                <span class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="radio" name="replacement" value="kedua" />
-                </span>
-                <!--end:Input-->
-            </label>
-            <!--end::Option-->                                        
+                    <!--end:Label-->
+                    <!--begin:Input-->
+                    <span class="form-check form-check-custom form-check-solid">
+                        <input class="form-check-input" type="radio" name="replacement" value="pullet" <?php echo ($user->replacement == "pullet"?'checked="checked"':''); ?>/>
+                    </span>
+                    <!--end:Input-->
+                </label>
+                <!--end::Option-->
+                <!--begin:Option-->
+                <label class="d-flex flex-stack cursor-pointer mb-5">
+                    <!--begin:Label-->
+                    <span class="d-flex align-items-center me-2">                                               
+                        <!--begin:Info-->
+                        <span class="d-flex flex-column">
+                            <span class="fw-bolder fs-6">Keduanya</span>
+                            <span class="fs-7 text-muted">DOC & Pullet</span>
+                        </span>
+                        <!--end:Info-->
+                    </span>
+                    <!--end:Label-->
+                    <!--begin:Input-->
+                    <span class="form-check form-check-custom form-check-solid">
+                        <input class="form-check-input" type="radio" name="replacement" value="kedua"  <?php echo ($user->replacement == "kedua"?'checked="checked"':''); ?>/>
+                    </span>
+                    <!--end:Input-->
+                </label>
+                <!--end::Option-->                                        
+            </div>
+            <!--end::Input group-->   
         </div>
-        <!--end::Input group-->   
         <div class="d-flex flex-stack pt-10">
             <!--begin::Wrapper-->
             <div class="me-2">
@@ -215,7 +282,7 @@ $breadcrumb_items = [
             <!--end::Wrapper-->
             <!--begin::Wrapper-->
             <div>
-                <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
+                <button type="submit" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
                     <span class="indicator-label">Submit
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                     <span class="svg-icon svg-icon-3 ms-2 me-0">
@@ -231,8 +298,9 @@ $breadcrumb_items = [
             </div>
             <!--end::Wrapper-->
         </div>
-        <!--end::Table container-->
+        <!--end::Table container-->    
     </div>
+    </form>
     <!--begin::Body-->
 </div>
 <!--end::Tables Widget 11-->
@@ -240,11 +308,63 @@ $breadcrumb_items = [
 <?= $this->endSection(); ?>
 
 <?= $this->section('script') ?>
-
+<script src="<?= base_url() ?>assets/js/custom/documentation/forms/select2.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 
 <script>
-    
+    $(document).ready(function() {
+    //$('.select2').select2()
+    $('#kelurahanfk').select2({
+      ajax: {
+        url: '<?= route_to('user.search2') ?>',
+        dataType: 'json',
+        delay: 250,
+        type: 'GET',
+        data: function(params) {
+          return {
+            q: params.term
+          };
+        },
+        processResults: function(data) {
+          var arr = [];
+          $.each(data, (index, item) => {
+            var text = item.kelurahan + ', ' + item.kecamatan + ', ' + item.kotakabupaten + ', ' + item.provinsi
+            arr.push({
+              id: item.id,
+              text: text,
+              kelurahan: item.kelurahan,
+              kecamatan: item.kecamatan,
+              kecamatanfk: item.kecamatanfk,
+              kotakabupaten: item.kotakabupaten,
+              kotakabupatenfk: item.kotakabupatenfk,
+              provinsi: item.provinsi,
+              provinsifk: item.provinsifk,
+            })
+          })
+          return {
+            results: arr
+
+          };
+        },
+        cache: true
+      },
+      placeholder: 'Kelurahan',
+      minimumInputLength: 1
+    })
+
+    $('#kelurahanfk').on("select2:select", function(e) {
+      console.log(e);
+      $('#provinsifk').val(e.params.data.provinsifk);
+      $('#provinsi').val(e.params.data.provinsi);
+      $('#kotakabupatenfk').val(e.params.data.kotakabupatenfk);
+      $('#kotakabupaten').val(e.params.data.kotakabupaten);
+      $('#kecamatanfk').val(e.params.data.kecamatanfk);
+      $('#kelurahan').val(e.params.data.kelurahan);
+      $('#kecamatan').val(e.params.data.kecamatan);
+    });
+
+  })
+
     $('#user_form').on('submit', function(e) {
         e.preventDefault()
         var form_data = $(this).serializeArray();

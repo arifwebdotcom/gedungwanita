@@ -1,5 +1,5 @@
 <!--begin::Modal - Create App-->
-<div class="modal fade" id="kt_modal_create_app" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kt_modal_create_app"  aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <!--begin::Modal content-->
@@ -72,7 +72,7 @@
                                 <!--begin::Label-->
                             </div>
                             <!--end::Step 2-->
-                            <!--begin::Step 3-->
+                            <!--begin::Step 2-->
                             <div class="stepper-item" data-kt-stepper-element="nav">
                                 <!--begin::Line-->
                                 <div class="stepper-line w-40px"></div>
@@ -81,6 +81,25 @@
                                 <div class="stepper-icon w-40px h-40px">
                                     <i class="stepper-check fas fa-check"></i>
                                     <span class="stepper-number">3</span>
+                                </div>
+                                <!--begin::Icon-->
+                                <!--begin::Label-->
+                                <div class="stepper-label">
+                                    <h3 class="stepper-title">Alamat</h3>
+                                    <div class="stepper-desc">Data Alamat</div>
+                                </div>
+                                <!--begin::Label-->
+                            </div>
+                            <!--end::Step 2-->
+                            <!--begin::Step 3-->
+                            <div class="stepper-item" data-kt-stepper-element="nav">
+                                <!--begin::Line-->
+                                <div class="stepper-line w-40px"></div>
+                                <!--end::Line-->
+                                <!--begin::Icon-->
+                                <div class="stepper-icon w-40px h-40px">
+                                    <i class="stepper-check fas fa-check"></i>
+                                    <span class="stepper-number">4</span>
                                 </div>
                                 <!--end::Icon-->
                                 <!--begin::Label-->
@@ -99,13 +118,13 @@
                                 <!--begin::Icon-->
                                 <div class="stepper-icon w-40px h-40px">
                                     <i class="stepper-check fas fa-check"></i>
-                                    <span class="stepper-number">4</span>
+                                    <span class="stepper-number">5</span>
                                 </div>
                                 <!--end::Icon-->
                                 <!--begin::Label-->
                                 <div class="stepper-label">
-                                    <h3 class="stepper-title">Billing</h3>
-                                    <div class="stepper-desc">Provide payment details</div>
+                                    <h3 class="stepper-title">Pembayaran</h3>
+                                    <div class="stepper-desc">Pembayaran Pedaftaran Anggota</div>
                                 </div>
                                 <!--end::Label-->
                             </div>
@@ -118,7 +137,7 @@
                                 <!--begin::Icon-->
                                 <div class="stepper-icon w-40px h-40px">
                                     <i class="stepper-check fas fa-check"></i>
-                                    <span class="stepper-number">5</span>
+                                    <span class="stepper-number">6</span>
                                 </div>
                                 <!--end::Icon-->
                                 <!--begin::Label-->
@@ -136,7 +155,7 @@
                     <!--begin::Content-->
                     <div class="flex-row-fluid py-lg-5 px-lg-15">
                         <!--begin::Form-->
-                        <form class="form" novalidate="novalidate" id="kt_modal_create_app_form">
+                        <form class="form" action="<?= base_url() ?>user/<?= user()->id; ?>/editmodal" method="post" enctype="multipart/form-data" novalidate="novalidate" id="kt_modal_create_app_form">
                             <!--begin::Step 1-->
                             <div class="current" data-kt-stepper-element="content">
                                 <div class="w-100">                                    
@@ -145,12 +164,13 @@
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                             <span class="required">Nama Peternak</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Nama Peternak"></i>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"  title="Masukkan Nama Peternak"></i>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-lg form-control-solid" name="first_name" id="first_name" placeholder="" value="<?= user()->username; ?>" />
+                                        <input type="text" class="form-control form-control-lg form-control-solid" name="username" id="username" placeholder="" value="<?= user()->username; ?>" />
                                         <input type="hidden" class="form-control form-control-lg form-control-solid" name="email" id="email" placeholder="" value="<?= user()->email; ?>" />
+                                        <input type="hidden" class="form-control form-control-lg form-control-solid" name="id" id="id" placeholder="" value="<?= user()->id; ?>" />
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
@@ -195,7 +215,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-lg form-control-solid" name="namapeternakan" placeholder="" value="" />
+                                        <input type="text" class="form-control form-control-lg form-control-solid" name="namapeternakan" placeholder="" value="<?= user()->namapeternakan; ?>" />
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
@@ -208,16 +228,16 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="number" class="form-control form-control-lg form-control-solid" name="populasi" placeholder="" value="" />
+                                        <input type="number" class="form-control form-control-lg form-control-solid" name="populasi" placeholder="" value="<?= user()->populasi; ?>" />
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-10">
                                         <label class="required fs-6 fw-bold mb-2">Suplier Pakan</label>
-                                        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="target_assign">
+                                        <select class="form-select form-select-solid" data-dropdown-parent="#kt_modal_create_app" data-dropdown-parent="body" data-control="select2" data-hide-search="false" data-placeholder="Tampilkan Suplier Pakan" name="suplierpakanfk">
                                         <?php foreach ($suplierpakan as $row) : ?>
-                                            <option value="<?= $row->id ?>"><?= $row->nama ?></option>
+                                            <option value="<?= $row->id ?>" <?= ($row->id == user()->suplierpakanfk?"selected":"") ?>><?= $row->nama ?></option>
                                         <?php endforeach ?>
                                         </select>
                                     </div>
@@ -230,9 +250,59 @@
                                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Jenis Pakan"></i>
                                         </label>
                                         <!--end::Label-->
-                                        <input class="form-control form-control-solid" value="" name="jenispakan" id="jenispakan" />
+                                        <input class="form-control form-control-solid" value="<?= user()->jenispakan; ?>" name="jenispakan" id="jenispakan" />
                                     </div>
                                     <!--end::Input group-->                                    
+                                </div>
+                            </div>
+                            <!--end::Step 2-->
+                            <!--begin::Step 2-->
+                            <div data-kt-stepper-element="content">
+                                <div class="w-100">
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-10">
+                                    <div class='form-group'>
+                                        <label class='form-label'>Alamat <span class='text-danger'>*</span></label>
+                                        <textarea rows='5' class='form-control form-control-lg form-control-solid' placeholder='Alamat' name='alamat'><?= user()->alamat; ?></textarea>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-10">
+                                    <div class='form-group'>
+                                        <label class='form-label'>Kelurahan</label>
+                                        <select class='form-control form-control-lg form-control-solid' name="kelurahanmodalfk" style='width: 100%;' id='kelurahanmodalfk' >
+
+                                        </select>
+                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='kelurahanmodal' id='kelurahanmodal' value="<?= old('kelurahanmodal') ?>">
+                                    </div>
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-10">
+                                    <div class='form-group'>
+                                        <label class='form-label'>Kecamatan</label>
+                                        <input type='text' class='form-control form-control-lg form-control-solid' name='kecamatanmodal' id='kecamatanmodal' placeholder='Kecamatan' readonly value="<?= old('kecamatanmodal') ?>">
+                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='kecamatanmodalfk' id='kecamatanmodalfk' value="<?= old('kecamatanmodalfk') ?>">
+                                    </div>
+                                    </div>
+                                    <!--end::Input group--> 
+                                    <div class="fv-row mb-10">
+                                    <div class='form-group'>
+                                        <label class='form-label'>Kabupaten</label>
+                                        <input type='text' class='form-control form-control-lg form-control-solid' name='kotakabupatenmodal' id='kotakabupatenmodal' placeholder='Kabupaten' readonly value="<?= old('kotakabupatenmodal') ?>">
+                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='kotakabupatenmodalfk' id='kotakabupatenmodalfk' value="<?= old('kotakabupatenmodalfk') ?>">                                        
+                                    </div>
+                                    </div> 
+                                    <div class="fv-row mb-10">
+                                    <div class='form-group'>
+                                        <label class='form-label'>Provinsi</label>
+                                        <input type='text' class='form-control form-control-lg form-control-solid' name='provinsimodal' id='provinsimodal' placeholder='Provinsi' readonly value="<?= old('provinsimodal') ?>">
+                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='provinsimodalfk' id='provinsimodalfk' value="<?= old('provinsimodalfk') ?>">
+                                    </div>
+                                    </div>                                 
                                 </div>
                             </div>
                             <!--end::Step 2-->
@@ -247,17 +317,17 @@
                                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Jenis Pullet"></i>
                                         </label>
                                         <!--end::Label-->
-                                        <input class="form-control form-control-solid" value="" name="pullet" id="pullet" />
+                                        <input class="form-control form-control-solid" value="<?= user()->pullet; ?>" name="pullet" id="pullet" />
                                     </div>
                                     <!--end::Input group-->   
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-10">
                                         <label class="required fs-6 fw-bold mb-2">Frekuensi</label>
-                                        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="target_assign">                                        
-                                            <option value="2 Kali">2 Kali</option>
-                                            <option value="2 - 3 Kali">2 - 3 Kali</option>
-                                            <option value="3 - 5 Kali">3 - 5 Kali</option>
-                                            <option value="> 5 Kali">> 5 Kali</option>
+                                        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="frequensireplacement">                                        
+                                            <option value="2 Kali" <?= (user()->frequensireplacement == "2 Kali"?"selected":"") ?>>2 Kali</option>
+                                            <option value="2 - 3 Kali" <?= (user()->frequensireplacement == "2 - 3 Kali"?"selected":"") ?>>>2 - 3 Kali</option>
+                                            <option value="3 - 5 Kali" <?= (user()->frequensireplacement == "3 - 5 Kali"?"selected":"") ?>>>3 - 5 Kali</option>
+                                            <option value="> 5 Kali" <?= (user()->frequensireplacement == "> 5 Kali"?"selected":"") ?>>>> 5 Kali</option>
                                         </select>
                                     </div>
                                     <!--end::Input group-->
@@ -283,7 +353,7 @@
                                             <!--end:Label-->
                                             <!--begin:Input-->
                                             <span class="form-check form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="radio" checked="checked" name="replacement" value="doc" />
+                                                <input class="form-check-input" type="radio" <?= (user()->replacement == "doc" ?'checked="checked"':'') ?> name="replacement" value="doc" />
                                             </span>
                                             <!--end:Input-->
                                         </label>
@@ -302,7 +372,7 @@
                                             <!--end:Label-->
                                             <!--begin:Input-->
                                             <span class="form-check form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="radio" name="replacement" value="pullet" />
+                                                <input class="form-check-input" type="radio" name="replacement" <?= (user()->replacement=="pullet"?'checked="checked"':'') ?> value="pullet" />
                                             </span>
                                             <!--end:Input-->
                                         </label>
@@ -321,7 +391,7 @@
                                             <!--end:Label-->
                                             <!--begin:Input-->
                                             <span class="form-check form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="radio" name="replacement" value="kedua" />
+                                                <input class="form-check-input" type="radio" name="replacement" <?= (user()->replacement == "kedua"?'checked="checked"':'') ?> value="kedua" />
                                             </span>
                                             <!--end:Input-->
                                         </label>
@@ -358,7 +428,7 @@
                                     <div class="d-flex flex-stack">
                                         <!--begin::Switch-->
                                         <label class="form-check form-switch form-check-custom form-check-solid">
-                                                <input class="form-check-input" id="bersedia" type="checkbox" value="0" />
+                                                <input class="form-check-input" id="bersedia" type="checkbox" value="<?= user()->isbayar; ?>" <?= (user()->isbayar?'checked="checked"':'') ?>/>
                                                 <span class="form-check-label fw-bold text-muted">Bersedia</span>
                                             </label>
                                             <!--end::Switch-->
@@ -372,10 +442,10 @@
                             <div data-kt-stepper-element="content">
                                 <div class="w-100 text-center">
                                     <!--begin::Heading-->
-                                    <h1 class="fw-bolder text-dark mb-3">Release!</h1>
+                                    <h1 class="fw-bolder text-dark mb-3">Berhasil!</h1>
                                     <!--end::Heading-->
                                     <!--begin::Description-->
-                                    <div class="text-muted fw-bold fs-3">Submit your app to kickstart your project.</div>
+                                    <div class="text-muted fw-bold fs-3">Anda berhasil melengkapi data diri Peternak.</div>
                                     <!--end::Description-->
                                     <!--begin::Illustration-->
                                     <div class="text-center px-4 py-15">
@@ -402,7 +472,7 @@
                                 <!--end::Wrapper-->
                                 <!--begin::Wrapper-->
                                 <div>
-                                    <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
+                                    <button type="submit" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
                                         <span class="indicator-label">Submit
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                                         <span class="svg-icon svg-icon-3 ms-2 me-0">
@@ -442,3 +512,107 @@
     <!--end::Modal dialog-->
 </div>
 <!--end::Modal - Create App-->
+
+<?= $this->section('script') ?>
+
+<script>
+    $(document).ready(function() {
+        $('#kt_modal_create_app').on('shown.bs.modal', function () {
+            $('#kelurahanmodalfk').select2({
+                dropdownParent: $("#kt_modal_create_app .modal-content"),
+                ajax: {
+                    url: '<?= route_to('user.search2') ?>',
+                    dataType: 'json',
+                    delay: 250,
+                    type: 'GET',
+                    data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                    },
+                    processResults: function(data) {
+                    var arr = [];
+                    $.each(data, (index, item) => {
+                        var text = item.kelurahan + ', ' + item.kecamatan + ', ' + item.kotakabupaten + ', ' + item.provinsi
+                        arr.push({
+                        id: item.id,
+                        text: text,
+                        kelurahanmodal: item.kelurahan,
+                        kecamatanmodal: item.kecamatan,
+                        kecamatanmodalfk: item.kecamatanfk,
+                        kotakabupatenmodal: item.kotakabupaten,
+                        kotakabupatenmodalfk: item.kotakabupatenfk,
+                        provinsimodal: item.provinsi,
+                        provinsimodalfk: item.provinsifk,
+                        })
+                    })
+                    return {
+                        results: arr
+
+                    };
+                    },
+                    cache: true
+                },
+                placeholder: 'Kelurahan',
+                minimumInputLength: 1
+                })
+        });
+    //$('.select2').select2()
+    
+
+    $('#kelurahanmodalfk').on("select2:select", function(e) {
+      console.log(e);
+      $('#provinsimodalfk').val(e.params.data.provinsimodalfk);
+      $('#provinsimodal').val(e.params.data.provinsimodal);
+      $('#kotakabupatenmodalfk').val(e.params.data.kotakabupatenmodalfk);
+      $('#kotakabupatenmodal').val(e.params.data.kotakabupatenmodal);
+      $('#kecamatanmodalfk').val(e.params.data.kecamatanmodalfk);
+      $('#kelurahanmodal').val(e.params.data.kelurahanmodal);
+      $('#kecamatanmodal').val(e.params.data.kecamatanmodal);
+    });
+
+  })
+
+    $('#kt_modal_create_app_form').on('submit', function(e) {
+        e.preventDefault()
+        var form_data = $(this).serializeArray();
+        let id = $('#kt_modal_create_app_form #id').val();
+        let route = (id != '') ?
+            `<?= base_url() ?>user/${id}/editmodal` :
+            "<?= route_to('user.store') ?>";
+        
+        $.ajax({
+            url: route,
+            type: 'post',
+            dataType: 'json',
+            data: form_data,
+            beforeSend: function() {
+                Swal.fire({ 
+                    allowOutsideClick: false,
+                    title: 'Harap Menunggu',
+                    text: 'Permintaan sedang di proses.',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                })
+            },
+            success: function(response) {
+                Swal.close()
+                if (response.status) {
+                    $("#user_modal").modal("hide");
+                    showUser();
+                    toastr.success(response.messages);
+                } else {
+                    toastr.error("Gagal!");
+                }
+            },
+            error: function(err) {
+                Swal.close()
+                toastr.error(err);
+            }
+        });    
+    });
+</script>
+<?= $this->endSection() ?>

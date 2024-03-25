@@ -8,7 +8,8 @@ class Home extends BaseController
 
     public function index(): string
     {        
-        $this->data['suplierpakan'] =  $this->dataglobal;
+        $this->data['suplierpakan'] =  $this->suplier;
+        $this->data['asosiasi'] =  $this->asosiasi;
         $this->data['notification'] =  model(Announcement::class)->findAll();
         //return view('layouts/app');
         //return view('dashboard/dashboard',$data);

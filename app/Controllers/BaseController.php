@@ -10,6 +10,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use App\Models\Agama;
 use App\Models\SuplierPakan;
+use App\Models\Asosiasi;
 
 /**
  * Class BaseController
@@ -31,6 +32,7 @@ abstract class BaseController extends Controller
     protected $request;
 
     protected $suplier;
+    protected $asosiasi;
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
@@ -55,15 +57,22 @@ abstract class BaseController extends Controller
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
        
-        $this->dataglobal = model(SuplierPakan::class)
+        $this->suplier = model(SuplierPakan::class)
         ->select('*')
+        ->findAll(); 
+
+        $this->asosiasi = model(Asosiasi::class)
+        ->select('asosiasi_m.*,count(users.id) as jumlah')
+        ->join('users','users.asosiasifk=asosiasi_m.id')
+        ->groupby('users.asosiasifk')
         ->findAll(); 
         // $this->suplier['suplier'] = model(SuplierPakan::class)
         // ->select('*')
         // ->findAll();
         //print_r($this->agama);
-        parent::initController($request, $response, $logger);
+        
 
         // Preload any models, libraries, etc, here.
 

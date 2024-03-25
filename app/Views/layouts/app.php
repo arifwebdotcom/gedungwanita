@@ -21,6 +21,11 @@
 		<link href="<?= base_url() ?>assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?= base_url() ?>assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/> 
 		<link href="<?= base_url() ?>assets/css/custom.css" rel="stylesheet" type="text/css" />
+		<style>
+			.select2-container {
+				z-index: 1600; /* Adjust as needed */
+			}
+		</style>
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<!--end::Head-->
@@ -121,6 +126,7 @@
 		<?= view_cell('App\Cells\ModalAddCell::getDataModal') ?>
 		
 		<script>var hostUrl = "<?= base_url() ?>assets/";</script>
+		<script>var base_url = "<?= base_url() ?>";</script>
 		<!--begin::Javascript-->
 		<!--begin::Global Javascript Bundle(used by all pages)-->
 		<script src="<?= base_url() ?>assets/plugins/global/plugins.bundle.js"></script>
