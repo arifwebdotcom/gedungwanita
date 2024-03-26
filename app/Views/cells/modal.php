@@ -263,7 +263,7 @@
                                     <div class="fv-row mb-10">
                                     <div class='form-group'>
                                         <label class='form-label'>Alamat <span class='text-danger'>*</span></label>
-                                        <textarea rows='5' class='form-control form-control-lg form-control-solid' placeholder='Alamat' name='alamat'><?= user()->alamat; ?></textarea>
+                                        <textarea rows='5' class='form-control form-control-lg form-control-solid' placeholder='Alamat' name='alamat'><?= $alamat->alamat; ?></textarea>
                                         <div class="invalid-feedback">
                                         </div>
                                     </div>
@@ -273,10 +273,10 @@
                                     <div class="fv-row mb-10">
                                     <div class='form-group'>
                                         <label class='form-label'>Kelurahan</label>
-                                        <select class='form-control form-control-lg form-control-solid' name="kelurahanmodalfk" style='width: 100%;' id='kelurahanmodalfk' >
-
+                                        <select class='form-control form-control-lg form-control-solid' name="kelurahanmodalfk" style='width: 100%;' id='kelurahanmodalfk' placeholder="<?= $alamat->kelurahan ?>">
+                                            
                                         </select>
-                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='kelurahanmodal' id='kelurahanmodal' value="<?= old('kelurahanmodal') ?>">
+                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='kelurahanmodal' id='kelurahanmodal' value="<?= $alamat->kelurahan ?>">
                                     </div>
                                     </div>
                                     <!--end::Input group-->
@@ -284,23 +284,23 @@
                                     <div class="fv-row mb-10">
                                     <div class='form-group'>
                                         <label class='form-label'>Kecamatan</label>
-                                        <input type='text' class='form-control form-control-lg form-control-solid' name='kecamatanmodal' id='kecamatanmodal' placeholder='Kecamatan' readonly value="<?= old('kecamatanmodal') ?>">
-                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='kecamatanmodalfk' id='kecamatanmodalfk' value="<?= old('kecamatanmodalfk') ?>">
+                                        <input type='text' class='form-control form-control-lg form-control-solid' name='kecamatanmodal' id='kecamatanmodal' placeholder='Kecamatan' readonly value="<?= $alamat->kecamatan ?>">
+                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='kecamatanmodalfk' id='kecamatanmodalfk' value="<?= $alamat->kecamatanfk ?>">
                                     </div>
                                     </div>
                                     <!--end::Input group--> 
                                     <div class="fv-row mb-10">
                                     <div class='form-group'>
                                         <label class='form-label'>Kabupaten</label>
-                                        <input type='text' class='form-control form-control-lg form-control-solid' name='kotakabupatenmodal' id='kotakabupatenmodal' placeholder='Kabupaten' readonly value="<?= old('kotakabupatenmodal') ?>">
-                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='kotakabupatenmodalfk' id='kotakabupatenmodalfk' value="<?= old('kotakabupatenmodalfk') ?>">                                        
+                                        <input type='text' class='form-control form-control-lg form-control-solid' name='kotakabupatenmodal' id='kotakabupatenmodal' placeholder='Kabupaten' readonly value="<?= $alamat->kotakabupaten ?>">
+                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='kotakabupatenmodalfk' id='kotakabupatenmodalfk' value="<?= $alamat->kotakabupatenfk ?>">                                        
                                     </div>
                                     </div> 
                                     <div class="fv-row mb-10">
                                     <div class='form-group'>
                                         <label class='form-label'>Provinsi</label>
-                                        <input type='text' class='form-control form-control-lg form-control-solid' name='provinsimodal' id='provinsimodal' placeholder='Provinsi' readonly value="<?= old('provinsimodal') ?>">
-                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='provinsimodalfk' id='provinsimodalfk' value="<?= old('provinsimodalfk') ?>">
+                                        <input type='text' class='form-control form-control-lg form-control-solid' name='provinsimodal' id='provinsimodal' placeholder='Provinsi' readonly value="<?= $alamat->provinsi ?>">
+                                        <input type='hidden' class='form-control form-control-lg form-control-solid' name='provinsimodalfk' id='provinsimodalfk' value="<?= $alamat->provinsifk ?>">
                                     </div>
                                     </div>                                 
                                 </div>
@@ -553,11 +553,12 @@
                     },
                     cache: true
                 },
-                placeholder: 'Kelurahan',
+                placeholder: '<?= $alamat->kelurahan; ?>',
                 minimumInputLength: 1
                 })
         });
     //$('.select2').select2()
+
     
 
     $('#kelurahanmodalfk').on("select2:select", function(e) {

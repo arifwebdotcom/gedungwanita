@@ -4,6 +4,7 @@ namespace App\Cells;
 
 use App\Models\SuplierPakan;
 use App\Models\Doc;
+use App\Models\Alamat;
 use CodeIgniter\View\Cells\Cell;
 
 class ModalAddCell
@@ -12,7 +13,9 @@ class ModalAddCell
     {       
         $suplierpakan = model(SuplierPakan::class)->findAll();
         $doc = model(Doc::class)->findAll();
+        $alamat = model(Alamat::class)->select("*")->where("usersfk",user()->id)->get()->getRow();
 
-        return view('cells/modal', compact('suplierpakan','doc'));
+
+        return view('cells/modal', compact('suplierpakan','doc','alamat'));
     }
 }
