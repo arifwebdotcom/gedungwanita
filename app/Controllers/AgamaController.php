@@ -13,7 +13,7 @@ class AgamaController extends BaseController
     public function datatable() {
         $data = model(Agama::class)->findAll();
 
-        return json_encode(compact('data'));
+        return json_encode(compact('data')); 
     }
 
     public function index()
