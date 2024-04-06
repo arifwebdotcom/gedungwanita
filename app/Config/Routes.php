@@ -75,6 +75,7 @@ $routes->group('pengajuan', ['filter' => 'login'],function ($routes) {
     $routes->post('(:num)/edit', [PengajuanController::class, 'update'], ['as' => 'pengajuan.update']);
     $routes->post('delete/(:num)', [PengajuanController::class, 'delete'], ['as' => 'pengajuan.delete']);
     $routes->get('pengajuan-baru', [PengajuanController::class, 'PengajuanBaru'], ['as' => 'pengajuan.pengajuan_baru']);
+    $routes->get('get-dataPengajuan', [PengajuanController::class, 'getPengajuan'], ['as' => 'pengajuan_get']);
 });
 
 $routes->group('asosiasi', ['filter' => 'login'],function ($routes) {

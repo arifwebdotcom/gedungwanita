@@ -75,6 +75,7 @@ $breadcrumb_items = [
             <?php }
             endforeach ?>
             </select>
+            <input type="hidden" name="asosiasi" id="asosiasi" value="<?= $user->asosiasifk ?>">
         </div>
         
         <div class="fv-row mb-10 col-lg-6">
@@ -202,7 +203,7 @@ $breadcrumb_items = [
        
         
         $.ajax({
-            url: <?= route_to('pengajuan.store') ?>,
+            url: '<?= route_to('pengajuan.store') ?>',
             type: 'post',
             dataType: 'json',
             data: form_data,
@@ -221,9 +222,8 @@ $breadcrumb_items = [
             success: function(response) {
                 Swal.close()
                 if (response.status) {
-                    $("#user_modal").modal("hide");
-                    showUser();
                     toastr.success(response.messages);
+                    window.location.href = "<?= route_to('pengajuan.index') ?>";
                 } else {
                     toastr.error("Gagal!");
                 }

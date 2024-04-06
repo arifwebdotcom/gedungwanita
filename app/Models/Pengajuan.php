@@ -13,7 +13,7 @@ class Pengajuan extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'user_id', 'populasi','kebutuhan','disetujui','keterangan','periode','tahun','statuskeanggotaan'];
+    protected $allowedFields    = ['id', 'user_id', 'populasi','kebutuhan','disetujui','keterangan','periode','tahun','statuskeanggotaan','nopengajuan'];
 
     // Dates
     protected $useTimestamps = true;
@@ -40,13 +40,56 @@ class Pengajuan extends Model
     protected $afterDelete    = [];
 
 
-    public function get_pengajuan($numrows,$keywords)
+    public function get_tahunpengajuan(){
+        $builder = $this->select('tahun')
+        ->groupBy('tahun')->findAll();
+        return $builder;
+    }
+    public function get_pengajuan_all($nopengajuan, $tahun, $asosiasi, $numrows)
     {
-        $builder = $this->select('pengajuan_m.*')
-        ->when($keywords, static function ($query, $keywords) {
-            $query->like('pengajuan_m.pengajuan', $keywords);
-        })
-        ->findAll($numrows);
+        $builder = $this
+            ->select('pengajuan_t.id as idpengajuan,pengajuan_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*')
+            ->join('users','users.id=pengajuan_t.user_id')
+            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
+            ->join('alamat_m','alamat_m.usersfk = users.id','left')
+            //->where('pengajuan_t.user_id', user()->klienfk)
+            ->when($nopengajuan, static function ($query, $nopengajuan) {
+                $query->like('pengajuan_t.nopengajuan', $nopengajuan);
+            })
+            ->when($nopengajuan, static function ($query, $nopengajuan) {
+                $query->like('pengajuan_t.nopengajuan', $nopengajuan);
+            })
+            ->when($tahun, static function ($query, $tahun) {
+                $query->like('pengajuan_t.tahun', $tahun);
+            })
+            ->when($asosiasi, static function ($query, $asosiasi) {
+                $query->like('users.asosiasifk', $asosiasi);
+            })
+            ->findAll($numrows);
+        return $builder;
+    }
+
+    public function get_pengajuan_user($nopengajuan, $tahun, $asosiasi, $numrows)
+    {
+        $builder = $this
+            ->select('pengajuan_t.id as idpengajuan,pengajuan_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*')
+            ->join('users','users.id=pengajuan_t.user_id')
+            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
+            ->join('alamat_m','alamat_m.usersfk = users.id','left')
+            ->where('pengajuan_t.user_id', user()->klienfk)
+            ->when($nopengajuan, static function ($query, $nopengajuan) {
+                $query->like('pengajuan_t.nopengajuan', $nopengajuan);
+            })
+            ->when($nopengajuan, static function ($query, $nopengajuan) {
+                $query->like('pengajuan_t.nopengajuan', $nopengajuan);
+            })
+            ->when($tahun, static function ($query, $tahun) {
+                $query->like('pengajuan_t.tahun', $tahun);
+            })
+            ->when($asosiasi, static function ($query, $asosiasi) {
+                $query->like('users.asosiasifk', $asosiasi);
+            })
+            ->findAll($numrows);
         return $builder;
     }
 

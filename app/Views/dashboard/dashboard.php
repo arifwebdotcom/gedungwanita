@@ -344,6 +344,26 @@
     <!--end::Col-->
     <!--begin::Col-->
     <div class="col-xxl-6">
+        <div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
+            <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0">
+                <!--begin::Stats-->
+                <div class="flex-grow-1 card-p pb-0">
+                    <div class="d-flex flex-stack flex-wrap">
+                        <div class="me-2">
+                            <a href="#" class="text-dark text-hover-primary fw-bolder fs-3">Asosiasi</a>
+                            <div class="text-muted fs-7 fw-bold">Finance and accounting reports</div>
+                        </div>
+                        <div class="fw-bolder fs-3 text-primary">$24,500</div>
+                    </div>
+                </div>
+                <!--end::Stats-->
+                <!--begin::Chart-->
+                <canvas id="myPieChart" width="400" height="400"></canvas>
+                <!--end::Chart-->
+            </div>
+            <!--end::Body-->
+        </div>
         <!--begin::Mixed Widget 7-->
         <div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
             <!--begin::Body-->
@@ -856,6 +876,36 @@
     $(document).ready(function() {
         //$("#user_table").DataTable();
         showUser();
+
+        var data = {
+                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                datasets: [{
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'red',
+                        'blue',
+                        'yellow',
+                        'green',
+                        'purple',
+                        'orange'
+                    ]
+                }]
+            };
+
+            // Configuration options
+            var options = {
+                responsive: true
+            };
+
+            // Get the context of the canvas element we want to select
+            var ctx = document.getElementById("myPieChart").getContext("2d");
+
+            // Create the pie chart
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: options
+            });
     });
 
     const showUser = () => {
