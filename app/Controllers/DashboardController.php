@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Agama;
+use App\Models\Asosiasi;
 use App\Models\TransactionDetailModel;
 use App\Models\TransactionModel;
 
@@ -77,6 +78,31 @@ class DashboardController extends BaseController
             'snapToken' => \Midtrans\Snap::getSnapToken($params),
             'messages' => 'Data doc berhasil ditambahkan.',
         ]);
+    }
+
+    public function datapie()
+    {
+
+        $groupedData = model(Asosiasi::class)
+        ->select('asosiasi_m.asosiasi,count(users.id) as count')
+        ->join('users','users.asosiasifk=asosiasi_m.id')
+        ->groupby('users.asosiasifk')
+        ->get()->getResultArray(); 
+
+        $labels = [];
+        $data = [];
+
+        foreach ($groupedData as $row) {
+            $labels[] = $row['asosiasi']; // Replace 'your_column' with the column you grouped by
+            $data[] = $row['count'];
+        }
+
+        // Return the data as JSON
+        return $this->respond([
+            'labels' => $labels,
+            'data' => $data
+        ]);
+
     }
 
 }

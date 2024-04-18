@@ -877,36 +877,37 @@
         //$("#user_table").DataTable();
         showUser();
 
-        var data = {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                datasets: [{
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'red',
-                        'blue',
-                        'yellow',
-                        'green',
-                        'purple',
-                        'orange'
-                    ]
-                }]
-            };
-
-            // Configuration options
-            var options = {
-                responsive: true
-            };
-
-            // Get the context of the canvas element we want to select
-            var ctx = document.getElementById("myPieChart").getContext("2d");
-
-            // Create the pie chart
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: data,
-                options: options
+            $.ajax({
+                url: '<?= route_to('dashboard.datapie') ?>',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    // Create the pie chart using fetched data
+                    const ctx = document.getElementById('myPieChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: response.labels,
+                            datasets: [{
+                                data: response.data,
+                                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+                            }]
+                        },
+                        options: {
+                            responsive: true
+                        }
+                    });
+                },
+                error: function(err) {
+                    console.error('Error fetching data:', err);
+                }
             });
+            
+
     });
+
+
+
 
     const showUser = () => {
         const columns = [
