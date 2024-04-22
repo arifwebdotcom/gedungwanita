@@ -147,7 +147,7 @@
 
 				if(<?= user()->iscomplete ?> == 0 && <?= user()->isadmin ?> != 1){				
 					$(window).on('load', function() {
-						$('#kt_modal_create_app').modal('show');
+						//$('#kt_modal_create_app').modal('show');
 					});
 					var def = 0;
 
