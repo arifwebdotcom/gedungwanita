@@ -263,7 +263,7 @@
                                     <div class="fv-row mb-10">
                                     <div class='form-group'>
                                         <label class='form-label'>Alamat <span class='text-danger'>*</span></label>
-                                        <textarea rows='5' class='form-control form-control-lg form-control-solid' placeholder='Alamat' name='alamat'><?= $alamat->alamat; ?></textarea>
+                                        <textarea rows='5' class='form-control form-control-lg form-control-solid' placeholder='Alamat' name='alamat'><?= ($alamat?$alamat->alamat:''); ?></textarea>
                                         <div class="invalid-feedback">
                                         </div>
                                     </div>
