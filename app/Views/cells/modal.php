@@ -553,7 +553,7 @@
                     },
                     cache: true
                 },
-                placeholder: '<?= $alamat->kelurahan; ?>',
+                placeholder: '<?= ($alamat?$alamat->kelurahan:''); ?>',
                 minimumInputLength: 1
                 })
         });
