@@ -71,6 +71,10 @@ class Pengajuan extends Model
 
     public function get_pengajuan_user($nopengajuan, $tahun, $asosiasi, $numrows)
     {
+
+        // select pengajuan_t.id as idpengajuan,pengajuan_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*
+        // from pengajuan_t join users on users.id=pengajuan_t.user_id join asosiasi_m on asosiasi_m.id=users.asosiasifk join alamat_m on alamat_m.usersfk = users.id
+        // where pengajuan_t.user_id=24
         $builder = $this
             ->select('pengajuan_t.id as idpengajuan,pengajuan_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*')
             ->join('users','users.id=pengajuan_t.user_id')

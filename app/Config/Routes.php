@@ -4,6 +4,7 @@ use CodeIgniter\Router\RouteCollection;
 use App\Controllers\AgamaController;
 use App\Controllers\AnnouncementController;
 use App\Controllers\PengajuanController;
+use App\Controllers\InvoiceController;
 use App\Controllers\AsosiasiController;
 use App\Controllers\DocController;
 use App\Controllers\JenisPakanController;
@@ -76,6 +77,16 @@ $routes->group('pengajuan', ['filter' => 'login'],function ($routes) {
     $routes->post('delete/(:num)', [PengajuanController::class, 'delete'], ['as' => 'pengajuan.delete']);
     $routes->get('pengajuan-baru', [PengajuanController::class, 'PengajuanBaru'], ['as' => 'pengajuan.pengajuan_baru']);
     $routes->get('get-dataPengajuan', [PengajuanController::class, 'getPengajuan'], ['as' => 'pengajuan_get']);
+});
+
+$routes->group('invoice', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [InvoiceController::class, 'index'], ['as' => 'invoice.index']);
+    $routes->post('store', [InvoiceController::class, 'store'], ['as' => 'invoice.store']);
+    $routes->get('datatable', [InvoiceController::class, 'datatable'], ['as' => 'invoice.datatable']);
+    $routes->post('(:num)/edit', [InvoiceController::class, 'update'], ['as' => 'invoice.update']);
+    $routes->post('delete/(:num)', [InvoiceController::class, 'delete'], ['as' => 'invoice.delete']);
+    $routes->get('invoice-baru', [InvoiceController::class, 'InvoiceBaru'], ['as' => 'invoice.invoice_baru']);
+    $routes->get('get-dataInvoice', [InvoiceController::class, 'getInvoice'], ['as' => 'invoice_get']);
 });
 
 $routes->group('asosiasi', ['filter' => 'login'],function ($routes) {
