@@ -159,6 +159,15 @@ $breadcrumb_items = [
                         </label>
                         <!--end::Label-->
                         <input type="number" class="form-control form-control-solid" placeholder="" id="disetujui" name="disetujui" />
+                    </div>  
+                    <div class="d-flex flex-column mb-7 fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                            <span class="required">Disetujui</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Di setujui"></i>
+                        </label>
+                        <!--end::Label-->
+                        <input type="number" class="form-control form-control-solid" placeholder="" id="disetujui" name="disetujui" />
                     </div>                    
                     <!--end::Input group-->
                     <!--begin::Input group-->

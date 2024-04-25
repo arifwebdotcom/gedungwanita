@@ -198,7 +198,7 @@ $breadcrumb_items = [
             </div>
             <!--end::Input group-->
             <!--begin::Input group-->                                
-            <div class="fv-row col-lg-6">
+            <div class="fv-row col-lg-5">
                 <!--begin::Label-->
                 <label class="d-flex align-items-center fs-5 fw-bold mb-4">
                     <span class="required">Replacement</span>
@@ -262,6 +262,42 @@ $breadcrumb_items = [
                     <!--end:Input-->
                 </label>
                 <!--end::Option-->                                        
+            </div>
+            <div class="col-lg-7">
+                <!--begin::Image input-->
+                <?php if($user->ktp){
+                    $ktp = base_url()."uploads/".$user->ktp;
+                }else{
+                    $ktp = base_url()."assets/media/avatars/ktp.jpeg";
+                } ?>
+                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('<?= $ktp ?>')">
+                    <!--begin::Preview existing avatar-->
+                    <div class="image-input-wrapper w-475px h-300px" style="background-image: url('<?= $ktp ?>')"></div>
+                    <!--end::Preview existing avatar-->
+                    <!--begin::Label-->
+                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                        <i class="bi bi-pencil-fill fs-7"></i>
+                        <!--begin::Inputs-->
+                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                        <input type="hidden" name="avatar_remove" value="<?= $user->ktp; ?>"/>
+                        <!--end::Inputs-->
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Cancel-->
+                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                        <i class="bi bi-x fs-2"></i>
+                    </span>
+                    <!--end::Cancel-->
+                    <!--begin::Remove-->
+                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                        <i class="bi bi-x fs-2"></i>
+                    </span>
+                    <!--end::Remove-->
+                </div>
+                <!--end::Image input-->
+                <!--begin::Hint-->
+                <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                <!--end::Hint-->
             </div>
             <!--end::Input group-->   
         </div>

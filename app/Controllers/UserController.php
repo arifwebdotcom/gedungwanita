@@ -75,6 +75,24 @@ class UserController extends BaseController
         // if (!$this->validate($setRules)) {
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
+        $ktp ="";
+        if($this->request->getVar('avatar_remove')){
+            $file_name = $this->request->getVar('avatar_remove');
+            $file_path = './uploads/' . $file_name; 
+            
+            if (file_exists($file_path)) {
+                unlink($file_path);
+            } 
+        }
+        
+        if($this->request->getFile('avatar')) {
+            $file = $this->request->getFile('avatar');
+
+            $upload_path = './uploads/';
+            $ktp = $file->getName();
+            
+            $file->move($upload_path, $file->getName());
+        } 
 
         $idref = model(Alamat::class)->select('id')->where('usersfk', $id)->get()->getRow();
 
@@ -136,14 +154,11 @@ class UserController extends BaseController
         $request['pullet'] = $pullet;
         $request['frekuensireplacement'] = $this->request->getPost('frekuensireplacement');
         $request['replacement'] = $this->request->getPost('replacement');
-        $request['replacement'] = $this->request->getPost('replacement');
+        $request['ktp'] = $ktp;
         $request['id'] = $id;
         model(UserModels::class)->save($request);
 
-        return $this->respondUpdated([
-            'status' => true,
-            'messages' => 'Data user berhasil diubah.',
-        ]);
+        return redirect()->to(site_url('/user/user-edit/'.$id));
     }
 
     public function updatemodal($id) {
@@ -256,6 +271,15 @@ class UserController extends BaseController
         $data['suplierpakan'] =  $this->suplier;
         $data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
         return view('master/user/edit', $data);
+    }
+
+    public function Membercard(int $id)
+    {
+        $data['user'] = model(UserModels::class)
+        ->select('users.*')
+        ->where('users.id',$id)->first();
+        $data['id'] =  $id;
+        return view('master/user/membercard', $data);
     }
 
     public function search2()

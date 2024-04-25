@@ -25,6 +25,67 @@
 			.select2-container {
 				z-index: 1600; /* Adjust as needed */
 			}
+			.credit-card {
+				width: 350px;
+				height: 220px;
+				border-radius: 15px;
+				background: linear-gradient(135deg, #2b78e4, #6a11cb);
+				position: relative;
+				perspective: 1000px;
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+			}
+
+			.credit-card-front,
+			.credit-card-back {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				backface-visibility: hidden;
+				transition: transform 0.6s;
+			}
+
+			.credit-card-front {
+				transform: rotateY(0deg);
+			}
+
+
+			.credit-card-number {
+				font-size: 18px;
+				color: #fff;
+				position: absolute;
+				top: 80px;
+				left: 20px;
+			}
+
+			.credit-card-label {
+				font-size: 14px;
+				color: #fff;
+				position: absolute;
+				top: 50px;
+				left: 20px;
+			}
+
+			.credit-card-info {
+				position: absolute;
+				bottom: 20px;
+				left: 20px;
+				color: #fff;
+			}
+
+			.credit-card-holder,
+			.credit-card-expiry {
+				font-size: 14px;
+				margin-bottom: 5px;
+			}
+			.cardholder-img {
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				border: 2px solid #fff;
+			}
 		</style>
 		<!--end::Global Stylesheets Bundle-->
 	</head>
@@ -135,6 +196,7 @@
 		<!--begin::Page Custom Javascript(used by this page)-->
 		<script src="<?= base_url() ?>assets/js/custom/widgets.js"></script>
 		<script src="<?= base_url() ?>assets/js/custom/apps/chat/chat.js"></script>
+		<script src="<?= base_url() ?>assets/js/custom/JqueryPrintArea/jquery.PrintArea.js"></script>
 		<script src="<?= base_url() ?>assets/js/custom/modals/create-app.js"></script>
 		<script src="<?= base_url() ?>assets/js/custom/modals/upgrade-plan.js"></script>
 		<script src="<?= base_url() ?>assets/js/custom/documentation/general/toastr.js"></script>

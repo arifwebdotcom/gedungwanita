@@ -278,7 +278,7 @@
                     <div class="d-flex align-items-center me-n3 ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                         <!--begin::Menu wrapper-->
                         <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                            <img class="h-30px w-30px rounded" src="<?= base_url() ?>assets/media/avatars/150-25.jpg" alt="" />
+                            <img class="h-30px w-30px rounded" src="<?= base_url() ?>assets/media/avatars/blank.png" alt="" />
                         </div>
                         <!--begin::Menu-->
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -287,7 +287,7 @@
                                 <div class="menu-content d-flex align-items-center px-3">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img alt="Logo" src="<?= base_url() ?>assets/media/avatars/150-25.jpg" />
+                                        <img alt="Logo" src="<?= base_url() ?>assets/media/avatars/blank.png" />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Username-->

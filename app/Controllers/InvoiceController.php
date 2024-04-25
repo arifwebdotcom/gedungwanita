@@ -43,9 +43,14 @@ class InvoiceController extends BaseController
         $data['invoice'] = model(Invoice::class)->findAll();
         $data['asosiasi'] = model(Asosiasi::class)->findAll();
 
-
         // print_r(json_encode(compact('data')));
         return view('invoice/index',$data);
+    }
+
+    public function detail($id)
+    {
+        $data['invoice'] = model(Invoice::class)->get_invoice_by_id($id)[0];
+        return view('invoice/detail',$data);
     }
 
     public function InvoiceBaru()

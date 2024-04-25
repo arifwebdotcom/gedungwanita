@@ -85,6 +85,42 @@ class Agama extends Model
         return $data;
     }
 
+    public function get_invoice_by_id($id)
+    {
+        $builder = $this
+            ->select('invoice_t.id as idinvoice,invoice_t.*,users.username as namapeternak,users.nohp,users.notelp,users.populasi,asosiasi_m.asosiasi,alamat_m.alamat,users.email')
+            ->join('users','users.id=invoice_t.usersfk')
+            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
+            ->join('alamat_m','alamat_m.usersfk = users.id','left')
+            //->where('invoice_t.user_id', user()->klienfk)
+            ->when($id, static function ($query, $id) {
+                $query->like('invoice_t.id', $id);
+            })            
+            ->findAll();
+
+        $data = [];
+        foreach ($builder as $row) {
+            $detail_invoice = $this->getDetailInvoiceNumber($row->id);
+
+            $data[] = [
+                "id" => $row->idinvoice,
+                "total" => number_to_currency($row->total, 'IDR', 'id_ID', 2),
+                "namapeternak" => $row->namapeternak,
+                "asosiasi" => $row->asosiasi,
+                "noinvoice" => $row->noinvoice,
+                "expired" => $row->expired,
+                "alamat" => $row->alamat,
+                "status" => $row->status,
+                "notelp" => $row->notelp,
+                "email" => $row->email,
+                "created_at" => $row->created_at,
+                "detail" => $detail_invoice
+            ];
+        }
+
+        return $data;
+    }
+
     public function get_invoice_user($noinvoice, $awal, $akhir , $asosiasi, $numrows)
     {
         $builder = $this
@@ -118,6 +154,19 @@ class Agama extends Model
 
         $tindakan_detail = array_map(function ($td) {
             $td->harga = number_to_currency($td->harga, 'IDR', 'id_ID', 2);
+            return $td;
+        }, $tindakan_detail);
+
+        return $tindakan_detail;
+	}
+
+    public function getDetailInvoiceNumber($invoice_id){
+		$tindakan_detail = model(InvoiceDetail::class)->select("invoiced_t.*")
+            ->where("invoiced_t.invoicefk",$invoice_id)
+            ->findAll();
+
+        $tindakan_detail = array_map(function ($td) {
+            $td->harga = $td->harga;
             return $td;
         }, $tindakan_detail);
 

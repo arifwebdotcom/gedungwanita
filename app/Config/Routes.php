@@ -13,6 +13,7 @@ use App\Controllers\SuplierPakanController;
 use App\Controllers\ProfileController;
 use App\Controllers\DashboardController;
 use App\Controllers\AuthController;
+use App\Controllers\PeriodeController;
 use App\Config\Auth as AuthConfig;
 
 /**
@@ -61,6 +62,14 @@ $routes->group('agama', ['filter' => 'login'],function ($routes) {
     $routes->post('delete/(:num)', [AgamaController::class, 'delete'], ['as' => 'agama.delete']);
 });
 
+$routes->group('periode', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [PeriodeController::class, 'index'], ['as' => 'periode.index']);
+    $routes->post('store', [PeriodeController::class, 'store'], ['as' => 'periode.store']);
+    $routes->get('datatable', [PeriodeController::class, 'datatable'], ['as' => 'periode.datatable']);
+    $routes->post('(:num)/edit', [PeriodeController::class, 'update'], ['as' => 'periode.update']);
+    $routes->post('delete/(:num)', [PeriodeController::class, 'delete'], ['as' => 'periode.delete']);
+});
+
 $routes->group('announcement', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [AnnouncementController::class, 'index'], ['as' => 'announcement.index']);
     $routes->post('store', [AnnouncementController::class, 'store'], ['as' => 'announcement.store']);
@@ -84,6 +93,7 @@ $routes->group('invoice', ['filter' => 'login'],function ($routes) {
     $routes->post('store', [InvoiceController::class, 'store'], ['as' => 'invoice.store']);
     $routes->get('datatable', [InvoiceController::class, 'datatable'], ['as' => 'invoice.datatable']);
     $routes->post('(:num)/edit', [InvoiceController::class, 'update'], ['as' => 'invoice.update']);
+    $routes->get('detail/(:num)', [InvoiceController::class, 'detail'], ['as' => 'invoice.detail']);
     $routes->post('delete/(:num)', [InvoiceController::class, 'delete'], ['as' => 'invoice.delete']);
     $routes->get('invoice-baru', [InvoiceController::class, 'InvoiceBaru'], ['as' => 'invoice.invoice_baru']);
     $routes->get('get-dataInvoice', [InvoiceController::class, 'getInvoice'], ['as' => 'invoice_get']);
@@ -126,6 +136,7 @@ $routes->group('user', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [UserController::class, 'index'], ['as' => 'user.index']);
     //$routes->get('user-edit/(:num)', 'UserController::userEdit/$1', ['as' => 'user.user_edit']);
     $routes->get('user-edit/(:num)', [UserController::class, 'UserEdit'], ['as' => 'user.user_edit']);
+    $routes->get('membercard/(:num)', [UserController::class, 'Membercard'], ['as' => 'user.membercard']);
     $routes->get('user-baru', [UserController::class, 'UserBaru'], ['as' => 'user.user_baru']);
     $routes->post('store', [UserController::class, 'store'], ['as' => 'user.store']);
     $routes->get('datatable', [UserController::class, 'datatable'], ['as' => 'user.datatable']);

@@ -4,10 +4,10 @@
 <!-- Content Header (Page header) -->
 <?php
 $breadcrumb_items = [
-    'title' => 'Member',
+    'title' => 'Periode',
     'items' => [
         ['name' => 'Master', 'active' => false],
-        ['name' => 'Member', 'active' => true]
+        ['name' => 'Periode', 'active' => true]
     ]
 ];
 ?>
@@ -16,11 +16,11 @@ $breadcrumb_items = [
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-3 mb-1">Master Member</span>
-            <span class="text-muted mt-1 fw-bold fs-7">Data Member</span>
+            <span class="card-label fw-bolder fs-3 mb-1">Master Periode</span>
+            <span class="text-muted mt-1 fw-bold fs-7">Data Periode</span>
         </h3>
         <div class="card-toolbar">
-            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_user">
+            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_periode">
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
             <span class="svg-icon svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -28,7 +28,7 @@ $breadcrumb_items = [
                     <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                 </svg>
             </span>
-            <!--end::Svg Icon-->New Member</a>
+            <!--end::Svg Icon-->Tambah Periode</a>
         </div>
     </div>
     <!--end::Header-->
@@ -37,7 +37,7 @@ $breadcrumb_items = [
         <!--begin::Table container-->
         <div class="table-responsive">
             <!--begin::Table-->
-            <table class="table align-middle gs-0 gy-4" id="user_table">
+            <table class="table align-middle gs-0 gy-4" id="periode_table">
                 <!--begin::Table head-->
                 <thead>
                     <tr class="fw-bolder text-muted bg-light">
@@ -46,12 +46,11 @@ $breadcrumb_items = [
                                 <input class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-13-check">
                             </div>
                         </th>
-                        <th class="ps-4 ">Nama Peternakan</th>
-                        <th class="ps-4 ">No HP</th>
-                        <th class="ps-4 ">Alamat</th>
-                        <th class="ps-4 ">Populasi</th>
-                        <th class="ps-4 ">Jenis Pakan</th>
-                        <th class="ps-4 ">Suplier</th>
+                        <th class="ps-4">Nama</th>
+                        <th class="ps-4">Periode</th>
+                        <th class="ps-4">Status</th>
+                        <th class="ps-4">Harga Sekilo</th>
+                        <th class="ps-4">Expired</th>
                         <th class="min-w-200px rounded-end">Action</th>
                     </tr>
                 </thead>
@@ -69,7 +68,7 @@ $breadcrumb_items = [
     <!--begin::Body-->
 </div>
 <!--end::Tables Widget 11-->
-<div class="modal fade" id="user_modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="periode_modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -77,7 +76,7 @@ $breadcrumb_items = [
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2 id="modal_title">Tambah User</h2>
+                <h2 id="modal_title">Tambah Periode</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -96,17 +95,17 @@ $breadcrumb_items = [
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form id="user_form" class="form" >
+                <form id="periode_form" class="form" >
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-7 fv-row">
                         <input type="hidden" name="id" id="id">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">User</span>
+                            <span class="required">Periode</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a card holder's name"></i>
                         </label>
                         <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="" id="user" name="user" />
+                        <input type="text" class="form-control form-control-solid" placeholder="" id="periode" name="periode" />
                     </div>                    
                     <!--end::Input group-->
                     <!--begin::Actions-->
@@ -138,11 +137,11 @@ $breadcrumb_items = [
 
 <script>
     $(document).ready(function() {
-        //$("#user_table").DataTable();
-        showUser();
+        //$("#periode_table").DataTable();
+        showPeriode();
     });
 
-    const showUser = () => {
+    const showPeriode = () => {
         const columns = [
             {
                 width: "10%",
@@ -154,35 +153,30 @@ $breadcrumb_items = [
                 }
             },
             {
-                name: "Nama Peternakan",
-                data: "namapeternakan"
+                name: "Nama",
+                data: "nama"
             },
             {
-                name: "No Hp",
-                data: "nohp"
+                name: "Periode",
+                data: "periode"
             },
             {
-                name: "Alamat",
-                data: "alamat"
+                name: "Status",
+                data: "status"
             },
             {
-                name: "Populasi",
-                data: "populasi"
+                name: "Harga Sekilo",
+                data: "hargasekilo"
             },
             {
-                name: "Jenis Pakan",
-                data: "jenispakan"
-            },
-            {
-                name: "Suplier",
-                data: "namasuplier"
+                name: "Expired",
+                data: "expired"
             },
             {
                 width: "10%",
                 sortable: false,
                 render: function(data, type, row, meta) {
-                    return `<a href="<?= base_url() ?>user/user-edit/`+row.id+`" target='_blank' >
-                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit" id="edit">
+                    return `<button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit" id="edit">
                                 <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                 <span class="svg-icon svg-icon-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -192,7 +186,6 @@ $breadcrumb_items = [
                                 </span>
                                 <!--end::Svg Icon-->
                             </button>
-                            </a>
                             <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm delete" id="delete">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                 <span class="svg-icon svg-icon-3">
@@ -203,37 +196,18 @@ $breadcrumb_items = [
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                            </button>
-                            <a href="https://maps.google.com/?q=`+row.lat+`,`+row.long+`" target='_blank' class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
-                            <span class="svg-icon svg-icon-4 me-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path opacity="0.3" d="M18.0624 15.3453L13.1624 20.7453C12.5624 21.4453 11.5624 21.4453 10.9624 20.7453L6.06242 15.3453C4.56242 13.6453 3.76242 11.4453 4.06242 8.94534C4.56242 5.34534 7.46242 2.44534 11.0624 2.04534C15.8624 1.54534 19.9624 5.24534 19.9624 9.94534C20.0624 12.0453 19.2624 13.9453 18.0624 15.3453Z" fill="black" />
-                                    <path d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z" fill="black" />
-                                </svg>
-                            </span>
-                            <a href="<?= base_url() ?>user/membercard/`+row.id+`" target='_blank' class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
-                            <span class="svg-icon svg-icon-4 me-1">
-                                <span class="svg-icon svg-icon-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M22 7H2V11H22V7Z" fill="black"></path>
-                                        <path opacity="0.3" d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19ZM14 14C14 13.4 13.6 13 13 13H5C4.4 13 4 13.4 4 14C4 14.6 4.4 15 5 15H13C13.6 15 14 14.6 14 14ZM16 15.5C16 16.3 16.7 17 17.5 17H18.5C19.3 17 20 16.3 20 15.5C20 14.7 19.3 14 18.5 14H17.5C16.7 14 16 14.7 16 15.5Z" fill="black"></path>
-                                    </svg>
-                                </span>
-                            </span>
-                            <!--end::Svg Icon--></a>`;
+                            </button>`;
                 }
             },
             
         ];
 
-        var table = $('#user_table').DataTable({
+        var table = $('#periode_table').DataTable({
             searching: true,
             destroy: true,
             lengthChange: false,
             ajax: {
-                url: "<?= route_to('user.datatable') ?>",
+                url: "<?= route_to('periode.datatable') ?>",
             },
             columns: columns,
             "dom":
@@ -252,24 +226,24 @@ $breadcrumb_items = [
     }
 
     $('#btn_create').on('click', function() {
-        $("#user_modal #modal_title").text("Tambah User");
-        $("#user_modal").modal("show");
+        $("#periode_modal #modal_title").text("Tambah Periode");
+        $("#periode_modal").modal("show");
     });
 
-    $('#user_table tbody').on('click', '#edit', function() {
-        var data = $('#user_table').DataTable().row($(this).parents('tr')).data();
-        $("#user_modal #user").val(data.user);
-        $("#user_modal #id").val(data.id);
+    $('#periode_table tbody').on('click', '#edit', function() {
+        var data = $('#periode_table').DataTable().row($(this).parents('tr')).data();
+        $("#periode_modal #periode").val(data.periode);
+        $("#periode_modal #id").val(data.id);
 
-        $("#user_modal #modal_title").text("Edit User");
-        $("#user_modal").modal("show");
+        $("#periode_modal #modal_title").text("Edit Periode");
+        $("#periode_modal").modal("show");
     });
 
-    $('#user_table tbody').on('click', '#delete', function() {
-        var data = $('#user_table').DataTable().row($(this).parents('tr')).data();
+    $('#periode_table tbody').on('click', '#delete', function() {
+        var data = $('#periode_table').DataTable().row($(this).parents('tr')).data();
         Swal.fire({
             title: "Apakah anda yakin?",
-            text: "data "+data.user+" akan dihapus dari sistem",
+            text: "data "+data.periode+" akan dihapus dari sistem",
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Ya, Silahkan!",
@@ -278,7 +252,7 @@ $breadcrumb_items = [
         }).then(function(result) {
             if (result.value) {
                 $.ajax({
-                    url: `<?= base_url() ?>user/delete/${data.id}`,
+                    url: `<?= base_url() ?>periode/delete/${data.id}`,
                     type: 'post',
                     dataType: 'json',
                     data: "id="+data.id,
@@ -297,7 +271,7 @@ $breadcrumb_items = [
                     success: function(response) {
                         Swal.close()
                         if (response.status) {                
-                            showUser();
+                            showPeriode();
                             toastr.warning(response.messages);
                         } else {
                             toastr.error("Gagal!");
@@ -308,7 +282,7 @@ $breadcrumb_items = [
                     }
                 });
             } else if (result.dismiss === "cancel") {
-                toastr.error("data "+data.user+" tidak jadi dihapus");                
+                toastr.error("data "+data.periode+" tidak jadi dihapus");                
             }
         });
         
@@ -317,17 +291,17 @@ $breadcrumb_items = [
     });
 
 
-    $('#user_modal').on('hidden.bs.modal', function(e) {
+    $('#periode_modal').on('hidden.bs.modal', function(e) {
         $(this).find("input,textarea").val('').end();
     }) 
 
-    $('#user_form').on('submit', function(e) {
+    $('#periode_form').on('submit', function(e) {
         e.preventDefault()
         var form_data = $(this).serializeArray();
-        let id = $('#user_form #id').val();
+        let id = $('#periode_form #id').val();
         let route = (id != '') ?
-            `<?= base_url() ?>user/${id}/edit` :
-            "<?= route_to('user.store') ?>";
+            `<?= base_url() ?>periode/${id}/edit` :
+            "<?= route_to('periode.store') ?>";
         
         $.ajax({
             url: route,
@@ -349,8 +323,8 @@ $breadcrumb_items = [
             success: function(response) {
                 Swal.close()
                 if (response.status) {
-                    $("#user_modal").modal("hide");
-                    showUser();
+                    $("#periode_modal").modal("hide");
+                    showPeriode();
                     toastr.success(response.messages);
                 } else {
                     toastr.error("Gagal!");
