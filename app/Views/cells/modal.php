@@ -434,7 +434,7 @@
                                             <!--end::Switch-->
                                         <!--end::Input group-->
                                     </div>
-                                    <div id="snap-container"></div>
+                                    
                                 </div>
                             </div>
                             <!--end::Step 4-->

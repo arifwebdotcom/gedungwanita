@@ -13,7 +13,7 @@ class InvoiceDetail extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'invoicefk', 'nama','harga','keterangan'];
+    protected $allowedFields    = ['id', 'invoicefk', 'nama','qty', 'subtotal' ,'harga','keterangan'];
 
     // Dates
     protected $useTimestamps = true;

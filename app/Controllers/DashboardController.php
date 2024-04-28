@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Agama;
 use App\Models\Asosiasi;
+use App\Models\Invoice;
 use App\Models\TransactionDetailModel;
 use App\Models\TransactionModel;
 
@@ -31,50 +32,56 @@ class DashboardController extends BaseController
 
         $datatransaction['user_id'] = user()->id;
         $datatransaction['status'] = 'pending';
-        $datatransaction['amount'] = '250000';
+        $datatransaction['amount'] = $this->request->getPost('amount');
         $TransactionModel = new TransactionModel();
         $TransactionModel->insert($datatransaction);
 
         // Get the last insert ID
         $users_transaction_id = $TransactionModel->getInsertID();
-
-        $datatransactiondetail['users_transaction_id'] = $users_transaction_id;
-        $datatransactiondetail['name'] = 'Biaya Pendaftaran';
-        $datatransactiondetail['qty'] = 1;
-        $datatransactiondetail['price'] = '250000';
-        $datatransactiondetail['subtotal'] = '250000';
         
-
-        $TransactionDetailModel = new TransactionDetailModel();
-        $TransactionDetailModel->insert($datatransactiondetail);
-        $users_transaction_detail_id = $TransactionModel->getInsertID();
+        $detailinvoice = model(Invoice::class)->getDetailInvoiceNumber($this->request->getPost('id'));
+        //dd($detailinvoice);
+        $item_details = array();
+        $gross_amount = 0;
+        foreach($detailinvoice  as $key => $row){
+            $datatransactiondetail['users_transaction_id'] = $users_transaction_id;
+            $datatransactiondetail['name'] = $row->nama;
+            $datatransactiondetail['qty'] = $row->qty;
+            $datatransactiondetail['price'] = $row->harga;
+            $datatransactiondetail['subtotal'] = $row->subtotal;
+            $gross_amount = $gross_amount+$row->subtotal;
+        
+            $TransactionDetailModel = new TransactionDetailModel();
+            $TransactionDetailModel->insert($datatransactiondetail);
+            $users_transaction_detail_id = $TransactionModel->getInsertID();
+            array_push($item_details,array("id"=>$users_transaction_detail_id,"price"=>$row->harga,"quantity"=>$row->qty,"name"=>$row->nama));
+            
+        }
+        
+        
+        
 
 
 
         $params = array(
             'transaction_details' => array(
                 'order_id' => $users_transaction_id,
-                'gross_amount' => 250000,
+                'gross_amount' => $gross_amount,
             ),
-            "item_details" => array(
-                [
-                  "id" => $users_transaction_detail_id,
-                  "price" => 250000,
-                  "quantity" => 1,
-                  "name" => "Biaya Pendaftaran"
-                ]
-            ),
+            "item_details" => $item_details,
             'customer_details' => array(
-                'first_name' => $this->request->getPost('first_name'),
+                'first_name' => $this->request->getPost('namapeternak'),
                 'last_name' => ' ',
                 'email' => $this->request->getPost('email'),
-                'phone' => $this->request->getPost('phone'),
+                'phone' => $this->request->getPost('notelp'),
             ),
         );
         
+        //print_r($params);
         
         return $this->respondCreated([
             'status' => true,
+            'params' => $params,
             'snapToken' => \Midtrans\Snap::getSnapToken($params),
             'messages' => 'Data doc berhasil ditambahkan.',
         ]);

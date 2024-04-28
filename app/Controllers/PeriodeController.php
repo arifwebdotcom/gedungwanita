@@ -38,8 +38,11 @@ class PeriodeController extends BaseController
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
 
+        $request['nama'] = $this->request->getPost('nama');
         $request['periode'] = $this->request->getPost('periode');
-        $request['reportdisplay'] = $this->request->getPost('periode');
+        $request['status'] = $this->request->getPost('status');
+        $request['hargasekilo'] = $this->request->getPost('hargasekilo');
+        $request['expired'] = date("Y-m-d",strtotime($this->request->getPost('expired')));
         model(Periode::class)->insert($request);
 
         return $this->respondCreated([

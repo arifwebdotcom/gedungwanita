@@ -25,6 +25,11 @@
 			.select2-container {
 				z-index: 1600; /* Adjust as needed */
 			}
+
+			.notmodal .select2-container {
+				z-index: 1; /* Adjust as needed */
+			}
+
 			.credit-card {
 				width: 350px;
 				height: 220px;

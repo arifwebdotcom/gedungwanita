@@ -93,7 +93,7 @@ $breadcrumb_items = [
                             </div>  
                         </div>                                   
                         <div class='col-md-2'>
-                            <div class='form-group'>
+                            <div class='form-group notmodal'>
                                 <label class='col-form-label col-md-12'>Asosiasi</label>                                
                                 <select class='form-control' name='asosiasi' id='asosiasi' data-control="select2" data-hide-search="false">
                                     <option value='0' > Pilih Asosiasi </option>
@@ -325,7 +325,7 @@ $breadcrumb_items = [
                     sortable: false,
                     render: function(data, type, row, meta) {
                         return `
-                        <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-primary btn-sm expand" data-toggle="tooltip" data-placement="top" title="Expand" id="expand">Bayar</button>
+                        <a href="<?= base_url() ?>invoice/detail/`+row.id+`"> <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-primary btn-sm" >Bayar</button></a>
                         <!--<button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit" id="edit">
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

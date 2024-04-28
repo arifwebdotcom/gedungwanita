@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Agama extends Model
+class Invoice extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'invoice_t';
@@ -13,7 +13,7 @@ class Agama extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'userfk', 'expired','noinvoice','total','status'];
+    protected $allowedFields    = ['id', 'usersfk', 'nama','expired','noinvoice','total','status'];
 
     // Dates
     protected $useTimestamps = true;

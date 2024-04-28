@@ -132,8 +132,8 @@ $breadcrumb_items = [
                     </div>         
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-7 fv-row">
-                        <label class="required fs-6 fw-bold mb-2">Asosiasi</label>
-                        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="status" readonly="true">                        
+                        <label class="required fs-6 fw-bold mb-2">Status</label>
+                        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="status" >                        
                             <option value="OPEN">OPEN</option>   
                             <option value="CLOSED">CLOSED</option>                       
                         </select>
@@ -146,7 +146,7 @@ $breadcrumb_items = [
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="text" class="form-control form-control-lg form-control-solid" name="hargasekilo" placeholder="Masukkan Harga Perkilo"  readonly="true"/>
+                        <input type="text" class="form-control form-control-lg form-control-solid" name="hargasekilo" id="hargasekilo" placeholder="Masukkan Harga Perkilo"  />
                         <!--end::Input-->
                     </div>
                     <!--end::Input group-->
@@ -317,6 +317,9 @@ $breadcrumb_items = [
     $('#periode_table tbody').on('click', '#edit', function() {
         var data = $('#periode_table').DataTable().row($(this).parents('tr')).data();
         $("#periode_modal #periode").val(data.periode);
+        $("#periode_modal #nama").val(data.nama);
+        $("#periode_modal #hargasekilo").val(data.hargasekilo);
+        $("#periode_modal #expired").val(data.expired);
         $("#periode_modal #id").val(data.id);
 
         $("#periode_modal #modal_title").text("Edit Periode");
@@ -327,7 +330,7 @@ $breadcrumb_items = [
         var data = $('#periode_table').DataTable().row($(this).parents('tr')).data();
         Swal.fire({
             title: "Apakah anda yakin?",
-            text: "data "+data.periode+" akan dihapus dari sistem",
+            text: "data "+data.nama+" akan dihapus dari sistem",
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Ya, Silahkan!",

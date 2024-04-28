@@ -6,6 +6,9 @@ use App\Controllers\BaseController;
 use App\Models\Pengajuan;
 use App\Models\UserModels;
 use App\Models\Asosiasi;
+use App\Models\Periode;
+use App\Models\Invoice;
+use App\Models\InvoiceDetail;
 use CodeIgniter\API\ResponseTrait;
 
 class PengajuanController extends BaseController
@@ -57,6 +60,7 @@ class PengajuanController extends BaseController
         $data['id'] =  user()->id;
         $data['suplierpakan'] =  $this->suplier;
         $data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
+        $data['periode'] =  model(Periode::class)->select('*')->findAll(); 
         $data['suplierpakan'] =  $this->suplier;
         return view('pengajuan/add', $data);
     }
@@ -66,17 +70,50 @@ class PengajuanController extends BaseController
         $query = model(Pengajuan::class)->selectMax('id')->get();
         $result = $query->getRow();
         $maxId = $result->id;
+        $kebutuhankilo = 1000*$this->request->getPost('kebutuhan');
+        $userid = $this->request->getPost('user_id');
+        $populasi = $this->request->getPost('populasi');
+        $asosiasi = $this->request->getPost('asosiasi');
+        $periodefk =  $this->request->getPost('periodefk');
 
-        $request['nopengajuan'] =  "P".date("Ym")."/".$this->numberToRoman($this->request->getPost('asosiasi'))."/".$maxId+1;
-        $request['populasi'] = $this->request->getPost('populasi');
-        $request['kebutuhan'] = $this->request->getPost('kebutuhan');
+        $request['nopengajuan'] =  "P".date("Ym")."/".$this->numberToRoman($asosiasi)."/".$maxId+1;
+        $request['populasi'] = $populasi;
+        $request['kebutuhan'] = $kebutuhankilo;
         $request['statuskeanggotaan'] = $this->request->getPost('statuskeanggotaan');
         $request['keterangan'] = $this->request->getPost('keterangan');
-        $request['user_id'] = $this->request->getPost('user_id');
-        $request['periode'] = $this->request->getPost('periode');
+        $request['user_id'] = $userid;
+        $request['periodefk'] = $periodefk;
         $request['tahun'] = date("Y");
         
         model(Pengajuan::class)->insert($request);
+
+        $Qperiode =  model(Periode::class)->where('id',$periodefk)->select('*')->first(); 
+
+        $query = model(Invoice::class)->selectMax('id')->get();
+        $result = $query->getRow();
+        $maxId = $result->id;
+        
+        $datainvoice['usersfk'] = $userid;
+        $datainvoice['nama'] = "Pengajuan Pembelian Jagung untuk populasi ".$populasi." dengan kebutuhan ".$kebutuhankilo." Kg";        
+        $datainvoice['expired'] = $Qperiode->expired;
+        $datainvoice['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($asosiasi)."/".$maxId+1;
+        $datainvoice['total'] = $kebutuhankilo*$Qperiode->hargasekilo;
+        $datainvoice['status'] = "TAGIHAN";
+        //dd($datainvoice);
+        
+        $InvoiceDetailModel = new Invoice();
+        $InvoiceDetailModel->insert($datainvoice);       
+        $invoicefk = $InvoiceDetailModel->getInsertID();
+
+        $request['invoicefk'] = $invoicefk;
+        $request['nama'] = "Pengajuan Pembelian Jagung sejumlah ".$kebutuhankilo." Kg";    
+        $request['qty'] = $kebutuhankilo;
+        $request['harga'] =  $Qperiode->hargasekilo;
+        $request['subtotal'] = $kebutuhankilo*$Qperiode->hargasekilo;
+        $request['keterangan'] = "Pengajuan Pembelian Jagung sejumlah ".$kebutuhankilo." Kg";
+        
+        model(InvoiceDetail::class)->insert($request);
+        
 
         return $this->respondCreated([
             'status' => true,
