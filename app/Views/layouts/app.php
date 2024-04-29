@@ -120,7 +120,7 @@
 							<div class="d-flex align-items-center py-3 py-md-1">
 										
 								<!--begin::Button-->
-								<a href="#" class="btn btn-bg-white btn-active-color-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">Tambah Anggota</a>
+								<a href="#" class="btn btn-bg-white btn-active-color-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">Lengkapi Profile</a>
 								<!--end::Button-->
 							</div>
 							<!--end::Actions-->
@@ -212,7 +212,7 @@
 		
 			<script> 
 
-				if(<?= user()->iscomplete ?> == 0 && <?= user()->isadmin ?> != 1){				
+				//if(<?= user()->iscomplete ?> == 0 && <?= user()->isadmin ?> != 1){				
 					$(window).on('load', function() {
 						//$('#kt_modal_create_app').modal('show');
 					});
@@ -222,47 +222,23 @@
 
 						if ($(this).is(':checked') && def == 0) {
 							
+							let id = $('#kt_modal_create_app_form #id').val();
+
 							$.ajax({
-								url: '<?= route_to('dashboard.payment') ?>',
+								url: `<?= base_url() ?>dashboard/${id}/edit` ,
 								method: 'POST',
 								dataType: 'json',
-								data: { first_name: $("#first_name").val(), email: $("#email").val(),phone: $("#nohp").val()},
-								success: function(data) {		
-									def = 1;
-									window.snap.embed(data.snapToken, {
-										embedId: 'snap-container'
-									});
-									// SnapToken acquired from previous step
-									snap.pay(data.snapToken, {
-									// Optional
-									onSuccess: function(result){
-										/* You may add your own implementation here */
-										alert("payment success!"); console.log(result);
-									},
-									onPending: function(result){
-										/* You may add your own implementation here */
-										alert("wating your payment!"); console.log(result);
-									},
-									onError: function(result){
-										/* You may add your own implementation here */
-										alert("payment failed!"); console.log(result);
-									},
-									onClose: function(){
-										/* You may add your own implementation here */
-										alert('you closed the popup without finishing the payment');
+								data: { id: $("#kt_modal_create_app_form #id").val(), bersediamembayar: $(this).is(':checked')},
+								success: function(response) {		
+									if (response.status) {										
+										toastr.success(response.messages);
 									}
-									});						
 								}
-							});
-							
-						} else if($(this).is(':checked') && def == 1){
-							$("#snap-container").show();
-						}else if(!$(this).is(':checked')){
-							$("#snap-container").hide();
+							});						
 						}
 					});
 					
-				}
+				//}
 				
 				// var input1 = document.querySelector("#jenispakan");
 

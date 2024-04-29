@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\Agama;
 use App\Models\Asosiasi;
 use App\Models\Invoice;
+use App\Models\UserModels;
 use App\Models\TransactionDetailModel;
 use App\Models\TransactionModel;
 
@@ -110,6 +111,18 @@ class DashboardController extends BaseController
             'data' => $data
         ]);
 
+    }
+
+    public function update($id) {
+
+        $request['bersediamembayar'] = ($this->request->getPost('bersediamembayar')?"1":"0");
+        $request['id'] = $id;
+        model(UserModels::class)->save($request);
+
+        return $this->respondUpdated([
+            'status' => true,
+            'messages' => 'Terima kasih anda Bersedia membayar.',
+        ]);
     }
 
 }

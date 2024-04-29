@@ -150,6 +150,7 @@ $routes->group('dashboard', ['filter' => 'login'], function ($routes) {
     $routes->get('/', [DashboardController::class, 'index'], ['as' => 'dashboard.index']);    
     $routes->post('payment', [DashboardController::class, 'payment'], ['as' => 'dashboard.payment']); 
     $routes->get('datapie', [DashboardController::class, 'datapie'], ['as' => 'dashboard.datapie']); 
+    $routes->post('(:num)/edit', [DashboardController::class, 'update'], ['as' => 'dashboard.update']);
 });
 
 

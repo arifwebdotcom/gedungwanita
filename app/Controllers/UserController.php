@@ -225,6 +225,13 @@ class UserController extends BaseController
         foreach($Pul as $row){
             $pullet .= $row['value'].",";
         }
+
+        $query = model(Asosiasi::class)->selectMax('id')->get();
+        $result = $query->getRow();
+        $maxId = $result->id;
+
+        //select count user order by user.created_at where asosiasifk
+
         $request['username'] = $this->request->getPost('username');
         $request['notelp'] = $this->request->getPost('notelp');
         $request['nohp'] = $this->request->getPost('nohp');
@@ -235,8 +242,12 @@ class UserController extends BaseController
         $request['pullet'] = $pullet;
         $request['frekuensireplacement'] = $this->request->getPost('frekuensireplacement');
         $request['replacement'] = $this->request->getPost('replacement');
-        $request['replacement'] = $this->request->getPost('replacement');
+        $request['iscomplete'] = 1;
+        $request['kodeanggota'] = sprintf("%04d", $id)."/";
         $request['id'] = $id;
+//         kode member 
+// nomor urut nasional / no cabang / kode cabang (romawi) / th gabung
+// 0001 / 001 / VI / 23
         model(UserModels::class)->save($request);
 
         return $this->respondUpdated([

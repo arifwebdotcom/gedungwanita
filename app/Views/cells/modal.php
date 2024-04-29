@@ -234,6 +234,16 @@
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-10">
+                                        <label class="required fs-6 fw-bold mb-2">Asosiasi</label>
+                                        <select class="form-select form-select-solid" data-dropdown-parent="#kt_modal_create_app" data-dropdown-parent="body" data-control="select2" data-placeholder="Tampilkan Asosiasi" name="asosiasifk">
+                                        <?php foreach ($asosiasi as $row) : ?>
+                                            <option value="<?= $row->id ?>" <?= ($row->id == user()->asosiasifk?"selected":"") ?>><?= $row->asosiasi ?></option>
+                                        <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-10">
                                         <label class="required fs-6 fw-bold mb-2">Suplier Pakan</label>
                                         <select class="form-select form-select-solid" data-dropdown-parent="#kt_modal_create_app" data-dropdown-parent="body" data-control="select2" data-hide-search="false" data-placeholder="Tampilkan Suplier Pakan" name="suplierpakanfk">
                                         <?php foreach ($suplierpakan as $row) : ?>
@@ -336,7 +346,7 @@
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-5 fw-bold mb-4">
                                             <span class="required">Replacement</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your apps framework"></i>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Replacement"></i>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin:Option-->
@@ -428,7 +438,7 @@
                                     <div class="d-flex flex-stack">
                                         <!--begin::Switch-->
                                         <label class="form-check form-switch form-check-custom form-check-solid">
-                                                <input class="form-check-input" id="bersedia" type="checkbox" value="<?= user()->isbayar; ?>" <?= (user()->isbayar?'checked="checked"':'') ?>/>
+                                                <input class="form-check-input" id="bersedia" type="checkbox" value="<?= user()->bersediamembayar; ?>" <?= (user()->bersediamembayar?'checked="checked"':'') ?>/>
                                                 <span class="form-check-label fw-bold text-muted">Bersedia</span>
                                             </label>
                                             <!--end::Switch-->
