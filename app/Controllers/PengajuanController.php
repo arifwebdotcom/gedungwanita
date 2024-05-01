@@ -87,32 +87,7 @@ class PengajuanController extends BaseController
         
         model(Pengajuan::class)->insert($request);
 
-        $Qperiode =  model(Periode::class)->where('id',$periodefk)->select('*')->first(); 
-
-        $query = model(Invoice::class)->selectMax('id')->get();
-        $result = $query->getRow();
-        $maxId = $result->id;
         
-        $datainvoice['usersfk'] = $userid;
-        $datainvoice['nama'] = "Pengajuan Pembelian Jagung untuk populasi ".$populasi." dengan kebutuhan ".$kebutuhankilo." Kg";        
-        $datainvoice['expired'] = $Qperiode->expired;
-        $datainvoice['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($asosiasi)."/".$maxId+1;
-        $datainvoice['total'] = $kebutuhankilo*$Qperiode->hargasekilo;
-        $datainvoice['status'] = "TAGIHAN";
-        //dd($datainvoice);
-        
-        $InvoiceDetailModel = new Invoice();
-        $InvoiceDetailModel->insert($datainvoice);       
-        $invoicefk = $InvoiceDetailModel->getInsertID();
-
-        $request['invoicefk'] = $invoicefk;
-        $request['nama'] = "Pengajuan Pembelian Jagung sejumlah ".$kebutuhankilo." Kg";    
-        $request['qty'] = $kebutuhankilo;
-        $request['harga'] =  $Qperiode->hargasekilo;
-        $request['subtotal'] = $kebutuhankilo*$Qperiode->hargasekilo;
-        $request['keterangan'] = "Pengajuan Pembelian Jagung sejumlah ".$kebutuhankilo." Kg";
-        
-        model(InvoiceDetail::class)->insert($request);
         
 
         return $this->respondCreated([
@@ -167,10 +142,45 @@ class PengajuanController extends BaseController
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
 
-        $request['disetujui'] = $this->request->getPost('disetujui');
+
+        $userid = $this->request->getPost('user_id');
+        $populasi = $this->request->getPost('populasi');
+        $asosiasi = $this->request->getPost('asosiasifk');
+        $periodefk =  $this->request->getPost('periodefk');
+        $disetujui =  $this->request->getPost('disetujui');
+
+        $request['disetujui'] = $disetujui;
         $request['keterangan'] = $this->request->getPost('keterangan');
         $request['id'] = $id;
+
         model(Pengajuan::class)->save($request);
+
+        $Qperiode =  model(Periode::class)->where('id',$periodefk)->select('*')->first(); 
+
+        $query = model(Invoice::class)->selectMax('id')->get();
+        $result = $query->getRow();
+        $maxId = $result->id;
+        
+        $datainvoice['usersfk'] = $userid;
+        $datainvoice['nama'] = "Disetujui Pembelian Jagung untuk populasi ".$populasi." dengan ketentuan ".$disetujui." Kg";        
+        $datainvoice['expired'] = $Qperiode->expired;
+        $datainvoice['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($asosiasi)."/".$maxId+1;
+        $datainvoice['total'] = $disetujui*$Qperiode->hargasekilo;
+        $datainvoice['status'] = "TAGIHAN";
+        //dd($datainvoice);
+        
+        $InvoiceDetailModel = new Invoice();
+        $InvoiceDetailModel->insert($datainvoice);       
+        $invoicefk = $InvoiceDetailModel->getInsertID();
+
+        $request['invoicefk'] = $invoicefk;
+        $request['nama'] = "Pengajuan Pembelian Jagung sejumlah ".$disetujui." Kg";    
+        $request['qty'] = $disetujui;
+        $request['harga'] =  $Qperiode->hargasekilo;
+        $request['subtotal'] = $disetujui*$Qperiode->hargasekilo;
+        $request['keterangan'] = "Pengajuan Pembelian Jagung sejumlah ".$disetujui." Kg";
+        
+        model(InvoiceDetail::class)->insert($request);
 
         return $this->respondUpdated([
             'status' => true,

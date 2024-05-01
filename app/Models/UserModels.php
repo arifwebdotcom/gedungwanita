@@ -19,7 +19,7 @@ class UserModels extends Model
     protected $allowedFields  = [
         'suplierpakanfk','email', 'username', 'password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash',
         'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at','first_name','last_name','lat','long','nohp',
-        'groupwa','namapeternakan','populasi','notelp','jenispakan','replacement','pullet','frequensireplacement','ktp','bersediamembayar','alasantidakbersedia','ktp','buktipembayaran'
+        'groupwa','namapeternakan','populasi','notelp','jenispakan','replacement','pullet','frequensireplacement','ktp','bersediamembayar','alasantidakbersedia','ktp','buktipembayaran','kodeanggota'
     ];
     protected $useTimestamps   = true;
     protected $validationRules = [

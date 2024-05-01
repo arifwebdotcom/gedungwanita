@@ -15,7 +15,7 @@ class Alamat extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['id','klienfk','kodepos','provinsifk','kotakabupatenfk',
                                     'kecamatanfk','kelurahanfk','alamat','kelurahan',
-                                    'kecamatan','kotakabupaten','provinsi','pasienfk'];
+                                    'kecamatan','kotakabupaten','provinsi','pasienfk','usersfk'];
 
     // Dates
     protected $useTimestamps = true;

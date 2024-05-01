@@ -57,6 +57,7 @@ class UserController extends BaseController
         $ktp ="";
         $username = $this->request->getPost('username');
         $namapeternakan = $this->request->getPost('namapeternakan');
+        $asosiasi = $this->request->getPost('asosiasifk');
         if($this->request->getVar('avatar_remove')){
             $file_name = $this->request->getVar('avatar_remove');
             $file_path = './uploads/' . $file_name; 
@@ -65,9 +66,9 @@ class UserController extends BaseController
                 unlink($file_path);
             } 
         }
-        
-        if($this->request->getFile('avatar')) {
-            $file = $this->request->getFile('avatar');
+        $file = $this->request->getFile('avatar');
+
+        if ($file && $file->isValid()) {            
 
             $upload_path = './uploads/';
             $extension = $file->getExtension();
@@ -86,30 +87,45 @@ class UserController extends BaseController
         foreach($Pul as $row){
             $pullet .= $row['value'].",";
         }
+
+        $query = model(UserModels::class)->selectCount('id')->get()->getRowArray();    
+        $nourutnasional = reset($query);
+
+        $querycab = model(UserModels::class)->where('asosiasifk',$asosiasi)->selectCount('id')->get()->getRowArray();        
+        $nourutcabang = reset($querycab);
+        
+        $kodeanggota = sprintf("%04d", $nourutnasional)."/".sprintf("%03d", $nourutcabang)."/".$this->numberToRomanRepresentation($asosiasi)."/".date("Y");
+
+        //         kode member 
+        // nomor urut nasional / no cabang / kode cabang (romawi) / th gabung
+        // 0001 / 001 / VI / 23
+
+        $request['kodeanggota'] = $kodeanggota;
         $request['first_name'] = $this->request->getPost('first_name');
         $request['username'] = $username;
         $request['notelp'] = $this->request->getPost('notelp');
         $request['nohp'] = $this->request->getPost('nohp');
         $request['namapeternakan'] = $namapeternakan;
         $request['populasi'] = $this->request->getPost('populasi');
-        $request['asosiasifk'] = $this->request->getPost('asosiasifk');
+        $request['asosiasifk'] = $asosiasi;
         $request['suplierpakanfk'] = $this->request->getPost('suplierpakanfk');
         $request['jenispakan'] = $jenispakan;
         $request['pullet'] = $pullet;
-        $request['frekuensireplacement'] = $this->request->getPost('frekuensireplacement');
+        $request['frequensireplacement'] = $this->request->getPost('frequensireplacement');
         $request['replacement'] = $this->request->getPost('replacement');
         $request['ktp'] = $ktp;
         $request['active'] = 1;
         $request['email'] = $this->request->getPost('email');
         $request['password_hash'] = Password::hash($this->request->getPost('password'));
         $request['tglgabung'] = date("Y-m-d");
+        //dd($request);
 
         $UserModel = new ModelUser();
         $UserModel->save($request);       
-        $userfk = $UserModel->insertID();
+        $usersfk = $UserModel->insertID();
         
         $data_alamat = [
-            'usersfk' => $userfk,
+            'usersfk' => $usersfk,
             'kodepos' => $this->request->getVar('kodepos'),
             'kelurahanfk' => $this->request->getVar('kelurahanfk'),
             'kelurahan' => $this->request->getVar('kelurahan'),
@@ -124,10 +140,22 @@ class UserController extends BaseController
         ];
         $this->alamat->insert($data_alamat);
 
-        return $this->respondCreated([
-            'status' => true,
-            'messages' => 'Member baru berhasil didaftarkan.',
-        ]);
+        return redirect()->to(site_url('/user'));
+    }
+
+    function numberToRomanRepresentation($number) {
+        $map = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
+        $returnValue = '';
+        while ($number > 0) {
+            foreach ($map as $roman => $int) {
+                if($number >= $int) {
+                    $number -= $int;
+                    $returnValue .= $roman;
+                    break;
+                }
+            }
+        }
+        return $returnValue;
     }
 
     public function update($id) {
@@ -224,7 +252,7 @@ class UserController extends BaseController
         $request['suplierpakanfk'] = $this->request->getPost('suplierpakanfk');
         $request['jenispakan'] = $jenispakan;
         $request['pullet'] = $pullet;
-        $request['frekuensireplacement'] = $this->request->getPost('frekuensireplacement');
+        $request['frequensireplacement'] = $this->request->getPost('frequensireplacement');
         $request['replacement'] = $this->request->getPost('replacement');
         $request['ktp'] = $ktp;
         $request['id'] = $id;
@@ -312,7 +340,7 @@ class UserController extends BaseController
         $request['suplierpakanfk'] = $this->request->getPost('suplierpakanfk');
         $request['jenispakan'] = $jenispakan;
         $request['pullet'] = $pullet;
-        $request['frekuensireplacement'] = $this->request->getPost('frekuensireplacement');
+        $request['frequensireplacement'] = $this->request->getPost('frequensireplacement');
         $request['replacement'] = $this->request->getPost('replacement');
         $request['iscomplete'] = 1;
         $request['kodeanggota'] = sprintf("%04d", $id)."/";

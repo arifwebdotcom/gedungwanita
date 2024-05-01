@@ -45,7 +45,7 @@ $breadcrumb_items = [
                             </div>
                         </div>                        
                         <div class='col-md-3'>
-                            <div class='form-group'>
+                            <div class='form-group notmodal'>
                                 <label class='col-form-label col-md-12'>Tahun</label>
                                 <select class='form-control' name='tahun' id='tahun' data-control="select2" data-hide-search="false" style="z-index:1">
                                     <option value='0' > Pilih Tahun </option>
@@ -56,7 +56,7 @@ $breadcrumb_items = [
                             </div>
                         </div>
                         <div class='col-md-3'>
-                            <div class='form-group'>
+                            <div class='form-group notmodal'>
                                 <label class='col-form-label col-md-12'>Asosiasi</label>                                
                                 <select class='form-control' name='asosiasi' id='asosiasi' data-control="select2" data-hide-search="false">
                                     <option value='0' > Pilih Asosiasi </option>
@@ -152,18 +152,51 @@ $breadcrumb_items = [
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-7 fv-row">
                         <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="user_id" id="user_id">
+                        <input type="hidden" name="asosiasifk" id="asosiasifk">
+                        <input type="hidden" name="periodefk" id="periodefk">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">Disetujui</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Di setujui"></i>
+                            <span class="required">No Pengajuan</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="No Pengajuan"></i>
                         </label>
                         <!--end::Label-->
-                        <input type="number" class="form-control form-control-solid" placeholder="" id="disetujui" name="disetujui" />
+                        <input type="text" class="form-control form-control-solid" placeholder="" id="nopengajuan" name="nopengajuan" readonly/>
+                    </div>  
+                    <div class="row" >
+                        <!--begin::Input group-->
+                        <div class="d-flex flex-column mb-7 fv-row col-md-6">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span class="required">Populasi</span>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Populasi"></i>
+                            </label>
+                            <!--end::Label-->
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="populasi" name="populasi" readonly/>
+                        </div> 
+                        <div class="d-flex flex-column mb-7 fv-row col-md-6">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span class="required">Kebutuhan (dalam Kg)</span>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Kebutuhan"></i>
+                            </label>
+                            <!--end::Label-->
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="kebutuhan" name="kebutuhan" readonly/>
+                        </div>  
+                    </div>
+                    <div class="d-flex flex-column mb-7 fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                            <span class="required">Harga perkilo</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Harga Sekilo"></i>
+                        </label>
+                        <!--end::Label-->
+                        <input type="number" class="form-control form-control-solid" placeholder="" id="hargasekilo" name="hargasekilo" readonly/>
                     </div>  
                     <div class="d-flex flex-column mb-7 fv-row">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">Disetujui</span>
+                            <span class="required">Disetujui (dalam Kg)</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Di setujui"></i>
                         </label>
                         <!--end::Label-->
@@ -469,6 +502,12 @@ $breadcrumb_items = [
     $('#pengajuan_table tbody').on('click', '#edit', function() {
         var data = $('#pengajuan_table').DataTable().row($(this).parents('tr')).data();
         $("#pengajuan_modal #nopengajuan").val(data.nopengajuan);
+        $("#pengajuan_modal #populasi").val(data.populasi);
+        $("#pengajuan_modal #kebutuhan").val(data.kebutuhan);
+        $("#pengajuan_modal #hargasekilo").val(data.hargasekilo);
+        $("#pengajuan_modal #user_id").val(data.user_id);
+        $("#pengajuan_modal #asosiasifk").val(data.asosiasifk);
+        $("#pengajuan_modal #periodefk").val(data.periodefk);
         $("#pengajuan_modal #id").val(data.idpengajuan);
 
         $("#pengajuan_modal #modal_title").text("Persetujuan Pengajuan");

@@ -189,7 +189,7 @@ $breadcrumb_items = [
             <!--begin::Input group-->
             <div class="fv-row mb-10 col-lg-6">
                 <label class="required fs-6 fw-bold mb-2">Frekuensi</label>
-                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Frequensi Replacement" name="frekuensireplacement">                                        
+                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Frequensi Replacement" name="frequensireplacement">                                        
                     <option value="2 Kali" <?php echo ($user->frekuensireplacement == "2 Kali"?'selected':''); ?>>2 Kali</option>
                     <option value="2 - 3 Kali" <?php echo ($user->frekuensireplacement == "2 - 3 Kali"?'selected':''); ?>>2 - 3 Kali</option>
                     <option value="3 - 5 Kali" <?php echo ($user->frekuensireplacement == "3 - 5 Kali"?'selected':''); ?>>3 - 5 Kali</option>

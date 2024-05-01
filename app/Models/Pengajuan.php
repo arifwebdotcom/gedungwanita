@@ -13,7 +13,7 @@ class Pengajuan extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'user_id', 'populasi','kebutuhan','disetujui','keterangan','periode','tahun','statuskeanggotaan','nopengajuan'];
+    protected $allowedFields    = ['id', 'user_id', 'populasi','kebutuhan','disetujui','keterangan','periodefk','tahun','statuskeanggotaan','nopengajuan'];
 
     // Dates
     protected $useTimestamps = true;
@@ -48,10 +48,11 @@ class Pengajuan extends Model
     public function get_pengajuan_all($nopengajuan, $tahun, $asosiasi, $numrows)
     {
         $builder = $this
-            ->select('pengajuan_t.id as idpengajuan,pengajuan_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*')
+            ->select('pengajuan_t.id as idpengajuan,pengajuan_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*,periode_t.nama as periode,periode_t.hargasekilo,users.asosiasifk')
             ->join('users','users.id=pengajuan_t.user_id')
             ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
             ->join('alamat_m','alamat_m.usersfk = users.id','left')
+            ->join('periode_t','periode_t.id = pengajuan_t.periodefk','left')
             //->where('pengajuan_t.user_id', user()->klienfk)
             ->when($nopengajuan, static function ($query, $nopengajuan) {
                 $query->like('pengajuan_t.nopengajuan', $nopengajuan);
@@ -76,10 +77,11 @@ class Pengajuan extends Model
         // from pengajuan_t join users on users.id=pengajuan_t.user_id join asosiasi_m on asosiasi_m.id=users.asosiasifk join alamat_m on alamat_m.usersfk = users.id
         // where pengajuan_t.user_id=24
         $builder = $this
-            ->select('pengajuan_t.id as idpengajuan,pengajuan_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*')
+            ->select('pengajuan_t.id as idpengajuan,pengajuan_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*,periode_t.nama as periode,periode_t.hargasekilo,users.asosiasifk')
             ->join('users','users.id=pengajuan_t.user_id')
             ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
             ->join('alamat_m','alamat_m.usersfk = users.id','left')
+            ->join('periode_t','periode_t.id = pengajuan_t.periodefk','left')
             ->where('pengajuan_t.user_id', user()->klienfk)
             ->when($nopengajuan, static function ($query, $nopengajuan) {
                 $query->like('pengajuan_t.nopengajuan', $nopengajuan);

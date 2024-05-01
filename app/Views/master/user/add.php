@@ -99,6 +99,48 @@ $breadcrumb_items = [
             <?php endforeach ?>
             </select>
         </div>
+        <div class='row'>
+            <div class='col-md-4'>
+            <div class='form-group'>
+                <label class='form-label'>Alamat <span class='text-danger'>*</span></label>
+                <textarea rows='5' class='form-control form-control-lg form-control-solid' placeholder='Alamat' name='alamat'><?= old('alamat') ?></textarea>
+                <div class="invalid-feedback">
+                </div>
+            </div>
+            </div>
+            <div class='col-md-8 row alamat' >
+            <div class='col-md-6' >
+                <div class='form-group'>
+                <label class='form-label'>Kelurahan</label>
+                <select class='form-control form-control-lg form-control-solid' name="kelurahanfk" style='width: 100%;' id='kelurahanfk'>
+
+                </select>
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='kelurahan' id='kelurahan' value="<?= old('kelurahan') ?>">
+                </div>
+            </div>
+            <div class='col-md-6' >
+                <div class='form-group'>
+                <label class='form-label'>Kecamatan</label>
+                <input type='text' class='form-control form-control-lg form-control-solid' name='kecamatan' id='kecamatan' placeholder='Kecamatan' readonly value="<?= old('kecamatan') ?>">
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='kecamatanfk' id='kecamatanfk' value="<?= old('kecamatanfk') ?>">
+                </div>
+            </div>
+            <div class='col-md-6' >
+                <div class='form-group'>
+                <label class='form-label'>Kabupaten</label>
+                <input type='text' class='form-control form-control-lg form-control-solid' name='kotakabupaten' id='kotakabupaten' placeholder='Kabupaten' readonly value="<?= old('kotakabupaten') ?>">
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='kotakabupatenfk' id='kotakabupatenfk' value="<?= old('kotakabupatenfk') ?>">
+                </div>
+            </div>
+            <div class='col-md-6' >
+                <div class='form-group'>
+                <label class='form-label'>Provinsi</label>
+                <input type='text' class='form-control form-control-lg form-control-solid' name='provinsi' id='provinsi' placeholder='Provinsi' readonly value="<?= old('provinsi') ?>">
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='provinsifk' id='provinsifk' value="<?= old('provinsifk') ?>">
+                </div>
+            </div>
+            </div>
+        </div>
         <!--end::Input group--> 
         <div class="fv-row mb-10 col-lg-6">
             <!--begin::Label-->
@@ -160,7 +202,7 @@ $breadcrumb_items = [
         <!--begin::Input group-->
         <div class="fv-row mb-10 col-lg-6">
             <label class="required fs-6 fw-bold mb-2">Frekuensi</label>
-            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="target_assign">                                        
+            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="frequensireplacement">                                        
                 <option value="2 Kali">2 Kali</option>
                 <option value="2 - 3 Kali">2 - 3 Kali</option>
                 <option value="3 - 5 Kali">3 - 5 Kali</option>
@@ -190,7 +232,7 @@ $breadcrumb_items = [
                 <!--end:Label-->
                 <!--begin:Input-->
                 <span class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="radio" checked="checked" name="replacement" value="doc" />
+                    <input class="form-check-input" type="radio" name="replacement" value="doc" />
                 </span>
                 <!--end:Input-->
             </label>
@@ -314,10 +356,63 @@ $breadcrumb_items = [
 <?= $this->endSection(); ?>
 
 <?= $this->section('script') ?>
-
+<script src="<?= base_url() ?>assets/js/custom/documentation/forms/select2.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 
 <script>
+
+    $(document).ready(function() {
+        //$('.select2').select2()
+        $('#kelurahanfk').select2({
+        ajax: {
+            url: '<?= route_to('user.search2') ?>',
+            dataType: 'json',
+            delay: 250,
+            type: 'GET',
+            data: function(params) {
+            return {
+                q: params.term
+            };
+            },
+            processResults: function(data) {
+            var arr = [];
+            $.each(data, (index, item) => {
+                var text = item.kelurahan + ', ' + item.kecamatan + ', ' + item.kotakabupaten + ', ' + item.provinsi
+                arr.push({
+                id: item.id,
+                text: text,
+                kelurahan: item.kelurahan,
+                kecamatan: item.kecamatan,
+                kecamatanfk: item.kecamatanfk,
+                kotakabupaten: item.kotakabupaten,
+                kotakabupatenfk: item.kotakabupatenfk,
+                provinsi: item.provinsi,
+                provinsifk: item.provinsifk,
+                })
+            })
+            return {
+                results: arr
+
+            };
+            },
+            cache: true
+        },
+        placeholder: 'Kelurahan',
+        minimumInputLength: 1
+        })
+
+        $('#kelurahanfk').on("select2:select", function(e) {
+        console.log(e);
+        $('#provinsifk').val(e.params.data.provinsifk);
+        $('#provinsi').val(e.params.data.provinsi);
+        $('#kotakabupatenfk').val(e.params.data.kotakabupatenfk);
+        $('#kotakabupaten').val(e.params.data.kotakabupaten);
+        $('#kecamatanfk').val(e.params.data.kecamatanfk);
+        $('#kelurahan').val(e.params.data.kelurahan);
+        $('#kecamatan').val(e.params.data.kecamatan);
+        });
+
+    })
     
     $('#user_form').on('submit', function(e) {
         e.preventDefault()

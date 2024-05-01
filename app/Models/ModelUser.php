@@ -14,9 +14,9 @@ class ModelUser extends Model
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields  = [
-        'suplierpakanfk','email', 'username', 'password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash',
+        'suplierpakanfk','email', 'username', 'password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash','asosiasifk',
         'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at','first_name','last_name','lat','long','nohp',
-        'groupwa','namapeternakan','populasi','notelp','jenispakan','replacement','pullet','frequensireplacement','ktp','bersediamembayar','alasantidakbersedia','ktp','buktipembayaran'
+        'groupwa','namapeternakan','populasi','notelp','jenispakan','replacement','pullet','frequensireplacement','ktp','bersediamembayar','alasantidakbersedia','ktp','buktipembayaran','kodeanggota'
     ];
 
     // Dates
