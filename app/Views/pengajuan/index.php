@@ -103,6 +103,8 @@ $breadcrumb_items = [
                         <th class="ps-4 ">Kebutuhan</th>
                         <th class="ps-4 ">Status Keanggotaan</th>
                         <th class="ps-4 ">Disetujui</th>
+                        <th class="ps-4 ">Harga Perkilo</th>
+                        <th class="ps-4 ">Harga Total</th>
                         <th class="ps-4 ">Keterangan</th>
                         <th class="min-w-200px rounded-end">Action</th>
                     </tr>
@@ -342,6 +344,28 @@ $breadcrumb_items = [
                     data: "disetujui"
                 },
                 {
+                    name: "Harga Perkilo",
+                    data: null,
+                    render: function(data, type, row, meta) {
+                        return rupiah(data.hargasekilo)
+                    }
+                },
+                {
+                    name: "Harga Total",
+                    data: null,
+                    render: function(data, type, row, meta) {
+                        if (typeof data !== 'undefined' && data !== null) {
+                            // Perform the calculation (multiply column 1 by column 2)
+                            var result = row.disetujui * row.hargasekilo; // Assuming column indexes 0 and 1
+
+                            // Return the result
+                            return rupiah(result);
+                        } else {
+                            return 's'; // Return empty string if data is undefined or null
+                        }
+                    }
+                },
+                {
                     name: "Keterangan",
                     data: "keterangan"
                 },            
@@ -564,6 +588,13 @@ $breadcrumb_items = [
         
 
     });
+
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
 
 
     $('#pengajuan_modal').on('hidden.bs.modal', function(e) {

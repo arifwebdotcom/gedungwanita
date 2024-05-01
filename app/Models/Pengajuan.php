@@ -49,8 +49,8 @@ class Pengajuan extends Model
     {
         $builder = $this
             ->select('pengajuan_t.id as idpengajuan,pengajuan_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*,periode_t.nama as periode,periode_t.hargasekilo,users.asosiasifk')
-            ->join('users','users.id=pengajuan_t.user_id')
-            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
+            ->join('users','users.id=pengajuan_t.user_id','left')
+            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk','left')
             ->join('alamat_m','alamat_m.usersfk = users.id','left')
             ->join('periode_t','periode_t.id = pengajuan_t.periodefk','left')
             //->where('pengajuan_t.user_id', user()->klienfk)
