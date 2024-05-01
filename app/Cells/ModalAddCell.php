@@ -18,6 +18,6 @@ class ModalAddCell
         $alamat = model(Alamat::class)->select("*")->where("usersfk",user()->id)->get()->getRow();
 
 
-        return view('cells/modal', compact('suplierpakan','doc','alamat'));
+        return view('cells/modal', compact('suplierpakan','doc','alamat','asosiasi'));
     }
 }

@@ -146,7 +146,7 @@
                 </div>
                 <!--end::Card title-->
                 <!--begin::Action-->
-                <a href="../../demo2/dist/account/settings.html" class="btn btn-primary align-self-center">Edit Profile</a>
+                <a href="<?= base_url() ?>user/user-edit/<?= user_id(); ?>" class="btn btn-primary align-self-center">Edit Profile</a>
                 <!--end::Action-->
             </div>
             <!--begin::Card header-->

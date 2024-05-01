@@ -22,6 +22,7 @@ $breadcrumb_items = [
     </div>
     <!--end::Header-->
     <!--begin::Body-->
+    <form action="<?= base_url() ?>user/store" method="post" enctype="multipart/form-data" id="form_import">
     <div class="card-body py-3 row">
         <!--begin::Table container-->
         <div class="fv-row mb-10 col-lg-6">
@@ -32,8 +33,8 @@ $breadcrumb_items = [
             </label>
             <!--end::Label-->
             <!--begin::Input-->
-            <input type="text" class="form-control form-control-lg form-control-solid" name="first_name" id="first_name" placeholder="" value="<?= $user->username; ?>" />
-            <input type="hidden" class="form-control form-control-lg form-control-solid" name="email" id="email" placeholder="" value="<?= $user->email; ?>" />
+            <input type="text" class="form-control form-control-lg form-control-solid" name="first_name" id="first_name" placeholder=""  />
+            <input type="hidden" class="form-control form-control-lg form-control-solid" name="email" id="email" placeholder=""  />
             <!--end::Input-->
         </div>
         <!--end::Input group-->
@@ -46,7 +47,33 @@ $breadcrumb_items = [
             </label>
             <!--end::Label-->
             <!--begin::Input-->
-            <input type="text" class="form-control form-control-lg form-control-solid" name="notelp" placeholder="" value="<?= $user->notelp; ?>" />
+            <input type="text" class="form-control form-control-lg form-control-solid" name="notelp" placeholder=""  />
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="fv-row mb-10 col-lg-6">
+            <!--begin::Label-->
+            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                <span class="required">Email</span>
+                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Email"></i>
+            </label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="email" class="form-control form-control-lg form-control-solid" name="email" autocomplete="off" />
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="fv-row mb-10 col-lg-6">
+            <!--begin::Label-->
+            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                <span class="required">Password</span>
+                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Password"></i>
+            </label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="password" class="form-control form-control-lg form-control-solid" name="password" autocomplete="off"  />
             <!--end::Input-->
         </div>
         <!--end::Input group-->
@@ -59,14 +86,14 @@ $breadcrumb_items = [
             </label>
             <!--end::Label-->
             <!--begin::Input-->
-            <input type="text" class="form-control form-control-lg form-control-solid" name="nohp" id="nohp" placeholder="" value="<?= $user->nohp; ?>" />
+            <input type="text" class="form-control form-control-lg form-control-solid" name="nohp" id="nohp" placeholder=""  />
             <!--end::Input-->
         </div>
         <!--end::Input group--> 
         <!--begin::Input group-->
-        <div class="fv-row mb-10 col-lg-6">
+        <div class="fv-row mb-10 col-lg-6 notmodal">
             <label class="required fs-6 fw-bold mb-2">Asosiasi</label>
-            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="asosiasifk">
+            <select class="form-select form-select-solid " data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="asosiasifk">
             <?php foreach ($asosiasi as $row) : ?>
                 <option value="<?= $row->id ?>"><?= $row->asosiasi ?></option>
             <?php endforeach ?>
@@ -99,9 +126,9 @@ $breadcrumb_items = [
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->
-        <div class="fv-row mb-10 col-lg-6">
+        <div class="fv-row mb-10 col-lg-6 notmodal">
             <label class="required fs-6 fw-bold mb-2">Suplier Pakan</label>
-            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="target_assign">
+            <select class="form-select form-select-solid " data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="suplierpakanfk">
             <?php foreach ($suplierpakan as $row) : ?>
                 <option value="<?= $row->id ?>"><?= $row->nama ?></option>
             <?php endforeach ?>
@@ -142,7 +169,7 @@ $breadcrumb_items = [
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->                                
-        <div class="fv-row col-lg-6">
+        <div class="fv-row col-lg-5">
             <!--begin::Label-->
             <label class="d-flex align-items-center fs-5 fw-bold mb-4">
                 <span class="required">Replacement</span>
@@ -207,9 +234,79 @@ $breadcrumb_items = [
             </label>
             <!--end::Option-->                                        
         </div>
+        <div class="col-lg-7">
+                <!--begin::Image input-->
+                <?php
+                    $ktp = base_url()."assets/media/avatars/ktp.jpeg";
+                ?>
+                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('<?= $ktp ?>')">
+                    <!--begin::Preview existing avatar-->
+                    <div class="image-input-wrapper w-475px h-300px" style="background-image: url('<?= $ktp ?>')"></div>
+                    <!--end::Preview existing avatar-->
+                    <!--begin::Label-->
+                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                        <i class="bi bi-pencil-fill fs-7"></i>
+                        <!--begin::Inputs-->
+                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                        <input type="hidden" name="avatar_remove" />
+                        <!--end::Inputs-->
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Cancel-->
+                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                        <i class="bi bi-x fs-2"></i>
+                    </span>
+                    <!--end::Cancel-->
+                    <!--begin::Remove-->
+                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                        <i class="bi bi-x fs-2"></i>
+                    </span>
+                    <!--end::Remove-->
+                </div>
+                <!--end::Image input-->
+                <!--begin::Hint-->
+                <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                <!--end::Hint-->
+            </div>
+            <!--end::Input group-->  
+            <div class="d-flex flex-stack pt-10">
+                <!--begin::Wrapper-->
+                <div class="me-2">
+                    <a href="<?= route_to('user.index') ?>"><button type="button" class="btn btn-lg btn-light-primary me-3" data-kt-stepper-action="previous">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr063.svg-->
+                        <span class="svg-icon svg-icon-3 me-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="black"></rect>
+                                <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="black"></path>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->Back</button>
+                    </a>
+                </div>
+                <!--end::Wrapper-->
+                <!--begin::Wrapper-->
+                <div>
+                    <button type="submit" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
+                        <span class="indicator-label">Submit
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
+                        <span class="svg-icon svg-icon-3 ms-2 me-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="black"></rect>
+                                <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="black"></path>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon--></span>
+                        <span class="indicator-progress">Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>                
+                </div>
+                <!--end::Wrapper-->
+            </div>
+            <!--end::Table container-->    
         <!--end::Input group-->     
         <!--end::Table container-->
     </div>
+    </form>
     <!--begin::Body-->
 </div>
 <!--end::Tables Widget 11-->

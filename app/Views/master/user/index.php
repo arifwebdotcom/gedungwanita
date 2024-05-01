@@ -20,7 +20,7 @@ $breadcrumb_items = [
             <span class="text-muted mt-1 fw-bold fs-7">Data Member</span>
         </h3>
         <div class="card-toolbar">
-            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_user">
+            <a href="<?= route_to('user.user_baru') ?>"  class="btn btn-sm btn-light-primary" >
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
             <span class="svg-icon svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -28,7 +28,7 @@ $breadcrumb_items = [
                     <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                 </svg>
             </span>
-            <!--end::Svg Icon-->New Member</a>
+            <!--end::Svg Icon-->Member Baru</a>
         </div>
     </div>
     <!--end::Header-->
