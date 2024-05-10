@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Invoice;
+use App\Models\InvoiceDetail;
 use App\Models\UserModels;
 use App\Models\Asosiasi;
 use CodeIgniter\API\ResponseTrait;
@@ -56,14 +57,10 @@ class InvoiceController extends BaseController
     public function InvoiceBaru()
     {
         $data['user'] = model(UserModels::class)
-        ->select('users.*,alamat_m.*,suplierpakan_m.nama,suplierpakan_m.id as idsuplierpakan')
-        ->join('alamat_m','alamat_m.usersfk = users.id','left')
-        ->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')
-        ->where('users.id',user()->id)->first();
+        ->select('*')->where("deleted_at",null)->findAll();
         $data['id'] =  user()->id;
-        $data['suplierpakan'] =  $this->suplier;
-        $data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
-        $data['suplierpakan'] =  $this->suplier;
+        $data['asosiasi'] = model(Asosiasi::class)->findAll();
+        
         return view('invoice/add', $data);
     }
 
@@ -71,18 +68,97 @@ class InvoiceController extends BaseController
         
         $query = model(Invoice::class)->selectMax('id')->get();
         $result = $query->getRow();
-        $maxId = $result->id;
-
-        $request['noinvoice'] =  "P".date("Ym")."/".$this->numberToRoman($this->request->getPost('asosiasi'))."/".$maxId+1;
-        $request['populasi'] = $this->request->getPost('populasi');
-        $request['kebutuhan'] = $this->request->getPost('kebutuhan');
-        $request['statuskeanggotaan'] = $this->request->getPost('statuskeanggotaan');
-        $request['keterangan'] = $this->request->getPost('keterangan');
-        $request['user_id'] = $this->request->getPost('user_id');
-        $request['periode'] = $this->request->getPost('periode');
-        $request['tahun'] = date("Y");
+        $maxId = $result->id+1;        
+    
+        $untuk = $this->request->getPost('untuk');
+        $nama = $this->request->getPost('namainvoice');
+        $expired = date("Y-m-d",strtotime($this->request->getPost('expired')));
+        $total = preg_replace("/[^0-9]/", "",$this->request->getPost('total_harga'));
         
-        model(Invoice::class)->insert($request);
+
+        if($untuk ==  1){
+            $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->findAll();
+
+            foreach($Qall as $row){
+                $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
+                $request['expired'] = $expired;
+                $request['nama'] = $nama;
+                $request['total'] = $total;
+                $request['status'] = 'TAGIHAN';
+                $request['usersfk'] = $row->id;
+                $InvoiceDetailModel = new Invoice();
+                $InvoiceDetailModel->insert($request);       
+                $invoicefk = $InvoiceDetailModel->getInsertID();
+
+                foreach (json_decode($this->request->getVar('invoice_detail'), true) as $key => $invoice_detail) {        
+                    
+                    $request['invoicefk'] = $invoicefk;
+                    $request['nama'] = $invoice_detail['nama'];    
+                    $request['qty'] = $invoice_detail['qty'];
+                    $request['harga'] =  $invoice_detail['harga'];
+                    $request['subtotal'] = $invoice_detail['subtotal'];
+                    $request['keterangan'] = $invoice_detail['keterangan'];
+
+                    model(InvoiceDetail::class)->insert($request);
+                }
+            }
+            
+        }else if($untuk == 2){
+            $asosiasifk = $this->request->getPost('asosiasifk');
+            
+            $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("asosiasifk",$asosiasifk)->findAll();
+
+            foreach($Qall as $row){
+                $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
+                $request['expired'] = $expired;
+                $request['nama'] = $nama;
+                $request['total'] = $total;
+                $request['status'] = 'TAGIHAN';
+                $request['usersfk'] = $row->id;
+                $InvoiceDetailModel = new Invoice();
+                $InvoiceDetailModel->insert($request);       
+                $invoicefk = $InvoiceDetailModel->getInsertID();
+
+                foreach (json_decode($this->request->getVar('invoice_detail'), true) as $key => $invoice_detail) {        
+                    
+                    $request['invoicefk'] = $invoicefk;
+                    $request['nama'] = $invoice_detail['nama'];    
+                    $request['qty'] = $invoice_detail['qty'];
+                    $request['harga'] =  $invoice_detail['harga'];
+                    $request['subtotal'] = $invoice_detail['subtotal'];
+                    $request['keterangan'] = $invoice_detail['keterangan'];
+
+                    model(InvoiceDetail::class)->insert($request);
+                }
+            }
+        }else if($untuk == 3){
+            $asosiasifk = $this->request->getPost('asosiasifk');
+            $usersfk = $this->request->getPost('usersfk');
+            $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("id",$usersfk)->first(); 
+                    
+            $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($$Qall->asosiasifk)."/".$maxId++;
+            $request['expired'] = $expired;
+            $request['nama'] = $nama;
+            $request['total'] = $total;
+            $request['status'] = 'TAGIHAN';
+            $request['usersfk'] = $usersfk;
+            $InvoiceDetailModel = new Invoice();
+            $InvoiceDetailModel->insert($request);       
+            $invoicefk = $InvoiceDetailModel->getInsertID();
+
+            foreach (json_decode($this->request->getVar('invoice_detail'), true) as $key => $invoice_detail) {        
+                    
+                $request['invoicefk'] = $invoicefk;
+                $request['nama'] = $invoice_detail['nama'];    
+                $request['qty'] = $invoice_detail['qty'];
+                $request['harga'] =  $invoice_detail['harga'];
+                $request['subtotal'] = $invoice_detail['subtotal'];
+                $request['keterangan'] = $invoice_detail['keterangan'];
+
+                model(InvoiceDetail::class)->insert($request);
+            }
+            
+        }
 
         return $this->respondCreated([
             'status' => true,

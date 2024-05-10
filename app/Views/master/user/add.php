@@ -109,7 +109,7 @@ $breadcrumb_items = [
             </div>
             </div>
             <div class='col-md-8 row alamat' >
-            <div class='col-md-6' >
+            <div class='col-md-6 notmodal' >
                 <div class='form-group'>
                 <label class='form-label'>Kelurahan</label>
                 <select class='form-control form-control-lg form-control-solid' name="kelurahanfk" style='width: 100%;' id='kelurahanfk'>
