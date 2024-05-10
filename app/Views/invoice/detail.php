@@ -37,7 +37,7 @@ $breadcrumb_items = [
                             <div class="pull-right text-end">
                                 <h3><?= date('d-m-Y',strtotime($invoice['created_at'])); ?></h3>
                             </div>	
-                        </div>x
+                        </div>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -113,7 +113,7 @@ $breadcrumb_items = [
                         <div class="col-12 text-end">
                             <p class="lead"><b>Tanggal Jatuh Tempo</b><span class="text-danger"> <?= date('d-m-Y',strtotime($invoice['expired'])); ?> </span></p>
                             <div class="total-payment">
-                                <h3><b>Total :</b> <?= number_to_currency(($subtotal), 'IDR', 'id_ID', 2) ?></h3>
+                                <h3><b>Total :</b> <?= number_to_currency(($total), 'IDR', 'id_ID', 2) ?></h3>
                             </div>
 
                         </div>
@@ -127,7 +127,7 @@ $breadcrumb_items = [
                         </button>
                         </div>
                     </div>
-                    <div id="snap-container"></div>
+                    <div class="col-12" id="snap-container"></div>
             </div>
         </div>
         <!--begin::Table container-->
@@ -175,13 +175,23 @@ $breadcrumb_items = [
    
 
     $('#btn_bayar').on('click', function() {
-           
+        Swal.fire({ 
+                    allowOutsideClick: false,
+                    title: 'Harap Menunggu',
+                    text: 'Permintaan sedang di proses.',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                })
         $.ajax({
             url: '<?= route_to('dashboard.payment') ?>',
             method: 'POST',
             dataType: 'json',
             data: { amount: '<?= $subtotal; ?>', namapeternak:  '<?= $invoice['namapeternak'] ?>', email: '<?= $invoice['email'] ?>',notelp: '<?= $invoice['notelp'] ?>', id: '<?= $invoice['id'];?>'},
-            success: function(data) {		
+            success: function(data) {	
+                Swal.close()	
                 def = 1;
                 window.snap.embed(data.snapToken, {
                     embedId: 'snap-container'
