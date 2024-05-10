@@ -43,7 +43,7 @@ class Invoice extends Model
     public function get_invoice_all($noinvoice, $awal, $akhir ,$asosiasi, $numrows)
     {
         $builder = $this
-            ->select('invoice_t.id as idinvoice,invoice_t.*,users.username as namapeteranak,users.nohp,users.populasi,asosiasi_m.asosiasi')
+            ->select('invoice_t.id as idinvoice,invoice_t.*,users.username as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
             ->join('users','users.id=invoice_t.usersfk')
             ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
             //->join('alamat_m','alamat_m.usersfk = users.id','left')
@@ -73,7 +73,7 @@ class Invoice extends Model
             $data[] = [
                 "id" => $row->idinvoice,
                 "total" => number_to_currency($row->total, 'IDR', 'id_ID', 2),
-                "namapeteranak" => $row->namapeteranak,
+                "namapeternak" => $row->namapeternak,
                 "asosiasi" => $row->asosiasi,
                 "noinvoice" => $row->noinvoice,
                 "expired" => $row->expired,
@@ -124,10 +124,10 @@ class Invoice extends Model
     public function get_invoice_user($noinvoice, $awal, $akhir , $asosiasi, $numrows)
     {
         $builder = $this
-            ->select('invoice_t.id as idinvoice,invoice_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi')
-            ->join('users','users.id=invoice_t.user_id')
+            ->select('invoice_t.id as idinvoice,invoice_t.*,users.username as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
+            ->join('users','users.id=invoice_t.usersfk')
             ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
-            ->where('invoice_t.user_id', user()->klienfk)
+            ->where('invoice_t.usersfk', user()->id)
             ->when($noinvoice, static function ($query, $noinvoice) {
                 $query->like('invoice_t.noinvoice', $noinvoice);
             })
@@ -144,7 +144,25 @@ class Invoice extends Model
                 $query->like('users.asosiasifk', $asosiasi);
             })
             ->findAll($numrows);
-        return $builder;
+
+            $data = [];
+            foreach ($builder as $row) {
+                $detail_invoice = $this->getDetailInvoice($row->id);
+    
+                $data[] = [
+                    "id" => $row->idinvoice,
+                    "total" => number_to_currency($row->total, 'IDR', 'id_ID', 2),
+                    "namapeternak" => $row->namapeternak,
+                    "asosiasi" => $row->asosiasi,
+                    "noinvoice" => $row->noinvoice,
+                    "expired" => $row->expired,
+                    "status" => $row->status,
+                    "detail" => $detail_invoice
+                ];
+            }
+    
+            return $data;
+    
     }
 
     public function getDetailInvoice($invoice_id){

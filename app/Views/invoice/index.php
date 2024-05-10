@@ -298,7 +298,7 @@ $breadcrumb_items = [
                 },
                 {
                     name: "Peternak",
-                    data: "namapeteranak"
+                    data: "namapeternak"
                 },
                 {
                     name: "Asosiasi",

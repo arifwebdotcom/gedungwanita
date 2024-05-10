@@ -31,7 +31,7 @@ class InvoiceController extends BaseController
     }
     public function datatable() {
         $data = model(Invoice::class)->select('invoice_t.id as idinvoice,invoice_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*')
-        ->join('users','users.id=invoice_t.user_id')
+        ->join('users','users.id=invoice_t.usersfk')
         ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
         ->join('alamat_m','alamat_m.usersfk = users.id','left')->findAll();
 
