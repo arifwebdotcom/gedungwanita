@@ -60,7 +60,7 @@
 							<?php endif; ?>
 							<!--end::Input group-->
 							<!--begin::Input group-->
-							<div class="fv-row mb-10">
+							<div class="fv-row mb-10 password-toggle">
 								<!--begin::Wrapper-->
 								<div class="d-flex flex-stack mb-2">
 									<!--begin::Label-->
@@ -74,8 +74,11 @@
 								</div>
 								<!--end::Wrapper-->
 								<!--begin::Input-->
-								<input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" />
+								<input class="form-control form-control-lg form-control-solid" type="password" id="password" name="password" autocomplete="off" />
 								<!--end::Input-->
+								<span class="toggle-password" onclick="togglePasswordVisibility()">
+									<i class="fas fa-eye"></i>
+								</span>
 							</div>
 							<!--end::Input group-->
 							<!--begin::Actions-->

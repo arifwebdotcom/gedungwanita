@@ -126,7 +126,7 @@
                 <!--end::Nav item-->
                 <!--begin::Nav item-->
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#kt_tab_pane_2" role="tab" >Settings</a>
+                    <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#kt_tab_pane_2" role="tab" >Ubah Password</a>
                 </li>
                 <!--end::Nav item-->                
             </ul>
@@ -274,129 +274,44 @@
             <div class="card-header cursor-pointer">
                 <!--begin::Card title-->
                 <div class="card-title m-0">
-                    <h3 class="fw-bolder m-0">Profile Details</h3>
-                </div>
-                <!--end::Card title-->
-                <!--begin::Action-->
-                <a href="../../demo2/dist/account/settings.html" class="btn btn-primary align-self-center">Edit Profile</a>
-                <!--end::Action-->
+                    <h3 class="fw-bolder m-0">Ubah Password</h3>
+                </div>               
             </div>
             <!--begin::Card header-->
             <!--begin::Card body-->
             <div class="card-body p-9">
-                <!--begin::Row-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Nama Peternak</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800"><?= $profile->first_name ?> <?= $profile->last_name ?></span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Row-->
                 <!--begin::Input group-->
-                <div class="row mb-7">
+                <div class="fv-row mb-10 col-lg-6  password-toggle">
                     <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">No HP</label>
+                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <span class="required">Password</span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Password"></i>
+                    </label>
                     <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8 fv-row">
-                        <span class="fw-bold text-gray-800 fs-6"><?= $profile->nohp ?></span>
-                        <span class="badge badge-success">&#10003; Group Whatsapp</span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">No Telpon
-                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Phone number must be active"></i></label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8 d-flex align-items-center">
-                        <span class="fw-bolder fs-6 text-gray-800 me-2"><?= $profile->notelp ?></span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Jenis Pakan</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8">
-                        <a href="#" class="fw-bold fs-6 text-gray-800 text-hover-primary"><?= $profile->jenispakan ?></a>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Suplier
-                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Country of origination"></i></label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800"><?= $profile->nama ?></span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Strain DOC/Pullet Yang Digunakan</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800"><?= $profile->pullet ?></span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row mb-10">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Replacement Ayam</label>
-                    <!--begin::Label-->
-                    <!--begin::Label-->
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800"><?= $profile->replacement ?></span>
-                    </div>
-                    <!--begin::Label-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Notice-->
-                <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
-                    <!--begin::Icon-->
-                    <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
-                    <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black" />
-                            <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="black" />
-                            <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="black" />
-                        </svg>
+                    <!--begin::Input-->
+                    <input type="password" class="form-control form-control-lg form-control-solid" name="password" id="password" placeholder=""  />
+                    <!--end::Input-->
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                        <i class="fas fa-eye"></i>
                     </span>
-                    <!--end::Svg Icon-->
-                    <!--end::Icon-->
-                    <!--begin::Wrapper-->
-                    <div class="d-flex flex-stack flex-grow-1">
-                        <!--begin::Content-->
-                        <div class="fw-bold">
-                            <h4 class="text-gray-900 fw-bolder">We need your attention!</h4>
-                            <div class="fs-6 text-gray-700">Your payment was declined. To start using tools, please
-                            <a class="fw-bolder" href="../../demo2/dist/account/billing.html">Add Payment Method</a>.</div>
-                        </div>
-                        <!--end::Content-->
-                    </div>
-                    <!--end::Wrapper-->
                 </div>
-                <!--end::Notice-->
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row mb-10 col-lg-6  password-toggle">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <span class="required">Re Password</span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Re Password"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="password" class="form-control form-control-lg form-control-solid" name="repassword" id="repassword" placeholder=""  />
+                    <!--end::Input-->
+                    <span class="toggle-repassword" onclick="toggleRePasswordVisibility()">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+                <!--end::Input group-->
             </div>
             <!--end::Card body-->
         </div>

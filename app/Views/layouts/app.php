@@ -91,6 +91,32 @@
 				right: 20px;
 				border: 2px solid #fff;
 			}
+
+			.password-toggle {
+				position: relative;
+			}
+
+			.password-toggle input[type="password"] {
+				padding-right: 40px; /* Space for the toggle button */
+			}
+
+			.password-toggle .toggle-password {
+				position: absolute;
+				top: 68%;
+				right: 20px;
+				transform: translateY(-50%);
+				cursor: pointer;
+			}
+
+			.password-toggle .toggle-repassword {
+				position: absolute;
+				top: 68%;
+				right: 20px;
+				transform: translateY(-50%);
+				cursor: pointer;
+			}
+
+			
 		</style>
 		<!--end::Global Stylesheets Bundle-->
 	</head>
@@ -199,6 +225,31 @@
 		
 		
 			<script> 
+				function togglePasswordVisibility() {
+					var passwordField = document.getElementById("password");
+					var toggleButton = document.querySelector(".toggle-password");
+
+					if (passwordField.type === "password") {
+					passwordField.type = "text";
+					toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
+					} else {
+					passwordField.type = "password";
+					toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
+					}
+				}
+
+				function toggleRePasswordVisibility() {
+					var passwordField = document.getElementById("repassword");
+					var toggleButton = document.querySelector(".toggle-repassword");
+
+					if (passwordField.type === "password") {
+					passwordField.type = "text";
+					toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
+					} else {
+					passwordField.type = "password";
+					toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
+					}
+				}
 
 				//if(<?= user()->iscomplete ?> == 0 && <?= user()->isadmin ?> != 1){				
 					$(window).on('load', function() {

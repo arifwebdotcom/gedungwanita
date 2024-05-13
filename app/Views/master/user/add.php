@@ -65,7 +65,7 @@ $breadcrumb_items = [
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->
-        <div class="fv-row mb-10 col-lg-6">
+        <div class="fv-row mb-10 col-lg-6 password-toggle">
             <!--begin::Label-->
             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                 <span class="required">Password</span>
@@ -73,8 +73,11 @@ $breadcrumb_items = [
             </label>
             <!--end::Label-->
             <!--begin::Input-->
-            <input type="password" class="form-control form-control-lg form-control-solid" name="password" autocomplete="off"  />
+            <input type="password" class="form-control form-control-lg form-control-solid" name="password" id="password" autocomplete="off"  />
             <!--end::Input-->
+            <span class="toggle-password" onclick="togglePasswordVisibility()">
+                <i class="fas fa-eye"></i>
+            </span>
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->
