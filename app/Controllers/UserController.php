@@ -40,6 +40,25 @@ class UserController extends BaseController
         return view('master/user/index',$data);
     }
 
+    public function updatepassword($id) {    
+        $password = $this->request->getPost('password');
+        $repassword = $this->request->getPost('repassword');
+        if($password != $repassword){
+            return $this->respondUpdated([
+                'status' => false,
+                'messages' => 'Password & Re Password tidak sama',
+            ]);
+        }
+        $request['password_hash'] = Password::hash($this->request->getPost('password'));
+        $request['id'] = $id;
+        model(UserModels::class)->save($request);
+
+        return $this->respondUpdated([
+            'status' => true,
+            'messages' => 'Password berhasil diubah.',
+        ]);    
+    }
+
     public function store() {
         // $setRules = [            
         //     'user' => [
@@ -157,6 +176,8 @@ class UserController extends BaseController
         }
         return $returnValue;
     }
+
+    
 
     public function update($id) {
         // $setRules = [            

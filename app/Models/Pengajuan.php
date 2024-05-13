@@ -82,7 +82,7 @@ class Pengajuan extends Model
             ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
             ->join('alamat_m','alamat_m.usersfk = users.id','left')
             ->join('periode_t','periode_t.id = pengajuan_t.periodefk','left')
-            ->where('pengajuan_t.user_id', user()->klienfk)
+            ->where('pengajuan_t.user_id', user()->id)
             ->when($nopengajuan, static function ($query, $nopengajuan) {
                 $query->like('pengajuan_t.nopengajuan', $nopengajuan);
             })

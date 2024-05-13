@@ -146,7 +146,7 @@
 							<div class="d-flex align-items-center py-3 py-md-1">
 										
 								<!--begin::Button-->
-								<a href="#" class="btn btn-bg-white btn-active-color-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">Lengkapi Profile</a>
+								<a href="<?= base_url() ?>profile" class="btn btn-bg-white btn-active-color-primary"  id="kt_toolbar_primary_button">Lengkapi Profile</a>
 								<!--end::Button-->
 							</div>
 							<!--end::Actions-->

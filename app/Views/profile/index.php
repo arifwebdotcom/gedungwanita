@@ -238,33 +238,7 @@
                     </div>
                     <!--begin::Label-->
                 </div>
-                <!--end::Input group-->
-                <!--begin::Notice-->
-                <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
-                    <!--begin::Icon-->
-                    <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
-                    <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black" />
-                            <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="black" />
-                            <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="black" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->
-                    <!--end::Icon-->
-                    <!--begin::Wrapper-->
-                    <div class="d-flex flex-stack flex-grow-1">
-                        <!--begin::Content-->
-                        <div class="fw-bold">
-                            <h4 class="text-gray-900 fw-bolder">We need your attention!</h4>
-                            <div class="fs-6 text-gray-700">Your payment was declined. To start using tools, please
-                            <a class="fw-bolder" href="../../demo2/dist/account/billing.html">Add Payment Method</a>.</div>
-                        </div>
-                        <!--end::Content-->
-                    </div>
-                    <!--end::Wrapper-->
-                </div>
-                <!--end::Notice-->
+                <!--end::Input group-->                
             </div>
             <!--end::Card body-->
         </div>
@@ -280,6 +254,7 @@
             <!--begin::Card header-->
             <!--begin::Card body-->
             <div class="card-body p-9">
+            <form class="form w-100" novalidate="novalidate" method="post" id="chage_password_form">
                 <!--begin::Input group-->
                 <div class="fv-row mb-10 col-lg-6  password-toggle">
                     <!--begin::Label-->
@@ -289,7 +264,8 @@
                     </label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="password" class="form-control form-control-lg form-control-solid" name="password" id="password" placeholder=""  />
+                    <input type="password" class="form-control form-control-lg form-control-solid" name="password" id="password" placeholder="" required />
+                    <input type="hidden" name="id" id="id" value="<?= user()->id; ?>">
                     <!--end::Input-->
                     <span class="toggle-password" onclick="togglePasswordVisibility()">
                         <i class="fas fa-eye"></i>
@@ -312,6 +288,18 @@
                     </span>
                 </div>
                 <!--end::Input group-->
+                <!--begin::Actions-->
+                <div class="text-left">
+                    <!--begin::Submit button-->
+                    <button type="submit" class="btn btn-primary align-self-center">
+                        <span class="indicator-label">Continue</span>
+                        <span class="indicator-progress">Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                    <!--end::Submit button-->
+                </div>
+                <!--end::Actions-->
+                </form>
             </div>
             <!--end::Card body-->
         </div>
@@ -320,6 +308,61 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section('script') ?>
+
+<script>
+    $('#chage_password_form').on('submit', function(e) {
+        e.preventDefault()
+        var passwordField = $("#password").val();
+        if (!passwordField) {
+            toastr.error("Password tidak boleh kosong");
+            return;
+        }
+        var repasswordField = $("#repassword").val();
+        if (!repasswordField) {
+            toastr.error("Re Password tidak boleh kosong");
+            return
+        }
+        var form_data = $(this).serializeArray();
+        let id = $('#chage_password_form #id').val();
+        let route = (id != '') ?
+            `<?= base_url() ?>user/${id}/update-password` :
+            "<?= route_to('user.store') ?>";
+        
+        $.ajax({
+            url: route,
+            type: 'post',
+            dataType: 'json',
+            data: form_data,
+            beforeSend: function() {
+                Swal.fire({ 
+                    allowOutsideClick: false,
+                    title: 'Harap Menunggu',
+                    text: 'Permintaan sedang di proses.',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                })
+            },
+            success: function(response) {
+                Swal.close()
+                if (response.status) {   
+                    toastr.success(response.messages);
+                    $("#password").val("");
+                    $("#repassword").val("");            
+                } else {
+                    toastr.error(response.messages);
+                }
+            },
+            error: function(err) {
+                Swal.close()
+                toastr.error(err);
+            }
+        });    
+    });
+
+</script>
 
 <?= $this->endSection(); ?>
 

@@ -138,6 +138,7 @@ $routes->group('user', ['filter' => 'login'],function ($routes) {
     $routes->get('user-edit/(:num)', [UserController::class, 'UserEdit'], ['as' => 'user.user_edit']);
     $routes->get('membercard/(:num)', [UserController::class, 'Membercard'], ['as' => 'user.membercard']);
     $routes->get('user-baru', [UserController::class, 'UserBaru'], ['as' => 'user.user_baru']);
+    $routes->post('(:num)/update-password', [UserController::class, 'updatepassword'], ['as' => 'user.updatepassword']);
     $routes->post('store', [UserController::class, 'store'], ['as' => 'user.store']);
     $routes->get('datatable', [UserController::class, 'datatable'], ['as' => 'user.datatable']);
     $routes->post('(:num)/edit', [UserController::class, 'update'], ['as' => 'user.update']);
