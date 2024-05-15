@@ -389,7 +389,7 @@ class UserController extends BaseController
     public function UserBaru()
     {
         $data['suplierpakan'] =  $this->suplier;
-        $data['asosiasi'] =  $this->asosiasi;
+        $data['asosiasi'] =  model(Asosiasi::class)->findAll();
         return view('master/user/add', $data);
     }
 

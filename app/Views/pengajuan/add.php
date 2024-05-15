@@ -66,7 +66,7 @@ $breadcrumb_items = [
         </div>
         <!--end::Input group--> 
         <!--begin::Input group-->
-        <div class="fv-row mb-10 col-lg-6">
+        <div class="fv-row mb-10 col-lg-6 notmodal">
             <label class="required fs-6 fw-bold mb-2">Asosiasi</label>
             <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="asosiasifk" readonly="true">
             <?php foreach ($asosiasi as $row) : 
@@ -141,7 +141,7 @@ $breadcrumb_items = [
             <input type="text" class="form-control form-control-lg form-control-solid" name="statuskeanggotaan" placeholder="" />
             <!--end::Input-->
         </div>
-        <!--end::Input group-->        
+        <!--end::Input group-->  
         <!--end::Input group--> 
         <div class="fv-row mb-10 col-lg-12">
             <label class='form-label'>Keterangan <span class='text-danger'>*</span></label>
