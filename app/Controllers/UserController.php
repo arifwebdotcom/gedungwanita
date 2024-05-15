@@ -26,7 +26,7 @@ class UserController extends BaseController
     }
 
     public function datatable() {
-        $data = model(UserModels::class)->select('users.*,alamat_m.provinsi,alamat_m.kotakabupaten,alamat_m.kecamatan,alamat_m.kelurahan,alamat_m.alamat,COALESCE(suplierpakan_m.nama, "-") AS namasuplier,suplierpakan_m.alamat,suplierpakan_m.nohp as nohpsuplier')->join('alamat_m','alamat_m.usersfk = users.id','left')->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')->findAll();
+        $data = model(UserModels::class)->select('users.*,alamat_m.provinsi,alamat_m.kotakabupaten,alamat_m.kecamatan,alamat_m.kelurahan,alamat_m.alamat,COALESCE(suplierpakan_m.nama, "-") AS namasuplier,suplierpakan_m.alamat as alamatsuplier,suplierpakan_m.nohp as nohpsuplier')->join('alamat_m','alamat_m.usersfk = users.id','left')->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')->findAll();
         //$data = model(UserModels::class)->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')->findAll();
 
         return json_encode(compact('data'));

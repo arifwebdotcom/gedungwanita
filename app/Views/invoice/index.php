@@ -332,9 +332,9 @@ $breadcrumb_items = [
                     render: function(data, type, row, meta) {
                         return `
                         <a href="<?= base_url() ?>invoice/detail/`+row.id+`"> <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-primary btn-sm" >Bayar</button></a>
-                                <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-warning btn-sm edit" id="edit" style="display:<?= (user()->isadmin == 1?'block':'none'); ?>">
+                        <a href="<?= base_url() ?>invoice/invoice-edit/`+row.id+`"><button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-warning btn-sm edit" id="edit" style="display:<?= (user()->isadmin == 1?'block':'none'); ?>">
                                     Edit
-                                </button>
+                                </button></a>
                                 <!--<button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm delete" id="delete">
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

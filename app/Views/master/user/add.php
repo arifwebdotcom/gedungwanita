@@ -96,7 +96,7 @@ $breadcrumb_items = [
         <!--begin::Input group-->
         <div class="fv-row mb-10 col-lg-6 notmodal">
             <label class="required fs-6 fw-bold mb-2">Asosiasi</label>
-            <select class="form-select form-select-solid " data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="asosiasifk">
+            <select class="form-select form-select-solid " data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" id="asosiasifk" name="asosiasifk">
             <?php foreach ($asosiasi as $row) : ?>
                 <option value="<?= $row->id ?>"><?= $row->asosiasi ?></option>
             <?php endforeach ?>
@@ -365,7 +365,7 @@ $breadcrumb_items = [
 <script>
 
     $(document).ready(function() {
-        //$('.select2').select2()
+        $('#asosiasifk').select2();
         $('#kelurahanfk').select2({
         ajax: {
             url: '<?= route_to('user.search2') ?>',

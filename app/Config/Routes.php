@@ -96,6 +96,7 @@ $routes->group('invoice', ['filter' => 'login'],function ($routes) {
     $routes->get('detail/(:num)', [InvoiceController::class, 'detail'], ['as' => 'invoice.detail']);
     $routes->post('delete/(:num)', [InvoiceController::class, 'delete'], ['as' => 'invoice.delete']);
     $routes->get('invoice-baru', [InvoiceController::class, 'InvoiceBaru'], ['as' => 'invoice.invoice_baru']);
+    $routes->get('invoice-edit/(:num)', [InvoiceController::class, 'InvoiceEdit'], ['as' => 'invoice.invoice_edit']);
     $routes->get('get-dataInvoice', [InvoiceController::class, 'getInvoice'], ['as' => 'invoice_get']);
 });
 

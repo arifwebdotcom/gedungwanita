@@ -64,6 +64,16 @@ class InvoiceController extends BaseController
         return view('invoice/add', $data);
     }
 
+    public function InvoiceEdit(int $id)
+    {
+        $data['user'] = model(UserModels::class)->select('*')->where("deleted_at",null)->findAll();
+        $data['invoice'] = model(Invoice::class)->where('id',$id)->first();
+        $data['invoiced'] = model(InvoiceDetail::class)->where('invoicefk',$id)->findAll();
+        $data['id'] =  $id;
+        $data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
+        return view('invoice/edit', $data);
+    }
+
     public function store() {
         
         $query = model(Invoice::class)->selectMax('id')->get();

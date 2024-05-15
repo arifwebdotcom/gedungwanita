@@ -182,7 +182,7 @@ $breadcrumb_items = [
                 sortable: false,
                 render: function(data, type, row, meta) {
                     return `<a href="<?= base_url() ?>user/user-edit/`+row.id+`" target='_blank' >
-                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit" id="edit">
+                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit" >
                                 <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                 <span class="svg-icon svg-icon-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -256,14 +256,14 @@ $breadcrumb_items = [
         $("#user_modal").modal("show");
     });
 
-    $('#user_table tbody').on('click', '#edit', function() {
-        var data = $('#user_table').DataTable().row($(this).parents('tr')).data();
-        $("#user_modal #user").val(data.user);
-        $("#user_modal #id").val(data.id);
+    // $('#user_table tbody').on('click', '#edit', function() {
+    //     var data = $('#user_table').DataTable().row($(this).parents('tr')).data();
+    //     $("#user_modal #user").val(data.user);
+    //     $("#user_modal #id").val(data.id);
 
-        $("#user_modal #modal_title").text("Edit User");
-        $("#user_modal").modal("show");
-    });
+    //     $("#user_modal #modal_title").text("Edit User");
+    //     $("#user_modal").modal("show");
+    // });
 
     $('#user_table tbody').on('click', '#delete', function() {
         var data = $('#user_table').DataTable().row($(this).parents('tr')).data();
