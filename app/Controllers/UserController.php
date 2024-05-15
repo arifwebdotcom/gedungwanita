@@ -204,8 +204,11 @@ class UserController extends BaseController
         
 
         $namapeternakan = $this->request->getPost('namapeternakan');
-        if($this->request->getFile('avatar')) {
-            $file = $this->request->getFile('avatar');
+        $file = $this->request->getFile('avatar');
+            
+        // Check if the file has been uploaded without errors
+        if ($file && $file->isValid() && ! $file->hasMoved()) {
+        
 
             $upload_path = './uploads/';
             $extension = $file->getExtension();
@@ -279,7 +282,7 @@ class UserController extends BaseController
         $request['id'] = $id;
         model(UserModels::class)->save($request);
 
-        return redirect()->to(site_url('/user/user-edit/'.$id));
+        return redirect()->to(site_url('/user'));
     }
 
     public function updatemodal($id) {

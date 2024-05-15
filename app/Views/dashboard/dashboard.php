@@ -148,7 +148,9 @@
                         <th class="ps-4 ">Populasi</th>
                         <th class="ps-4 ">Jenis Pakan</th>
                         <th class="ps-4 ">Suplier</th>
+                        <?php if(user()->isadmin){ ?>
                         <th class="min-w-200px rounded-end">Action</th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <!--end::Table head-->
@@ -685,8 +687,9 @@
             {
                 name: "Suplier",
                 data: "namasuplier"
-            },
-            {
+            }
+            <?php if(user()->isadmin){ ?>
+            ,{
                 width: "10%",
                 sortable: false,
                 render: function(data, type, row, meta) {
@@ -724,6 +727,7 @@
                             <!--end::Svg Icon--></a>`;
                 }
             },
+            <?php } ?>
             
         ];
 

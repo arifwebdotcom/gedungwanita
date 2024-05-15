@@ -90,7 +90,7 @@ $breadcrumb_items = [
             <div class='col-md-4'>
             <div class='form-group'>
                 <label class='form-label'>Alamat <span class='text-danger'>*</span></label>
-                <textarea rows='5' class='form-control form-control-lg form-control-solid' placeholder='Alamat' name='alamat'><?= old('alamat') ?></textarea>
+                <textarea rows='5' class='form-control form-control-lg form-control-solid' placeholder='Alamat' name='alamat'><?= $user->alamat ?></textarea>
                 <div class="invalid-feedback">
                 </div>
             </div>
@@ -102,28 +102,28 @@ $breadcrumb_items = [
                 <select class='form-control form-control-lg form-control-solid' name="kelurahanfk" style='width: 100%;' id='kelurahanfk'>
 
                 </select>
-                <input type='hidden' class='form-control form-control-lg form-control-solid' name='kelurahan' id='kelurahan' value="<?= old('kelurahan') ?>">
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='kelurahan' id='kelurahan' value="<?= $user->kelurahan ?>">
                 </div>
             </div>
             <div class='col-md-6' >
                 <div class='form-group'>
                 <label class='form-label'>Kecamatan</label>
-                <input type='text' class='form-control form-control-lg form-control-solid' name='kecamatan' id='kecamatan' placeholder='Kecamatan' readonly value="<?= old('kecamatan') ?>">
-                <input type='hidden' class='form-control form-control-lg form-control-solid' name='kecamatanfk' id='kecamatanfk' value="<?= old('kecamatanfk') ?>">
+                <input type='text' class='form-control form-control-lg form-control-solid' name='kecamatan' id='kecamatan' placeholder='Kecamatan' readonly value="<?= $user->kecamatan ?>">
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='kecamatanfk' id='kecamatanfk' value="<?= $user->kecamatanfk ?>" >
                 </div>
             </div>
             <div class='col-md-6' >
                 <div class='form-group'>
                 <label class='form-label'>Kabupaten</label>
-                <input type='text' class='form-control form-control-lg form-control-solid' name='kotakabupaten' id='kotakabupaten' placeholder='Kabupaten' readonly value="<?= old('kotakabupaten') ?>">
+                <input type='text' class='form-control form-control-lg form-control-solid' name='kotakabupaten' id='kotakabupaten' placeholder='Kabupaten' readonly value="<?= $user->kotakabupaten ?>">
                 <input type='hidden' class='form-control form-control-lg form-control-solid' name='kotakabupatenfk' id='kotakabupatenfk' value="<?= old('kotakabupatenfk') ?>">
                 </div>
             </div>
             <div class='col-md-6' >
                 <div class='form-group'>
                 <label class='form-label'>Provinsi</label>
-                <input type='text' class='form-control form-control-lg form-control-solid' name='provinsi' id='provinsi' placeholder='Provinsi' readonly value="<?= old('provinsi') ?>">
-                <input type='hidden' class='form-control form-control-lg form-control-solid' name='provinsifk' id='provinsifk' value="<?= old('provinsifk') ?>">
+                <input type='text' class='form-control form-control-lg form-control-solid' name='provinsi' id='provinsi' placeholder='Provinsi' readonly value="<?= $user->provinsi ?>">
+                <input type='hidden' class='form-control form-control-lg form-control-solid' name='provinsifk' id='provinsifk' value="<?= $user->provinsifk ?>">
                 </div>
             </div>
             </div>
@@ -358,7 +358,7 @@ $breadcrumb_items = [
         type: 'GET',
         data: function(params) {
           return {
-            q: params.term
+            q: '<?= $user->kelurahan ?>'
           };
         },
         processResults: function(data) {
@@ -384,9 +384,11 @@ $breadcrumb_items = [
         },
         cache: true
       },
-      placeholder: 'Kelurahan',
-      minimumInputLength: 1
+      placeholder: '<?= $user->kelurahan ?>',
+      minimumInputLength: 0
     })
+
+    $('#kelurahanfk').val('<?= $user->kelurahanfk ?>').trigger('change');
 
     $('#kelurahanfk').on("select2:select", function(e) {
       console.log(e);
