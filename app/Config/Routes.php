@@ -14,6 +14,7 @@ use App\Controllers\ProfileController;
 use App\Controllers\DashboardController;
 use App\Controllers\AuthController;
 use App\Controllers\PeriodeController;
+use App\Controllers\NotificationController;
 use App\Config\Auth as AuthConfig;
 
 /**
@@ -153,6 +154,11 @@ $routes->group('dashboard', ['filter' => 'login'], function ($routes) {
     $routes->post('payment', [DashboardController::class, 'payment'], ['as' => 'dashboard.payment']); 
     $routes->get('datapie', [DashboardController::class, 'datapie'], ['as' => 'dashboard.datapie']); 
     $routes->post('(:num)/edit', [DashboardController::class, 'update'], ['as' => 'dashboard.update']);
+});
+
+$routes->group('notification', function ($routes) {
+    $routes->get('/', [NotificationController::class, 'index'], ['as' => 'notification.index']);    
+    $routes->post('save', [NotificationController::class, 'saveTransaction'], ['as' => 'notification.saveTransaction']);    
 });
 
 

@@ -101,6 +101,7 @@ $breadcrumb_items = [
                 </label>
                 <!--end::Label-->
                 <input class="form-control form-control-solid" value="" name="nama" id="nama" />
+                <input type="hidden" class="form-control form-control-solid" value="" name="indez" id="indez" />
             </div>
             <!--end::Input group-->   
             <!--begin::Input group-->
@@ -158,6 +159,16 @@ $breadcrumb_items = [
                         </tr>
                     </thead>
                     <tbody>
+                    <?php foreach($invoiced as $row){ ?>
+                        <tr>
+                            <td><?= $row->nama ?></td>
+                            <td><?= $row->qty ?></td>
+                            <td><?= $row->harga ?></td>
+                            <td><?= $row->subtotal ?></td>
+                            <td><?= $row->keterangan ?></td>
+                        </tr>
+                    <?php } ?>
+                       
                     </tbody>
                 </table>
             </div>
@@ -170,7 +181,7 @@ $breadcrumb_items = [
                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Harga"></i>
                     </label>
                     <!--end::Label-->
-                    <input type="text" class="form-control form-control-solid" value="" name="total_harga" id="total_harga" />
+                    <input type="text" class="form-control form-control-solid" value="<?= $invoice->total ?>" name="total_harga" id="total_harga" />
                 </div>
                 
             </div>
@@ -268,7 +279,7 @@ $breadcrumb_items = [
                 $('#usersfk').prop('disabled', true);
             }
         });
-        var total_harga = 0;
+        var total_harga = <?= $invoice->total ?>;
 
         var komponen_table = $('#komponen-table').DataTable({
             searching: false,
@@ -311,6 +322,14 @@ $breadcrumb_items = [
             ]
         });
 
+        function editRowByIndex(index, newData) {
+            // Get the row data by index
+            var rowData = table.row(index).data();
+
+            // Update the row data with new data
+            table.row(index).data(newData).draw(false);
+        }
+
         $('#add-row').on('click', function() {
             var harga = $("#harga").val().replace(/\D/g, '');
             var subtotal = $("#subtotal").val().replace(/\D/g, '');
@@ -338,6 +357,14 @@ $breadcrumb_items = [
         var komponenSelected = '';
         $("#komponen-table tbody").on("click", "tr", function() {
             komponenSelected = $("#komponen-table").DataTable().row(this).data();
+            $("#nama").val(komponenSelected.nama);
+            $("#qty").val(komponenSelected.qty);
+            $("#harga").val(komponenSelected.harga);
+            $("#subtotal").val(komponenSelected.subtotal);
+            $("#keterangan").val(komponenSelected.keterangan);
+
+            var rowIndex = $(this).index();
+
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
             } else {
