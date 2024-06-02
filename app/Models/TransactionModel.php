@@ -13,7 +13,7 @@ class TransactionModel extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'user_id', 'type','channel','status','amount','deleted_at','updated_at','created_at'];
+    protected $allowedFields    = ['id', 'user_id', 'type','fraudstatus','status','amount','deleted_at','updated_at','created_at'];
 
     // Dates
     protected $useTimestamps = true;

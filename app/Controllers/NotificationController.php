@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\LogNotificationModel;
+use App\Models\TransactionModel;
 use CodeIgniter\API\ResponseTrait;
 
 class NotificationController extends BaseController
@@ -28,10 +29,20 @@ class NotificationController extends BaseController
         $json = $this->request->getJSON(true);
         //dd(json_encode($json));
 
-        $request['request'] = json_encode($json);
-        
-        model(LogNotificationModel::class)->insert($request);        
-        return $this->respondCreated($json);
+        $request['request'] = json_encode($json);        
+        model(LogNotificationModel::class)->insert($request);  
+
+        $dataupdate['periode'] = $json['transaction_status'];
+        $dataupdate['type'] = $json['payment_type'];
+        $dataupdate['updatemidtrans'] = date("Y-m-d H:i:s");
+        $dataupdate['fraudstatus'] = $json['fraud_status'];
+        $dataupdate['id'] = $json['order_id'];
+        model(TransactionModel::class)->save($dataupdate);
+   
+        return $this->respondUpdated([
+            'status' => true,
+            'messages' => 'Data Transaksi berhasil diubah.',
+        ]);
         
     }
 

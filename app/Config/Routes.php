@@ -158,7 +158,7 @@ $routes->group('dashboard', ['filter' => 'login'], function ($routes) {
 
 $routes->group('notification', function ($routes) {
     $routes->get('/', [NotificationController::class, 'index'], ['as' => 'notification.index']);    
-    $routes->post('save', [NotificationController::class, 'saveTransaction'], ['as' => 'notification.saveTransaction']);    
+    $routes->post('save', [NotificationController::class, 'saveTransaction'], ['as' => 'notification.saveTransaction']);   
 });
 
 

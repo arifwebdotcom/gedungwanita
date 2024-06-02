@@ -32,7 +32,7 @@ class DashboardController extends BaseController
         \Midtrans\Config::$is3ds = true;
 
         $datatransaction['user_id'] = user()->id;
-        $datatransaction['status'] = 'pending';
+        $datatransaction['status'] = 'inquiry';
         $datatransaction['amount'] = $this->request->getPost('amount');
         $TransactionModel = new TransactionModel();
         $TransactionModel->insert($datatransaction);
