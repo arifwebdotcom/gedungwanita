@@ -36,9 +36,11 @@ class NotificationController extends BaseController
         $dataupdate['type'] = $json['payment_type'];
         $dataupdate['updatemidtrans'] = date("Y-m-d H:i:s");
         $dataupdate['fraudstatus'] = $json['fraud_status'];
-        $dataupdate['id'] = $json['order_id'];
-        model(TransactionModel::class)->save($dataupdate);
-   
+        if($json['order_id']){
+            $dataupdate['id'] = $json['order_id'];
+            model(TransactionModel::class)->save($dataupdate);
+        }
+        
         return $this->respondUpdated([
             'status' => true,
             'messages' => 'Data Transaksi berhasil diubah.',
