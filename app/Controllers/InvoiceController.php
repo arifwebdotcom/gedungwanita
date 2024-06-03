@@ -280,11 +280,11 @@ class InvoiceController extends BaseController
                 if($response_data['transaction_status'] == 'capture' || $response_data['transaction_status'] == 'settlement'){
                     $datainvoice['status'] = 'LUNAS';
                     $datainvoice['id'] = $Qtransaction->invoicefk;
-                    model(Invoice::class)->save($dataupdate);
+                    model(Invoice::class)->save($datainvoice);
                 }else{
                     $datainvoice['status'] = $response_data['transaction_status'];
                     $datainvoice['id'] = $Qtransaction->invoicefk;
-                    model(Invoice::class)->save($dataupdate);
+                    model(Invoice::class)->save($datainvoice);
                 }
             }
 
