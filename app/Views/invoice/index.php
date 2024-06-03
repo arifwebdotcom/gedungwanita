@@ -411,7 +411,6 @@ $breadcrumb_items = [
 
     $('#invoice_table tbody').on('click', '#check', function() {
         var data = $('#invoice_table').DataTable().row($(this).parents('tr')).data();
-        $("#invoice_modal #id").val(data.idinvoice);
 
         $.ajax({
             url: `<?= base_url() ?>invoice/checkstatus/${data.idinvoice}`,
@@ -433,7 +432,7 @@ $breadcrumb_items = [
             success: function(response) {
                 Swal.close()
                 if (response.status) {                
-                    showPengajuan();
+                    init();
                     toastr.success(response.messages);
                 } else {
                     toastr.error("Gagal!");
@@ -477,7 +476,7 @@ $breadcrumb_items = [
                     success: function(response) {
                         Swal.close()
                         if (response.status) {                
-                            showPengajuan();
+                            init();
                             toastr.warning(response.messages);
                         } else {
                             toastr.error("Gagal!");
