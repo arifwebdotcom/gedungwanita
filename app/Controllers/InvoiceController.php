@@ -258,29 +258,31 @@ class InvoiceController extends BaseController
             
         } else {
             // Decode the JSON response
+            // print_r($response);
+            // exit;
             $response_data = json_decode($response, true);
 
-            $request['request'] = $response_data;        
+            $request['request'] = $response;        
             model(LogNotificationModel::class)->insert($request);  
 
-            $dataupdate['periode'] = $response['transaction_status'];
-            $dataupdate['type'] = $response['payment_type'];
+            $dataupdate['periode'] = $response_data['transaction_status'];
+            $dataupdate['type'] = $response_data['payment_type'];
             $dataupdate['updatemidtrans'] = date("Y-m-d H:i:s");
-            $dataupdate['fraudstatus'] = $response['fraud_status'];
-            if($response['order_id']){
-                $dataupdate['id'] = $response['order_id'];
+            $dataupdate['fraudstatus'] = $response_data['fraud_status'];
+            if($response_data['order_id']){
+                $dataupdate['id'] = $response_data['order_id'];
                 model(TransactionModel::class)->save($dataupdate);
 
                 $Qtransaction = model(TransactionModel::class)
                 ->select('invoicefk')
-                ->where('id',$response['order_id'])->first();
+                ->where('id',$response_data['order_id'])->first();
 
-                if($response['transaction_status'] == 'capture' || $response['transaction_status'] == 'settlement'){
+                if($response_data['transaction_status'] == 'capture' || $response_data['transaction_status'] == 'settlement'){
                     $datainvoice['status'] = 'LUNAS';
                     $datainvoice['id'] = $Qtransaction->invoicefk;
                     model(Invoice::class)->save($dataupdate);
                 }else{
-                    $datainvoice['status'] = $response['transaction_status'];
+                    $datainvoice['status'] = $response_data['transaction_status'];
                     $datainvoice['id'] = $Qtransaction->invoicefk;
                     model(Invoice::class)->save($dataupdate);
                 }
