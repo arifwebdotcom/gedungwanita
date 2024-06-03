@@ -46,6 +46,6 @@ class NotificationController extends BaseController
             'messages' => 'Data Transaksi berhasil diubah.',
         ]);
         
-    }
+    }    
 
 }

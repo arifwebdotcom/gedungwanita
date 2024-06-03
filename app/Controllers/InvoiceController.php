@@ -221,6 +221,45 @@ class InvoiceController extends BaseController
         ]);
     }
 
+    public function checkstatus($id){
+        $server_key = 'SB-Mid-server-c_BeG1nsGdJxwveXVqhagZOu';
+        // The order ID of the transaction you want to check
+        $order_id = $id;
+
+        // Midtrans API endpoint
+        $url = "https://api.midtrans.com/v2/{$order_id}/status";
+
+        // Initialize cURL
+        $ch = curl_init();
+
+        // Set cURL options
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+            'Authorization: Basic ' . base64_encode($server_key . ':')
+        ]);
+
+        // Execute cURL request
+        $response = curl_exec($ch);
+
+        // Check for cURL errors
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        } else {
+            // Decode the JSON response
+            $response_data = json_decode($response, true);
+
+            // Print the response
+            echo '<pre>';
+            print_r($response_data);
+            echo '</pre>';
+        }
+
+        // Close cURL session
+        curl_close($ch);
+    }
+
     public function delete($id)
     {
         model(Invoice::class)->where('id', $id)->delete();

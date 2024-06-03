@@ -99,6 +99,7 @@ $routes->group('invoice', ['filter' => 'login'],function ($routes) {
     $routes->get('invoice-baru', [InvoiceController::class, 'InvoiceBaru'], ['as' => 'invoice.invoice_baru']);
     $routes->get('invoice-edit/(:num)', [InvoiceController::class, 'InvoiceEdit'], ['as' => 'invoice.invoice_edit']);
     $routes->get('get-dataInvoice', [InvoiceController::class, 'getInvoice'], ['as' => 'invoice_get']);
+    $routes->post('checkstatus/(:num)', [InvoiceController::class, 'checkstatus'], ['as' => 'invoice.checkstatus']);
 });
 
 $routes->group('asosiasi', ['filter' => 'login'],function ($routes) {

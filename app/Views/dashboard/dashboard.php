@@ -107,7 +107,7 @@
 <!--begin::Tables Widget 9-->
 
     
-
+<?php if(user()->isadmin == 1){ ?>
 <div class="card card-xxl-stretch mb-5 mb-xl-8">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
@@ -221,7 +221,7 @@
     </div>
     <!--end::Col-->
     
-
+<?php } ?>
 
 <!--end::Row-->
 <!--begin::Tables Widget 5-->
