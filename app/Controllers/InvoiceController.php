@@ -225,7 +225,12 @@ class InvoiceController extends BaseController
 
     public function checkstatus($id){
         $server_key = 'SB-Mid-server-c_BeG1nsGdJxwveXVqhagZOu';
-        $order_id = $id;
+
+        $QOrder_id = model(TransactionModel::class)
+                ->select('max(id) as id')
+                ->where('incoicefk',$id)->first();
+
+        $order_id = $QOrder_id->id;
 
         // Midtrans API endpoint
         $url = "https://api.midtrans.com/v2/{$order_id}/status";
@@ -265,6 +270,20 @@ class InvoiceController extends BaseController
             if($response['order_id']){
                 $dataupdate['id'] = $response['order_id'];
                 model(TransactionModel::class)->save($dataupdate);
+
+                $Qtransaction = model(TransactionModel::class)
+                ->select('invoicefk')
+                ->where('id',$response['order_id'])->first();
+
+                if($response['transaction_status'] == 'capture' || $response['transaction_status'] == 'settlement'){
+                    $datainvoice['status'] = 'LUNAS';
+                    $datainvoice['id'] = $Qtransaction->invoicefk;
+                    model(Invoice::class)->save($dataupdate);
+                }else{
+                    $datainvoice['status'] = $response['transaction_status'];
+                    $datainvoice['id'] = $Qtransaction->invoicefk;
+                    model(Invoice::class)->save($dataupdate);
+                }
             }
 
             return $this->respondUpdated([
