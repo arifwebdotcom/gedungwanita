@@ -228,7 +228,7 @@ class InvoiceController extends BaseController
 
         $QOrder_id = model(TransactionModel::class)
                 ->select('max(id) as id')
-                ->where('incoicefk',$id)->first();
+                ->where('invoicefk',$id)->first();
 
         $order_id = $QOrder_id->id;
 
