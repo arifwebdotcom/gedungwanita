@@ -403,7 +403,7 @@ $breadcrumb_items = [
     $('#invoice_table tbody').on('click', '#edit', function() {
         var data = $('#invoice_table').DataTable().row($(this).parents('tr')).data();
         $("#invoice_modal #noinvoice").val(data.noinvoice);
-        $("#invoice_modal #id").val(data.idinvoice);
+        $("#invoice_modal #id").val(data.id);
 
         $("#invoice_modal #modal_title").text("Persetujuan Pengajuan");
         $("#invoice_modal").modal("show");
@@ -413,10 +413,10 @@ $breadcrumb_items = [
         var data = $('#invoice_table').DataTable().row($(this).parents('tr')).data();
 
         $.ajax({
-            url: `<?= base_url() ?>invoice/checkstatus/${data.idinvoice}`,
+            url: `<?= base_url() ?>invoice/checkstatus/${data.id}`,
             type: 'post',
             dataType: 'json',
-            data: "id="+data.idinvoice,
+            data: "id="+data.id,
             beforeSend: function() {
                 Swal.fire({ 
                     allowOutsideClick: false,
@@ -457,10 +457,10 @@ $breadcrumb_items = [
         }).then(function(result) {
             if (result.value) {
                 $.ajax({
-                    url: `<?= base_url() ?>invoice/delete/${data.idinvoice}`,
+                    url: `<?= base_url() ?>invoice/delete/${data.id}`,
                     type: 'post',
                     dataType: 'json',
-                    data: "id="+data.idinvoice,
+                    data: "id="+data.id,
                     beforeSend: function() {
                         Swal.fire({ 
                             allowOutsideClick: false,
