@@ -32,7 +32,7 @@ class NotificationController extends BaseController
         $request['request'] = json_encode($json);        
         model(LogNotificationModel::class)->insert($request);  
 
-        $dataupdate['periode'] = $json['transaction_status'];
+        $dataupdate['status'] = $json['transaction_status'];
         $dataupdate['type'] = $json['payment_type'];
         $dataupdate['updatemidtrans'] = date("Y-m-d H:i:s");
         $dataupdate['fraudstatus'] = $json['fraud_status'];

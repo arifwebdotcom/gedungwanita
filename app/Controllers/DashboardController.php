@@ -31,8 +31,11 @@ class DashboardController extends BaseController
         // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = true;
 
+        $invoicefk = $this->request->getPost('id');
+
         $datatransaction['user_id'] = user()->id;
         $datatransaction['status'] = 'inquiry';
+        $datatransaction['invoicefk'] = $invoicefk;
         $datatransaction['amount'] = $this->request->getPost('amount');
         $TransactionModel = new TransactionModel();
         $TransactionModel->insert($datatransaction);
@@ -40,7 +43,7 @@ class DashboardController extends BaseController
         // Get the last insert ID
         $users_transaction_id = $TransactionModel->getInsertID();
         
-        $detailinvoice = model(Invoice::class)->getDetailInvoiceNumber($this->request->getPost('id'));
+        $detailinvoice = model(Invoice::class)->getDetailInvoiceNumber($invoicefk);
         //dd($detailinvoice);
         $item_details = array();
         $gross_amount = 0;
@@ -58,11 +61,6 @@ class DashboardController extends BaseController
             array_push($item_details,array("id"=>$users_transaction_detail_id,"price"=>$row->harga,"quantity"=>$row->qty,"name"=>$row->nama));
             
         }
-        
-        
-        
-
-
 
         $params = array(
             'transaction_details' => array(
