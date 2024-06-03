@@ -241,6 +241,8 @@ $breadcrumb_items = [
             allowInput: false        
             
         });
+
+        
     });
 
     $("#cari").click(function() {
@@ -331,10 +333,7 @@ $breadcrumb_items = [
                     sortable: false,
                     render: function(data, type, row, meta) {
                         if (row.status === "LUNAS") {
-                            return `                                
-                                <a href="<?= base_url() ?>invoice/invoice-edit/`+row.id+`"><button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-warning btn-sm edit" id="edit" style="display:<?= (user()->isadmin == 1?'block':'none'); ?>">
-                                            Edit
-                                        </button></a>
+                            return `  
                                 <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-info btn-sm check" id="check" >
                                     Check Status
                                 </button>
@@ -375,26 +374,41 @@ $breadcrumb_items = [
             ]
         })
 
-        table.draw();
+        //table.draw();        
 
-        $('#invoice_table tbody').on('click', 'button.expand', function() {
-            var tr = $(this).closest('tr');
-            var row = table.row(tr);
+        // $('#invoice_table').on('click', 'button.expand', function() {
+        //     var tr = $(this).closest('tr');
+        //     var row = $('#invoice_table').DataTable().row(tr);
 
-            if (row.child.isShown()) {
-                // This row is already open - close it
-                row.child.hide();
-                tr.removeClass('shown');
-                $(this).find($(".fa")).toggleClass('fa-chevron-circle-right').toggleClass('fa-chevron-circle-down');
-            } else {
-                // Open this row
-                row.child(expandFormat(row.data())).show();
-                tr.addClass('shown');
-                $(this).find($(".fa")).toggleClass('fa-chevron-circle-down').toggleClass('fa-chevron-circle-right');
-            }
-        });
+        //     if (row.child.isShown()) {
+        //         // This row is already open - close it
+        //         row.child.hide();
+        //         tr.removeClass('shown');
+        //         $(this).find($(".fa")).toggleClass('fa-chevron-circle-right').toggleClass('fa-chevron-circle-down');
+        //     } else {
+        //         // Open this row
+        //         row.child(expandFormat(row.data())).show();
+        //         tr.addClass('shown');
+        //         $(this).find($(".fa")).toggleClass('fa-chevron-circle-down').toggleClass('fa-chevron-circle-right');
+        //     }
+        // });
 
     }
+
+    $('#invoice_table tbody').on('click', 'button.expand', function() {
+            var tr = $(this).closest('tr');
+            var row = $('#invoice_table').DataTable().row(tr);
+
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('shown');
+                $(this).find($(".fa")).toggleClass('fa-chevron-circle-right fa-chevron-circle-down');
+            } else {
+                row.child(expandFormat(row.data())).show();
+                tr.addClass('shown');
+                $(this).find($(".fa")).toggleClass('fa-chevron-circle-down fa-chevron-circle-right');
+            }
+        });
 
     const expandFormat = (data) => {
         var detail = "";
