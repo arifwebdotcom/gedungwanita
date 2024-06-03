@@ -335,6 +335,9 @@ $breadcrumb_items = [
                         <a href="<?= base_url() ?>invoice/invoice-edit/`+row.id+`"><button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-warning btn-sm edit" id="edit" style="display:<?= (user()->isadmin == 1?'block':'none'); ?>">
                                     Edit
                                 </button></a>
+                        <a href="#!"><button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-info btn-sm check" id="check" >
+                            Check Status
+                        </button></a>
                                 <!--<button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm delete" id="delete">
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -404,6 +407,42 @@ $breadcrumb_items = [
 
         $("#invoice_modal #modal_title").text("Persetujuan Pengajuan");
         $("#invoice_modal").modal("show");
+    });
+
+    $('#invoice_table tbody').on('click', '#check', function() {
+        var data = $('#invoice_table').DataTable().row($(this).parents('tr')).data();
+        $("#invoice_modal #id").val(data.idinvoice);
+
+        $.ajax({
+            url: `<?= base_url() ?>invoice/checkstatus/${data.idinvoice}`,
+            type: 'post',
+            dataType: 'json',
+            data: "id="+data.idinvoice,
+            beforeSend: function() {
+                Swal.fire({ 
+                    allowOutsideClick: false,
+                    title: 'Harap Menunggu',
+                    text: 'Permintaan sedang di proses.',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                })
+            },
+            success: function(response) {
+                Swal.close()
+                if (response.status) {                
+                    showPengajuan();
+                    toastr.success(response.messages);
+                } else {
+                    toastr.error("Gagal!");
+                }
+            },
+            error: function(err) {
+                toastr.error(err);
+            }
+        });
     });
 
     $('#invoice_table tbody').on('click', '#delete', function() {

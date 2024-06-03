@@ -7,6 +7,8 @@ use App\Models\Invoice;
 use App\Models\InvoiceDetail;
 use App\Models\UserModels;
 use App\Models\Asosiasi;
+use App\Models\LogNotificationModel;
+use App\Models\TransactionModel;
 use CodeIgniter\API\ResponseTrait;
 
 class InvoiceController extends BaseController
@@ -223,7 +225,6 @@ class InvoiceController extends BaseController
 
     public function checkstatus($id){
         $server_key = 'SB-Mid-server-c_BeG1nsGdJxwveXVqhagZOu';
-        // The order ID of the transaction you want to check
         $order_id = $id;
 
         // Midtrans API endpoint
@@ -245,15 +246,31 @@ class InvoiceController extends BaseController
 
         // Check for cURL errors
         if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+            return $this->respondUpdated([
+                'status' => false,
+                'messages' => 'Gagal Menghubungkan ke server.'.curl_error($ch),
+            ]);
+            
         } else {
             // Decode the JSON response
             $response_data = json_decode($response, true);
 
-            // Print the response
-            echo '<pre>';
-            print_r($response_data);
-            echo '</pre>';
+            $request['request'] = json_encode($json);        
+            model(LogNotificationModel::class)->insert($request);  
+
+            $dataupdate['periode'] = $response['transaction_status'];
+            $dataupdate['type'] = $response['payment_type'];
+            $dataupdate['updatemidtrans'] = date("Y-m-d H:i:s");
+            $dataupdate['fraudstatus'] = $response['fraud_status'];
+            if($response['order_id']){
+                $dataupdate['id'] = $response['order_id'];
+                model(TransactionModel::class)->save($dataupdate);
+            }
+
+            return $this->respondUpdated([
+                'status' => true,
+                'messages' => 'Data invoice berhasil diubah.',
+            ]);
         }
 
         // Close cURL session
