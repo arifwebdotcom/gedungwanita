@@ -330,7 +330,7 @@ $breadcrumb_items = [
                     width: "10%",
                     sortable: false,
                     render: function(data, type, row, meta) {
-                        if (data.status === "LUNAS") {
+                        if (row.status === "LUNAS") {
                             return `                                
                                 <a href="<?= base_url() ?>invoice/invoice-edit/`+row.id+`"><button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-warning btn-sm edit" id="edit" style="display:<?= (user()->isadmin == 1?'block':'none'); ?>">
                                             Edit
