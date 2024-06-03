@@ -260,7 +260,7 @@ class InvoiceController extends BaseController
             // Decode the JSON response
             $response_data = json_decode($response, true);
 
-            $request['request'] = json_encode($json);        
+            $request['request'] = $response_data;        
             model(LogNotificationModel::class)->insert($request);  
 
             $dataupdate['periode'] = $response['transaction_status'];
