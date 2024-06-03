@@ -233,7 +233,7 @@ class InvoiceController extends BaseController
         $order_id = $QOrder_id->id;
 
         // Midtrans API endpoint
-        $url = "https://api.midtrans.com/v2/{$order_id}/status";
+        $url = "https://api.sanbox.midtrans.com/v2/{$order_id}/status";
 
         // Initialize cURL
         $ch = curl_init();
