@@ -335,9 +335,9 @@ $breadcrumb_items = [
                         <a href="<?= base_url() ?>invoice/invoice-edit/`+row.id+`"><button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-warning btn-sm edit" id="edit" style="display:<?= (user()->isadmin == 1?'block':'none'); ?>">
                                     Edit
                                 </button></a>
-                        <a href="#!"><button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-info btn-sm check" id="check" >
+                        <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-info btn-sm check" id="check" >
                             Check Status
-                        </button></a>
+                        </button>
                                 <!--<button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm delete" id="delete">
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
