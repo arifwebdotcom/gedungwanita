@@ -334,7 +334,7 @@ $breadcrumb_items = [
                     render: function(data, type, row, meta) {
                         if (row.status === "LUNAS") {
                             return `  
-                                
+                            <a href="<?= base_url() ?>invoice/detail/`+row.id+`"> <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-success btn-sm" >Detail Invoice</button></a>
                                         `;
                             } else {
                                 return `

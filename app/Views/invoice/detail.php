@@ -121,13 +121,15 @@ $breadcrumb_items = [
                     </div>
                     
                     </section>
+                    <?php if(strtolower($invoice['status']) == 'lunas'){}else{ ?>
                     <div class="row no-print">
                         <div class="col-12">
-                        <button type="button" class="btn btn-success pull-right" id="btn_bayar"><i class="fa fa-credit-card"></i> Bayar Invoice
+                        <button type="button" class="btn btn-success pull-right" id="btn_bayar"><i class="fa fa-credit-card"></i> Bayar Invoice 
                         </button>
                         </div>
                     </div>
                     <div class="col-12" id="snap-container"></div>
+                    <?php } ?>
             </div>
         </div>
         <!--begin::Table container-->
