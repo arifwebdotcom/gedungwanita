@@ -160,14 +160,14 @@ class PengajuanController extends BaseController
         $InvoiceDetailModel->insert($datainvoice);       
         $invoicefk = $InvoiceDetailModel->getInsertID();
 
-        $request['invoicefk'] = $invoicefk;
-        $request['nama'] = "Pengajuan Pembelian Jagung sejumlah ".$disetujui." Kg";    
-        $request['qty'] = $disetujui;
-        $request['harga'] =  $Qperiode->hargasekilo;
-        $request['subtotal'] = $disetujui*$Qperiode->hargasekilo;
-        $request['keterangan'] = "Pengajuan Pembelian Jagung sejumlah ".$disetujui." Kg";
+        $invoicedetail['invoicefk'] = $invoicefk;
+        $invoicedetail['nama'] = "Pengajuan Pembelian Jagung sejumlah ".$disetujui." Kg";    
+        $invoicedetail['qty'] = $disetujui;
+        $invoicedetail['harga'] =  $Qperiode->hargasekilo;
+        $invoicedetail['subtotal'] = $disetujui*$Qperiode->hargasekilo;
+        $invoicedetail['keterangan'] = "Pengajuan Pembelian Jagung sejumlah ".$disetujui." Kg";
         
-        model(InvoiceDetail::class)->insert($request);
+        model(InvoiceDetail::class)->insert($invoicedetail);
 
         return $this->respondUpdated([
             'status' => true,
