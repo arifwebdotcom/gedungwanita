@@ -403,7 +403,7 @@ $breadcrumb_items = [
         var detail = "";
 
         $.each(data.detail, function(key, val) {
-            detail = detail + "<tr><td>" + val.nama + "</td><td>" + val.harga + "</td><td>" + val.keterangan + "</td></tr>";
+            detail = detail + "<tr><td>" + val.nama + "</td><td>" + val.harga + "</td><td>" + val.qty + "</td><td>" + val.subtotal + "</td><td>" + val.keterangan + "</td></tr>";
 
         });
 
@@ -412,6 +412,8 @@ $breadcrumb_items = [
             '<tr>' +
             '<th><b>Nama</b></th>' +
             '<th><b>Harga</b></th>' +
+            '<th><b>Jumlah</b></th>' +
+            '<th><b>Sub Total</b></th>' +
             '<th><b>Keterangan</b></th>' +
             '</tr></thead><tbody>' +
             detail +
