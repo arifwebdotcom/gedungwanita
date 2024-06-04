@@ -79,7 +79,7 @@ class PengajuanController extends BaseController
         $request['nopengajuan'] =  "P".date("Ym")."/".$this->numberToRoman($asosiasi)."/".$maxId+1;
         $request['populasi'] = $populasi;
         $request['kebutuhan'] = $kebutuhankilo;
-        $request['statuskeanggotaan'] = $this->request->getPost('statuskeanggotaan');
+        $request['statuskeanggotaan'] = "Anggota Aktif";
         $request['keterangan'] = $this->request->getPost('keterangan');
         $request['user_id'] = $userid;
         $request['periodefk'] = $periodefk;
