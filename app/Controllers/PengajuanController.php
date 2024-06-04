@@ -129,19 +129,6 @@ class PengajuanController extends BaseController
     }
 
     public function update($id) {
-        // $setRules = [            
-        //     'pengajuan' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Kolom pengajuan wajib diisi.'
-        //         ],
-        //     ],
-        // ];
-
-        // if (!$this->validate($setRules)) {
-        //     return $this->failValidationErrors($this->validator->getErrors());
-        // }
-
 
         $userid = $this->request->getPost('user_id');
         $populasi = $this->request->getPost('populasi');
@@ -151,7 +138,7 @@ class PengajuanController extends BaseController
 
         $request['disetujui'] = $disetujui;
         $request['keterangan'] = $this->request->getPost('keterangan');
-        $request['id'] = $id;
+        $request['id'] = $this->request->getPost('id');
 
         model(Pengajuan::class)->save($request);
 
