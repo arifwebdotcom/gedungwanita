@@ -375,12 +375,4 @@ class Auth extends \Myth\Auth\Config\Auth
      */
     public $resetTime = 3600;
 
-    public $validations = [
-        'registration' => [
-            'username'      => 'required|alpha_numeric_space|min_length[3]',
-            'email'         => 'required|valid_email|is_unique[users.email]',
-            'password'      => 'required|min_length[5]|max_length[255]', // Adjusted rule
-            'pass_confirm'  => 'required|matches[password]',
-        ],
-    ];
 }

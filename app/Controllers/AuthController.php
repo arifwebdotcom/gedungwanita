@@ -71,10 +71,10 @@ class AuthController extends Controller
             'password' => 'required',
         ];
         if ($this->config->validFields === ['email']) {
-            $rules['login'] .= 'valid|valid_email';
+            $rules['login'] .= '|valid_email';
         }
 
-        if (!$this->validate($rules)) {
+        if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -86,7 +86,7 @@ class AuthController extends Controller
         $type = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         // Try to log them in...
-        if (!$this->auth->attempt([$type => $login, 'password' => $password], $remember)) {
+        if (! $this->auth->attempt([$type => $login, 'password' => $password], $remember)) {
             return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
         }
 
@@ -128,7 +128,7 @@ class AuthController extends Controller
         }
 
         // Check if registration is allowed
-        if (!$this->config->allowRegistration) {
+        if (! $this->config->allowRegistration) {
             return redirect()->back()->withInput()->with('error', lang('Auth.registerDisabled'));
         }
 
@@ -141,50 +141,44 @@ class AuthController extends Controller
     public function attemptRegister()
     {
         // Check if registration is allowed
-        if (!$this->config->allowRegistration) {
+        if (! $this->config->allowRegistration) {
             return redirect()->back()->withInput()->with('error', lang('Auth.registerDisabled'));
         }
 
-        $users = model(UserModels::class);
+        $users = model(UserModel::class);
 
         // Validate basics first since some password rules rely on these fields
-        $rules = [
-            'username' => 'permit_empty|alpha_numeric_space|min_length[3]|max_length[30]',
+        $rules = config('Validation')->registrationRules ?? [
+            'username' => 'required|alpha_numeric_space|min_length[3]|max_length[30]|is_unique[users.username]',
             'email'    => 'required|valid_email|is_unique[users.email]',
-            'namapeternakan'    => 'required|is_unique[users.namapeternakan]',
         ];
 
-        if (!$this->validate($rules)) {
+        if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         // Validate passwords since they can only be validated properly here
         $rules = [
-            'password'      => 'required|min_length[4]|max_length[255]', // Adjusted rule
-            'pass_confirm'  => 'required|matches[password]',
+            'password'     => 'required|strong_password',
+            'pass_confirm' => 'required|matches[password]',
         ];
 
-        if (!$this->validate($rules)) {
+        if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Save the user 
-        $allowedPostFields = array_merge(['password','namapeternakan','nohp'], $this->config->validFields, $this->config->personalFields);
+        // Save the user
+        $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
         $user              = new User($this->request->getPost($allowedPostFields));
-
-            if (!$user) {
-                return redirect()->back()->withInput()->with('error', $this->userModel->errors());
-            }
-
 
         $this->config->requireActivation === null ? $user->activate() : $user->generateActivateHash();
 
         // Ensure default group gets assigned if set
-        if (!empty($this->config->defaultUserGroup)) {
+        if (! empty($this->config->defaultUserGroup)) {
             $users = $users->withGroup($this->config->defaultUserGroup);
         }
 
-        if (!$users->save($user)) {
+        if (! $users->save($user)) {
             return redirect()->back()->withInput()->with('errors', $users->errors());
         }
 
@@ -194,10 +188,9 @@ class AuthController extends Controller
         $result = $query->getRow();
         $maxId = $result->id+1;     
 
-        $timestamp_in_30_days = strtotime('+30 days', strtotime(date("Y-m-d")));
-
-        // Format the new timestamp as a date string
-        $date_in_30_days = date('Y-m-d H:i:s', $timestamp_in_30_days);
+        $now = new DateTime();
+        $now->modify('+30 days');
+        $date_in_30_days = $now->format('Y-m-d');
 
         $datainvoice['noinvoice'] =  "IV".date("Ym")."/"."NU"."/".$maxId++;
         $datainvoice['expired'] = $date_in_30_days;
@@ -232,7 +225,7 @@ class AuthController extends Controller
             $activator = service('activator');
             $sent      = $activator->send($user);
 
-            if (!$sent) {
+            if (! $sent) {
                 return redirect()->back()->withInput()->with('error', $activator->error() ?? lang('Auth.unknownError'));
             }
 
@@ -277,11 +270,11 @@ class AuthController extends Controller
             ],
         ];
 
-        if (!$this->validate($rules)) {
+        if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $users = model(UserModels::class);
+        $users = model(UserModel::class);
 
         $user = $users->where('email', $this->request->getPost('email'))->first();
 
@@ -296,7 +289,7 @@ class AuthController extends Controller
         $resetter = service('resetter');
         $sent     = $resetter->send($user);
 
-        if (!$sent) {
+        if (! $sent) {
             return redirect()->back()->withInput()->with('error', $resetter->error() ?? lang('Auth.unknownError'));
         }
 
@@ -332,7 +325,7 @@ class AuthController extends Controller
             return redirect()->route('login')->with('error', lang('Auth.forgotDisabled'));
         }
 
-        $users = model(UserModels::class);
+        $users = model(UserModel::class);
 
         // First things first - log the reset attempt.
         $users->logResetAttempt(
@@ -345,11 +338,11 @@ class AuthController extends Controller
         $rules = [
             'token'        => 'required',
             'email'        => 'required|valid_email',
-            'password'     => 'required',
+            'password'     => 'required|strong_password',
             'pass_confirm' => 'required|matches[password]',
         ];
 
-        if (!$this->validate($rules)) {
+        if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -362,7 +355,7 @@ class AuthController extends Controller
         }
 
         // Reset token still valid?
-        if (!empty($user->reset_expires) && time() > $user->reset_expires->getTimestamp()) {
+        if (! empty($user->reset_expires) && time() > $user->reset_expires->getTimestamp()) {
             return redirect()->back()->withInput()->with('error', lang('Auth.resetTokenExpired'));
         }
 
@@ -384,7 +377,7 @@ class AuthController extends Controller
      */
     public function activateAccount()
     {
-        $users = model(UserModels::class);
+        $users = model(UserModel::class);
 
         // First things first - log the activation attempt.
         $users->logActivationAttempt(
@@ -434,7 +427,7 @@ class AuthController extends Controller
         $login = urldecode($this->request->getGet('login'));
         $type  = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $users = model(UserModels::class);
+        $users = model(UserModel::class);
 
         $user = $users->where($type, $login)
             ->where('active', 0)
@@ -447,7 +440,7 @@ class AuthController extends Controller
         $activator = service('activator');
         $sent      = $activator->send($user);
 
-        if (!$sent) {
+        if (! $sent) {
             return redirect()->back()->withInput()->with('error', $activator->error() ?? lang('Auth.unknownError'));
         }
 
