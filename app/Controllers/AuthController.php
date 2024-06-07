@@ -7,6 +7,8 @@ use CodeIgniter\Session\Session;
 use Config\Auth as AuthConfig;
 use Myth\Auth\Entities\User;
 use App\Models\UserModels;
+use App\Models\Invoice;
+use App\Models\InvoiceDetail;
 
 class AuthController extends Controller
 {
@@ -185,6 +187,45 @@ class AuthController extends Controller
         if (!$users->save($user)) {
             return redirect()->back()->withInput()->with('errors', $users->errors());
         }
+
+        $insertID = $users->insertID();
+
+        $query = model(Invoice::class)->selectMax('id')->get();
+        $result = $query->getRow();
+        $maxId = $result->id+1;     
+
+        $now = new DateTime();
+        $now->modify('+30 days');
+        $date_in_30_days = $now->format('Y-m-d');
+
+        $request['noinvoice'] =  "IV".date("Ym")."/"."NU"."/".$maxId++;
+        $request['expired'] = $date_in_30_days;
+        $request['nama'] = "Simpanan Pokok & Iuran Bulan pertama";
+        $request['total'] = 2550000;
+        $request['status'] = 'TAGIHAN';
+        $request['usersfk'] = $insertID;
+        $InvoiceDetailModel = new Invoice();
+        $InvoiceDetailModel->insert($request);       
+        $invoicefk = $InvoiceDetailModel->getInsertID();
+      
+            
+        $request['invoicefk'] = $invoicefk;
+        $request['nama'] = "Simpanan Pokok Anggota";    
+        $request['qty'] = 1;
+        $request['harga'] =  2500000;
+        $request['subtotal'] = 2500000;
+        $request['keterangan'] = "Simpanan Pokok Anggota";
+
+        model(InvoiceDetail::class)->insert($request);
+
+        $request['invoicefk'] = $invoicefk;
+        $request['nama'] = "Iuran Bulan Pertama";    
+        $request['qty'] = 1;
+        $request['harga'] =  50000;
+        $request['subtotal'] = 50000;
+        $request['keterangan'] = "Iuran Bulan Pertama";
+
+        model(InvoiceDetail::class)->insert($request);
 
         if ($this->config->requireActivation !== null) {
             $activator = service('activator');
