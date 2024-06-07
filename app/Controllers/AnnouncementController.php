@@ -18,10 +18,10 @@ class AnnouncementController extends BaseController
 
     public function index()
     {
-        $data['announcement'] = model(Announcement::class)->findAll();
+        $this->data['announcement'] = model(Announcement::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('master/announcement/index',$data);
+        return view('master/announcement/index',$this->data);
     }
 
     public function store() {

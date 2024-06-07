@@ -18,10 +18,10 @@ class SuplierPakanController extends BaseController
 
     public function index()
     {
-        $data['suplier'] = model(SuplierPakan::class)->findAll();
+        $this->data['suplier'] = model(SuplierPakan::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('master/suplier/index',$data);
+        return view('master/suplier/index',$this->data);
     }
 
     public function store() {

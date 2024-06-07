@@ -18,10 +18,10 @@ class PeriodeController extends BaseController
 
     public function index()
     {
-        $data['periode'] = model(Periode::class)->findAll();
+        $this->data['periode'] = model(Periode::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('master/periode/index',$data);
+        return view('master/periode/index',$this->data);
     }
 
     public function store() {

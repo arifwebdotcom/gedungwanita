@@ -41,28 +41,28 @@ class PengajuanController extends BaseController
 
     public function index()
     {
-        $data['tahun'] = model(Pengajuan::class)->get_tahunpengajuan();
-        $data['pengajuan'] = model(Pengajuan::class)->findAll();
-        $data['asosiasi'] = model(Asosiasi::class)->findAll();
+        $this->data['tahun'] = model(Pengajuan::class)->get_tahunpengajuan();
+        $this->data['pengajuan'] = model(Pengajuan::class)->findAll();
+        $this->data['asosiasi'] = model(Asosiasi::class)->findAll();
 
 
         // print_r(json_encode(compact('data')));
-        return view('pengajuan/index',$data);
+        return view('pengajuan/index',$this->data);
     }
 
     public function PengajuanBaru()
     {
-        $data['user'] = model(UserModels::class)
+        $this->data['user'] = model(UserModels::class)
         ->select('users.*,alamat_m.*,suplierpakan_m.nama,suplierpakan_m.id as idsuplierpakan')
         ->join('alamat_m','alamat_m.usersfk = users.id','left')
         ->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')
         ->where('users.id',user()->id)->first();
-        $data['id'] =  user()->id;
-        $data['suplierpakan'] =  $this->suplier;
-        $data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
-        $data['periode'] =  model(Periode::class)->select('*')->findAll(); 
-        $data['suplierpakan'] =  $this->suplier;
-        return view('pengajuan/add', $data);
+        $this->data['id'] =  user()->id;
+        $this->data['suplierpakan'] =  $this->suplier;
+        $this->data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
+        $this->data['periode'] =  model(Periode::class)->select('*')->findAll(); 
+        $this->data['suplierpakan'] =  $this->suplier;
+        return view('pengajuan/add', $this->data);
     }
 
     public function store() {

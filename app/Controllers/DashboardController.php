@@ -17,9 +17,9 @@ class DashboardController extends BaseController
     use ResponseTrait;
 
     public function index(){
-        $data['userData'] = $this->userData;
+        $this->data['userData'] = $this->userData;
         //return view('layouts/app');
-        return view('dashboard/dashboard',$data);
+        return view('dashboard/dashboard',$this->data);
     }
 
     public function payment(){

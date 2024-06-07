@@ -43,37 +43,37 @@ class InvoiceController extends BaseController
     public function index()
     {
         //$data['tahun'] = model(Invoice::class)->get_tahuninvoice();
-        $data['invoice'] = model(Invoice::class)->findAll();
-        $data['asosiasi'] = model(Asosiasi::class)->findAll();
+        $this->data['invoice'] = model(Invoice::class)->findAll();
+        $this->data['asosiasi'] = model(Asosiasi::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('invoice/index',$data);
+        return view('invoice/index',$this->data);
     }
 
     public function detail($id)
     {
-        $data['invoice'] = model(Invoice::class)->get_invoice_by_id($id)[0];
-        return view('invoice/detail',$data);
+        $this->data['invoice'] = model(Invoice::class)->get_invoice_by_id($id)[0];
+        return view('invoice/detail',$this->data);
     }
 
     public function InvoiceBaru()
     {
-        $data['user'] = model(UserModels::class)
+        $this->data['user'] = model(UserModels::class)
         ->select('*')->where("deleted_at",null)->findAll();
-        $data['id'] =  user()->id;
-        $data['asosiasi'] = model(Asosiasi::class)->findAll();
+        $this->data['id'] =  user()->id;
+        $this->data['asosiasi'] = model(Asosiasi::class)->findAll();
         
-        return view('invoice/add', $data);
+        return view('invoice/add', $this->data);
     }
 
     public function InvoiceEdit(int $id)
     {
-        $data['user'] = model(UserModels::class)->select('*')->where("deleted_at",null)->findAll();
-        $data['invoice'] = model(Invoice::class)->where('id',$id)->first();
-        $data['invoiced'] = model(InvoiceDetail::class)->where('invoicefk',$id)->findAll();
-        $data['id'] =  $id;
-        $data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
-        return view('invoice/edit', $data);
+        $this->data['user'] = model(UserModels::class)->select('*')->where("deleted_at",null)->findAll();
+        $this->data['invoice'] = model(Invoice::class)->where('id',$id)->first();
+        $this->data['invoiced'] = model(InvoiceDetail::class)->where('invoicefk',$id)->findAll();
+        $this->data['id'] =  $id;
+        $this->data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
+        return view('invoice/edit', $this->data);
     }
 
     public function store() {

@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 use App\Models\Agama;
 use App\Models\SuplierPakan;
 use App\Models\Asosiasi;
+use App\Models\Invoice;
 
 /**
  * Class BaseController
@@ -33,6 +34,7 @@ abstract class BaseController extends Controller
 
     protected $suplier;
     protected $asosiasi;
+    protected $datainvoice;
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
@@ -60,6 +62,10 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
        
         $this->suplier = model(SuplierPakan::class)
+        ->select('*')
+        ->findAll(); 
+
+        $this->data['datainvoice'] = model(Invoice::class)
         ->select('*')
         ->findAll(); 
 

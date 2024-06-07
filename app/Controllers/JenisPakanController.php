@@ -18,10 +18,10 @@ class JenisPakanController extends BaseController
 
     public function index()
     {
-        $data['jenispakan'] = model(JenisPakan::class)->findAll();
+        $this->data['jenispakan'] = model(JenisPakan::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('master/jenispakan/index',$data);
+        return view('master/jenispakan/index',$this->data);
     }
 
     public function store() {

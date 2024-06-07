@@ -33,10 +33,10 @@ class DocController extends BaseController
 
     public function index()
     {
-        $data['doc'] = model(Doc::class)->findAll();
+        $this->data['doc'] = model(Doc::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('master/doc/index',$data);
+        return view('master/doc/index',$this->data);
     }
 
     public function store() {

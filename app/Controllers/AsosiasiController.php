@@ -18,10 +18,10 @@ class AsosiasiController extends BaseController
 
     public function index()
     {
-        $data['asosiasi'] = model(Asosiasi::class)->findAll();
+        $this->data['asosiasi'] = model(Asosiasi::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('master/asosiasi/index',$data);
+        return view('master/asosiasi/index',$this->data);
     }
 
     public function store() {

@@ -34,10 +34,10 @@ class UserController extends BaseController
 
     public function index()
     {
-        $data['user'] = model(UserModels::class)->findAll();
+        $this->data['user'] = model(UserModels::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('master/user/index',$data);
+        return view('master/user/index',$this->data);
     }
 
     public function updatepassword($id) {    
@@ -393,7 +393,7 @@ class UserController extends BaseController
     {
         $data['suplierpakan'] =  $this->suplier;
         $data['asosiasi'] =  model(Asosiasi::class)->findAll();
-        return view('master/user/add', $data);
+        return view('master/user/add', $this->data);
     }
 
     public function UserEdit(int $id)
@@ -406,7 +406,7 @@ class UserController extends BaseController
         $data['id'] =  $id;
         $data['suplierpakan'] =  $this->suplier;
         $data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
-        return view('master/user/edit', $data);
+        return view('master/user/edit', $this->data);
     }
 
     public function Membercard(int $id)
@@ -415,7 +415,7 @@ class UserController extends BaseController
         ->select('users.*')
         ->where('users.id',$id)->first();
         $data['id'] =  $id;
-        return view('master/user/membercard', $data);
+        return view('master/user/membercard', $this->data);
     }
 
     public function search2()

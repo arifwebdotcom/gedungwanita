@@ -18,10 +18,10 @@ class AgamaController extends BaseController
 
     public function index()
     {
-        $data['agama'] = model(Agama::class)->findAll();
+        $this->data['agama'] = model(Agama::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('master/agama/index',$data);
+        return view('master/agama/index',$this->data);
     }
 
     public function store() {
