@@ -24,7 +24,7 @@ use App\Config\Auth as AuthConfig;
 /** @var RouteCollection $routes */
 
 // Myth:Auth routes file.
-$routes->group('', ['namespace' => 'Myth\Auth\Controllers'], static function ($routes) {
+$routes->group('', [], static function ($routes) {
     // Load the reserved routes from Auth.php
     $config         = config(AuthConfig::class);
     $reservedRoutes = $config->reservedRoutes;

@@ -184,8 +184,8 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var string|null Name of the ActivatorInterface class
      */
-    public $requireActivation = 'App\Authentication\Activators\EmailActivator';
-    //public $requireActivation = null;
+    //public $requireActivation = 'App\Authentication\Activators\EmailActivator';
+    public $requireActivation = null;
 
     /**
      * --------------------------------------------------------------------
@@ -374,4 +374,13 @@ class Auth extends \Myth\Auth\Config\Auth
      * @var int
      */
     public $resetTime = 3600;
+
+    public $validations = [
+        'registration' => [
+            'username'      => 'required|alpha_numeric_space|min_length[3]',
+            'email'         => 'required|valid_email|is_unique[users.email]',
+            'password'      => 'required|min_length[5]|max_length[255]', // Adjusted rule
+            'pass_confirm'  => 'required|matches[password]',
+        ],
+    ];
 }

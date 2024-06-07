@@ -148,7 +148,7 @@ class AuthController extends Controller
         $users = model(UserModels::class);
 
         // Validate basics first since some password rules rely on these fields
-        $rules = config('Validation')->registrationRules ?? [
+        $rules = [
             'username' => 'permit_empty|alpha_numeric_space|min_length[3]|max_length[30]',
             'email'    => 'required|valid_email|is_unique[users.email]',
             'namapeternakan'    => 'required|is_unique[users.namapeternakan]',
@@ -160,8 +160,8 @@ class AuthController extends Controller
 
         // Validate passwords since they can only be validated properly here
         $rules = [
-            'password'     => 'required',
-            'pass_confirm' => 'required|matches[password]',
+            'password'      => 'required|min_length[4]|max_length[255]', // Adjusted rule
+            'pass_confirm'  => 'required|matches[password]',
         ];
 
         if (!$this->validate($rules)) {
@@ -194,38 +194,39 @@ class AuthController extends Controller
         $result = $query->getRow();
         $maxId = $result->id+1;     
 
-        $now = new DateTime();
-        $now->modify('+30 days');
-        $date_in_30_days = $now->format('Y-m-d');
+        $timestamp_in_30_days = strtotime('+30 days', strtotime(date("Y-m-d")));
 
-        $request['noinvoice'] =  "IV".date("Ym")."/"."NU"."/".$maxId++;
-        $request['expired'] = $date_in_30_days;
-        $request['nama'] = "Simpanan Pokok & Iuran Bulan pertama";
-        $request['total'] = 2550000;
-        $request['status'] = 'TAGIHAN';
-        $request['usersfk'] = $insertID;
+        // Format the new timestamp as a date string
+        $date_in_30_days = date('Y-m-d H:i:s', $timestamp_in_30_days);
+
+        $datainvoice['noinvoice'] =  "IV".date("Ym")."/"."NU"."/".$maxId++;
+        $datainvoice['expired'] = $date_in_30_days;
+        $datainvoice['nama'] = "Simpanan Pokok & Iuran Bulan pertama";
+        $datainvoice['total'] = 2550000;
+        $datainvoice['status'] = 'TAGIHAN';
+        $datainvoice['usersfk'] = $insertID;
         $InvoiceDetailModel = new Invoice();
-        $InvoiceDetailModel->insert($request);       
+        $InvoiceDetailModel->insert($datainvoice);       
         $invoicefk = $InvoiceDetailModel->getInsertID();
       
             
-        $request['invoicefk'] = $invoicefk;
-        $request['nama'] = "Simpanan Pokok Anggota";    
-        $request['qty'] = 1;
-        $request['harga'] =  2500000;
-        $request['subtotal'] = 2500000;
-        $request['keterangan'] = "Simpanan Pokok Anggota";
+        $datainvoiced1['invoicefk'] = $invoicefk;
+        $datainvoiced1['nama'] = "Simpanan Pokok Anggota";    
+        $datainvoiced1['qty'] = 1;
+        $datainvoiced1['harga'] =  2500000;
+        $datainvoiced1['subtotal'] = 2500000;
+        $datainvoiced1['keterangan'] = "Simpanan Pokok Anggota";
 
-        model(InvoiceDetail::class)->insert($request);
+        model(InvoiceDetail::class)->insert($datainvoiced1);
 
-        $request['invoicefk'] = $invoicefk;
-        $request['nama'] = "Iuran Bulan Pertama";    
-        $request['qty'] = 1;
-        $request['harga'] =  50000;
-        $request['subtotal'] = 50000;
-        $request['keterangan'] = "Iuran Bulan Pertama";
+        $datainvoiced2['invoicefk'] = $invoicefk;
+        $datainvoiced2['nama'] = "Iuran Bulan Pertama";    
+        $datainvoiced2['qty'] = 1;
+        $datainvoiced2['harga'] =  50000;
+        $datainvoiced2['subtotal'] = 50000;
+        $datainvoiced2['keterangan'] = "Iuran Bulan Pertama";
 
-        model(InvoiceDetail::class)->insert($request);
+        model(InvoiceDetail::class)->insert($datainvoiced2);
 
         if ($this->config->requireActivation !== null) {
             $activator = service('activator');
