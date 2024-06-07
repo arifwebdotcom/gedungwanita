@@ -45,7 +45,7 @@ class Invoice extends Model
         $builder = $this
             ->select('invoice_t.id as idinvoice,invoice_t.*,users.username as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
             ->join('users','users.id=invoice_t.usersfk')
-            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
+            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk','left')
             //->join('alamat_m','alamat_m.usersfk = users.id','left')
             //->where('invoice_t.user_id', user()->klienfk)
             ->when($noinvoice, static function ($query, $noinvoice) {
@@ -90,7 +90,7 @@ class Invoice extends Model
         $builder = $this
             ->select('invoice_t.id as idinvoice,invoice_t.*,users.username as namapeternak,users.nohp,users.notelp,users.populasi,asosiasi_m.asosiasi,alamat_m.alamat,users.email')
             ->join('users','users.id=invoice_t.usersfk')
-            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
+            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk','left')
             ->join('alamat_m','alamat_m.usersfk = users.id','left')
             //->where('invoice_t.user_id', user()->klienfk)
             ->when($id, static function ($query, $id) {
@@ -126,7 +126,7 @@ class Invoice extends Model
         $builder = $this
             ->select('invoice_t.id as idinvoice,invoice_t.*,users.username as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
             ->join('users','users.id=invoice_t.usersfk')
-            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
+            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk','left')
             ->where('invoice_t.usersfk', user()->id)
             ->when($noinvoice, static function ($query, $noinvoice) {
                 $query->like('invoice_t.noinvoice', $noinvoice);
