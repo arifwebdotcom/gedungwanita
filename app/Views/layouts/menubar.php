@@ -17,6 +17,7 @@
                             </span>
                         </span>
                         <span class="menu-title">Pengajuan</span>
+                        <span class="notif-badge bg-warning text-white animation-blink" style="border-radius: 50%; padding:0.25em 0.5em;"><b><?= count($datapengajuan); ?></b></span>
                     </a>
                 </div>
                 <div class="menu-item">
@@ -32,6 +33,7 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Invoice</span>
+                        <span class="notif-badge bg-danger text-white animation-blink" style="border-radius: 50%; padding:0.25em 0.5em;"><b><?= count($datainvoice); ?></b></span>
                     </a>
                 </div>
                 <?php if(user()->isadmin == 1){ ?>

@@ -12,6 +12,7 @@ use App\Models\Agama;
 use App\Models\SuplierPakan;
 use App\Models\Asosiasi;
 use App\Models\Invoice;
+use App\Models\Pengajuan;
 
 /**
  * Class BaseController
@@ -66,7 +67,11 @@ abstract class BaseController extends Controller
         ->findAll(); 
 
         $this->data['datainvoice'] = model(Invoice::class)
-        ->select('*')
+        ->select('*')->where('status','TAGIHAN')->where('usersfk',user()->id)
+        ->findAll(); 
+
+        $this->data['datapengajuan'] = model(Pengajuan::class)
+        ->select('pengajuan_t.*,users.namapeternakan')->where('pengajuan_t.disetujui','0')->join('users','users.id=pengajuan_t.user_id')->where('pengajuan_t.user_id',user()->id)
         ->findAll(); 
 
         $this->asosiasi = model(Asosiasi::class)

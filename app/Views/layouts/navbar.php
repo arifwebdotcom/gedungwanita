@@ -74,7 +74,10 @@
                                     <path opacity="0.3" d="M5.29289 8.70711C5.68342 8.31658 6.31658 8.31658 6.70711 8.70711L9.29289 11.2929C9.68342 11.6834 9.68342 12.3166 9.29289 12.7071L6.70711 15.2929C6.31658 15.6834 5.68342 15.6834 5.29289 15.2929L2.70711 12.7071C2.31658 12.3166 2.31658 11.6834 2.70711 11.2929L5.29289 8.70711Z" fill="black" />
                                     <path opacity="0.3" d="M17.2929 8.70711C17.6834 8.31658 18.3166 8.31658 18.7071 8.70711L21.2929 11.2929C21.6834 11.6834 21.6834 12.3166 21.2929 12.7071L18.7071 15.2929C18.3166 15.6834 17.6834 15.6834 17.2929 15.2929L14.7071 12.7071C14.3166 12.3166 14.3166 11.6834 14.7071 11.2929L17.2929 8.70711Z" fill="black" />
                                 </svg>
-                                <span class="bullet bullet-dot bg-warning h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink" style="height: 10px!important;width: 10px!important;margin-top: 20px;"></span>
+                                <?php if(count($datainvoice) > 0 ){ ?>
+                                    <span class="bullet bullet-dot bg-warning h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink" style="height: 10px!important;width: 10px!important;margin-top: 20px;"></span>
+                                <?php } ?>
+                                
                             </span>
                             <!--end::Svg Icon-->
                         </div>
@@ -84,15 +87,15 @@
                             <div class="d-flex flex-column bgi-no-repeat rounded-top" style="background-image:url('<?= base_url() ?>assets/media/misc/pattern-1.jpg')">
                                 <!--begin::Title-->
                                 <h3 class="text-white fw-bold px-9 mt-10 mb-6">Notifications
-                                <span class="fs-8 opacity-75 ps-3">24 reports</span></h3>
+                                <span class="fs-8 opacity-75 ps-3"><?= count($datainvoice); ?> Invoice Belum Dibayar, <?= count($datapengajuan); ?> Pengajuan Belum Disetujui</span></h3>
                                 <!--end::Title-->
                                 <!--begin::Tabs-->
                                 <ul class="nav nav-line-tabs nav-line-tabs-2x nav-stretch fw-bold px-9">
                                     <li class="nav-item">
-                                        <a class="nav-link text-white opacity-75 opacity-state-100 pb-4" data-bs-toggle="tab" href="#kt_topbar_notifications_1">Invoice</a>
+                                        <a class="nav-link text-white opacity-75 opacity-state-100 pb-4 active" data-bs-toggle="tab" href="#kt_topbar_notifications_1">Invoice</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-white opacity-75 opacity-state-100 pb-4 active" data-bs-toggle="tab" href="#kt_topbar_notifications_2">Pengajuan</a>
+                                        <a class="nav-link text-white opacity-75 opacity-state-100 pb-4" data-bs-toggle="tab" href="#kt_topbar_notifications_2">Pengajuan</a>
                                     </li>
                                 </ul>
                                 <!--end::Tabs-->
@@ -101,9 +104,10 @@
                             <!--begin::Tab content-->
                             <div class="tab-content">
                                 <!--begin::Tab panel-->
-                                <div class="tab-pane fade" id="kt_topbar_notifications_1" role="tabpanel">
+                                <div class="tab-pane fade show active" id="kt_topbar_notifications_1" role="tabpanel">
                                     <!--begin::Items-->
                                     <div class="scroll-y mh-325px my-5 px-8">
+                                            <?php foreach ($datainvoice as $rowe){ ?>
                                         <!--begin::Item-->
                                         <div class="d-flex flex-stack py-4">
                                             <!--begin::Section-->
@@ -111,34 +115,35 @@
                                                 <!--begin::Symbol-->
                                                 <div class="symbol symbol-35px me-4">
                                                     <span class="symbol-label bg-light-primary">
-                                                        <!--begin::Svg Icon | path: icons/duotune/technology/teh008.svg-->
-                                                        <span class="svg-icon svg-icon-2 svg-icon-primary">
+                                                        <span class="svg-icon svg-icon-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                <path opacity="0.3" d="M11 6.5C11 9 9 11 6.5 11C4 11 2 9 2 6.5C2 4 4 2 6.5 2C9 2 11 4 11 6.5ZM17.5 2C15 2 13 4 13 6.5C13 9 15 11 17.5 11C20 11 22 9 22 6.5C22 4 20 2 17.5 2ZM6.5 13C4 13 2 15 2 17.5C2 20 4 22 6.5 22C9 22 11 20 11 17.5C11 15 9 13 6.5 13ZM17.5 13C15 13 13 15 13 17.5C13 20 15 22 17.5 22C20 22 22 20 22 17.5C22 15 20 13 17.5 13Z" fill="black" />
-                                                                <path d="M17.5 16C17.5 16 17.4 16 17.5 16L16.7 15.3C16.1 14.7 15.7 13.9 15.6 13.1C15.5 12.4 15.5 11.6 15.6 10.8C15.7 9.99999 16.1 9.19998 16.7 8.59998L17.4 7.90002H17.5C18.3 7.90002 19 7.20002 19 6.40002C19 5.60002 18.3 4.90002 17.5 4.90002C16.7 4.90002 16 5.60002 16 6.40002V6.5L15.3 7.20001C14.7 7.80001 13.9 8.19999 13.1 8.29999C12.4 8.39999 11.6 8.39999 10.8 8.29999C9.99999 8.19999 9.20001 7.80001 8.60001 7.20001L7.89999 6.5V6.40002C7.89999 5.60002 7.19999 4.90002 6.39999 4.90002C5.59999 4.90002 4.89999 5.60002 4.89999 6.40002C4.89999 7.20002 5.59999 7.90002 6.39999 7.90002H6.5L7.20001 8.59998C7.80001 9.19998 8.19999 9.99999 8.29999 10.8C8.39999 11.5 8.39999 12.3 8.29999 13.1C8.19999 13.9 7.80001 14.7 7.20001 15.3L6.5 16H6.39999C5.59999 16 4.89999 16.7 4.89999 17.5C4.89999 18.3 5.59999 19 6.39999 19C7.19999 19 7.89999 18.3 7.89999 17.5V17.4L8.60001 16.7C9.20001 16.1 9.99999 15.7 10.8 15.6C11.5 15.5 12.3 15.5 13.1 15.6C13.9 15.7 14.7 16.1 15.3 16.7L16 17.4V17.5C16 18.3 16.7 19 17.5 19C18.3 19 19 18.3 19 17.5C19 16.7 18.3 16 17.5 16Z" fill="black" />
+                                                                <path d="M22 7H2V11H22V7Z" fill="black"></path>
+                                                                <path opacity="0.3" d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19ZM14 14C14 13.4 13.6 13 13 13H5C4.4 13 4 13.4 4 14C4 14.6 4.4 15 5 15H13C13.6 15 14 14.6 14 14ZM16 15.5C16 16.3 16.7 17 17.5 17H18.5C19.3 17 20 16.3 20 15.5C20 14.7 19.3 14 18.5 14H17.5C16.7 14 16 14.7 16 15.5Z" fill="black"></path>
                                                             </svg>
                                                         </span>
-                                                        <!--end::Svg Icon-->
                                                     </span>
                                                 </div>
                                                 <!--end::Symbol-->
                                                 <!--begin::Title-->
                                                 <div class="mb-0 me-2">
-                                                    <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Project Alice</a>
-                                                    <div class="text-gray-400 fs-7">Phase 1 development</div>
+                                                    <a href="<?= route_to('invoice.detail',$rowe->id) ?>" class="fs-6 text-gray-800 text-hover-primary fw-bolder"><?= $rowe->noinvoice ?><br></a>
+                                                    <div class="text-gray-400 fs-7"><?= $rowe->nama ?></div>
                                                 </div>
+                                                
                                                 <!--end::Title-->
                                             </div>
                                             <!--end::Section-->
                                             <!--begin::Label-->
-                                            <span class="badge badge-light fs-8">1 hr</span>
+                                            <span class="badge badge-light fs-8"><?= number_to_currency($rowe->total, 'IDR'); ?></span>
+                                            
                                             <!--end::Label-->
                                         </div>
+                                        <?php } ?>
                                         <!--end::Item-->
                                     </div>															
                                     <!--begin::View more-->
                                     <div class="py-3 text-center border-top">
-                                        <a href="../../demo2/dist/pages/profile/activity.html" class="btn btn-color-gray-600 btn-active-color-primary">View All
+                                        <a href="<?= route_to('invoice.index') ?>" class="btn btn-color-gray-600 btn-active-color-primary">View All
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                                         <span class="svg-icon svg-icon-5">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -152,31 +157,56 @@
                                 </div>
                                 <!--end::Tab panel-->
                                 <!--begin::Tab panel-->
-                                <div class="tab-pane fade show active" id="kt_topbar_notifications_2" role="tabpanel">
+                                <div class="tab-pane fade" id="kt_topbar_notifications_2" role="tabpanel">
                                     <!--begin::Wrapper-->
-                                    <div class="d-flex flex-column px-9">
-                                        <!--begin::Section-->
-                                        <div class="pt-10 pb-0">
-                                            <!--begin::Title-->
-                                            <h3 class="text-dark text-center fw-bolder">Get Pro Access</h3>
-                                            <!--end::Title-->
-                                            <!--begin::Text-->
-                                            <div class="text-center text-gray-600 fw-bold pt-1">Outlines keep you honest. They stoping you from amazing poorly about drive</div>
-                                            <!--end::Text-->
-                                            <!--begin::Action-->
-                                            <div class="text-center mt-5 mb-9">
-                                                <a href="#" class="btn btn-sm btn-primary px-6" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">Upgrade</a>
+                                    <div class="scroll-y mh-325px my-5 px-8">
+                                        <!--begin::Item-->
+                                         <?php foreach ($datapengajuan as $rowpeng){ ?>
+                                        <div class="d-flex flex-stack py-4">
+                                            <!--begin::Section-->
+                                            <div class="d-flex align-items-center">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-35px me-4">
+                                                    <span class="symbol-label bg-light-primary">
+                                                        <span class="svg-icon svg-icon-2">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                <path opacity="0.3" d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z" fill="black"></path>
+                                                                <path d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z" fill="black"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Title-->
+                                                <div class="mb-0 me-2">
+                                                    <a href="<?= route_to('pengajuan.detail',$rowpeng->id) ?>" class="fs-6 text-gray-800 text-hover-primary fw-bolder"><?= $rowpeng->nopengajuan ?><br></a>
+                                                    <div class="text-gray-400 fs-7"><?= $rowpeng->namapeternakan ?></div>
+                                                </div>
+                                                <!--end::Title-->
                                             </div>
-                                            <!--end::Action-->
+                                            <!--end::Section-->
+                                            <!--begin::Label-->
+                                            <span class="badge badge-light fs-8"><?= $rowpeng->kebutuhan; ?></span>
+
+                                            
+                                            <!--end::Label-->
                                         </div>
-                                        <!--end::Section-->
-                                        <!--begin::Illustration-->
-                                        <div class="text-center px-4">
-                                            <img class="mw-100 mh-200px" alt="image" src="<?= base_url() ?>assets/media/illustrations/sigma-1/1.png" />
-                                        </div>
-                                        <!--end::Illustration-->
+                                        <?php } ?>
+                                        <!--end::Item-->
+                                    </div>															
+                                    <!--begin::View more-->
+                                    <div class="py-3 text-center border-top">
+                                        <a href="<?= route_to('pengajuan.index') ?>" class="btn btn-color-gray-600 btn-active-color-primary">View All
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
+                                        <span class="svg-icon svg-icon-5">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="black" />
+                                                <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="black" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon--></a>
                                     </div>
-                                    <!--end::Wrapper-->
+                                    <!--end::View more-->
                                 </div>
                                 <!--end::Tab panel-->
                             </div>
