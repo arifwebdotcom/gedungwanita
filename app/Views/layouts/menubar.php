@@ -16,11 +16,12 @@
                                 </svg>
                             </span>
                         </span>
-                        <span class="menu-title">Pengajuan</span>
+                        <span class="menu-title">Pengajuan</span><?php if(count($datapengajuan) > 0){ ?>
                         <span class="notif-badge bg-warning text-white animation-blink" style="border-radius: 50%; padding:0.25em 0.5em;"><b><?= count($datapengajuan); ?></b></span>
+                        <?php } ?>
                     </a>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item"> 
                     <a class="menu-link" href="<?= route_to('invoice.index') ?>">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/finance/fin002.svg-->
@@ -32,8 +33,9 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Invoice</span>
+                        <span class="menu-title">Invoice</span><?php if(count($datainvoice) > 0){ ?>
                         <span class="notif-badge bg-danger text-white animation-blink" style="border-radius: 50%; padding:0.25em 0.5em;"><b><?= count($datainvoice); ?></b></span>
+                        <?php } ?>
                     </a>
                 </div>
                 <?php if(user()->isadmin == 1){ ?>
