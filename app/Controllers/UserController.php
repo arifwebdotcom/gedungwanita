@@ -391,30 +391,30 @@ class UserController extends BaseController
 
     public function UserBaru()
     {
-        $data['suplierpakan'] =  $this->suplier;
-        $data['asosiasi'] =  model(Asosiasi::class)->findAll();
+        $this->data['suplierpakan'] =  $this->suplier;
+        $this->data['asosiasi'] =  model(Asosiasi::class)->findAll();
         return view('master/user/add', $this->data);
     }
 
     public function UserEdit(int $id)
     {
-        $data['user'] = model(UserModels::class)
+        $this->data['user'] = model(UserModels::class)
         ->select('users.*,alamat_m.*,suplierpakan_m.nama,suplierpakan_m.id as idsuplierpakan')
         ->join('alamat_m','alamat_m.usersfk = users.id','left')
         ->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')
         ->where('users.id',$id)->first();
-        $data['id'] =  $id;
-        $data['suplierpakan'] =  $this->suplier;
-        $data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
+        $this->data['id'] =  $id;
+        $this->data['suplierpakan'] =  $this->suplier;
+        $this->data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
         return view('master/user/edit', $this->data);
     }
 
     public function Membercard(int $id)
     {
-        $data['user'] = model(UserModels::class)
+        $this->data['user'] = model(UserModels::class)
         ->select('users.*')
         ->where('users.id',$id)->first();
-        $data['id'] =  $id;
+        $this->data['id'] =  $id;
         return view('master/user/membercard', $this->data);
     }
 
