@@ -46,6 +46,7 @@ $breadcrumb_items = [
                                 <input class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-13-check">
                             </div>
                         </th>
+                        <th class="ps-4 ">Nama Peternak</th>
                         <th class="ps-4 ">Nama Peternakan</th>
                         <th class="ps-4 ">No HP</th>
                         <th class="ps-4 ">Alamat</th>
@@ -152,6 +153,10 @@ $breadcrumb_items = [
                                 <input class="form-check-input widget-13-check" type="checkbox" value="${row.id}">
                             </div>`;
                 }
+            },
+            {
+                name: "Nama Peternak",
+                data: "username"
             },
             {
                 name: "Nama Peternakan",
