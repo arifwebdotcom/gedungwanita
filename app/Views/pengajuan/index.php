@@ -369,7 +369,7 @@ $breadcrumb_items = [
                     sortable: false,
                     render: function(data, type, row, meta) {
                         return `
-                                <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-success btn-sm edit" id="edit" >SETUJUI</button>
+                                <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-success btn-sm edit" id="edit" style="display:<?= (user()->isadmin == 1?'block':'none'); ?>" >SETUJUI</button>
                                 <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm delete" id="delete">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                     <span class="svg-icon svg-icon-3">
