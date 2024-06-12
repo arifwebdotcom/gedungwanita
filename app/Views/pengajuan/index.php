@@ -20,7 +20,7 @@ $breadcrumb_items = [
             <span class="text-muted mt-1 fw-bold fs-7">Data Pengajuan</span>
         </h3>
         <div class="card-toolbar">
-            <a href="<?= route_to('pengajuan.pengajuan_baru');?>" id='btn_create' class="btn btn-sm btn-light-primary" >
+            <a href="<?= route_to('pengajuan.pengajuan_baru');?>" class="btn btn-sm btn-light-primary" >
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
             <span class="svg-icon svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -505,10 +505,10 @@ $breadcrumb_items = [
     //     // });
     // }
 
-    $('#btn_create').on('click', function() {
-        $("#pengajuan_modal #modal_title").text("Tambah Pengajuan");
-        $("#pengajuan_modal").modal("show");
-    });
+    // $('#btn_create').on('click', function() {
+    //     $("#pengajuan_modal #modal_title").text("Tambah Pengajuan");
+    //     $("#pengajuan_modal").modal("show");
+    // });
 
     $('#pengajuan_table tbody').on('click', '#edit', function() {
         var data = $('#pengajuan_table').DataTable().row($(this).parents('tr')).data();
