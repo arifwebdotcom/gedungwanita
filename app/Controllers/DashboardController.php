@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Agama;
+use App\Models\Setting;
 use App\Models\Asosiasi;
 use App\Models\Invoice;
 use App\Models\UserModels;

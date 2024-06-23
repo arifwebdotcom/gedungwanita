@@ -10,7 +10,7 @@
         <div class="card card-xl-stretch mb-xl-8">
             <!--begin::Header-->
             <div class="card-header border-0">
-                <h3 class="card-title fw-bolder text-dark">Notifications</h3>
+                <h3 class="card-title fw-bolder text-dark">Pengumuman</h3>
                 <div class="card-toolbar">                    
                 </div>
             </div>
@@ -18,6 +18,7 @@
             <!--begin::Body-->
             <div class="card-body pt-0">
                 <!--begin::Item-->
+                <img alt="Logo" src="<?= base_url() ?>assets/media/leafletharga/<?= $leafletharga->value ?>" style="width:100%;margin-bottom:20px"/>
                 <?php foreach($notification as $row_notif){ ?>
                 <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-7">
                     <!--begin::Icon-->
