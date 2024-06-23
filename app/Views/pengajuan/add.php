@@ -128,7 +128,22 @@ $breadcrumb_items = [
             <input type="number" class="form-control form-control-lg form-control-solid" name="kebutuhan" placeholder="" />
             <!--end::Input-->
         </div>
-        <!--end::Input group-->          
+        <!--end::Input group-->  
+        <!--begin::Input group-->
+        <div class="fv-row mb-10 col-lg-6">
+            <!--begin::Label-->
+            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                <span class="required">Pembayaran</span>
+                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Pembayaran"></i>
+            </label>
+            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Periode" name="pembayaran" readonly="true">                
+                    <option value="1">1</option>        
+                    <option value="2">2</option> 
+                    <option value="3">3</option>   
+                    <option value="4">4</option>                         
+            </select>
+        </div>
+        <!--end::Input group-->  
         <!--end::Input group--> 
         <div class="fv-row mb-10 col-lg-12">
             <label class='form-label'>Keterangan <span class='text-danger'>*</span></label>
