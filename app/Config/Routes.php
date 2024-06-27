@@ -53,6 +53,7 @@ $routes->get('/', 'Home::index', ['filter' => 'login','as' => 'home']);
 
 $routes->group('profile', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [ProfileController::class, 'index'], ['as' => 'profile.index']);
+    $routes->post('editharga', [ProfileController::class, 'update'], ['as' => 'user.update']);
 });
 
 $routes->group('agama', ['filter' => 'login'],function ($routes) {

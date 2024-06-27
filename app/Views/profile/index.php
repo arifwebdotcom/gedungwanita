@@ -128,7 +128,14 @@
                 <li class="nav-item">
                     <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#kt_tab_pane_2" role="tab" >Ubah Password</a>
                 </li>
-                <!--end::Nav item-->                
+                <!--end::Nav item--> 
+                <!--begin::Nav item-->
+                <?php if(user()->isadmin == 1){ ?>
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#kt_tab_pane_3" role="tab" >Harga Telur</a>
+                </li>
+                <!--end::Nav item--> 
+                <?php } ?>               
             </ul>
         </div>
         <!--begin::Navs-->
@@ -303,6 +310,72 @@
             </div>
             <!--end::Card body-->
         </div>
+        <?php if(user()->isadmin == 1){ ?>
+        <div class="card mb-5 mb-xl-10 tab-pane fade " id="kt_tab_pane_3" role="tabpanel" aria-labelledby="kt_tab_pane_3">
+            <!--begin::Card header-->
+            <div class="card-header cursor-pointer">
+                <!--begin::Card title-->
+                <div class="card-title m-0">
+                    <h3 class="fw-bolder m-0">Harga Telur</h3>
+                </div>               
+            </div>
+            <!--begin::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body p-9">
+            <form action="<?= base_url() ?>profile/editharga" method="post" enctype="multipart/form-data" id="form_import">
+                <!--begin::Input group-->
+                <div class="col-lg-7">
+                <!--begin::Image input-->
+                    <?php if($leafletharga->value){
+                        $leaflet = base_url()."uploads/leafletharga/".$leafletharga->value;
+                    }else{
+                        $leaflet = base_url()."assets/media/avatars/blank.png";
+                    } ?>
+                    <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('<?= $leaflet ?>')">
+                        <!--begin::Preview existing avatar-->
+                        <div class="image-input-wrapper w-475px h-500px" style="background-image: url('<?= $leaflet ?>')"></div>
+                        <!--end::Preview existing avatar-->
+                        <!--begin::Label-->
+                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                            <i class="bi bi-pencil-fill fs-7"></i>
+                            <!--begin::Inputs-->
+                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                            <input type="hidden" name="avatar_remove" value="<?= $leafletharga->value; ?>"/>
+                            <!--end::Inputs-->
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Cancel-->
+                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                            <i class="bi bi-x fs-2"></i>
+                        </span>
+                        <!--end::Cancel-->
+                        <!--begin::Remove-->
+                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                            <i class="bi bi-x fs-2"></i>
+                        </span>
+                        <!--end::Remove-->
+                    </div>
+                    <!--end::Image input-->
+                    <!--begin::Hint-->
+                    <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                    <!--end::Hint-->
+                </div>
+                <!--begin::Actions-->
+                <div class="text-left">
+                    <!--begin::Submit button-->
+                    <button type="submit" class="btn btn-primary align-self-center">
+                        <span class="indicator-label">Continue</span>
+                        <span class="indicator-progress">Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                    <!--end::Submit button-->
+                </div>
+                <!--end::Actions-->
+                </form>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <?php } ?>
     </div>
 <!--end::Navbar-->
 <?= $this->endSection(); ?>

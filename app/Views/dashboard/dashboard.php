@@ -18,7 +18,7 @@
             <!--begin::Body-->
             <div class="card-body pt-0">
                 <!--begin::Item-->
-                <img alt="Logo" src="<?= base_url() ?>assets/media/leafletharga/<?= $leafletharga->value ?>" style="width:100%;margin-bottom:20px"/>
+                <img alt="Logo" src="<?= base_url() ?>uploads/leafletharga/<?= $leafletharga->value ?>" style="width:100%;margin-bottom:20px"/>
                 <?php foreach($notification as $row_notif){ ?>
                 <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-7">
                     <!--begin::Icon-->
