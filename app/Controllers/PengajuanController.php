@@ -79,6 +79,7 @@ class PengajuanController extends BaseController
         $request['nopengajuan'] =  "P".date("Ym")."/".$this->numberToRoman($asosiasi)."/".$maxId+1;
         $request['populasi'] = $populasi;
         $request['kebutuhan'] = $kebutuhankilo;
+        $request['status'] = "PENDING";
         $request['statuskeanggotaan'] = "Anggota Aktif";
         $request['keterangan'] = $this->request->getPost('keterangan');
         $request['user_id'] = $userid;
@@ -137,6 +138,7 @@ class PengajuanController extends BaseController
         $disetujui =  $this->request->getPost('disetujui');
 
         $request['disetujui'] = $disetujui;
+        $request['status'] = "DISETUJUI";
         $request['keterangan'] = $this->request->getPost('keterangan');
         $request['id'] = $this->request->getPost('id');
 
@@ -168,6 +170,27 @@ class PengajuanController extends BaseController
         $invoicedetail['keterangan'] = "Pengajuan Pembelian Jagung sejumlah ".$disetujui." Kg";
         
         model(InvoiceDetail::class)->insert($invoicedetail);
+
+        return $this->respondUpdated([
+            'status' => true,
+            'messages' => 'Data pengajuan berhasil diubah.',
+        ]);
+    }
+
+    public function tolak($id) {
+
+        $userid = $this->request->getPost('user_id');
+        $populasi = $this->request->getPost('populasi');
+        $asosiasi = $this->request->getPost('asosiasifk');
+        $periodefk =  $this->request->getPost('periodefk');
+        $disetujui =  $this->request->getPost('disetujui');
+
+        $request['disetujui'] = $disetujui;
+        $request['status'] = "DITOLAK";
+        $request['keterangan'] = $this->request->getPost('keterangan');
+        $request['id'] = $this->request->getPost('id');
+
+        model(Pengajuan::class)->save($request);
 
         return $this->respondUpdated([
             'status' => true,

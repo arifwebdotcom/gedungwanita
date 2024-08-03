@@ -13,7 +13,7 @@ class Pengajuan extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'user_id', 'populasi','kebutuhan','disetujui','keterangan','periodefk','tahun','statuskeanggotaan','nopengajuan'];
+    protected $allowedFields    = ['id', 'user_id', 'populasi','kebutuhan','disetujui','keterangan','periodefk','tahun','statuskeanggotaan','nopengajuan','status'];
 
     // Dates
     protected $useTimestamps = true;

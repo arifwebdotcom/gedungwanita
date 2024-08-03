@@ -105,6 +105,7 @@ $breadcrumb_items = [
                         <th class="ps-4 ">Harga Perkilo</th>
                         <th class="ps-4 ">Harga Total</th>
                         <th class="ps-4 ">Keterangan</th>
+                        <th class="ps-4 ">Status</th>
                         <th class="min-w-200px rounded-end">Action</th>
                     </tr>
                 </thead>
@@ -209,6 +210,79 @@ $breadcrumb_items = [
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                             <span class="required">Keterangan</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Keterangan"></i>
+                        </label>
+                        <!--end::Label-->
+                        <textarea rows='5' class='form-control form-control-lg form-control-solid' placeholder='Keterangan' name='keterangan'></textarea>                        
+                    </div>                    
+                    <!--end::Input group-->
+                    <!--begin::Actions-->
+                    <div class="text-center pt-15">
+                        <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">Discard</button>
+                        <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+
+<div class="modal fade" id="penolakan_modal" tabindex="-1" aria-hidden="true" style="z-index:10000;">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header">
+                <!--begin::Modal title-->
+                <h2 id="modal_title">Penolakan Pengajuan</h2>
+                <!--end::Modal title-->
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--end::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                <!--begin::Form-->
+                <form id="penolakan_form" class="form" >
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-7 fv-row">
+                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="user_id" id="user_id">
+                        <input type="hidden" name="asosiasifk" id="asosiasifk">
+                        <input type="hidden" name="periodefk" id="periodefk">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                            <span class="required">No Pengajuan</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="No Pengajuan"></i>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" class="form-control form-control-solid" placeholder="" id="nopengajuan" name="nopengajuan" readonly/>
+                    </div>                      
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-7 fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                            <span class="required">Alasan Penolakan</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Keterangan"></i>
                         </label>
                         <!--end::Label-->
@@ -363,12 +437,27 @@ $breadcrumb_items = [
                 {
                     name: "Keterangan",
                     data: "keterangan"
+                },   
+                {
+                    name: "Status",
+                    data: null,
+                    render: function(data, type, row, meta) {
+                        if (row.status == 'DISETUJUI') {
+                            return `<span class='badge badge-light-success'>${row.status}</span>`;
+                        } else if(row.status == 'DITOLAK'){
+                            return `<span class='badge badge-light-danger'>${row.status}</span>`;
+                        } else {
+                            return `<span class='badge badge-light-info'>${row.status}</span>`;
+                        }
+                    }
                 },            
                 {
                     width: "10%",
                     sortable: false,
                     render: function(data, type, row, meta) {
+                        if (row.status == 'PENDING') {
                         return `
+                                <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-warning btn-sm tolak" id="tolak" style="display:<?= (user()->isadmin == 1?'block':'none'); ?>" >TOLAK</button>
                                 <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-success btn-sm edit" id="edit" style="display:<?= (user()->isadmin == 1?'block':'none'); ?>" >SETUJUI</button>
                                 <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm delete" id="delete">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
@@ -382,6 +471,9 @@ $breadcrumb_items = [
                                     <!--end::Svg Icon-->
                                 </button>
                                 `;
+                        }else{
+                            return '';
+                        }
                     }
                 },
                 
@@ -525,6 +617,21 @@ $breadcrumb_items = [
         $("#pengajuan_modal").modal("show");
     });
 
+    $('#pengajuan_table tbody').on('click', '#tolak', function() {
+        var data = $('#pengajuan_table').DataTable().row($(this).parents('tr')).data();
+        $("#penolakan_modal #nopengajuan").val(data.nopengajuan);
+        $("#penolakan_modal #populasi").val(data.populasi);
+        $("#penolakan_modal #kebutuhan").val(data.kebutuhan);
+        $("#penolakan_modal #hargasekilo").val(data.hargasekilo);
+        $("#penolakan_modal #user_id").val(data.user_id);
+        $("#penolakan_modal #asosiasifk").val(data.asosiasifk);
+        $("#penolakan_modal #periodefk").val(data.periodefk);
+        $("#penolakan_modal #id").val(data.idpengajuan);
+
+        $("#penolakan_modal #modal_title").text("Penolakan Pengajuan");
+        $("#penolakan_modal").modal("show");
+    });
+
     $('#pengajuan_table tbody').on('click', '#delete', function() {
         var data = $('#pengajuan_table').DataTable().row($(this).parents('tr')).data();
         Swal.fire({
@@ -617,6 +724,48 @@ $breadcrumb_items = [
                 Swal.close()
                 if (response.status) {
                     $("#pengajuan_modal").modal("hide");
+                    init();
+                    toastr.success(response.messages);
+                } else {
+                    toastr.error("Gagal!");
+                }
+            },
+            error: function(err) {
+                Swal.close()
+                toastr.error(err);
+            }
+        });    
+    });
+
+    $('#penolakan_form').on('submit', function(e) {
+        e.preventDefault()
+        var form_data = $(this).serializeArray();
+        let id = $('#penolakan_form #id').val();
+        let route = (id != '') ?
+            `<?= base_url() ?>pengajuan/${id}/tolak` :
+            "<?= route_to('pengajuan.store') ?>";
+        
+        $.ajax({
+            url: route,
+            type: 'post',
+            dataType: 'json',
+            data: form_data,
+            beforeSend: function() {
+                Swal.fire({ 
+                    allowOutsideClick: false,
+                    title: 'Harap Menunggu',
+                    text: 'Permintaan sedang di proses.',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                })
+            },
+            success: function(response) {
+                Swal.close()
+                if (response.status) {
+                    $("#penolakan_modal").modal("hide");
                     init();
                     toastr.success(response.messages);
                 } else {
