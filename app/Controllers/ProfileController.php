@@ -18,7 +18,7 @@ class ProfileController extends BaseController
         $this->data['suplierpakan'] = model(SuplierPakan::class)->findAll();
         $this->data['doc'] = model(Doc::class)->findAll();
         //model(Ruangan::class)->join('kunjunganpasien_t', 'kunjunganpasien_t.ruanganfk = ruangan_m.id')->select(['ruangan_m.*'])->where('kunjunganpasien_t.id', $id)->findAll();
-        $this->data['profile'] = model(UserModels::class)->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')->join('asosiasi_m','users.asosiasifk = asosiasi_m.id','left')->join('alamat_m','alamat_m.usersfk = users.id','left')->where('users.id', user_id())->first();
+        $this->data['profile'] = model(UserModels::class)->select('users.*,suplierpakan_m.nama,asosiasi_m.asosiasi,alamat_m.*')->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')->join('asosiasi_m','users.asosiasifk = asosiasi_m.id','left')->join('alamat_m','alamat_m.usersfk = users.id','left')->where('users.id', user_id())->first();
         //dd($data['profile']);
         $this->data['leafletharga'] =  model(Setting::class)->where('param','leafletharga')->first();
         return view('profile/index',$this->data);
