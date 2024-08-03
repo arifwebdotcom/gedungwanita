@@ -98,15 +98,19 @@ class UserController extends BaseController
 
         $JP = json_decode($this->request->getPost('jenispakan'),true);
         $jenispakan = "";
-        foreach($JP as $row){
-            $jenispakan .= $row['value'].",";
+        if ($JP !== null) {
+            foreach($JP as $row){
+                $jenispakan .= $row['value'].",";
+            }
         }
         $Pul = json_decode($this->request->getPost('pullet'),true);
         $pullet = "";
-        foreach($Pul as $row){
-            $pullet .= $row['value'].",";
+        if ($Pul !== null) {
+            foreach($Pul as $row){
+                $pullet .= $row['value'].",";
+            }
         }
-
+        
         $query = model(UserModels::class)->selectCount('id')->get()->getRowArray();    
         $nourutnasional = reset($query);
 
@@ -256,18 +260,21 @@ class UserController extends BaseController
             $this->alamat->insert($data_alamat);
         }
 
-        
-
         $JP = json_decode($this->request->getPost('jenispakan'),true);
         $jenispakan = "";
-        foreach($JP as $row){
-            $jenispakan .= $row['value'].",";
+        if ($JP !== null) {
+            foreach($JP as $row){
+                $jenispakan .= $row['value'].",";
+            }
         }
         $Pul = json_decode($this->request->getPost('pullet'),true);
         $pullet = "";
-        foreach($Pul as $row){
-            $pullet .= $row['value'].",";
+        if ($Pul !== null) {
+            foreach($Pul as $row){
+                $pullet .= $row['value'].",";
+            }
         }
+        
         $request['username'] = $this->request->getPost('username');
         $request['notelp'] = $this->request->getPost('notelp');
         $request['nohp'] = $this->request->getPost('nohp');
