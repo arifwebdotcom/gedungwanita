@@ -289,7 +289,12 @@ class UserController extends BaseController
         $request['id'] = $id;
         model(UserModels::class)->save($request);
 
-        return redirect()->to(site_url('/user'));
+        if(user()->isadmin == 1){
+            return redirect()->to(site_url('/user'));
+        }else{
+            return redirect()->to(site_url('/profile'));    
+        }
+        
     }
 
     public function updatemodal($id) {
