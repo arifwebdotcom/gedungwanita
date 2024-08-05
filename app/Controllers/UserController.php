@@ -278,6 +278,7 @@ class UserController extends BaseController
         $request['username'] = $this->request->getPost('username');
         $request['notelp'] = $this->request->getPost('notelp');
         $request['nohp'] = $this->request->getPost('nohp');
+        $request['asosiasifk'] = $this->request->getPost('asosiasifk');
         $request['namapeternakan'] = $namapeternakan;
         $request['populasi'] = $this->request->getPost('populasi');
         $request['suplierpakanfk'] = $this->request->getPost('suplierpakanfk');
