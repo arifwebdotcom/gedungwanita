@@ -40,8 +40,8 @@ $breadcrumb_items = [
                     <div class="row">
                         <div class='col-md-4'>
                             <div class='form-group'>
-                                <label class='col-form-label col-md-12'>No Pengajuan</label>
-                                <input class='form-control' type='text' name='nopengajuan' placeholder='No Pengajuan' id='nopengajuan'>
+                                <label class='col-form-label col-md-12'>Nomor Pengajuan</label>
+                                <input class='form-control' type='text' name='nopengajuan' placeholder='Nomor Pengajuan' id='nopengajuan'>
                             </div>
                         </div>                        
                         <div class='col-md-3'>
@@ -94,7 +94,7 @@ $breadcrumb_items = [
                         </th>
                         <th class="ps-4 ">Tahun</th>
                         <th class="ps-4 ">Periode</th>
-                        <th class="ps-4 ">No Pengajuan</th>
+                        <th class="ps-4 ">Nomor Pengajuan</th>
                         <th class="ps-4 ">Nama Peternak</th>
                         <th class="ps-4 ">Asosiasi</th>
                         <th class="ps-4 ">Alamat</th>
@@ -159,8 +159,8 @@ $breadcrumb_items = [
                         <input type="hidden" name="periodefk" id="periodefk">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">No Pengajuan</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="No Pengajuan"></i>
+                            <span class="required">Nomor Pengajuan</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Nomor Pengajuan"></i>
                         </label>
                         <!--end::Label-->
                         <input type="text" class="form-control form-control-solid" placeholder="" id="nopengajuan" name="nopengajuan" readonly/>
@@ -272,8 +272,8 @@ $breadcrumb_items = [
                         <input type="hidden" name="periodefk" id="periodefk">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">No Pengajuan</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="No Pengajuan"></i>
+                            <span class="required">Nomor Pengajuan</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Nomor Pengajuan"></i>
                         </label>
                         <!--end::Label-->
                         <input type="text" class="form-control form-control-solid" placeholder="" id="nopengajuan" name="nopengajuan" readonly/>

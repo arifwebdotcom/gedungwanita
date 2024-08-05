@@ -256,12 +256,14 @@ $breadcrumb_items = [
             noinvoice = "&noinvoice=" + $("#noinvoice").val();
         }
 
-        var awal = "&awal=<?= date("1-m-Y"); ?>";
+        var awal = "";
+        //var awal = "&awal=<?= date("1-m-Y"); ?>";
         if ($("#awal").val() && $("#awal").val() != "0") {
             awal = "&awal=" + $("#awal").val();
         }
 
-        var akhir = "&akhir=<?= date("t-m-Y"); ?>";
+        var akhir = "";
+        //var akhir = "&akhir=<?= date("t-m-Y"); ?>";
         if ($("#akhir").val() && $("#akhir").val() != "0") {
             akhir = "&akhir=" + $("#akhir").val();
         }
@@ -290,7 +292,7 @@ $breadcrumb_items = [
             },
             ajax: {
                 type: "GET",
-                url: '<?= route_to('invoice_get') ?>' + `?numrows=${numrows}${noinvoice}${awal}${akhir}${asosiasi}`,
+                url: '<?= route_to('invoice_get') ?>' + `?numrows=${numrows}${noinvoice}${asosiasi}${awal}${akhir}`,
                 dataType: 'JSON',
                 error: function(e) {
                     alert(e);
