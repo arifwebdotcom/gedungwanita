@@ -65,6 +65,21 @@ class PengajuanController extends BaseController
         return view('pengajuan/add', $this->data);
     }
 
+    public function PengajuanUbah($id)
+    {
+        $this->data['user'] = model(UserModels::class)
+        ->select('users.*,alamat_m.*,suplierpakan_m.nama,suplierpakan_m.id as idsuplierpakan')
+        ->join('alamat_m','alamat_m.usersfk = users.id','left')
+        ->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')
+        ->where('users.id',user()->id)->first();
+        $this->data['id'] =  user()->id;
+        $this->data['suplierpakan'] =  $this->suplier;
+        $this->data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
+        $this->data['periode'] =  model(Periode::class)->select('*')->findAll(); 
+        $this->data['suplierpakan'] =  $this->suplier;
+        return view('pengajuan/add', $this->data);
+    }
+
     public function store() {
         
         $query = model(Pengajuan::class)->selectMax('id')->get();

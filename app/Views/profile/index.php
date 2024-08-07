@@ -166,7 +166,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800"><?= $profile->first_name ?> <?= $profile->last_name ?></span>
+                        <span class="fw-bolder fs-6 text-gray-800"><?= $profile->username ?> </span>
                     </div>
                     <!--end::Col-->
                 </div>

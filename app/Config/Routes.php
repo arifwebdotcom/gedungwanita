@@ -88,6 +88,7 @@ $routes->group('pengajuan', ['filter' => 'login'],function ($routes) {
     $routes->post('(:num)/tolak', [PengajuanController::class, 'tolak'], ['as' => 'pengajuan.tolak']);
     $routes->post('delete/(:num)', [PengajuanController::class, 'delete'], ['as' => 'pengajuan.delete']);
     $routes->get('pengajuan-baru', [PengajuanController::class, 'PengajuanBaru'], ['as' => 'pengajuan.pengajuan_baru']);
+    $routes->get('pengajuan-ubah/(:num)', [PengajuanController::class, 'PengajuanUbah'], ['as' => 'pengajuan.pengajuan_ubah']);
     $routes->get('get-dataPengajuan', [PengajuanController::class, 'getPengajuan'], ['as' => 'pengajuan_get']);
 });
 
