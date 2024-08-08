@@ -358,7 +358,7 @@ $breadcrumb_items = [
         type: 'GET',
         data: function(params) {
           return {
-            q: '<?= $user->kelurahan ?>'
+            q: params.term
           };
         },
         processResults: function(data) {
