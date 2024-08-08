@@ -90,6 +90,7 @@ $routes->group('pengajuan', ['filter' => 'login'],function ($routes) {
     $routes->get('pengajuan-baru', [PengajuanController::class, 'PengajuanBaru'], ['as' => 'pengajuan.pengajuan_baru']);
     $routes->get('pengajuan-ubah/(:num)', [PengajuanController::class, 'PengajuanUbah'], ['as' => 'pengajuan.pengajuan_ubah']);
     $routes->get('get-dataPengajuan', [PengajuanController::class, 'getPengajuan'], ['as' => 'pengajuan_get']);
+    $routes->get('exportdata', [PengajuanController::class, 'exportPengajuan'], ['as' => 'pengajuan.exportdata']);
 });
 
 $routes->group('invoice', ['filter' => 'login'],function ($routes) {

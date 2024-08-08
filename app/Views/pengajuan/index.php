@@ -38,7 +38,7 @@ $breadcrumb_items = [
             <div class='row ' style='padding-left: 1.5rem;'>            
                 <div class='col-md-12'>
                     <div class="row">
-                        <div class='col-md-4'>
+                        <div class='col-md-3'>
                             <div class='form-group'>
                                 <label class='col-form-label col-md-12'>Nomor Pengajuan</label>
                                 <input class='form-control' type='text' name='nopengajuan' placeholder='Nomor Pengajuan' id='nopengajuan'>
@@ -71,6 +71,18 @@ $breadcrumb_items = [
                                 <label class='col-form-label col-md-12'>Jml</label>
                                 <input class='form-control' type='text' name='number' placeholder='80' id='numrows' value='50'>
                             </div>
+                        </div>
+                        <div class='col-md-1'>
+                            <button class='waves-effect waves-light btn btn-social-icon btn btn-primary mt-12' id='export'>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M16 6V3H4V21H16V18H18V21C18 21.55 17.55 22 17 22H3C2.45 22 2 21.55 2 21V2C2 1.45 2.45 1 3 1H17C17.55 1 18 1.45 18 2V6H16Z" fill="black"/>
+                                    <path opacity="0.3" d="M19 10H14C13.45 10 13 10.45 13 11V19C13 19.55 13.45 20 14 20H19C19.55 20 20 19.55 20 19V11C20 10.45 19.55 10 19 10ZM19 18H14V12H19V18Z" fill="black"/>
+                                    <path opacity="0.3" d="M15 13H16V17H15V13Z" fill="black"/>
+                                    <path opacity="0.3" d="M17 13H18V17H17V13Z" fill="black"/>
+                                    <path d="M18 8H22V10H18V8Z" fill="black"/>
+                                    <path d="M20 6H18V4H16V6H18V8H20V6Z" fill="black"/>
+                                </svg>
+                            </button>
                         </div>
                         <div class='col-md-1'>
                             <button class='waves-effect waves-light btn btn-social-icon btn btn-primary mt-12' id='cari'><i class='fa fa-search'></i></button>
@@ -325,7 +337,80 @@ $breadcrumb_items = [
     $("#cari").click(function() {
         init();
     });
-    
+
+    $("#export").click(function() {
+        var nopengajuan = "";
+        if ($("#nopengajuan").val()) {
+            nopengajuan = "&nopengajuan=" + $("#nopengajuan").val();
+        }
+
+        var tahun = "";
+        if ($("#tahun").val() && $("#tahun").val() != "0") {
+            tahun = "&tahun=" + $("#tahun").val();
+        }
+
+        var asosiasi = "";
+        if ($("#asosiasi").val() && $("#asosiasi").val() != "0") {
+            asosiasi = "&asosiasi=" + $("#asosiasi").val();
+        }
+
+        var numrows = "0";
+        if ($("#numrows").val()) {
+            numrows = $("#numrows").val();
+        }
+
+        let url = '<?= route_to('pengajuan.exportdata') ?>' + `?numrows=${numrows}&nopengajuan=${nopengajuan}&tahun=${tahun}&asosiasi=${asosiasi}`;
+        Swal.fire({ 
+            allowOutsideClick: false,
+            title: 'Harap Menunggu',
+            text: 'Permintaan sedang di proses.',
+            showCancelButton: false,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+        
+        var win = window.open(url, '_blank');
+        if (win) {
+            win.focus();
+        } else {
+            alert('Please allow popups for this website');
+        }
+        
+        Swal.close();
+
+        // $.ajax({
+        //     url: '<?= route_to('pengajuan.exportdata') ?>' + `?numrows=${numrows}${nopengajuan}${tahun}${asosiasi}`,
+        //     type: 'get',
+        //     dataType: 'json',
+        //     beforeSend: function() {
+        //         Swal.fire({ 
+        //             allowOutsideClick: false,
+        //             title: 'Harap Menunggu',
+        //             text: 'Permintaan sedang di proses.',
+        //             showCancelButton: false,
+        //             showConfirmButton: false,
+        //             didOpen: () => {
+        //                 Swal.showLoading()
+        //             }
+        //         })
+        //     },
+        //     success: function(response) {
+        //         Swal.close()
+        //         if (response.status) {                
+        //             showPengajuan();
+        //             toastr.warning(response.messages);
+        //         } else {
+        //             toastr.error("Gagal!");
+        //         }
+        //     },
+        //     error: function(err) {
+        //         toastr.error(err);
+        //     }
+        // });
+    });
+
     function init() {
 
         var nopengajuan = "";

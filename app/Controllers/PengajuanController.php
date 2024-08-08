@@ -10,6 +10,10 @@ use App\Models\Periode;
 use App\Models\Invoice;
 use App\Models\InvoiceDetail;
 use CodeIgniter\API\ResponseTrait;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use CodeIgniter\HTTP\ResponseInterface;
+
 
 class PengajuanController extends BaseController
 {
@@ -37,6 +41,85 @@ class PengajuanController extends BaseController
         ->join('alamat_m','alamat_m.usersfk = users.id','left')->findAll();
 
         return json_encode(compact('data'));
+    }
+
+    public function exportPengajuan()
+    {
+        $nopengajuan = $this->request->getVar('nopengajuan');
+        $tahun = $this->request->getVar('tahun');
+        $asosiasi = $this->request->getVar('asosiasi');
+        $numrows = $this->request->getVar('numrows');
+        $isadmin = user()->isadmin;        
+
+        if($isadmin == 1){
+            $data = model(Pengajuan::class)->get_pengajuan_all($nopengajuan, $tahun, $asosiasi, $numrows);
+        }else{
+            $data = model(Pengajuan::class)->get_pengajuan_user($nopengajuan, $tahun, $asosiasi, $numrows);
+        }
+
+        $data = json_decode(json_encode($data), true);
+        //return $data;
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        
+        // Set header row values
+        $sheet->setCellValue('A1', 'Tahun');
+        $sheet->setCellValue('B1', 'Periode');
+        $sheet->setCellValue('C1', 'Nomor Pengajuan');
+        $sheet->setCellValue('D1', 'Nama Peteranak');
+        $sheet->setCellValue('E1', 'Asosiasi');
+        $sheet->setCellValue('F1', 'Alamat');
+        $sheet->setCellValue('G1', 'No HP');
+        $sheet->setCellValue('H1', 'Populasi');
+        $sheet->setCellValue('I1', 'Kebutuhan');
+        $sheet->setCellValue('J1', 'Disetujui');
+        $sheet->setCellValue('K1', 'Harga Perkilo');
+        $sheet->setCellValue('L1', 'Harga Total');
+        $sheet->setCellValue('M1', 'Keterangan');
+        $sheet->setCellValue('N1', 'Status');
+        // Add more columns as needed 
+
+        // Populate data rows
+        $row = 2; // Starting from the second row
+        foreach ($data as $item) {
+            $sheet->setCellValue('A' . $row, $item['tahun']);
+            $sheet->setCellValue('B' . $row, $item['periode']);
+            $sheet->setCellValue('C' . $row, $item['nopengajuan']);
+            $sheet->setCellValue('D' . $row, $item['username']);
+            $sheet->setCellValue('E' . $row, $item['asosiasi']);
+            $sheet->setCellValue('F' . $row, $item['alamat']);
+            $sheet->setCellValue('G' . $row, $item['nohp']);
+            $sheet->setCellValue('H' . $row, $item['populasi']);
+            $sheet->setCellValue('I' . $row, $item['kebutuhan']);
+            $sheet->setCellValue('J' . $row, $item['disetujui']);
+            $sheet->setCellValue('K' . $row, $item['hargasekilo']);
+            $sheet->setCellValue('L' . $row, $item['disetujui']*$item['hargasekilo']);
+            $sheet->setCellValue('M' . $row, $item['keterangan']);
+            $sheet->setCellValue('N' . $row, $item['status']);
+            // Add more columns as needed
+            $row++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'pengajuan.xlsx';
+
+        $response = $this->response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                                   ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+
+        $writer->save('php://output');
+
+        return $response;
+        
+
+        // Redirect output to a client’s web browser (Xlsx)
+        // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // header('Content-Disposition: attachment;filename="' . $filename . '"');
+        // header('Cache-Control: max-age=0');
+        // // If you're serving to IE 9, then the following may be needed
+        // header('Cache-Control: max-age=1');
+
+        // $writer->save('php://output');
+        // die;
     }
 
     public function index()
