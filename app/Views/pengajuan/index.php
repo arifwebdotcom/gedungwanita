@@ -74,13 +74,13 @@ $breadcrumb_items = [
                         </div>
                         <div class='col-md-1'>
                             <button class='waves-effect waves-light btn btn-social-icon btn btn-primary mt-12' id='export'>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M16 6V3H4V21H16V18H18V21C18 21.55 17.55 22 17 22H3C2.45 22 2 21.55 2 21V2C2 1.45 2.45 1 3 1H17C17.55 1 18 1.45 18 2V6H16Z" fill="black"/>
-                                    <path opacity="0.3" d="M19 10H14C13.45 10 13 10.45 13 11V19C13 19.55 13.45 20 14 20H19C19.55 20 20 19.55 20 19V11C20 10.45 19.55 10 19 10ZM19 18H14V12H19V18Z" fill="black"/>
-                                    <path opacity="0.3" d="M15 13H16V17H15V13Z" fill="black"/>
-                                    <path opacity="0.3" d="M17 13H18V17H17V13Z" fill="black"/>
-                                    <path d="M18 8H22V10H18V8Z" fill="black"/>
-                                    <path d="M20 6H18V4H16V6H18V8H20V6Z" fill="black"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                    <path d="M16 6V3H4V21H16V18H18V21C18 21.55 17.55 22 17 22H3C2.45 22 2 21.55 2 21V2C2 1.45 2.45 1 3 1H17C17.55 1 18 1.45 18 2V6H16Z" fill="white"/>
+                                    <path opacity="0.3" d="M19 10H14C13.45 10 13 10.45 13 11V19C13 19.55 13.45 20 14 20H19C19.55 20 20 19.55 20 19V11C20 10.45 19.55 10 19 10ZM19 18H14V12H19V18Z" fill="white"/>
+                                    <path opacity="0.3" d="M15 13H16V17H15V13Z" fill="white"/>
+                                    <path opacity="0.3" d="M17 13H18V17H17V13Z" fill="white"/>
+                                    <path d="M18 8H22V10H18V8Z" fill="white"/>
+                                    <path d="M20 6H18V4H16V6H18V8H20V6Z" fill="white"/>
                                 </svg>
                             </button>
                         </div>
