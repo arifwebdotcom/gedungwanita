@@ -33,7 +33,7 @@ $breadcrumb_items = [
             </label>
             <!--end::Label-->
             <!--begin::Input-->
-            <input type="text" class="form-control form-control-lg form-control-solid" name="first_name" id="first_name" placeholder=""  />
+            <input type="text" class="form-control form-control-lg form-control-solid" name="username" id="username" placeholder=""  />
             <input type="hidden" class="form-control form-control-lg form-control-solid" name="email" id="email" placeholder=""  />
             <!--end::Input-->
         </div>

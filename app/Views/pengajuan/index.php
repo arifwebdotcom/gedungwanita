@@ -626,6 +626,14 @@ $breadcrumb_items = [
                     totaldisetujui
                 );
 
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+
+
                 var totalhargatotal = api
                     .column( 12 )  // Assuming column index 2 is the one to sum
                     .data()
