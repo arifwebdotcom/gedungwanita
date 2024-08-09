@@ -124,8 +124,21 @@ $breadcrumb_items = [
                 <!--end::Table head-->
                 <!--begin::Table body-->
                 <tbody>            
-                         
+                    
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="8" style="text-align:right">Total:</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
                 <!--end::Table body-->
             </table>
             <!--end::Table-->
@@ -487,12 +500,20 @@ $breadcrumb_items = [
                 },
                 {
                     name: "Populasi",
-                    data: "populasi"
+                    data: "populasi",
+                    render: function(data, type, row) {
+                        // Convert the data to a float and format it using the Indonesian locale
+                        return parseFloat(data).toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+                    }
                 },
                 {
                     name: "Kebutuhan",
-                    data: "kebutuhan"
-                },
+                    data: "kebutuhan",
+                    render: function(data, type, row) {
+                        // Convert the data to a float and format it using the Indonesian locale
+                        return parseFloat(data).toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+                    }
+                },                
                 {
                     name: "Disetujui",
                     data: "disetujui"
@@ -560,9 +581,65 @@ $breadcrumb_items = [
                             return '';
                         }
                     }
-                },
-                
+                },                
             ]
+            ,"footerCallback": function ( row, data, start, end, display ) {
+                var api = this.api();
+                var totalpopulasi = api
+                    .column( 8 )  // Assuming column index 2 is the one to sum
+                    .data()
+                    .reduce( function (a, b) {
+                        return parseFloat(a) + parseFloat(b);
+                    }, 0 );
+
+                totalpopulasi = totalpopulasi.toLocaleString('id-ID', {minimumFractionDigits: 0, maximumFractionDigits: 2});
+                // Update the footer with the sum
+                $( api.column( 8 ).footer() ).html(
+                    totalpopulasi
+                );
+
+                var totalkebutuhan = api
+                    .column( 9 )  // Assuming column index 2 is the one to sum
+                    .data()
+                    .reduce( function (a, b) {
+                        return parseFloat(a) + parseFloat(b);
+                    }, 0 );
+                
+                totalkebutuhan = totalkebutuhan.toLocaleString('id-ID', {minimumFractionDigits: 0, maximumFractionDigits: 2});
+
+                // Update the footer with the sum
+                $( api.column( 9 ).footer() ).html(
+                    totalkebutuhan
+                );
+
+                var totaldisetujui = api
+                    .column( 10 )  // Assuming column index 2 is the one to sum
+                    .data()
+                    .reduce( function (a, b) {
+                        return parseFloat(a) + parseFloat(b);
+                    }, 0 );
+                
+                totaldisetujui = totaldisetujui.toLocaleString('id-ID', {minimumFractionDigits: 0, maximumFractionDigits: 2});
+
+                // Update the footer with the sum
+                $( api.column( 10 ).footer() ).html(
+                    totaldisetujui
+                );
+
+                var totalhargatotal = api
+                    .column( 12 )  // Assuming column index 2 is the one to sum
+                    .data()
+                    .reduce( function (a, b) {
+                        return parseFloat(a) + parseFloat(b);
+                    }, 0 );
+                
+                totalhargatotal = totalhargatotal.toLocaleString('id-ID', {minimumFractionDigits: 0, maximumFractionDigits: 2});
+
+                // Update the footer with the sum
+                $( api.column( 12 ).footer() ).html(
+                    totalhargatotal
+                );
+            }            
         })
 
         table.draw();
@@ -769,6 +846,13 @@ $breadcrumb_items = [
     });
 
     const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
+
+    const desimal = (number) => {
         return new Intl.NumberFormat("id-ID", {
             style: "currency",
             currency: "IDR"
