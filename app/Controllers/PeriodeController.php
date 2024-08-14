@@ -66,6 +66,10 @@ class PeriodeController extends BaseController
         // }
 
         $request['periode'] = $this->request->getPost('periode');
+        $request['status'] = $this->request->getPost('status');
+        $request['hargasekilo'] = $this->request->getPost('hargasekilo');
+        $request['nama'] = $this->request->getPost('nama');
+        $request['expired'] = $this->request->getPost('expired');
         $request['id'] = $id;
         model(Periode::class)->save($request);
 
