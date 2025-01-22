@@ -112,7 +112,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo2/dist/widgets/lists.html">
+                            <a class="menu-link" href="<?= route_to('pengajuan.index') ?>">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
