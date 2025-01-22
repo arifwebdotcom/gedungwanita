@@ -66,6 +66,7 @@ class Pengajuan extends Model
             ->when($asosiasi, static function ($query, $asosiasi) {
                 $query->like('users.asosiasifk', $asosiasi);
             })
+            ->orderBy('pengajuan_t.id', 'DESC')
             ->findAll($numrows);
         return $builder;
     }
@@ -95,6 +96,7 @@ class Pengajuan extends Model
             ->when($asosiasi, static function ($query, $asosiasi) {
                 $query->like('users.asosiasifk', $asosiasi);
             })
+            ->orderBy('pengajuan_t.id', 'DESC')
             ->findAll($numrows);
         return $builder;
     }
