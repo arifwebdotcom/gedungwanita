@@ -73,7 +73,7 @@ class UserController extends BaseController
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
 
-        $ktp ="";
+        $avatar ="";
         $username = $this->request->getPost('username');
         $namapeternakan = $this->request->getPost('namapeternakan');
         $asosiasi = $this->request->getPost('asosiasifk');
@@ -86,6 +86,26 @@ class UserController extends BaseController
             } 
         }
         $file = $this->request->getFile('avatar');
+
+        if ($file && $file->isValid()) {            
+
+            $upload_path = './uploads/';
+            $extension = $file->getExtension();
+            $avatar = "avatar_".$namapeternakan."_".date("YmdHis").".".$extension;
+            
+            $file->move($upload_path, $avatar);
+        } 
+
+        $ktp ="";
+        if($this->request->getVar('ktp_remove')){
+            $file_name = $this->request->getVar('ktp_remove');
+            $file_path = './uploads/' . $file_name; 
+            
+            if (file_exists($file_path)) {
+                unlink($file_path);
+            } 
+        }
+        $file = $this->request->getFile('ktp');
 
         if ($file && $file->isValid()) {            
 
@@ -137,6 +157,7 @@ class UserController extends BaseController
         $request['frequensireplacement'] = $this->request->getPost('frequensireplacement');
         $request['replacement'] = $this->request->getPost('replacement');
         $request['ktp'] = $ktp;
+        $request['avatar'] = $avatar;
         $request['active'] = 1;
         $request['email'] = $this->request->getPost('email');
         $request['password_hash'] = Password::hash($this->request->getPost('password'));
@@ -196,30 +217,52 @@ class UserController extends BaseController
         // if (!$this->validate($setRules)) {
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
-        $ktp ="";
-        if($this->request->getVar('avatar_remove')){
-            $file_name = $this->request->getVar('avatar_remove');
-            $file_path = './uploads/' . $file_name; 
-            
-            if (file_exists($file_path)) {
-                unlink($file_path);
-            } 
-        }
-        
-
+        $avatar ="";
+        $username = $this->request->getPost('username');
         $namapeternakan = $this->request->getPost('namapeternakan');
+        $asosiasi = $this->request->getPost('asosiasifk');
+        $Qmodel = model(UserModels::class)->where('id', $id)->first();
+
         $file = $this->request->getFile('avatar');
+
+        if ($file && $file->isValid()) {     
             
-        // Check if the file has been uploaded without errors
-        if ($file && $file->isValid() && ! $file->hasMoved()) {
+            if($Qmodel->avatar != null){
+                $file_path = './uploads/' . $Qmodel->avatar; 
+            
+                if (file_exists($file_path)) {
+                    unlink($file_path);
+                } 
+            }
+
+            $upload_path = './uploads/';
+            $extension = $file->getExtension();
+            $avatar = "avatar_".$namapeternakan."_".date("YmdHis").".".$extension;
+            
+            $file->move($upload_path, $avatar);
+            $request['avatar'] = $avatar;
+        } 
+
+        $ktp ="";
         
+        $file = $this->request->getFile('ktp');
+
+        if ($file && $file->isValid()) {          
+            
+            if($Qmodel->ktp != null){
+                $file_path = './uploads/' . $Qmodel->ktp; 
+            
+                if (file_exists($file_path)) {
+                    unlink($file_path);
+                } 
+            }
 
             $upload_path = './uploads/';
             $extension = $file->getExtension();
             $ktp = "ktp_".$namapeternakan."_".date("YmdHis").".".$extension;
             
             $file->move($upload_path, $ktp);
-        
+            $request['ktp'] = $ktp;
         } 
 
         $idref = model(Alamat::class)->select('id')->where('usersfk', $id)->get()->getRow();
@@ -285,8 +328,7 @@ class UserController extends BaseController
         $request['jenispakan'] = $jenispakan;
         $request['pullet'] = $pullet;
         $request['frequensireplacement'] = $this->request->getPost('frequensireplacement');
-        $request['replacement'] = $this->request->getPost('replacement');
-        $request['ktp'] = $ktp;
+        $request['replacement'] = $this->request->getPost('replacement');            
         $request['id'] = $id;
         model(UserModels::class)->save($request);
 

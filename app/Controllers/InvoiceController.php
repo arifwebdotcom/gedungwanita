@@ -148,7 +148,7 @@ class InvoiceController extends BaseController
             $usersfk = $this->request->getPost('usersfk');
             $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("id",$usersfk)->first(); 
                     
-            $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($$Qall->asosiasifk)."/".$maxId++;
+            $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($Qall->asosiasifk)."/".$maxId++;
             $request['expired'] = $expired;
             $request['nama'] = $nama;
             $request['total'] = $total;

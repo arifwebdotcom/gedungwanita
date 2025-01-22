@@ -9,8 +9,14 @@
         <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
             <!--begin: Pic-->
             <div class="me-7 mb-4">
+                <?php 
+                if(user()->avatar != null){    
+                    $avatar_user = base_url()."uploads/".user()->avatar;
+                }else{
+                    $avatar_user = base_url()."assets/media/avatars/blank.png";
+                }?>
                 <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                    <img src="assets/media/avatars/150-26.jpg" alt="image" />
+                    <img src="<?= $avatar_user ?>" alt="image" />
                     <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
                 </div>
             </div>
