@@ -68,7 +68,7 @@ class Pengajuan extends Model
             })
             ->orderBy('pengajuan_t.id', 'DESC')
             ->findAll($numrows);
-        return $builder;
+        return $builder; 
     }
 
     public function get_pengajuan_user($nopengajuan, $tahun, $asosiasi, $numrows)
