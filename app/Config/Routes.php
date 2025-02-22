@@ -8,6 +8,7 @@ use App\Controllers\InvoiceController;
 use App\Controllers\AsosiasiController;
 use App\Controllers\DocController;
 use App\Controllers\JenisPakanController;
+use App\Controllers\KategoriInvoiceController;
 use App\Controllers\UserController;
 use App\Controllers\SuplierPakanController;
 use App\Controllers\ProfileController;
@@ -137,6 +138,14 @@ $routes->group('jenispakan', ['filter' => 'login'],function ($routes) {
     $routes->get('datatable', [JenisPakanController::class, 'datatable'], ['as' => 'jenispakan.datatable']);
     $routes->post('(:num)/edit', [JenisPakanController::class, 'update'], ['as' => 'jenispakan.update']);
     $routes->post('delete/(:num)', [JenisPakanController::class, 'delete'], ['as' => 'jenispakan.delete']);
+});
+
+$routes->group('kategoriinvoice', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [KategoriInvoiceController::class, 'index'], ['as' => 'kategoriinvoice.index']);
+    $routes->post('store', [KategoriInvoiceController::class, 'store'], ['as' => 'kategoriinvoice.store']);
+    $routes->get('datatable', [KategoriInvoiceController::class, 'datatable'], ['as' => 'kategoriinvoice.datatable']);
+    $routes->post('(:num)/edit', [KategoriInvoiceController::class, 'update'], ['as' => 'kategoriinvoice.update']);
+    $routes->post('delete/(:num)', [KategoriInvoiceController::class, 'delete'], ['as' => 'kategoriinvoice.delete']);
 });
 
 $routes->group('user', ['filter' => 'login'],function ($routes) {

@@ -175,6 +175,14 @@
                                 <span class="menu-title">Jenis Pakan</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="<?= route_to('kategoriinvoice.index') ?>">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Kategori Invoice</span>
+                            </a>
+                        </div>
                     </div>
                 </div>																																														
                 
