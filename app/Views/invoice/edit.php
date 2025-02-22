@@ -32,6 +32,10 @@ $breadcrumb_items = [
                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Nomor Invoice"></i>
             </label>
             <input type="text" class="form-control form-control-lg form-control-solid" name="noinvoice" id="noinvoice" placeholder=""  value="<?= $invoice->noinvoice; ?>" />
+            <label class="form-check form-check-custom form-check-solid me-10">
+                <input class="form-check-input h-20px w-20px" type="checkbox" name="status" value="LUNAS" <?= ($invoice->status=="LUNAS"?"checked='checked'":""); ?>>
+                <span class="form-check-label fw-bold">Lunaskan Invoice</span>
+            </label>
             <!--end::Input-->
         </div>        
         <!--begin::Table container-->
@@ -45,9 +49,22 @@ $breadcrumb_items = [
             <!--begin::Input-->
             <input type="hidden" name="id" id="id" value="<?= $id; ?>">
             <input type="text" class="form-control form-control-lg form-control-solid" name="namainvoice" id="namainvoice" placeholder=""  value="<?= $invoice->nama; ?>" />
+            
             <!--end::Input-->
         </div>        
         <!--begin::Input group-->
+        <!--begin::Input group-->
+        <div class="fv-row mb-10 col-lg-4 notmodal">
+            <label class="required fs-6 fw-bold mb-2">Kategori Invoice</label>
+            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Kategori Invoice" name="kategoriinvoicefk" id="kategoriinvoicefk" >
+            <option value="0">Pilih Kategori</option>
+            <?php foreach ($kategoriinvoice as $row) :  {?>
+                <option value="<?= $row->id ?>" <?= ($row->id==$invoice->kategoriinvoicefk?"selected":"") ?>><?= $row->kategoriinvoice ?></option>
+            <?php }
+            endforeach ?>
+            </select>
+        </div>
+        <!--end::Input group-->
         <div class="fv-row mb-10 col-lg-4 notmodal">
             <label class="required fs-6 fw-bold mb-2">Anggota</label>
             <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Periode" name="usersfk" id="usersfk" disabled>

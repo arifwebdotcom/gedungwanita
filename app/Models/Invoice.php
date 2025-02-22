@@ -13,7 +13,7 @@ class Invoice extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'usersfk', 'nama','expired','noinvoice','total','status'];
+    protected $allowedFields    = ['id', 'usersfk', 'nama','expired','noinvoice','total','status','kategoriinvoicefk'];
 
     // Dates
     protected $useTimestamps = true;

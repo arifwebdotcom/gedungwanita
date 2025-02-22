@@ -26,7 +26,7 @@ $breadcrumb_items = [
     <div class="card-body py-3 row">
         <!--begin::Table container-->
         <div class="fv-row mb-10 col-lg-4">
-            <!--begin::Label-->
+            <!--begin::Label-->            
             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                 <span class="required">Nama Invoice</span>
                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Nama Invoice"></i>
@@ -35,9 +35,25 @@ $breadcrumb_items = [
             <!--begin::Input-->
             <input type="hidden" name="id" id="id">
             <input type="text" class="form-control form-control-lg form-control-solid" name="namainvoice" id="namainvoice" placeholder=""  />
+            <label class="form-check form-check-custom form-check-solid me-10">
+                <input class="form-check-input h-20px w-20px" type="checkbox" name="status" value="LUNAS" checked="checked">
+                <span class="form-check-label fw-bold">Lunaskan Invoice</span>
+            </label>
             <!--end::Input-->
         </div>
-        <!--end::Input group--><!--begin::Input group-->
+        <!--begin::Input group-->
+        <div class="fv-row mb-10 col-lg-4 notmodal">
+            <label class="required fs-6 fw-bold mb-2">Kategori Invoice</label>
+            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Kategori Invoice" name="kategoriinvoicefk" id="kategoriinvoicefk" >
+            <option value="0">Pilih Kategori</option>
+            <?php foreach ($kategoriinvoice as $row) :  {?>
+                <option value="<?= $row->id ?>"><?= $row->kategoriinvoice ?></option>
+            <?php }
+            endforeach ?>
+            </select>
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
         <div class="fv-row mb-10 col-lg-4 notmodal">
             <label class="required fs-6 fw-bold mb-2">Diterbitkan untuk</label>
             <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Periode" name="untuk" id="untuk">        

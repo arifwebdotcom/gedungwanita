@@ -20,7 +20,7 @@ $breadcrumb_items = [
             <span class="text-muted mt-1 fw-bold fs-7">Data Pengajuan</span>
         </h3>
         <div class="card-toolbar">
-            <a href="<?= route_to('pengajuan.pengajuan_baru');?>" class="btn btn-sm btn-light-primary" >
+            <a href="<?= route_to('pengajuan.pengajuan_baru');?>" class="btn btn-sm btn-light-primary"  style="display:<?= (user()->isadmin == 1?'block':'none'); ?>" >
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
             <span class="svg-icon svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -38,13 +38,13 @@ $breadcrumb_items = [
             <div class='row ' style='padding-left: 1.5rem;'>            
                 <div class='col-md-12'>
                     <div class="row">
-                        <div class='col-md-3'>
+                        <div class='<?= (user()->isadmin == 1?'col-md-3':'col-md-4'); ?>'>
                             <div class='form-group'>
                                 <label class='col-form-label col-md-12'>Nomor Pengajuan</label>
                                 <input class='form-control' type='text' name='nopengajuan' placeholder='Nomor Pengajuan' id='nopengajuan'>
                             </div>
                         </div>                        
-                        <div class='col-md-3'>
+                        <div class='<?= (user()->isadmin == 1?'col-md-3':'col-md-4'); ?>'>
                             <div class='form-group notmodal'>
                                 <label class='col-form-label col-md-12'>Tahun</label>
                                 <select class='form-control' name='tahun' id='tahun' data-control="select2" data-hide-search="false" style="z-index:1">
@@ -55,7 +55,7 @@ $breadcrumb_items = [
                                 </select>
                             </div>
                         </div>
-                        <div class='col-md-3'>
+                        <div class='col-md-3' style="display:<?= (user()->isadmin == 1?'block':'none'); ?>">
                             <div class='form-group notmodal'>
                                 <label class='col-form-label col-md-12'>Asosiasi</label>                                
                                 <select class='form-control' name='asosiasi' id='asosiasi' data-control="select2" data-hide-search="false">
@@ -66,7 +66,7 @@ $breadcrumb_items = [
                                 </select>
                             </div>
                         </div>
-                        <div class='col-md-1'>
+                        <div class='<?= (user()->isadmin == 1?'col-md-1':'col-md-2'); ?>'>
                             <div class='form-group'>
                                 <label class='col-form-label col-md-12'>Jml</label>
                                 <input class='form-control' type='text' name='number' placeholder='80' id='numrows' value='50'>

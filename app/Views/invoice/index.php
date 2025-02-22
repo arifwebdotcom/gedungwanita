@@ -20,7 +20,7 @@ $breadcrumb_items = [
             <span class="text-muted mt-1 fw-bold fs-7">Data Invoice</span>
         </h3>
         <div class="card-toolbar">
-            <a href="<?= route_to('invoice.invoice_baru');?>" id='btn_create' class="btn btn-sm btn-light-primary" >
+            <a href="<?= route_to('invoice.invoice_baru');?>" id='btn_create' class="btn btn-sm btn-light-primary" style="display:<?= (user()->isadmin == 1?'block':'none'); ?>" >
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
             <span class="svg-icon svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -38,7 +38,7 @@ $breadcrumb_items = [
             <div class='row '>            
                 <div class='col-md-12'>
                     <div class="row">
-                        <div class='col-md-2'>
+                        <div class='<?= (user()->isadmin == 1?'col-md-2':'col-md-4'); ?>'>
                             <div class='form-group'>
                                 <label class='col-form-label col-md-12'>No Invoie</label>
                                 <input class='form-control' type='text' name='noinvoice' placeholder='No Invoie' id='noinvoice'>
@@ -92,7 +92,7 @@ $breadcrumb_items = [
                                 <!--begin::Label-->
                             </div>  
                         </div>                                   
-                        <div class='col-md-2'>
+                        <div class='col-md-2' style="display:<?= (user()->isadmin == 1?'block':'none'); ?>">
                             <div class='form-group notmodal'>
                                 <label class='col-form-label col-md-12'>Asosiasi</label>                                
                                 <select class='form-control' name='asosiasi' id='asosiasi' data-control="select2" data-hide-search="false">

@@ -9,6 +9,7 @@ use App\Models\UserModels;
 use App\Models\Asosiasi;
 use App\Models\LogNotificationModel;
 use App\Models\TransactionModel;
+use App\Models\KategoriInvoice;
 use CodeIgniter\API\ResponseTrait;
 
 class InvoiceController extends BaseController
@@ -62,6 +63,7 @@ class InvoiceController extends BaseController
         ->select('*')->where("deleted_at",null)->findAll();
         $this->data['id'] =  user()->id;
         $this->data['asosiasi'] = model(Asosiasi::class)->findAll();
+        $this->data['kategoriinvoice'] = model(KategoriInvoice::class)->findAll();
         
         return view('invoice/add', $this->data);
     }
@@ -73,6 +75,7 @@ class InvoiceController extends BaseController
         $this->data['invoiced'] = model(InvoiceDetail::class)->where('invoicefk',$id)->findAll();
         $this->data['id'] =  $id;
         $this->data['asosiasi'] =  model(Asosiasi::class)->select('*')->findAll(); 
+        $this->data['kategoriinvoice'] = model(KategoriInvoice::class)->findAll();
         return view('invoice/edit', $this->data);
     }
 
@@ -84,6 +87,8 @@ class InvoiceController extends BaseController
     
         $untuk = $this->request->getPost('untuk');
         $nama = $this->request->getPost('namainvoice');
+        $kategoriinvoicefk = $this->request->getPost('kategoriinvoice');
+        $status = $this->request->getPost('status') ?? "TAGIHAN";
         $expired = date("Y-m-d",strtotime($this->request->getPost('expired')));
         $total = preg_replace("/[^0-9]/", "",$this->request->getPost('total_harga'));
         
@@ -96,7 +101,8 @@ class InvoiceController extends BaseController
                 $request['expired'] = $expired;
                 $request['nama'] = $nama;
                 $request['total'] = $total;
-                $request['status'] = 'TAGIHAN';
+                $request['kategoriinvoicefk'] = $kategoriinvoicefk;
+                $request['status'] = $status;
                 $request['usersfk'] = $row->id;
                 $InvoiceDetailModel = new Invoice();
                 $InvoiceDetailModel->insert($request);       
@@ -125,7 +131,8 @@ class InvoiceController extends BaseController
                 $request['expired'] = $expired;
                 $request['nama'] = $nama;
                 $request['total'] = $total;
-                $request['status'] = 'TAGIHAN';
+                $request['kategoriinvoicefk'] = $kategoriinvoicefk;
+                $request['status'] = $status;
                 $request['usersfk'] = $row->id;
                 $InvoiceDetailModel = new Invoice();
                 $InvoiceDetailModel->insert($request);       
@@ -152,7 +159,8 @@ class InvoiceController extends BaseController
             $request['expired'] = $expired;
             $request['nama'] = $nama;
             $request['total'] = $total;
-            $request['status'] = 'TAGIHAN';
+            $request['kategoriinvoicefk'] = $kategoriinvoicefk;
+            $request['status'] = $status;
             $request['usersfk'] = $usersfk;
             $InvoiceDetailModel = new Invoice();
             $InvoiceDetailModel->insert($request);       
@@ -214,6 +222,7 @@ class InvoiceController extends BaseController
 
         $request['disetujui'] = $this->request->getPost('disetujui');
         $request['keterangan'] = $this->request->getPost('keterangan');
+        $request['kategoriinvoicefk'] = $this->request->getPost('kategoriinvoice');
         $request['id'] = $id;
         model(Invoice::class)->save($request);
 
