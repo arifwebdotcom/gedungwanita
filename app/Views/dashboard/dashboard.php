@@ -77,7 +77,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                        <div class="text-inverse-primary fw-bolder fs-1 mb-2 mt-5">790</div>
+                        <div class="text-inverse-primary fw-bolder fs-1 mb-2 mt-5"><?= rupiah($setoran->total) ?></div>
                         <div class="fw-bold text-inverse-primary fs-6">Setoran</div>
                     </div>
                     <!--end::Body-->
