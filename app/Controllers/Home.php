@@ -13,7 +13,7 @@ class Home extends BaseController
         $this->data['suplierpakan'] =  $this->suplier;
         $this->data['asosiasi'] =  $this->asosiasi;
         $this->data['notification'] =  model(Announcement::class)->findAll();
-        $this->data['setoran'] =  model(Invoice::class)->select("sum(total)")->where("usersfk",user()->id)->first();
+        $this->data['setoran'] =  model(Invoice::class)->select("sum(total) as total")->where("usersfk",user()->id)->first();
         $this->data['leafletharga'] =  model(Setting::class)->where('param','leafletharga')->first();
         //return view('layouts/app');
         //return view('dashboard/dashboard',$data);
