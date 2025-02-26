@@ -83,7 +83,14 @@ class AuthController extends Controller
         $remember = (bool) $this->request->getPost('remember');
 
         // Determine credential type
-        $type = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        //$type = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+            $type = 'email';
+        } elseif (is_numeric($login) && strlen($login) >= 10) { // Assuming phone number has at least 10 digits
+            $type = 'nohp';
+        } else {
+            $type = 'username';
+        }
 
         // Try to log them in...
         if (! $this->auth->attempt([$type => $login, 'password' => $password], $remember)) {
