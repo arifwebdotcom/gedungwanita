@@ -21,7 +21,13 @@ class LocalAuthenticator extends AuthenticationBase implements AuthenticatorInte
         if (empty($this->user)) {
             // Always record a login attempt, whether success or not.
             $ipAddress = service('request')->getIPAddress();
-            $this->recordLoginAttempt($credentials['email'] ?? $credentials['username'], $ipAddress, $this->user->id ?? null, false);
+            $this->recordLoginAttempt(
+                $credentials['email'] ?? $credentials['username'] ?? $credentials['nohp'] ?? 'unknown',
+                $ipAddress,
+                $this->user->id ?? null,
+                false
+            );
+            //$this->recordLoginAttempt($credentials['email'] ?? $credentials['username'], $ipAddress, $this->user->id ?? null, false);
 
             $this->user = null;
 
