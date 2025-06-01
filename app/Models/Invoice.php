@@ -43,7 +43,7 @@ class Invoice extends Model
     public function get_invoice_all($noinvoice, $awal, $akhir ,$asosiasi, $numrows)
     {
         $builder = $this
-            ->select('invoice_t.id as idinvoice,invoice_t.*,users.username as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
+            ->select('invoice_t.id as idinvoice,invoice_t.*,users.nama as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
             ->join('users','users.id=invoice_t.usersfk')
             ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk','left')
             //->join('alamat_m','alamat_m.usersfk = users.id','left')
@@ -88,7 +88,7 @@ class Invoice extends Model
     public function get_invoice_by_id($id)
     {
         $builder = $this
-            ->select('invoice_t.id as idinvoice,invoice_t.*,users.username as namapeternak,users.nohp,users.notelp,users.populasi,asosiasi_m.asosiasi,alamat_m.alamat,users.email')
+            ->select('invoice_t.id as idinvoice,invoice_t.*,users.nama as namapeternak,users.nohp,users.notelp,users.populasi,asosiasi_m.asosiasi,alamat_m.alamat,users.email')
             ->join('users','users.id=invoice_t.usersfk')
             ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk','left')
             ->join('alamat_m','alamat_m.usersfk = users.id','left')
