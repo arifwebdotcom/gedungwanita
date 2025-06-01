@@ -11,10 +11,57 @@ use App\Models\LogNotificationModel;
 use App\Models\TransactionModel;
 use App\Models\KategoriInvoice;
 use CodeIgniter\API\ResponseTrait;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class InvoiceController extends BaseController
 {
     use ResponseTrait;
+
+    public function upload()
+    {
+        return view('upload_invoice');
+    }
+
+    public function import()
+    {
+        $file = $this->request->getFile('excel_file');
+
+        if ($file->isValid() && !$file->hasMoved()) {
+            $spreadsheet = IOFactory::load($file->getTempName());
+            $sheet = $spreadsheet->getActiveSheet();
+            $rows = $sheet->toArray();
+
+            $db = \Config\Database::connect();
+
+            foreach ($rows as $row) {
+                $periode = $row[0];
+                $value = $row[1];
+
+                if ($value === null || $value === '') {
+                    $harga = 0;
+                    $created_at = null;
+                } elseif (strpos((string) $value, '50.000') !== false || (int)$value === -50000) {
+                    $harga = 0;
+                    $created_at = null;
+                } else {
+                    $harga = 50000;
+                    // Konversi ke format tanggal MySQL (YYYY-MM-DD)
+                    $date = \DateTime::createFromFormat('d/m/y', $value);
+                    $created_at = $date ? $date->format('Y-m-d') : null;
+                }
+
+                $db->table('invoice_t')->insert([
+                    'periode' => $periode,
+                    'harga' => $harga,
+                    'created_at' => $created_at,
+                ]);
+            }
+
+            return redirect()->to('/invoice/upload')->with('success', 'Data berhasil diimpor.');
+        }
+
+        return redirect()->back()->with('error', 'File tidak valid.');
+    }
 
     public function getInvoice() {
         $noinvoice = $this->request->getVar('noinvoice');

@@ -105,6 +105,8 @@ $routes->group('invoice', ['filter' => 'login'],function ($routes) {
     $routes->get('invoice-edit/(:num)', [InvoiceController::class, 'InvoiceEdit'], ['as' => 'invoice.invoice_edit']);
     $routes->get('get-dataInvoice', [InvoiceController::class, 'getInvoice'], ['as' => 'invoice_get']);
     $routes->post('checkstatus/(:num)', [InvoiceController::class, 'checkstatus'], ['as' => 'invoice.checkstatus']);
+    $routes->get('upload', [InvoiceController::class, 'upload'], ['as' => 'invoice.upload']);
+    $routes->post('import', [InvoiceController::class, 'import'], ['as' => 'invoice.import']);
 });
 
 $routes->group('asosiasi', ['filter' => 'login'],function ($routes) {
