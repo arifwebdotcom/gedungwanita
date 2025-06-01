@@ -94,11 +94,12 @@ class InvoiceController extends BaseController
         
 
         if($untuk ==  1){
-            $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->findAll();
+            $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("isadmin",0)->findAll();
 
             foreach($Qall as $row){
-                $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
-                $request['expired'] = $expired;
+                $tglgabung = date("Ym",strtotime($row->tglgabung));
+                $request['noinvoice'] =  "IV".$tglgabung."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
+                $request['expired'] = $tglgabung;
                 $request['nama'] = $nama;
                 $request['total'] = $total;
                 $request['kategoriinvoicefk'] = $kategoriinvoicefk;
