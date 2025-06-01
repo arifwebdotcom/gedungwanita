@@ -99,7 +99,7 @@ class InvoiceController extends BaseController
             foreach($Qall as $row){
                 $tglgabung = date("Y/m",strtotime($row->tglgabung));
                 $request['noinvoice'] =  "IV".$tglgabung."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
-                $request['expired'] = date("Y-m-d 00:00:00",$row->tglgabung);
+                $request['expired'] = date("Y-m-d 00:00:00",strtotime($row->tglgabung));
                 $request['nama'] = $nama;
                 $request['total'] = $total;
                 $request['kategoriinvoicefk'] = $kategoriinvoicefk;
