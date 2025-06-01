@@ -127,13 +127,13 @@ $breadcrumb_items = [
                         <th class="w-25px rounded-start">
                             
                         </th>
-                        <th class="ps-4 ">Peternak</th>
+                        <th class="ps-4 min-w-200px">Peternak</th>
                         <th class="ps-4 ">Asosiasi</th>
                         <th class="ps-4 ">No Invoice</th>
                         <th class="ps-4 ">Expired</th>
                         <th class="ps-4 ">Total</th>
                         <th class="ps-4 ">Status</th>
-                        <th class="min-w-200px rounded-end">Action</th>
+                        <th class="rounded-end">Action</th>
                     </tr>
                 </thead>
                 <!--end::Table head-->
