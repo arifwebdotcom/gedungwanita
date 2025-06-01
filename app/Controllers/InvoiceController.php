@@ -87,7 +87,7 @@ class InvoiceController extends BaseController
     
         $untuk = $this->request->getPost('untuk');
         $nama = $this->request->getPost('namainvoice');
-        $kategoriinvoicefk = $this->request->getPost('kategoriinvoice');
+        $kategoriinvoicefk = $this->request->getPost('kategoriinvoicefk');
         $status = $this->request->getPost('status') ?? "TAGIHAN";
         $expired = date("Y-m-d",strtotime($this->request->getPost('expired')));
         $total = preg_replace("/[^0-9]/", "",$this->request->getPost('total_harga'));
