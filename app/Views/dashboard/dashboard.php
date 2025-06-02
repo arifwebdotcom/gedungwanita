@@ -124,7 +124,7 @@
             <div class="card-body pt-5">
                 <!--begin::Item-->
                 <?php foreach($asosiasi as $row_asos){ ?>
-                    <div class="d-flex align-items-sm-center mb-7">
+                    <div class="d-flex align-items-sm-center mb-2">
                         <!--begin::Symbol-->
                         <div class="symbol symbol-50px me-5">
                             <span class="symbol-label">

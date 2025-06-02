@@ -40,7 +40,7 @@ class Invoice extends Model
     protected $afterDelete    = [];
 
 
-    public function get_invoice_all($noinvoice, $awal, $akhir ,$asosiasi, $numrows)
+    public function get_invoice_all($noinvoice, $awal, $akhir ,$asosiasi, $status, $numrows)
     {
         $builder = $this
             ->select('invoice_t.id as idinvoice,invoice_t.*,users.nama as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
@@ -53,6 +53,9 @@ class Invoice extends Model
             })
             ->when($noinvoice, static function ($query, $noinvoice) {
                 $query->like('invoice_t.noinvoice', $noinvoice);
+            })
+            ->when($status, static function ($query, $status) {
+                $query->like('invoice_t.status', $status);
             })
             ->when($awal, static function ($query, $awal) {
                 //dd(date("Y-m-d 00:00:00", strtotime($awal)));
@@ -121,10 +124,10 @@ class Invoice extends Model
         return $data;
     }
 
-    public function get_invoice_user($noinvoice, $awal, $akhir , $asosiasi, $numrows)
+    public function get_invoice_user($noinvoice, $awal, $akhir , $asosiasi, $status, $numrows)
     {
         $builder = $this
-            ->select('invoice_t.id as idinvoice,invoice_t.*,users.username as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
+            ->select('invoice_t.id as idinvoice,invoice_t.*,users.nama as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
             ->join('users','users.id=invoice_t.usersfk')
             ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk','left')
             ->where('invoice_t.usersfk', user()->id)
@@ -133,6 +136,9 @@ class Invoice extends Model
             })
             ->when($noinvoice, static function ($query, $noinvoice) {
                 $query->like('invoice_t.noinvoice', $noinvoice);
+            })
+            ->when($status, static function ($query, $status) {
+                $query->like('invoice_t.status', $status);
             })
             ->when($awal, static function ($query, $awal) {
                 $query->where('invoice_t.created_at >=', date("Y-m-d 00:00:00",strtotime($awal)));
@@ -163,6 +169,35 @@ class Invoice extends Model
     
             return $data;
     
+    }
+
+    public function getSetoranPerAnggota($kodeanggota,$namaanggota,$namapeternakan, $tahun, $numrows){
+        $builder = $this
+            ->select("users.kodeanggota, users.nama, users.namapeternakan, SUM(CASE WHEN invoice_t.status = 'LUNAS' THEN invoice_t.total ELSE 0 END) as setoran,SUM(CASE WHEN invoice_t.status = 'BELUM LUNAS' THEN invoice_t.total ELSE 0 END) as tunggakan")
+            ->join('users','users.id=invoice_t.usersfk')
+            ->groupBy('invoice_t.usersfk')
+            ->when($namaanggota, static function ($query, $namaanggota) {
+                $query->like('users.nama', $namaanggota);
+            })
+            ->when($namapeternakan, static function ($query, $namapeternakan) {
+                $query->like('users.namapeternakan', $namapeternakan);
+            })
+            ->when($kodeanggota, static function ($query, $kodeanggota) {
+                $query->like('users.kodeanggota', $kodeanggota);
+            })
+            ->when($tahun, static function ($query, $tahun) {
+                $query->where('pengajuan_t.tahun', $tahun);
+            })
+            ->orderBy('setoran', 'DESC')
+            ->findAll($numrows);
+            return $builder; 
+        
+    }
+
+    public function get_tahuninvoice(){
+        $builder = $this->select('YEAR(expired) as tahun')
+        ->groupBy('tahun')->orderBy('tahun')->findAll();
+        return $builder;       
     }
 
     public function getDetailInvoice($invoice_id){

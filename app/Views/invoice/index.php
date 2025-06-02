@@ -44,7 +44,17 @@ $breadcrumb_items = [
                                 <input class='form-control' type='text' name='noinvoice' placeholder='No Invoie' id='noinvoice'>
                             </div>
                         </div>      
-                        <div class='col-md-3'>     
+                        <div class='col-md-2'>
+                            <div class='form-group notmodal'>
+                                <label class='col-form-label col-md-12'>Status</label>
+                                <select class='form-control' name='status' id='status' data-control="select2" data-hide-search="false" style="z-index:1">
+                                    <option value='0' > Pilih Status </option>
+                                    <option value='LUNAS' > LUNAS </option>
+                                    <option value='BELUM LUNAS' > BELUM LUNAS </option>                                   
+                                </select>
+                            </div>
+                        </div>
+                        <div class='col-md-2'>     
                             <!--begin::Input group-->
                             <div class="fv-row ">
                                 <label class='col-form-label col-md-12'>Periode Awal</label>
@@ -68,7 +78,7 @@ $breadcrumb_items = [
                                 <!--begin::Label-->
                             </div>  
                         </div>    
-                        <div class='col-md-3'>     
+                        <div class='col-md-2'>     
                             <!--begin::Input group-->
                             <div class="fv-row ">
                                 <label class='col-form-label col-md-12'>Periode Akhir</label>
@@ -273,6 +283,11 @@ $breadcrumb_items = [
             asosiasi = "&asosiasi=" + $("#asosiasi").val();
         }
 
+        var status = "";
+        if ($("#status").val() && $("#status").val() != "0") {
+            status = "&status=" + $("#status").val();
+        }
+
         var numrows = "0";
         if ($("#numrows").val()) {
             numrows = $("#numrows").val();
@@ -292,7 +307,7 @@ $breadcrumb_items = [
             },
             ajax: {
                 type: "GET",
-                url: '<?= route_to('invoice_get') ?>' + `?numrows=${numrows}${noinvoice}${asosiasi}${awal}${akhir}`,
+                url: '<?= route_to('invoice_get') ?>' + `?numrows=${numrows}${noinvoice}${asosiasi}${awal}${akhir}${status}`,
                 dataType: 'JSON',
                 error: function(e) {
                     alert(e);

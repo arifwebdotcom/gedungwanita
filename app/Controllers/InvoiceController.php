@@ -152,19 +152,20 @@ class InvoiceController extends BaseController
         $awal = $this->request->getVar('awal');
         $akhir = $this->request->getVar('akhir');
         $asosiasi = $this->request->getVar('asosiasi');
+        $status = $this->request->getVar('status');
         $numrows = $this->request->getVar('numrows');
         $isadmin = user()->isadmin;        
 
         if($isadmin == 1){
-            $data = model(Invoice::class)->get_invoice_all($noinvoice, $awal, $akhir, $asosiasi, $numrows);
+            $data = model(Invoice::class)->get_invoice_all($noinvoice, $awal, $akhir, $asosiasi, $status, $numrows);
         }else{
-            $data = model(Invoice::class)->get_invoice_user($noinvoice, $awal, $akhir, $asosiasi, $numrows);
+            $data = model(Invoice::class)->get_invoice_user($noinvoice, $awal, $akhir, $asosiasi, $status, $numrows);
         }
         
         return json_encode(compact('data'));
     }
     public function datatable() {
-        $data = model(Invoice::class)->select('invoice_t.id as idinvoice,invoice_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*')
+        $data = model(Invoice::class)->select('invoice_t.id as idinvoice,invoice_t.*,users.username,users.nohp,users.populasi,asosiasi_m.asosiasi,alamat_m.*,users.nama as namapeternak')
         ->join('users','users.id=invoice_t.usersfk')
         ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk')
         ->join('alamat_m','alamat_m.usersfk = users.id','left')->findAll();

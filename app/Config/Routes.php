@@ -16,6 +16,7 @@ use App\Controllers\DashboardController;
 use App\Controllers\AuthController;
 use App\Controllers\PeriodeController;
 use App\Controllers\NotificationController;
+use App\Controllers\LaporanController;
 use App\Config\Auth as AuthConfig;
 
 /**
@@ -63,6 +64,13 @@ $routes->group('agama', ['filter' => 'login'],function ($routes) {
     $routes->get('datatable', [AgamaController::class, 'datatable'], ['as' => 'agama.datatable']);
     $routes->post('(:num)/edit', [AgamaController::class, 'update'], ['as' => 'agama.update']);
     $routes->post('delete/(:num)', [AgamaController::class, 'delete'], ['as' => 'agama.delete']);
+});
+
+$routes->group('laporan', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [LaporanController::class, 'index'], ['as' => 'laporan.index']);
+    $routes->get('terbesar', [LaporanController::class, 'terbesar'], ['as' => 'laporan.terbesar']);
+    $routes->get('datatable', [LaporanController::class, 'datatable'], ['as' => 'laporan.datatable']);
+   // $routes->get('get-dataPengajuan', [PengajuanController::class, 'getPengajuan'], ['as' => 'pengajuan_get']);
 });
 
 $routes->group('periode', ['filter' => 'login'],function ($routes) {

@@ -25,19 +25,6 @@ class AgamaController extends BaseController
     }
 
     public function store() {
-        // $setRules = [            
-        //     'agama' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Kolom agama wajib diisi.'
-        //         ],
-        //     ],
-        // ];  
-
-        // if (!$this->validate($setRules)) {
-        //     return $this->failValidationErrors($this->validator->getErrors());
-        // }
-
         $request['agama'] = $this->request->getPost('agama');
         $request['reportdisplay'] = $this->request->getPost('agama');
         model(Agama::class)->insert($request);
@@ -49,19 +36,6 @@ class AgamaController extends BaseController
     }
 
     public function update($id) {
-        // $setRules = [            
-        //     'agama' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Kolom agama wajib diisi.'
-        //         ],
-        //     ],
-        // ];
-
-        // if (!$this->validate($setRules)) {
-        //     return $this->failValidationErrors($this->validator->getErrors());
-        // }
-
         $request['agama'] = $this->request->getPost('agama');
         $request['id'] = $id;
         model(Agama::class)->save($request);
