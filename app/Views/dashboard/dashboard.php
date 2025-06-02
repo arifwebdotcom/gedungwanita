@@ -99,7 +99,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                        <div class="text-inverse-bg-body fw-bolder fs-1 mb-2 mt-5">0</div>
+                        <div class="text-inverse-bg-body fw-bolder fs-1 mb-2 mt-5"><?= rupiah($tungakan->total) ?></div>
                         <div class="fw-bold text-inverse-bg-body fs-6">Tunggakan</div>
                     </div>
                     <!--end::Body-->

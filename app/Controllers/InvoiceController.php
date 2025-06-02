@@ -19,7 +19,7 @@ class InvoiceController extends BaseController
 
     public function upload()
     {
-        return view('upload_invoice');
+        return view('invoice/upload');
     }
 
     public function import()
@@ -34,53 +34,117 @@ class InvoiceController extends BaseController
             $jumlahKolom = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
             $db = \Config\Database::connect();
-
+            $j = 0;
             foreach ($rows as $row) {
-                $periode = $row[0];
-                $value = $row[1];
-
-                if ($value === null || $value === '') {
-                    $harga = 0;
-                    $created_at = null;
-                } elseif (strpos((string) $value, '50.000') !== false || (int)$value === -50000) {
-                    $harga = 0;
-                    $created_at = null;
-                } else {
-                    $harga = 50000;
-                    $date = \DateTime::createFromFormat('d/m/y', $value);
-                    $created_at = $date ? $date->format('Y-m-d') : null;
+                if ($j == 0) {
+                    $j++; // Tambahkan ini agar tidak terus-terusan skip
+                    continue; // Lewati baris pertama
                 }
+                $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("kodeanggota",$row[0])->first(); 
+                
 
-                $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("kodeanggota",$usersfk)->first(); 
+                for($i = 1; $i <= $jumlahKolom-1; $i++){
+                    //dd($rows[0][1]." ".date("Y-m",strtotime($rows[0][1])));
+                    //echo $row[$i]."<br>";
+                    $query = model(Invoice::class)->selectCount('id')->get();
+                    $result = $query->getRow();
+                    $maxId = $result->id+1;  
+
+                    $bulan = strtotime($rows[0][$i]);
+                    if($row[$i] === null | $row[$i] === ''){
+                        
+                    }elseif (str_replace(['.', ','], '', $row[$i]) === -50000 || str_replace(['.', ','], '', $row[$i]) === "-50000") {                                                
+                        $request['noinvoice'] =  "IV".date("Y/m",$bulan)."/".$this->numberToRoman($Qall->asosiasifk)."/".$maxId++;
+                        $request['expired'] = date("Y-m-t 23:59:59",$bulan);
+                        $request['nama'] = "Simpanan Wajib";
+                        $request['total'] = 50000;
+                        $request['kategoriinvoicefk'] = 2;
+                        $request['status'] = 'BELUM LUNAS';
+                        $request['tgldibayar'] = date("Y-m-d",strtotime($row[$i]));
+                        $request['usersfk'] = $Qall->id;
+                        $InvoiceDetailModel = new Invoice();
+                        $InvoiceDetailModel->insert($request);       
+                        $invoicefk = $InvoiceDetailModel->getInsertID();
+
+                        $requestd['invoicefk'] = $invoicefk;
+                        $requestd['nama'] = "Simpanan Wajib";    
+                        $requestd['qty'] = 1;
+                        $requestd['harga'] =  50000;
+                        $requestd['subtotal'] = 50000;
+                        $requestd['keterangan'] = "Simpanan Wajib";
+
+                        model(InvoiceDetail::class)->insert($requestd);
+
+                    } else {
+                        //$bulan = strtotime($row[$i]);
+
+                        $request['noinvoice'] =  "IV".date("Y/m",$bulan)."/".$this->numberToRoman($Qall->asosiasifk)."/".$maxId++;
+                        $request['expired'] = date("Y-m-t 23:59:59",$bulan);
+                        $request['nama'] = "Simpanan Wajib";
+                        $request['total'] = 50000;
+                        $request['kategoriinvoicefk'] = 2;
+                        $request['status'] = 'LUNAS';
+                        $request['tgldibayar'] = date("Y-m-d",strtotime($row[$i]));
+                        $request['usersfk'] = $Qall->id;
+                        $InvoiceDetailModel = new Invoice();
+                        $InvoiceDetailModel->insert($request);       
+                        $invoicefk = $InvoiceDetailModel->getInsertID();
+
+                        $requestd['invoicefk'] = $invoicefk;
+                        $requestd['nama'] = "Simpanan Wajib";    
+                        $requestd['qty'] = 1;
+                        $requestd['harga'] =  50000;
+                        $requestd['subtotal'] = 50000;
+                        $requestd['keterangan'] = "Simpanan Wajib";
+
+                        model(InvoiceDetail::class)->insert($requestd);
+                    }
+                }
+                
+                //$value = $row[1];
+
+                // if ($value === null || $value === '') {
+                //     $harga = 0;
+                //     $created_at = null;
+                // } elseif (strpos((string) $value, '50.000') !== false || (int)$value === -50000) {
+                //     $harga = 0;
+                //     $created_at = null;
+                // } else {
+                //     $harga = 50000;
+                //     $date = \DateTime::createFromFormat('d/m/y', $value);
+                //     $created_at = $date ? $date->format('Y-m-d') : null;
+                // }
+
+                // $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("kodeanggota",$usersfk)->first(); 
                     
-                $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($Qall->asosiasifk)."/".$maxId++;
-                $request['expired'] = $expired;
-                $request['nama'] = $nama;
-                $request['total'] = $total;
-                $request['kategoriinvoicefk'] = $kategoriinvoicefk;
-                $request['status'] = $status;
-                $request['usersfk'] = $usersfk;
-                $InvoiceDetailModel = new Invoice();
-                $InvoiceDetailModel->insert($request);       
-                $invoicefk = $InvoiceDetailModel->getInsertID();
+                // $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($Qall->asosiasifk)."/".$maxId++;
+                // $request['expired'] = $expired;
+                // $request['nama'] = $nama;
+                // $request['total'] = $total;
+                // $request['kategoriinvoicefk'] = $kategoriinvoicefk;
+                // $request['status'] = $status;
+                // $request['usersfk'] = $usersfk;
+                // $InvoiceDetailModel = new Invoice();
+                // $InvoiceDetailModel->insert($request);       
+                // $invoicefk = $InvoiceDetailModel->getInsertID();
 
          
-                $requestd['invoicefk'] = $invoicefk;
-                $requestd['nama'] = $invoice_detail['nama'];    
-                $requestd['qty'] = $invoice_detail['qty'];
-                $requestd['harga'] =  $invoice_detail['harga'];
-                $requestd['subtotal'] = $invoice_detail['subtotal'];
-                $requestd['keterangan'] = $invoice_detail['keterangan'];
+                // $requestd['invoicefk'] = $invoicefk;
+                // $requestd['nama'] = $invoice_detail['nama'];    
+                // $requestd['qty'] = $invoice_detail['qty'];
+                // $requestd['harga'] =  $invoice_detail['harga'];
+                // $requestd['subtotal'] = $invoice_detail['subtotal'];
+                // $requestd['keterangan'] = $invoice_detail['keterangan'];
 
-                model(InvoiceDetail::class)->insert($requestd);
+                // model(InvoiceDetail::class)->insert($requestd);
             
-                
+                $j++;
             }
 
-            return redirect()->to('/invoice/upload')->with('success', 'Data berhasil diimpor.');
+            //return redirect()->to('/invoice/upload')->with('success', 'Data berhasil diimpor.');
         }
 
-        return redirect()->back()->with('error', 'File tidak valid.');
+        //return redirect()->back()->with('error', 'File tidak valid.');
     }
 
     public function getInvoice() {
@@ -148,7 +212,7 @@ class InvoiceController extends BaseController
 
     public function store() {
         
-        $query = model(Invoice::class)->selectMax('id')->get();
+        $query = model(Invoice::class)->selectCount('id')->get();
         $result = $query->getRow();
         $maxId = $result->id+1;        
     
@@ -195,7 +259,7 @@ class InvoiceController extends BaseController
             $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("asosiasifk",$asosiasifk)->findAll();
 
             foreach($Qall as $row){
-                $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
+                $request['noinvoice'] =  "IV".date("Y/m")."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
                 $request['expired'] = $expired;
                 $request['nama'] = $nama;
                 $request['total'] = $total;
@@ -223,7 +287,7 @@ class InvoiceController extends BaseController
             $usersfk = $this->request->getPost('usersfk');
             $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("id",$usersfk)->first(); 
                     
-            $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($Qall->asosiasifk)."/".$maxId++;
+            $request['noinvoice'] =  "IV".date("Y/m")."/".$this->numberToRoman($Qall->asosiasifk)."/".$maxId++;
             $request['expired'] = $expired;
             $request['nama'] = $nama;
             $request['total'] = $total;
