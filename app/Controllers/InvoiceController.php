@@ -30,6 +30,8 @@ class InvoiceController extends BaseController
             $spreadsheet = IOFactory::load($file->getTempName());
             $sheet = $spreadsheet->getActiveSheet();
             $rows = $sheet->toArray();
+            $highestColumn = $sheet->getHighestColumn(); // Contoh: 'D'
+            $jumlahKolom = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
             $db = \Config\Database::connect();
 
@@ -45,16 +47,34 @@ class InvoiceController extends BaseController
                     $created_at = null;
                 } else {
                     $harga = 50000;
-                    // Konversi ke format tanggal MySQL (YYYY-MM-DD)
                     $date = \DateTime::createFromFormat('d/m/y', $value);
                     $created_at = $date ? $date->format('Y-m-d') : null;
                 }
 
-                $db->table('invoice_t')->insert([
-                    'periode' => $periode,
-                    'harga' => $harga,
-                    'created_at' => $created_at,
-                ]);
+                $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("kodeanggota",$usersfk)->first(); 
+                    
+                $request['noinvoice'] =  "IV".date("Ym")."/".$this->numberToRoman($Qall->asosiasifk)."/".$maxId++;
+                $request['expired'] = $expired;
+                $request['nama'] = $nama;
+                $request['total'] = $total;
+                $request['kategoriinvoicefk'] = $kategoriinvoicefk;
+                $request['status'] = $status;
+                $request['usersfk'] = $usersfk;
+                $InvoiceDetailModel = new Invoice();
+                $InvoiceDetailModel->insert($request);       
+                $invoicefk = $InvoiceDetailModel->getInsertID();
+
+         
+                $requestd['invoicefk'] = $invoicefk;
+                $requestd['nama'] = $invoice_detail['nama'];    
+                $requestd['qty'] = $invoice_detail['qty'];
+                $requestd['harga'] =  $invoice_detail['harga'];
+                $requestd['subtotal'] = $invoice_detail['subtotal'];
+                $requestd['keterangan'] = $invoice_detail['keterangan'];
+
+                model(InvoiceDetail::class)->insert($requestd);
+            
+                
             }
 
             return redirect()->to('/invoice/upload')->with('success', 'Data berhasil diimpor.');
