@@ -175,6 +175,7 @@ class Invoice extends Model
         $builder = $this
             ->select("users.kodeanggota, users.nama, users.namapeternakan, SUM(CASE WHEN invoice_t.status = 'LUNAS' THEN invoice_t.total ELSE 0 END) as setoran,SUM(CASE WHEN invoice_t.status = 'BELUM LUNAS' THEN invoice_t.total ELSE 0 END) as tunggakan")
             ->join('users','users.id=invoice_t.usersfk')
+            ->where('invoice_t.usersfk', user()->id)
             ->groupBy('invoice_t.usersfk')
             ->when($namaanggota, static function ($query, $namaanggota) {
                 $query->like('users.nama', $namaanggota);
@@ -190,8 +191,29 @@ class Invoice extends Model
             })
             ->orderBy('setoran', 'DESC')
             ->findAll($numrows);
-            return $builder; 
-        
+            return $builder;         
+    }
+
+    public function getSetoranPerAnggotaAdmin($kodeanggota,$namaanggota,$namapeternakan, $tahun, $numrows){
+        $builder = $this
+            ->select("users.kodeanggota, users.nama, users.namapeternakan, SUM(CASE WHEN invoice_t.status = 'LUNAS' THEN invoice_t.total ELSE 0 END) as setoran,SUM(CASE WHEN invoice_t.status = 'BELUM LUNAS' THEN invoice_t.total ELSE 0 END) as tunggakan")
+            ->join('users','users.id=invoice_t.usersfk')
+            ->groupBy('invoice_t.usersfk')
+            ->when($namaanggota, static function ($query, $namaanggota) {
+                $query->like('users.nama', $namaanggota);
+            })
+            ->when($namapeternakan, static function ($query, $namapeternakan) {
+                $query->like('users.namapeternakan', $namapeternakan);
+            })
+            ->when($kodeanggota, static function ($query, $kodeanggota) {
+                $query->like('users.kodeanggota', $kodeanggota);
+            })
+            ->when($tahun, static function ($query, $tahun) {
+                $query->where('pengajuan_t.tahun', $tahun);
+            })
+            ->orderBy('setoran', 'DESC')
+            ->findAll($numrows);
+            return $builder;         
     }
 
     public function get_tahuninvoice(){

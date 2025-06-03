@@ -20,7 +20,14 @@ class LaporanController extends BaseController
         $namapeternakan = $this->request->getVar('namapeternakan');
         $tahun = $this->request->getVar('tahun');
         $numrows = $this->request->getVar('numrows');
-        $data = model(Invoice::class)->getSetoranPerAnggota($kodeanggota,$namaanggota,$namapeternakan, $tahun, $numrows);
+
+        $isadmin = user()->isadmin;        
+
+        if($isadmin == 1){
+            $data = model(Invoice::class)->getSetoranPerAnggotaAdmin($kodeanggota,$namaanggota,$namapeternakan, $tahun, $numrows);
+        }else{
+            $data = model(Invoice::class)->getSetoranPerAnggota($kodeanggota,$namaanggota,$namapeternakan, $tahun, $numrows);
+        }
     
         return json_encode(compact('data'));
     }
