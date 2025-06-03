@@ -21,7 +21,7 @@ class LaporanController extends BaseController
         return json_encode(compact('data'));
     }
 
-    public function exportPengajuan()
+    public function exportInvoice()
     {
         $kodeanggota = $this->request->getVar('kodeanggota');
         $namaanggota = $this->request->getVar('namaanggota');
