@@ -127,9 +127,19 @@ $breadcrumb_items = [
     });
 
     $("#export").click(function() {
-        var nopengajuan = "";
-        if ($("#nopengajuan").val()) {
-            nopengajuan = "&nopengajuan=" + $("#nopengajuan").val();
+        var namaanggota = "";
+        if ($("#namaanggota").val()) {
+            namaanggota = "&namaanggota=" + $("#namaanggota").val();
+        }
+
+        var kodeanggota = "";
+        if ($("#kodeanggota").val()) {
+            kodeanggota = "&kodeanggota=" + $("#kodeanggota").val();
+        }
+
+        var namapeternakan = "";
+        if ($("#namapeternakan").val()) {
+            namapeternakan = "&namapeternakan=" + $("#namapeternakan").val();
         }
 
         var tahun = "";
@@ -137,17 +147,12 @@ $breadcrumb_items = [
             tahun = "&tahun=" + $("#tahun").val();
         }
 
-        var asosiasi = "";
-        if ($("#asosiasi").val() && $("#asosiasi").val() != "0") {
-            asosiasi = "&asosiasi=" + $("#asosiasi").val();
-        }
-
         var numrows = "0";
         if ($("#numrows").val()) {
             numrows = $("#numrows").val();
         }
 
-        let url = '<?= route_to('pengajuan.exportdata') ?>' + `?numrows=${numrows}&nopengajuan=${nopengajuan}&tahun=${tahun}&asosiasi=${asosiasi}`;
+        let url = '<?= route_to('laporan.exportdata') ?>' + `?numrows=${numrows}&namaanggota=${namaanggota}&tahun=${tahun}&kodeanggota=${kodeanggota}`;
         Swal.fire({ 
             allowOutsideClick: false,
             title: 'Harap Menunggu',

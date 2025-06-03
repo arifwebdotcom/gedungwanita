@@ -70,6 +70,7 @@ $routes->group('laporan', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [LaporanController::class, 'index'], ['as' => 'laporan.index']);
     $routes->get('terbesar', [LaporanController::class, 'terbesar'], ['as' => 'laporan.terbesar']);
     $routes->get('datatable', [LaporanController::class, 'datatable'], ['as' => 'laporan.datatable']);
+    $routes->get('exportdata', [LaporanController::class, 'exportInvoice'], ['as' => 'laporan.exportdata']);
    // $routes->get('get-dataPengajuan', [PengajuanController::class, 'getPengajuan'], ['as' => 'pengajuan_get']);
 });
 
