@@ -124,6 +124,8 @@ $breadcrumb_items = [
                     <?php if(strtolower($invoice['status']) == 'lunas'){}else{ ?>
                     <div class="row no-print">
                         <div class="col-12">
+                        <button type="button" class="btn btn-primary pull-right" id="btn_lunas"><i class="fa fa-credit-card"></i> Lunaskan 
+                        </button>
                         <button type="button" class="btn btn-success pull-right" id="btn_bayar"><i class="fa fa-credit-card"></i> Bayar Invoice 
                         </button>
                         </div>
@@ -222,6 +224,50 @@ $breadcrumb_items = [
         });
     
         $("#snap-container").show();
+           
+    });
+
+    $('#btn_lunas').on('click', function() {
+
+        const today = new Date().toISOString().split('T')[0];
+
+        Swal.fire({
+            title: "Apakah anda yakin?",
+            html: `
+                <p>Lunaskan Invoice <?= $invoice['noinvoice'] ?></p>
+                <input type="date" id="tgl_dibayar" class="swal2-input" value="${today}" placeholder="Tanggal Dibayar">
+            `,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Ya, Silahkan!",
+            cancelButtonText: "Tidak, Jangan dilunaskan!",
+            reverseButtons: true,
+            preConfirm: () => {
+                const tglDibayar = document.getElementById('tgl_dibayar').value;
+                if (!tglDibayar) {
+                    Swal.showValidationMessage('Silakan pilih tanggal dibayar terlebih dahulu');
+                }
+                return { tgl_dibayar: tglDibayar };
+            }
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                const tglDibayar = result.value.tgl_dibayar;
+                $.ajax({
+                    url: `<?= base_url() ?>invoice/<?= $invoice['id'];?>/lunaskan`,
+                    method: 'POST',
+                    dataType: 'json',
+                    data: { id: '<?= $invoice['id'];?>',tgldibayar : tglDibayar },
+                    success: function(data) {	
+                        toastr.success("Invoice <?= $invoice['noinvoice'] ?> berhasil dilunaskan");    
+                        Swal.close()
+                        location.reload();                					
+                    }
+                });
+            } else if (result.dismiss === "cancel") {
+                toastr.error("Invoice <?= $invoice['noinvoice'] ?> tidak jadi dihapus");                
+            }
+        });
+        
            
     });
 

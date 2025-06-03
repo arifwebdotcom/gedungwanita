@@ -116,6 +116,7 @@ $routes->group('invoice', ['filter' => 'login'],function ($routes) {
     $routes->post('checkstatus/(:num)', [InvoiceController::class, 'checkstatus'], ['as' => 'invoice.checkstatus']);
     $routes->get('upload', [InvoiceController::class, 'upload'], ['as' => 'invoice.upload']);
     $routes->post('import', [InvoiceController::class, 'import'], ['as' => 'invoice.import']);
+    $routes->post('(:num)/lunaskan', [InvoiceController::class, 'lunaskan'], ['as' => 'invoice.lunaskan']);
 });
 
 $routes->group('asosiasi', ['filter' => 'login'],function ($routes) {

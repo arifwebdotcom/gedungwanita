@@ -365,6 +365,19 @@ class InvoiceController extends BaseController
         ]);
     }
 
+    public function lunaskan($id) {
+
+        $request['status'] = "LUNAS";
+        $request['tgldibayar'] = date("Y-m-d H:i:s",strtotime($this->request->getPost('tgldibayar')));
+        $request['id'] = $id;
+        model(Invoice::class)->save($request);
+
+        return $this->respondUpdated([
+            'status' => true,
+            'messages' => 'Data invoice berhasil diubah.',
+        ]);
+    }
+
     public function checkstatus($id){
         $server_key = 'SB-Mid-server-c_BeG1nsGdJxwveXVqhagZOu';
 
