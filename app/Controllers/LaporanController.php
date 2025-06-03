@@ -45,6 +45,7 @@ class LaporanController extends BaseController
         $sheet->setCellValue('C1', 'Nama Peternakan');
         $sheet->setCellValue('D1', 'Jumlah Setoran');
         $sheet->setCellValue('E1', 'Jumlah Tunggakan');
+        $sheet->setCellValue('F1', 'Selisih');
         // Add more columns as needed 
 
         // Populate data rows
@@ -55,6 +56,7 @@ class LaporanController extends BaseController
             $sheet->setCellValue('C' . $row, $item['namapeternakan']);
             $sheet->setCellValue('D' . $row, rupiah($item['setoran']));
             $sheet->setCellValue('E' . $row, rupiah($item['tunggakan']));            
+            $sheet->setCellValue('F' . $row, rupiah($item['setoran']-$item['tunggakan']));            
             // Add more columns as needed
             $row++;
         }
