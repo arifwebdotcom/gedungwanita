@@ -90,8 +90,7 @@ $breadcrumb_items = [
                         <th class="ps-4 ">Nama Peternak</th>
                         <th class="ps-4 ">Nama Peternakan</th>
                         <th class="ps-4 ">Jumlah Setoran</th>
-                        <th class="ps-4 ">Jumlah Tunggakan</th>      
-                        <th class="ps-4 ">Selisih</th>      
+                        <th class="ps-4 ">Jumlah Tunggakan</th>     
                     </tr>
                 </thead>
                 <!--end::Table head-->
@@ -252,15 +251,7 @@ $breadcrumb_items = [
                     render: function(data, type, row, meta) {
                         return rupiah(data)
                     }
-                },          
-                {
-                    name: "Selisih",
-                    data: null, // karena kita hitung manual
-                    render: function(data, type, row, meta) {
-                        var selisih = row.setoran - row.tunggakan;
-                        return rupiah(selisih);
-                    }
-                }                                          
+                }                                      
             ]         
         })
 
