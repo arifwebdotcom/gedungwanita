@@ -156,7 +156,7 @@ $breadcrumb_items = [
             },
             {
                 name: "Nama Peternak",
-                data: "username"
+                data: "nama"
             },
             {
                 name: "Nama Peternakan",
