@@ -213,25 +213,35 @@ class InvoiceController extends BaseController
 
     public function store() {
         
-        $query = model(Invoice::class)->selectCount('id')->get();
+        $query = model(Invoice::class)->selectCount('id')->like('expired', date("Y").'-', 'after')->get();
         $result = $query->getRow();
-        $maxId = $result->id+1;        
+        $urutan = $result->id;        
     
         $untuk = $this->request->getPost('untuk');
         $nama = $this->request->getPost('namainvoice');
         $kategoriinvoicefk = $this->request->getPost('kategoriinvoicefk');
         $status = $this->request->getPost('status') ?? "TAGIHAN";
         $expired = date("Y-m-d",strtotime($this->request->getPost('expired')));
-        $total = preg_replace("/[^0-9]/", "",$this->request->getPost('total_harga'));
+        $tglinvoice = date("Y-m-d",strtotime($this->request->getPost('tglinvoice')));
+        $total = preg_replace("/[^0-9]/", "",$this->request->getPost('total_harga'));       
         
 
         if($untuk ==  1){
             $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("isadmin",0)->findAll();
 
             foreach($Qall as $row){
+                
+                $tahun = date('Y', strtotime($tglinvoice));
+                $bulanAngka = date('m', strtotime($tglinvoice));
+
+                // Format invoice baru
+                $noInvoiceBaru = sprintf("INV/SP/%04d/%s/%s", $urutan++, $this->numberToRoman($bulanAngka), $tahun);
+
                 $tglgabung = date("Y/m",strtotime($row->tglgabung));
-                $request['noinvoice'] =  "IV".$tglgabung."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
+                // $request['noinvoice'] =  "IV".$tglgabung."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
+                 $request['noinvoice'] =  $noInvoiceBaru;
                 $request['expired'] = date("Y-m-d 00:00:00",strtotime($row->tglgabung));
+                $request['tglinvoice'] = date("Y-m-d 00:00:00",strtotime($tglinvoice));
                 $request['nama'] = $nama;
                 $request['total'] = $total;
                 $request['kategoriinvoicefk'] = $kategoriinvoicefk;
@@ -256,12 +266,19 @@ class InvoiceController extends BaseController
             
         }else if($untuk == 2){
             $asosiasifk = $this->request->getPost('asosiasifk');
+            $tahun = date('Y', strtotime($tglinvoice));
+            $bulanAngka = date('m', strtotime($tglinvoice));
+
+            // Format invoice baru
+            $noInvoiceBaru = sprintf("INV/SP/%04d/%s/%s", $urutan++, $this->numberToRoman($bulanAngka), $tahun);
             
             $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("asosiasifk",$asosiasifk)->findAll();
 
             foreach($Qall as $row){
-                $request['noinvoice'] =  "IV".date("Y/m")."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
+                //$request['noinvoice'] =  "IV".date("Y/m")."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
+                $request['noinvoice'] =  $noInvoiceBaru;
                 $request['expired'] = $expired;
+                $request['tglinvoice'] = date("Y-m-d 00:00:00",strtotime($tglinvoice));
                 $request['nama'] = $nama;
                 $request['total'] = $total;
                 $request['kategoriinvoicefk'] = $kategoriinvoicefk;
@@ -287,9 +304,15 @@ class InvoiceController extends BaseController
             $asosiasifk = $this->request->getPost('asosiasifk');
             $usersfk = $this->request->getPost('usersfk');
             $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("id",$usersfk)->first(); 
+            $tahun = date('Y', strtotime($tglinvoice));
+            $bulanAngka = date('m', strtotime($tglinvoice));
+
+            // Format invoice baru
+            $noInvoiceBaru = sprintf("INV/SP/%04d/%s/%s", $urutan++, $this->numberToRoman($bulanAngka), $tahun);
                     
-            $request['noinvoice'] =  "IV".date("Y/m")."/".$this->numberToRoman($Qall->asosiasifk)."/".$maxId++;
+            $request['noinvoice'] =  $noInvoiceBaru;
             $request['expired'] = $expired;
+            $request['tglinvoice'] = date("Y-m-d 00:00:00",strtotime($tglinvoice));
             $request['nama'] = $nama;
             $request['total'] = $total;
             $request['kategoriinvoicefk'] = $kategoriinvoicefk;
