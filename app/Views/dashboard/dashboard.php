@@ -65,7 +65,7 @@
             <!--begin::Col-->
             <div class="col-xxl-6">
                 <!--begin::Tiles Widget 5-->
-                <a href="#" class="card bg-primary card-xxl-stretch">
+                <a href="<?= route_to('invoice.index') ?>" class="card bg-primary card-xxl-stretch">
                     <!--begin::Body-->
                     <div class="card-body">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -88,7 +88,7 @@
             <!--begin::Col-->
             <div class="col-xxl-6">
                 <!--begin::Tiles Widget 5-->
-                <a href="#" class="card bg-bg-body card-xxl-stretch">
+                <a href="<?= route_to('invoice.index') ?>" class="card bg-bg-body card-xxl-stretch">
                     <!--begin::Body-->
                     <div class="card-body">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen002.svg-->
