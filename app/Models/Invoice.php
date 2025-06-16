@@ -171,9 +171,59 @@ class Invoice extends Model
     
     }
 
-    public function getSetoranPerAnggota($kodeanggota,$namaanggota,$namapeternakan, $tahun, $numrows){
+    public function get_invoice_per_user($noinvoice, $awal, $akhir , $asosiasi, $status, $numrows,$idmember)
+    {
         $builder = $this
-            ->select("users.kodeanggota, users.nama, users.namapeternakan, SUM(CASE WHEN invoice_t.status = 'LUNAS' THEN invoice_t.total ELSE 0 END) as setoran,SUM(CASE WHEN invoice_t.status = 'BELUM LUNAS' THEN invoice_t.total ELSE 0 END) as tunggakan")
+            ->select('invoice_t.id as idinvoice,invoice_t.*,users.nama as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
+            ->join('users','users.id=invoice_t.usersfk')
+            ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk','left')
+            //->where('invoice_t.usersfk', user()->id)
+            ->when($idmember, static function ($query, $idmember) {
+                $query->where('invoice_t.usersfk', $idmember);
+            })
+            ->when($noinvoice, static function ($query, $noinvoice) {
+                $query->like('invoice_t.noinvoice', $noinvoice);
+            })
+            ->when($noinvoice, static function ($query, $noinvoice) {
+                $query->like('invoice_t.noinvoice', $noinvoice);
+            })
+            ->when($status, static function ($query, $status) {
+                $query->like('invoice_t.status', $status);
+            })
+            ->when($awal, static function ($query, $awal) {
+                $query->where('invoice_t.created_at >=', date("Y-m-d 00:00:00",strtotime($awal)));
+            })
+            ->when($akhir, static function ($query, $akhir) {
+                $query->where('invoice_t.created_at <=', date("Y-m-d 00:00:00",strtotime($akhir)));
+            })
+            ->when($asosiasi, static function ($query, $asosiasi) {
+                $query->like('users.asosiasifk', $asosiasi);
+            })
+            ->findAll($numrows);
+
+            $data = [];
+            foreach ($builder as $row) {
+                $detail_invoice = $this->getDetailInvoice($row->id);
+    
+                $data[] = [
+                    "id" => $row->idinvoice,
+                    "total" => number_to_currency($row->total, 'IDR', 'id_ID', 2),
+                    "namapeternak" => $row->namapeternak,
+                    "asosiasi" => $row->asosiasi,
+                    "noinvoice" => $row->noinvoice,
+                    "expired" => $row->expired,
+                    "status" => $row->status,
+                    "detail" => $detail_invoice
+                ];
+            }
+    
+            return $data;
+    
+    }
+
+    public function getSetoranPerAnggota($id,$namaanggota,$namapeternakan, $tahun, $numrows){
+        $builder = $this
+            ->select("users.id,users.kodeanggota, users.nama, users.namapeternakan, SUM(CASE WHEN invoice_t.status = 'LUNAS' THEN invoice_t.total ELSE 0 END) as setoran,SUM(CASE WHEN invoice_t.status = 'BELUM LUNAS' THEN invoice_t.total ELSE 0 END) as tunggakan")
             ->join('users','users.id=invoice_t.usersfk')
             ->where('invoice_t.usersfk', user()->id)
             ->groupBy('invoice_t.usersfk')
@@ -183,8 +233,8 @@ class Invoice extends Model
             ->when($namapeternakan, static function ($query, $namapeternakan) {
                 $query->like('users.namapeternakan', $namapeternakan);
             })
-            ->when($kodeanggota, static function ($query, $kodeanggota) {
-                $query->like('users.kodeanggota', $kodeanggota);
+            ->when($id, static function ($query, $id) {
+                $query->like('users.id', $id);
             })
             ->when($tahun, static function ($query, $tahun) {
                 $query->where('pengajuan_t.tahun', $tahun);
@@ -196,7 +246,7 @@ class Invoice extends Model
 
     public function getSetoranPerAnggotaAdmin($kodeanggota,$namaanggota,$namapeternakan, $tahun, $numrows){
         $builder = $this
-            ->select("users.kodeanggota, users.nama, users.namapeternakan, SUM(CASE WHEN invoice_t.status = 'LUNAS' THEN invoice_t.total ELSE 0 END) as setoran,SUM(CASE WHEN invoice_t.status = 'BELUM LUNAS' THEN invoice_t.total ELSE 0 END) as tunggakan")
+            ->select("users.id,users.kodeanggota, users.nama, users.namapeternakan, SUM(CASE WHEN invoice_t.status = 'LUNAS' THEN invoice_t.total ELSE 0 END) as setoran,SUM(CASE WHEN invoice_t.status = 'BELUM LUNAS' THEN invoice_t.total ELSE 0 END) as tunggakan")
             ->join('users','users.id=invoice_t.usersfk')
             ->groupBy('invoice_t.usersfk')
             ->when($namaanggota, static function ($query, $namaanggota) {

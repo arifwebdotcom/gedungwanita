@@ -91,6 +91,7 @@ $breadcrumb_items = [
                         <th class="ps-4 ">Nama Peternakan</th>
                         <th class="ps-4 ">Jumlah Setoran</th>
                         <th class="ps-4 ">Jumlah Tunggakan</th>     
+                        <th class="ps-4 ">Detail</th>     
                     </tr>
                 </thead>
                 <!--end::Table head-->
@@ -251,7 +252,15 @@ $breadcrumb_items = [
                     render: function(data, type, row, meta) {
                         return rupiah(data)
                     }
-                }                                      
+                },
+                {
+                    width: "10%",
+                    sortable: false,
+                    render: function(data, type, row, meta) {
+                        return `<a href="<?= base_url() ?>laporan/detailmember/`+row.id+`"> <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket btn-success btn-sm" >History Transaksi</button></a>
+                                        `;
+                    }
+                },                                      
             ]         
         })
 

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Invoice;
+use App\Models\Asosiasi;
 use CodeIgniter\API\ResponseTrait;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -29,6 +30,23 @@ class LaporanController extends BaseController
             $data = model(Invoice::class)->getSetoranPerAnggota($kodeanggota,$namaanggota,$namapeternakan, $tahun, $numrows);
         }
     
+        return json_encode(compact('data'));
+    }
+    
+    public function datatablemember() {
+        $noinvoice = $this->request->getVar('noinvoice');
+        $awal = $this->request->getVar('awal');
+        $akhir = $this->request->getVar('akhir');
+        $asosiasi = $this->request->getVar('asosiasi');
+        $status = $this->request->getVar('status');
+        $numrows = $this->request->getVar('numrows');
+        $idmember = $this->request->getVar('idmember');
+        $isadmin = user()->isadmin;        
+
+        
+        $data = model(Invoice::class)->get_invoice_per_user($noinvoice, $awal, $akhir, $asosiasi, $status, $numrows,$idmember);
+        
+        
         return json_encode(compact('data'));
     }
 
@@ -94,6 +112,14 @@ class LaporanController extends BaseController
     {
         $this->data['tahun'] = model(Invoice::class)->get_tahuninvoice();
         return view('laporan/terbesar',$this->data);
+    }
+
+    public function detailmember($id)
+    {
+        $this->data['idmember'] = $id;
+        $this->data['asosiasi'] = model(Asosiasi::class)->findAll();
+        //$this->data['tahun'] = model(Invoice::class)->get_tahuninvoice();
+        return view('laporan/detailmember',$this->data);
     }
 
 }

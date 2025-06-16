@@ -68,9 +68,11 @@ $routes->group('agama', ['filter' => 'login'],function ($routes) {
 
 $routes->group('laporan', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [LaporanController::class, 'index'], ['as' => 'laporan.index']);
-    $routes->get('terbesar', [LaporanController::class, 'terbesar'], ['as' => 'laporan.terbesar']);
+    $routes->get('terbesar', [LaporanController::class, 'terbesar'], ['as' => 'laporan.terbesar']);    
     $routes->get('datatable', [LaporanController::class, 'datatable'], ['as' => 'laporan.datatable']);
+    $routes->get('datatablemember', [LaporanController::class, 'datatablemember'], ['as' => 'laporan.datatablemember']);
     $routes->get('exportdata', [LaporanController::class, 'exportInvoice'], ['as' => 'laporan.exportdata']);
+    $routes->get('detailmember/(:num)', [LaporanController::class, 'detailmember'], ['as' => 'laporan.detailmember']);
    // $routes->get('get-dataPengajuan', [PengajuanController::class, 'getPengajuan'], ['as' => 'pengajuan_get']);
 });
 
