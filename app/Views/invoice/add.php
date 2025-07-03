@@ -90,7 +90,7 @@ $breadcrumb_items = [
         <!--begin::Input group-->
         <div class="fv-row mb-10 col-lg-4 notmodal">
             <label class="required fs-6 fw-bold mb-2">Asosiasi</label>
-            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Asosiasi" name="asosiasifk" id="asosiasifk" disabled>
+            <select class="form-select form-select-solid" data-control="select2" data-hide-search="false" data-placeholder="Select Asosiasi" name="asosiasifk" id="asosiasifk" disabled>
             <option value="0">Pilih Asosiasi</option>
             <?php foreach ($asosiasi as $row) :  {?>
                 <option value="<?= $row->id ?>"><?= $row->asosiasi ?></option>
@@ -322,9 +322,11 @@ $breadcrumb_items = [
             if(selectedValue === '2'){
                 $('#asosiasifk').prop('disabled', false);
                 $('#usersfk').prop('disabled', true);
+                $('#asosiasifk').select2()
             } else if(selectedValue === '3'){
                 $('#asosiasifk').prop('disabled', true);
-                $('#usersfk').prop('disabled', false);
+                $('#usersfk').prop('disabled', false);                
+                $('#usersfk').select2()
             }else{
                 $('#asosiasifk').prop('disabled', true);
                 $('#usersfk').prop('disabled', true);
