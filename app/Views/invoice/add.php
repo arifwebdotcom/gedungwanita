@@ -307,7 +307,7 @@ $breadcrumb_items = [
             enableTime: false,
             dateFormat: "d-m-Y",
             mode: "single",
-            minDate: "today",
+            //minDate: "today",
             // Disable keyboard input
             allowInput: false        
             
@@ -326,7 +326,7 @@ $breadcrumb_items = [
             enableTime: false,
             dateFormat: "d-m-Y",
             mode: "single",
-            minDate: "today",
+            //minDate: "today",
             // Disable keyboard input
             allowInput: false        
             
