@@ -222,6 +222,7 @@ class InvoiceController extends BaseController
         $kategoriinvoicefk = $this->request->getPost('kategoriinvoicefk');
         $status = $this->request->getPost('status') ?? "TAGIHAN";
         $expired = date("Y-m-d",strtotime($this->request->getPost('expired')));
+        $tgldibayar = date("Y-m-d",strtotime($this->request->getPost('tgldibayar')));
         $tglinvoice = date("Y-m-d",strtotime($this->request->getPost('tglinvoice')));
         $total = preg_replace("/[^0-9]/", "",$this->request->getPost('total_harga'));       
         
@@ -239,8 +240,9 @@ class InvoiceController extends BaseController
 
                 $tglgabung = date("Y/m",strtotime($row->tglgabung));
                 // $request['noinvoice'] =  "IV".$tglgabung."/".$this->numberToRoman($row->asosiasifk)."/".$maxId++;
-                 $request['noinvoice'] =  $noInvoiceBaru;
-                $request['expired'] = date("Y-m-d 00:00:00",strtotime($row->tglgabung));
+                $request['noinvoice'] =  $noInvoiceBaru;
+                $request['expired'] = $expired;
+                $request['tgldibayar'] = $tgldibayar;
                 $request['tglinvoice'] = date("Y-m-d 00:00:00",strtotime($tglinvoice));
                 $request['nama'] = $nama;
                 $request['total'] = $total;
