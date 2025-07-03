@@ -105,7 +105,7 @@ $breadcrumb_items = [
             <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Periode" name="usersfk" id="usersfk" disabled>
             <option value="0">Pilih Anggota</option>
             <?php foreach ($user as $row) :  {?>
-                <option value="<?= $row->id ?>"><?= $row->namapeternakan ?></option>
+                <option value="<?= $row->id ?>"><?= $row->nama." ~ ".$row->namapeternakan ?></option>
             <?php }
             endforeach ?>
             </select>
