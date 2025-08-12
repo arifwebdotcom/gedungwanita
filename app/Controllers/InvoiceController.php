@@ -265,7 +265,7 @@ class InvoiceController extends BaseController
                     model(InvoiceDetail::class)->insert($request);
                 }
 
-                $this->sendwa($row->nama,$row->nohp);
+                $this->sendwa($row->nama,$row->nohp,$noInvoiceBaru,$tglinvoice,$expired);
             }
             
         }else if($untuk == 2){
@@ -303,7 +303,7 @@ class InvoiceController extends BaseController
 
                     model(InvoiceDetail::class)->insert($request);
                 }
-                $this->sendwa($row->nama,$row->nohp);
+                $this->sendwa($row->nama,$row->nohp,$noInvoiceBaru,$tglinvoice,$expired);
             }
         }else if($untuk == 3){
             $asosiasifk = $this->request->getPost('asosiasifk');
@@ -339,7 +339,7 @@ class InvoiceController extends BaseController
                 model(InvoiceDetail::class)->insert($request);
             }
 
-            $this->sendwa($Qall->nama,$Qall->nohp);
+            $this->sendwa($Qall->nama,$Qall->nohp,$noInvoiceBaru,$tglinvoice,$expired);
             
         }
 
@@ -350,7 +350,7 @@ class InvoiceController extends BaseController
         ]);
     }
 
-    public function sendwa($nama,$nohp){
+    public function sendwa($nama,$nohp,$noInvoiceBaru,$tglinvoice,$expired){
         $curl = curl_init();
 
         $nohp = preg_replace('/^08/', '628', $nohp);
@@ -376,11 +376,7 @@ class InvoiceController extends BaseController
             "data" => [
                 [
                     'phone' => $nohp,
-                    'message' => $salam.' Bp/ibu '.$nama.'\n*Pemberitahuan Invoice Baru.*\nNo Invoice : *'.$noInvoiceBaru.'*
-                    Nama   : '.$nama.'
-                    Tgl Invoice : '.date('d-m-Y',strtotime($tglinvoice)).'
-                    Tgl Jatuh Tempo : '.date('d-m-Y',strtotime($expired)).'
-                    \nTerima Kasih.',
+                    'message' => $salam.' Bp/ibu '.$nama.'\n*Pemberitahuan Invoice Baru.*\nNo Invoice : *'.$noInvoiceBaru.'*\nNama   : '.$nama.'\nTgl Invoice : '.date('d-m-Y',strtotime($tglinvoice)).'\nTgl Jatuh Tempo : '.date('d-m-Y',strtotime($expired)).'\n\nTerima Kasih.',
                     'isGroup' => 'false'
                 ]
             ]
