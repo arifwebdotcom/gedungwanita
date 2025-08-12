@@ -96,7 +96,7 @@ $breadcrumb_items = [
                                     <!--end::Svg Icon-->
                                     <!--end::Icon-->
                                     <!--begin::Datepicker-->
-                                    <input class="form-control form-control-solid ps-12 periode" placeholder="Select a date" name="periode"  id="awal" />
+                                    <input class="form-control form-control-solid ps-12 periode" placeholder="Select a date" name="periode"  id="akhir" />
                                     <!--end::Datepicker-->
                                 </div>
                                 <!--begin::Label-->

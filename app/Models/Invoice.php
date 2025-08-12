@@ -51,9 +51,6 @@ class Invoice extends Model
             ->when($noinvoice, static function ($query, $noinvoice) {
                 $query->like('invoice_t.noinvoice', $noinvoice);
             })
-            ->when($noinvoice, static function ($query, $noinvoice) {
-                $query->like('invoice_t.noinvoice', $noinvoice);
-            })
             ->when($status, static function ($query, $status) {
                 $query->like('invoice_t.status', $status);
             })
@@ -131,9 +128,6 @@ class Invoice extends Model
             ->join('users','users.id=invoice_t.usersfk')
             ->join('asosiasi_m','asosiasi_m.id=users.asosiasifk','left')
             ->where('invoice_t.usersfk', user()->id)
-            ->when($noinvoice, static function ($query, $noinvoice) {
-                $query->like('invoice_t.noinvoice', $noinvoice);
-            })
             ->when($noinvoice, static function ($query, $noinvoice) {
                 $query->like('invoice_t.noinvoice', $noinvoice);
             })

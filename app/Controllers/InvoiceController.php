@@ -264,6 +264,8 @@ class InvoiceController extends BaseController
 
                     model(InvoiceDetail::class)->insert($request);
                 }
+
+                $this->sendwa($row->nama,$row->nohp);
             }
             
         }else if($untuk == 2){
@@ -301,6 +303,7 @@ class InvoiceController extends BaseController
 
                     model(InvoiceDetail::class)->insert($request);
                 }
+                $this->sendwa($row->nama,$row->nohp);
             }
         }else if($untuk == 3){
             $asosiasifk = $this->request->getPost('asosiasifk');
@@ -335,13 +338,78 @@ class InvoiceController extends BaseController
 
                 model(InvoiceDetail::class)->insert($request);
             }
+
+            $this->sendwa($Qall->nama,$Qall->nohp);
             
         }
 
         return $this->respondCreated([
             'status' => true,
+            'sendwa' => $result,
             'messages' => 'Data invoice berhasil ditambahkan.',
         ]);
+    }
+
+    public function sendwa($nama,$nohp){
+        $curl = curl_init();
+
+        $nohp = preg_replace('/^08/', '628', $nohp);
+
+        // Your API credentials
+        $token = "I0bhH8HpmnBQ71P4ySvGYOJq2yF0YZg4DWVZlxM1wEYF9Hl1lsGo7oX";
+        $secret_key = "GificTm4";
+
+        $jamSekarang = date('H');
+
+        if ($jamSekarang >= 5 && $jamSekarang < 12) {
+            $salam = "Selamat Pagi";
+        } elseif ($jamSekarang >= 12 && $jamSekarang < 15) {
+            $salam = "Selamat Siang";
+        } elseif ($jamSekarang >= 15 && $jamSekarang < 18) {
+            $salam = "Selamat Sore";
+        } else {
+            $salam = "Selamat Malam";
+        }
+
+        // Prepare message data for multiple recipients
+        $payload = [
+            "data" => [
+                [
+                    'phone' => $nohp,
+                    'message' => $salam.' Bp/ibu '.$nama.'\n*Pemberitahuan Invoice Baru.*\nNo Invoice : *'.$noInvoiceBaru.'*
+                    Nama   : '.$nama.'
+                    Tgl Invoice : '.date('d-m-Y',strtotime($tglinvoice)).'
+                    Tgl Jatuh Tempo : '.date('d-m-Y',strtotime($expired)).'
+                    \nTerima Kasih.',
+                    'isGroup' => 'false'
+                ]
+            ]
+        ];
+
+        // Set up the API request headers
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            "Authorization: $token.$secret_key",
+            "Content-Type: application/json"
+        ]);
+
+        // Configure cURL options
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload));
+        curl_setopt($curl, CURLOPT_URL, "https://tegal.wablas.com/api/v2/send-message");
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+
+        // Execute the request
+        $result = curl_exec($curl);
+
+        // Check for errors
+        if(curl_errno($curl)) {
+            echo 'Request failed: ' . curl_error($curl);
+        }
+
+        // Close cURL session
+        curl_close($curl);
     }
 
     public function numberToRoman($number) {
