@@ -67,7 +67,7 @@ class Invoice extends Model
             ->when($asosiasi, static function ($query, $asosiasi) {
                 $query->like('users.asosiasifk', $asosiasi);
             })
-            ->orderBy('invoice_t.created_at', 'DESC')
+            ->orderBy('invoice_t.expired', 'DESC')
             ->findAll($numrows);
 
         $data = [];
@@ -150,7 +150,7 @@ class Invoice extends Model
             ->when($asosiasi, static function ($query, $asosiasi) {
                 $query->like('users.asosiasifk', $asosiasi);
             })
-            ->orderBy('invoice_t.created_at', 'DESC')
+            ->orderBy('invoice_t.expired', 'DESC')
             ->findAll($numrows);
 
             $data = [];
