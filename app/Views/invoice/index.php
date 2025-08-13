@@ -37,6 +37,14 @@ $breadcrumb_items = [
         <div class='box-header with-border p-0 mb-4'>
             <div class='row '>            
                 <div class='col-md-12'>
+                    <div class='col-md-4'>
+                        <div class='form-group'>
+                            <label class='col-form-label col-md-12'>Nama Anggota</label>
+                            <input class='form-control' type='text' name='namaanggota' placeholder='Nama Anggota' id='namaanggota'>
+                        </div>
+                    </div> 
+                </div>
+                <div class='col-md-12'>
                     <div class="row">
                         <div class='<?= (user()->isadmin == 1?'col-md-2':'col-md-4'); ?>'>
                             <div class='form-group'>
@@ -265,6 +273,11 @@ $breadcrumb_items = [
         if ($("#noinvoice").val()) {
             noinvoice = "&noinvoice=" + $("#noinvoice").val();
         }
+        
+        var namaanggota = "";
+        if ($("#namaanggota").val()) {
+            namaanggota = "&namaanggota=" + $("#namaanggota").val();
+        }
 
         var awal = "";
         //var awal = "&awal=<?= date("1-m-Y"); ?>";
@@ -307,7 +320,7 @@ $breadcrumb_items = [
             },
             ajax: {
                 type: "GET",
-                url: '<?= route_to('invoice_get') ?>' + `?numrows=${numrows}${noinvoice}${asosiasi}${awal}${akhir}${status}`,
+                url: '<?= route_to('invoice_get') ?>' + `?numrows=${numrows}${noinvoice}${asosiasi}${awal}${akhir}${status}${namaanggota}`,
                 dataType: 'JSON',
                 error: function(e) {
                     alert(e);

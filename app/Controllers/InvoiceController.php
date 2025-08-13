@@ -149,6 +149,7 @@ class InvoiceController extends BaseController
 
     public function getInvoice() {
         $noinvoice = $this->request->getVar('noinvoice');
+        $namaanggota = $this->request->getVar('namaanggota');
         $awal = $this->request->getVar('awal');
         $akhir = $this->request->getVar('akhir');
         $asosiasi = $this->request->getVar('asosiasi');
@@ -157,9 +158,9 @@ class InvoiceController extends BaseController
         $isadmin = user()->isadmin;        
 
         if($isadmin == 1){
-            $data = model(Invoice::class)->get_invoice_all($noinvoice, $awal, $akhir, $asosiasi, $status, $numrows);
+            $data = model(Invoice::class)->get_invoice_all($noinvoice, $awal, $akhir, $asosiasi, $status, $numrows,$namaanggota);
         }else{
-            $data = model(Invoice::class)->get_invoice_user($noinvoice, $awal, $akhir, $asosiasi, $status, $numrows);
+            $data = model(Invoice::class)->get_invoice_user($noinvoice, $awal, $akhir, $asosiasi, $status, $numrows,$namaanggota);
         }
         
         return json_encode(compact('data'));

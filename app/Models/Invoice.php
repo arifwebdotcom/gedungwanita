@@ -40,7 +40,7 @@ class Invoice extends Model
     protected $afterDelete    = [];
 
 
-    public function get_invoice_all($noinvoice, $awal, $akhir ,$asosiasi, $status, $numrows)
+    public function get_invoice_all($noinvoice, $awal, $akhir ,$asosiasi, $status, $numrows,$namaanggota)
     {
         $builder = $this
             ->select('invoice_t.id as idinvoice,invoice_t.*,users.nama as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
@@ -50,6 +50,9 @@ class Invoice extends Model
             //->where('invoice_t.user_id', user()->klienfk)
             ->when($noinvoice, static function ($query, $noinvoice) {
                 $query->like('invoice_t.noinvoice', $noinvoice);
+            })
+            ->when($namaanggota, static function ($query, $namaanggota) {
+                $query->like('users.nama', $namaanggota);
             })
             ->when($status, static function ($query, $status) {
                 $query->like('invoice_t.status', $status);
@@ -122,7 +125,7 @@ class Invoice extends Model
         return $data;
     }
 
-    public function get_invoice_user($noinvoice, $awal, $akhir , $asosiasi, $status, $numrows)
+    public function get_invoice_user($noinvoice, $awal, $akhir , $asosiasi, $status, $numrows,$namaanggota)
     {
         $builder = $this
             ->select('invoice_t.id as idinvoice,invoice_t.*,users.nama as namapeternak,users.nohp,users.populasi,asosiasi_m.asosiasi')
@@ -131,6 +134,9 @@ class Invoice extends Model
             ->where('invoice_t.usersfk', user()->id)
             ->when($noinvoice, static function ($query, $noinvoice) {
                 $query->like('invoice_t.noinvoice', $noinvoice);
+            })
+            ->when($namaanggota, static function ($query, $namaanggota) {
+                $query->like('users.nama', $namaanggota);
             })
             ->when($status, static function ($query, $status) {
                 $query->like('invoice_t.status', $status);
