@@ -260,11 +260,11 @@ $breadcrumb_items = [
                     success: function(data) {	
                         toastr.success("Invoice <?= $invoice['noinvoice'] ?> berhasil dilunaskan");    
                         Swal.close()
-                        location.reload();                					
+                        //location.reload();                					
                     }
                 });
             } else if (result.dismiss === "cancel") {
-                toastr.error("Invoice <?= $invoice['noinvoice'] ?> tidak jadi dihapus");                
+                toastr.error("Invoice <?= $invoice['noinvoice'] ?> tidak jadi dilunaskan");                
             }
         });
         
