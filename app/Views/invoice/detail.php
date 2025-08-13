@@ -260,6 +260,8 @@ $breadcrumb_items = [
                     success: function(data) {	
                         toastr.success("Invoice <?= $invoice['noinvoice'] ?> berhasil dilunaskan");    
                         Swal.close()
+                        $("#btn_lunas").hide();
+                        $("#btn_bayar").hide();
                         //location.reload();                					
                     }
                 });
