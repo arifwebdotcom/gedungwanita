@@ -466,7 +466,7 @@ class InvoiceController extends BaseController
                 ->select('*')
                 ->where('id',$id)->first();
         
-        $Quser = model(UserModels::class)->select('*')->where("id",$Qinvoice->userfk)->first(); 
+        $Quser = model(UserModels::class)->select('*')->where("id",$Qinvoice->usersfk)->first(); 
 
         $curl = curl_init();
 
