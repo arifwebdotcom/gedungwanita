@@ -228,7 +228,7 @@ class InvoiceController extends BaseController
         
 
         if($untuk ==  1){
-            $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("isadmin",0)->findAll();
+            $Qall = model(UserModels::class)->select('*')->where("deleted_at",null)->where("isadmin",0)->whereNotIn("id", [111, 62, 116, 67, 64, 76, 71])->findAll();
 
             foreach($Qall as $row){
                 
