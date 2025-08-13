@@ -528,6 +528,7 @@ class InvoiceController extends BaseController
         
         return $this->respondUpdated([
             'status' => true,
+            'result' => $result,
             'messages' => 'Data invoice berhasil diubah.',
         ]);
     }
