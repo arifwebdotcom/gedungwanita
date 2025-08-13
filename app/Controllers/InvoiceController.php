@@ -266,7 +266,7 @@ class InvoiceController extends BaseController
                     model(InvoiceDetail::class)->insert($request);
                 }
 
-                $this->sendwa($row->nama,$row->nohp,$noInvoiceBaru,$tglinvoice,$expired);
+                $this->sendwa($row->nama,$row->nohp,$noInvoiceBaru,$tglinvoice,$expired,$total);
             }
             
         }else if($untuk == 2){
@@ -304,7 +304,7 @@ class InvoiceController extends BaseController
 
                     model(InvoiceDetail::class)->insert($request);
                 }
-                $this->sendwa($row->nama,$row->nohp,$noInvoiceBaru,$tglinvoice,$expired);
+                $this->sendwa($row->nama,$row->nohp,$noInvoiceBaru,$tglinvoice,$expired,$total);
             }
         }else if($untuk == 3){
             $asosiasifk = $this->request->getPost('asosiasifk');
@@ -340,7 +340,7 @@ class InvoiceController extends BaseController
                 model(InvoiceDetail::class)->insert($request);
             }
 
-            $this->sendwa($Qall->nama,$Qall->nohp,$noInvoiceBaru,$tglinvoice,$expired);
+            $this->sendwa($Qall->nama,$Qall->nohp,$noInvoiceBaru,$tglinvoice,$expired,$total);
             
         }
 
@@ -351,7 +351,7 @@ class InvoiceController extends BaseController
         ]);
     }
 
-    public function sendwa($nama,$nohp,$noInvoiceBaru,$tglinvoice,$expired){
+    public function sendwa($nama,$nohp,$noInvoiceBaru,$tglinvoice,$expired,$total){
         $curl = curl_init();
 
         $nohp = preg_replace('/^08/', '628', $nohp);
@@ -377,7 +377,7 @@ class InvoiceController extends BaseController
             "data" => [
                 [
                     'phone' => $nohp,
-                    'message' => $salam.' Bp/ibu '.$nama.'\n*Pemberitahuan Invoice Baru.*\nNo Invoice : *'.$noInvoiceBaru.'*\nNama   : '.$nama.'\nTgl Invoice : '.date('d-m-Y',strtotime($tglinvoice)).'\nTgl Jatuh Tempo : '.date('d-m-Y',strtotime($expired)).'\n\nTerima Kasih.',
+                    'message' => $salam.' Bp/ibu '.$nama.'\n*Pemberitahuan Invoice Baru.*\nNo Invoice : *'.$noInvoiceBaru.'\nNama   : *'.$nama.'*\nTotal   : *'.rupiah($total).'*\nTgl Invoice : '.date('d-m-Y',strtotime($tglinvoice)).'\nTgl Jatuh Tempo : '.date('d-m-Y',strtotime($expired)).'\n\nSilahkan kirimkan bukti transfer ke nomor ini \nTerima Kasih.',
                     'isGroup' => 'false'
                 ]
             ]
@@ -494,7 +494,7 @@ class InvoiceController extends BaseController
             "data" => [
                 [
                     'phone' => $nohp,
-                    'message' => $salam.' Bp/ibu '.$nama.'\n*Pemberitahuan Transaksi Invoice.*\nNo Invoice : *'.$Qinvoice->noinvoice.'*\nNama   : '.$nama.'\nTgl Invoice : '.date('d-m-Y',strtotime($Qinvoice->tglinvoice)).'\nTelah dibayar *LUNAS* pada : '.date('d-m-Y',strtotime($Qinvoice->tgldibayar)).'\n\nTerima Kasih.',
+                    'message' => $salam.' Bp/ibu '.$nama.'\n*Pemberitahuan Transaksi Invoice.*\nNo Invoice : *'.$Qinvoice->noinvoice.'*\nNama   : '.$nama.'\nTotal   : *'.rupiah($Qinvoice->total).'*\nTgl Invoice : '.date('d-m-Y',strtotime($Qinvoice->tglinvoice)).'\nTelah dibayar *LUNAS* pada : '.date('d-m-Y',strtotime($Qinvoice->tgldibayar)).'\n\nTerima Kasih.',
                     'isGroup' => 'false'
                 ]
             ]
