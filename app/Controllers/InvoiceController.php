@@ -265,7 +265,7 @@ class InvoiceController extends BaseController
                     model(InvoiceDetail::class)->insert($request);
                 }
 
-                $this->sendwa($row->nama,$row->nohp,$noInvoiceBaru,$tglinvoice,$expired);
+                //$this->sendwa($row->nama,$row->nohp,$noInvoiceBaru,$tglinvoice,$expired);
             }
             
         }else if($untuk == 2){
@@ -303,7 +303,7 @@ class InvoiceController extends BaseController
 
                     model(InvoiceDetail::class)->insert($request);
                 }
-                $this->sendwa($row->nama,$row->nohp,$noInvoiceBaru,$tglinvoice,$expired);
+                //$this->sendwa($row->nama,$row->nohp,$noInvoiceBaru,$tglinvoice,$expired);
             }
         }else if($untuk == 3){
             $asosiasifk = $this->request->getPost('asosiasifk');
@@ -339,13 +339,13 @@ class InvoiceController extends BaseController
                 model(InvoiceDetail::class)->insert($request);
             }
 
-            $this->sendwa($Qall->nama,$Qall->nohp,$noInvoiceBaru,$tglinvoice,$expired);
+            //$this->sendwa($Qall->nama,$Qall->nohp,$noInvoiceBaru,$tglinvoice,$expired);
             
         }
 
         return $this->respondCreated([
             'status' => true,
-            'sendwa' => $result,
+            //'sendwa' => $result,
             'messages' => 'Data invoice berhasil ditambahkan.',
         ]);
     }
