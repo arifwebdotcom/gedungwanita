@@ -118,7 +118,7 @@ $breadcrumb_items = [
         </div>
         <!--begin::Input group-->
         <div class="fv-row mb-10 col-lg-6">
-            <label class="required fs-6 fw-bold mb-2">Asosiasi</label>
+            <label class="required fs-6 fw-bold mb-2">Cabang</label>
             <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="asosiasifk">
             <?php foreach ($asosiasi as $row) : ?>
                 <option value="<?= $row->id ?>" <?php echo ($user->asosiasifk == $row->id?'selected':''); ?>><?= $row->asosiasi ?></option>
