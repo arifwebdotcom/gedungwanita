@@ -249,7 +249,7 @@ class Invoice extends Model
 
     public function getSetoranPerAnggotaAdmin($kodeanggota,$namaanggota,$namapeternakan, $tahun, $numrows){
         $builder = $this
-            ->select("users.id,users.kodeanggota, users.nama, users.namapeternakan, SUM(CASE WHEN invoice_t.status = 'LUNAS' THEN invoice_t.total ELSE 0 END) as setoran,SUM(CASE WHEN invoice_t.status = 'BELUM LUNAS' THEN invoice_t.total ELSE 0 END) as tunggakan")
+            ->select("users.id,users.kodeanggota, users.nama, users.namapeternakan, SUM(CASE WHEN invoice_t.status = 'LUNAS' THEN invoice_t.total ELSE 0 END) as setoran,SUM(CASE WHEN invoice_t.status != 'LUNAS' THEN invoice_t.total ELSE 0 END) as tunggakan")
             ->join('users','users.id=invoice_t.usersfk')
             ->groupBy('invoice_t.usersfk')
             ->when($namaanggota, static function ($query, $namaanggota) {
