@@ -377,7 +377,7 @@ class InvoiceController extends BaseController
             "data" => [
                 [
                     'phone' => $nohp,
-                    'message' => $salam.' Bp/ibu '.$nama.'\n*Pemberitahuan Invoice Baru.*\nNo Invoice : *'.$noInvoiceBaru.'\nNama   : *'.$nama.'*\nTotal   : *'.rupiah($total).'*\nTgl Invoice : '.date('d-m-Y',strtotime($tglinvoice)).'\nTgl Jatuh Tempo : '.date('d-m-Y',strtotime($expired)).'\n\nSilahkan kirimkan bukti transfer ke nomor ini \nTerima Kasih.',
+                    'message' => $salam.' Bp/ibu '.$nama.'\n*Pemberitahuan Invoice Baru.*\nNo Invoice : *'.$noInvoiceBaru.'\nNama   : *'.$nama.'*\nTotal   : *'.rupiah($total).'*\nTgl Invoice : '.date('d-m-Y',strtotime($tglinvoice)).'\nTgl Jatuh Tempo : '.date('d-m-Y',strtotime($expired)).'\n\nSilahkan transfer ke : \n0157489988 (BCA)\nAn. Koperasi Pinsar Petelur Nasional\n\nSilahkan kirimkan bukti transfer ke nomor ini \nTerima Kasih.',
                     'isGroup' => 'false'
                 ]
             ]
