@@ -68,7 +68,7 @@ abstract class BaseController extends Controller
 
         $this->data['datainvoice'] = model(Invoice::class)
         ->select('*')->where('status','!=','LUNAS')->where('usersfk',user()->id)
-        ->findAll(); 
+        ->findAll();  
 
         $this->data['datapengajuan'] = model(Pengajuan::class)
         ->select('pengajuan_t.*,users.namapeternakan')->where('pengajuan_t.disetujui','0')->join('users','users.id=pengajuan_t.user_id')->where('pengajuan_t.user_id',user()->id)
