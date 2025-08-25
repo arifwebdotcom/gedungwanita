@@ -93,7 +93,7 @@ class AuthController extends Controller
         }
 
         // Try to log them in...
-        if (! $this->auth->attempt([$type => $login, 'password' => $password], $remember)) {
+        if (! $this->auth->attempt([$type => $login, 'passwords' => $password], $remember)) {
             return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
         }
 
