@@ -1,75 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-	<!--begin::Head-->
-	<head><base href="../../../">
-		<title>Koperasi Pinsar Petelur Nasional</title>
-		<meta name="description" content="Login Member Area Koperasi PPN." />
-		<meta name="keywords" content="Login, Koperasi PPN" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta charset="utf-8" />
-		<meta property="og:locale" content="en_US" />
-		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Koperasi Pinsar Petelur Nasional" />
-		<meta property="og:url" content="https://koperasippn.com/" />
-		<meta property="og:site_name" content="Koperasi PPN" />
-		<link rel="shortcut icon" href="<?= base_url() ?>assets/media/logos/favicon.ico" />
-		<!--begin::Fonts-->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-		<!--end::Fonts-->
-		<!--begin::Global Stylesheets Bundle(used by all pages)-->
-		<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-		<!--end::Global Stylesheets Bundle-->
-		<style>
-			/* Custom CSS for styling */
-			.password-toggle {
-			position: relative;
-			}
+<!doctype html>
 
-			.password-toggle input[type="password"] {
-			padding-right: 40px; /* Space for the toggle button */
-			}
+<html
+  lang="en"
+  class="layout-wide customizer-hide"
+  data-assets-path="assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
 
-			.password-toggle .toggle-password {
-			position: absolute;
-			top: 68%;
-			right: 10px;
-			transform: translateY(-50%);
-			cursor: pointer;
-			}
-		</style>
-	</head>
-	<!--end::Head-->
-	<!--begin::Body-->
-	<body id="kt_body" class="bg-body">
-        
+    <title>FUNFIT Program</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <!-- build:css assets/vendor/css/theme.css -->
+
+    <link rel="stylesheet" href="assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="assets/vendor/libs/pickr/pickr-themes.css" />    
+    <script src="assets/vendor/libs/@algolia/autocomplete-js.js"></script>
+    <link rel="stylesheet" href="assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="assets/vendor/css/custom.css" />
+    <link rel="stylesheet" href="assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+
+    <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="assets/vendor/libs/bs-stepper/bs-stepper.css" />
+    <link rel="stylesheet" href="assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
+    <link rel="stylesheet" href="assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="assets/vendor/libs/@form-validation/form-validation.css" />
+    <!-- endbuild -->
+
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="assets/vendor/css/pages/page-auth.css" />
+
+    <!-- Helpers -->
+    <script src="assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+
+    <!--? Config: Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file. -->
+
+    <script src="assets/js/config.js"></script>
+  </head>
+
+  <body>
 	<?= $this->renderSection('main') ?>
     
     
-    <script>var hostUrl = "assets/";</script>
-	<script>
-	function togglePasswordVisibility() {
-		var passwordField = document.getElementById("password");
-		var toggleButton = document.querySelector(".toggle-password");
+    <!-- / Content -->
 
-		if (passwordField.type === "password") {
-		passwordField.type = "text";
-		toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
-		} else {
-		passwordField.type = "password";
-		toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
-		}
-	}
-	</script>
-		<!--begin::Javascript-->
-		<!--begin::Global Javascript Bundle(used by all pages)-->
-		<script src="assets/plugins/global/plugins.bundle.js"></script>
-		<script src="assets/js/scripts.bundle.js"></script>
-		<!--end::Global Javascript Bundle-->
-		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="assets/js/custom/authentication/sign-in/general.js"></script>
-		<!--end::Page Custom Javascript-->
-		<!--end::Javascript-->
-	</body>
-	<!--end::Body-->
+    <!-- Core JS -->
+
+    <script>var base_url = '<?= base_url() ?>' </script>
+    <script src="assets/vendor/libs/jquery/jquery.js"></script>
+
+    <script src="assets/vendor/libs/popper/popper.js"></script>
+    <script src="assets/vendor/js/bootstrap.js"></script>
+    <script src="assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="assets/vendor/libs/pickr/pickr.js"></script>
+
+    <script src="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="assets/vendor/js/menu.js"></script>
+
+    <script src="assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
+    <script src="assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+    
+    <script src="assets/js/form-wizard-numbered.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+
+    <script src="assets/js/main.js"></script>
+
+    <!-- Page JS -->
+
+    <!-- Place this tag before closing body tag for github widget button. -->
+    <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+  </body>
 </html>

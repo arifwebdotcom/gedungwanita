@@ -39,6 +39,7 @@ $routes->group('', [], static function ($routes) {
     // Registration
     $routes->get($reservedRoutes['register'], 'AuthController::register', ['as' => $reservedRoutes['register']]);
     $routes->post($reservedRoutes['register'], 'AuthController::attemptRegister');
+    $routes->post('member/save-member', 'AuthController::create', ['as' => 'member.store']);
 
     // Activation
     $routes->get($reservedRoutes['activate-account'], 'AuthController::activateAccount', ['as' => $reservedRoutes['activate-account']]);

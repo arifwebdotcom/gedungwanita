@@ -1,116 +1,93 @@
 <?= $this->extend($config->viewLayout) ?>
 <?= $this->section('main') ?>
 
-<div class="d-flex flex-column flex-root">
-			<!--begin::Authentication - Sign-in -->
-			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/background-login.png">
-				<!--begin::Content-->
-				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
-					<!--begin::Logo-->
-					<a href="../../demo2/dist/index.html" class="mb-12">
-					<h1 class="text-dark mb-3">Koperasi PPN</h1>
-						<!-- <img alt="Logo" src="assets/media/logos/logo-1.svg" class="h-40px" /> -->
-					</a>
-					<!--end::Logo-->
-					<!--begin::Wrapper-->
-					<div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
-						<!--begin::Form-->
-						<?= view('Myth\Auth\Views\_message_block') ?>
-						<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="post" action="<?= url_to('login') ?>">
-							<!--begin::Heading-->
-							<div class="text-center mb-10">
-								<!--begin::Title-->
-								<h1 class="text-dark mb-3">Sign In to Koperasi PPN</h1>
-								<!--end::Title-->
-								<!--begin::Link-->
-								<?php if ($config->allowRegistration) : ?>
-								<div class="text-gray-400 fw-bold fs-4">Belum Memiliki Akun?
-								<a href="<?= url_to('register'); ?>" class="link-primary fw-bolder">Daftar disini</a></div>
-								<?php endif; ?>
-								<!--end::Link-->
-							</div>
-							<!--begin::Heading-->
-							<!--begin::Input group-->
-							
+<div class="position-relative">
+      <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner py-6 mx-4">
+          <!-- Login -->
+          <div class="card p-sm-7 p-2">
+            <!-- Logo -->
+            <div class="app-brand justify-content-center mt-5">
+              <a href="index.html" class="app-brand-link gap-3">
+                <span class="app-brand-logo demo">
+                  
+                </span>
+              </a>
+            </div>
+            <!-- /Logo -->
 
-							<?php if ($config->validFields === ['email']): ?>
-							<div class="fv-row mb-10">
-								<!--begin::Label-->
-								<label class="form-label fs-6 fw-bolder text-dark"><?=lang('Auth.email')?></label>
-								<!--end::Label-->
-								<!--begin::Input-->
-								<input class="form-control form-control-lg form-control-solid <?= session('errors.login') ? ' is-invalid' : '' ?>" type="text" name="login" autocomplete="off" placeholder="<?=lang('Auth.email')?>" />
-								<div class="invalid-feedback">
-									<?= session('errors.login') ?>
-								</div>
-								<!--end::Input-->
-							</div>
-							<?php else: ?>
-							<div class="fv-row mb-10">
-								<!--begin::Label-->
-								<label class="form-label fs-6 fw-bolder text-dark"><?=lang('Auth.emailOrUsername')?>s</label>
-								<!--end::Label-->
-								<!--begin::Input-->
-								<input class="form-control form-control-lg form-control-solid <?= session('errors.login') ? ' is-invalid' : '' ?>" type="text" name="login" autocomplete="off" placeholder="<?=lang('Auth.emailOrUsername')?>" />
-								<div class="invalid-feedback">
-									<?= session('errors.login') ?>
-								</div>
-								<!--end::Input-->
-							</div>
-							<?php endif; ?>
-							<!--end::Input group-->
-							<!--begin::Input group-->
-							<div class="fv-row mb-10 password-toggle">
-								<!--begin::Wrapper-->
-								<div class="d-flex flex-stack mb-2">
-									<!--begin::Label-->
-									<label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
-									<!--end::Label-->
-									<!--begin::Link-->
-									<?php if ($config->activeResetter): ?>
-									<a href="<?= url_to('forgot') ?>" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
-									<?php endif; ?>
-									<!--end::Link-->
-								</div>
-								<!--end::Wrapper-->
-								<!--begin::Input-->
-								<input class="form-control form-control-lg form-control-solid" type="password" id="password" name="password" autocomplete="off" />
-								<!--end::Input-->
-								<span class="toggle-password" onclick="togglePasswordVisibility()">
-									<i class="fas fa-eye"></i>
-								</span>
-							</div>
-							<!--end::Input group-->
-							<!--begin::Actions-->
-							<div class="text-center">
-								<!--begin::Submit button-->
-								<button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
-									<span class="indicator-label">Continue</span>
-									<span class="indicator-progress">Please wait...
-									<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-								</button>
-								<!--end::Submit button-->
-							</div>
-							<!--end::Actions-->
-						</form>
-						<!--end::Form-->
-					</div>
-					<!--end::Wrapper-->
-				</div>
-				<!--end::Content-->
-				<!--begin::Footer-->
-				<div class="d-flex flex-center flex-column-auto p-10">
-					<!--begin::Links-->
-					<div class="d-flex align-items-center fw-bold fs-6">
-						<a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
-						<a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
-						<a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>
-					</div>
-					<!--end::Links-->
-				</div>
-				<!--end::Footer-->
-			</div>
-			<!--end::Authentication - Sign-in-->
-		</div>
+            <div class="card-body mt-1">
+              <h4 class="mb-1">Welcome to FunFit! 👋🏻</h4>
+              <p class="mb-5">Please sign-in to your account and start the adventure</p>
+
+              <form id="formAuthentication" class="mb-5" action="index.html" method="POST">
+                <div class="form-floating form-floating-outline mb-5 form-control-validation">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email-username"
+                    placeholder="Enter your email or username"
+                    autofocus />
+                  <label for="email">Email or Username</label>
+                </div>
+                <div class="mb-5">
+                  <div class="form-password-toggle form-control-validation">
+                    <div class="input-group input-group-merge">
+                      <div class="form-floating form-floating-outline">
+                        <input
+                          type="password"
+                          id="password"
+                          class="form-control"
+                          name="password"
+                          placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                          aria-describedby="password" />
+                        <label for="password">Password</label>
+                      </div>
+                      <span class="input-group-text cursor-pointer"
+                        ><i class="icon-base ri ri-eye-off-line icon-20px"></i
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-5 pb-2 d-flex justify-content-between pt-2 align-items-center">
+                  <div class="form-check mb-0">
+                    <input class="form-check-input" type="checkbox" id="remember-me" />
+                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                  </div>
+                  <a href="auth-forgot-password-basic.html" class="float-end mb-1">
+                    <span>Forgot Password?</span>
+                  </a>
+                </div>
+                <div class="mb-5">
+                  <button class="btn btn-primary d-grid w-100" type="submit">login</button>
+                </div>
+              </form>
+
+              <p class="text-center mb-5">
+                <span>New on our platform?</span>
+                <a href="auth-register-basic.html">
+                  <span>Create an account</span>
+                </a>
+              </p>
+            </div>
+          </div>
+          <!-- /Login -->
+          <img
+            src="../assets/img/illustrations/tree-3.png"
+            alt="auth-tree"
+            class="authentication-image-object-left d-none d-lg-block" />
+          <img
+            src="../assets/img/illustrations/auth-basic-mask-light.png"
+            class="authentication-image d-none d-lg-block scaleX-n1-rtl"
+            height="172"
+            alt="triangle-bg" />
+          <img
+            src="../assets/img/illustrations/tree.png"
+            alt="auth-tree"
+            class="authentication-image-object-right d-none d-lg-block" />
+        </div>
+      </div>
+    </div>
 
 <?= $this->endSection() ?>

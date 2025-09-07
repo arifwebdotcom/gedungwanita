@@ -9,6 +9,7 @@ use Myth\Auth\Entities\User;
 use App\Models\UserModels;
 use App\Models\Invoice;
 use App\Models\InvoiceDetail;
+use App\Models\MemberModel;
 
 class AuthController extends Controller
 {
@@ -458,5 +459,43 @@ class AuthController extends Controller
     protected function _render(string $view, array $data = [])
     {
         return view($view, $data);
+    }
+
+    public function create()
+    {
+        $rules = [
+            'nama'          => 'required',
+            'tgllahir'      => 'required|valid_date',
+            'alamat'        => 'required',            
+            'namaortu'      => 'required',
+            'waortu'        => 'required',
+        ];
+
+        if (! $this->validate($rules)) {
+            return $this->response->setJSON([
+                'status' => false,
+                'errors' => $this->validator->getErrors()
+            ]);
+
+        }
+
+        $data = $this->request->getPost(); // ambil semua data post
+
+        if (isset($data['harapanortu']) && is_array($data['harapanortu'])) {
+            $data['harapanortu'] = implode(',', $data['harapanortu']);
+        }
+
+        $memberModel = new MemberModel();
+        $id = $memberModel->insert($data);
+
+        if ($id === false) {
+            return $this->fail('Gagal menyimpan data');
+        }
+
+        return $this->respondCreated([
+            'status'  => true,
+            'message' => 'Data member berhasil disimpan',
+            'id'      => $id
+        ]);
     }
 }
