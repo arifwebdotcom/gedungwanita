@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Asosiasi extends Model
+class Kategori extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'asosiasi_m';
+    protected $table            = 'kategori_m';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'asosiasi', 'ketua','alamat','nohp'];
+    protected $allowedFields    = ['id', 'kategori', 'keterangan'];
 
     // Dates
     protected $useTimestamps = true;
@@ -39,15 +39,5 @@ class Asosiasi extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-
-    public function get_asosiasi($numrows,$keywords)
-    {
-        $builder = $this->select('asosiasi_m.*')
-        ->when($keywords, static function ($query, $keywords) {
-            $query->like('asosiasi_m.asosiasi', $keywords);
-        })
-        ->findAll($numrows);
-        return $builder;
-    }
 
 }

@@ -4,10 +4,10 @@
 <!-- Content Header (Page header) -->
 <?php
 $breadcrumb_items = [
-    'title' => 'Asosiasi',
+    'title' => 'Kategori',
     'items' => [
         ['name' => 'Master', 'active' => false],
-        ['name' => 'Asosiasi', 'active' => true]
+        ['name' => 'Kategori', 'active' => true]
     ]
 ];
 ?>
@@ -16,11 +16,11 @@ $breadcrumb_items = [
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-3 mb-1">Master Asosiasi</span>
-            <span class="text-muted mt-1 fw-bold fs-7">Data Asosiasi</span>
+            <span class="card-label fw-bolder fs-3 mb-1">Master Kategori</span>
+            <span class="text-muted mt-1 fw-bold fs-7">Data Kategori</span>
         </h3>
         <div class="card-toolbar">
-            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_asosiasi">
+            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_kategori">
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
             <span class="svg-icon svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -28,7 +28,7 @@ $breadcrumb_items = [
                     <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                 </svg>
             </span>
-            <!--end::Svg Icon-->Tambah Asosiasi</a>
+            <!--end::Svg Icon-->Tambah Kategori</a>
         </div>
     </div>
     <!--end::Header-->
@@ -37,7 +37,7 @@ $breadcrumb_items = [
         <!--begin::Table container-->
         <div class="table-responsive">
             <!--begin::Table-->
-            <table class="table align-middle gs-0 gy-4" id="asosiasi_table">
+            <table class="table align-middle gs-0 gy-4" id="kategori_table">
                 <!--begin::Table head-->
                 <thead>
                     <tr class="fw-bolder text-muted bg-light">
@@ -46,7 +46,7 @@ $breadcrumb_items = [
                                 <input class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-13-check">
                             </div>
                         </th>
-                        <th class="ps-4 ">Asosiasi</th>
+                        <th class="ps-4 ">Kategori</th>
                         <th class="ps-4 ">Ketua</th>
                         <th class="ps-4 ">Alamat</th>
                         <th class="ps-4 ">No HP</th>
@@ -67,7 +67,7 @@ $breadcrumb_items = [
     <!--begin::Body-->
 </div>
 <!--end::Tables Widget 11-->
-<div class="modal fade" id="asosiasi_modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kategori_modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -75,7 +75,7 @@ $breadcrumb_items = [
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2 id="modal_title">Tambah Asosiasi</h2>
+                <h2 id="modal_title">Tambah Kategori</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -94,17 +94,17 @@ $breadcrumb_items = [
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form id="asosiasi_form" class="form" >
+                <form id="kategori_form" class="form" >
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-7 fv-row">
                         <input type="hidden" name="id" id="id">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">Asosiasi</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Nama Asosiasi"></i>
+                            <span class="required">Kategori</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Nama Kategori"></i>
                         </label>
                         <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="" id="asosiasi" name="asosiasi" />
+                        <input type="text" class="form-control form-control-solid" placeholder="" id="kategori" name="kategori" />
                     </div>                    
                     <!--end::Input group-->
                     <!--begin::Input group-->
@@ -112,7 +112,7 @@ $breadcrumb_items = [
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                             <span class="required">Ketua</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Nama Ketua Asosiasi"></i>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Nama Ketua Kategori"></i>
                         </label>
                         <!--end::Label-->
                         <input type="text" class="form-control form-control-solid" placeholder="" id="ketua" name="ketua" />
@@ -123,7 +123,7 @@ $breadcrumb_items = [
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                             <span class="required">Alamat</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Alamat kantor Asosiasi"></i>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Alamat kantor Kategori"></i>
                         </label>
                         <!--end::Label-->
                         <input type="text" class="form-control form-control-solid" placeholder="" id="alamat" name="alamat" />
@@ -134,7 +134,7 @@ $breadcrumb_items = [
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                             <span class="required">No HP</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Nomor HP Asosiasi"></i>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Nomor HP Kategori"></i>
                         </label>
                         <!--end::Label-->
                         <input type="text" class="form-control form-control-solid" placeholder="" id="nohp" name="nohp" />
@@ -169,11 +169,11 @@ $breadcrumb_items = [
 
 <script>
     $(document).ready(function() {
-        //$("#asosiasi_table").DataTable();
-        showAsosiasi();
+        //$("#kategori_table").DataTable();
+        showKategori();
     });
 
-    const showAsosiasi = () => {
+    const showKategori = () => {
         const columns = [
             {
                 width: "10%",
@@ -185,8 +185,8 @@ $breadcrumb_items = [
                 }
             },
             {
-                name: "Asosiasi",
-                data: "asosiasi"
+                name: "Kategori",
+                data: "kategori"
             },
             {
                 name: "Ketua",
@@ -230,12 +230,12 @@ $breadcrumb_items = [
             
         ];
 
-        var table = $('#asosiasi_table').DataTable({
+        var table = $('#kategori_table').DataTable({
             searching: true,
             destroy: true,
             lengthChange: false,
             ajax: {
-                url: "<?= route_to('asosiasi.datatable') ?>",
+                url: "<?= route_to('kategori.datatable') ?>",
             },
             columns: columns,
             "dom":
@@ -254,24 +254,24 @@ $breadcrumb_items = [
     }
 
     $('#btn_create').on('click', function() {
-        $("#asosiasi_modal #modal_title").text("Tambah Asosiasi");
-        $("#asosiasi_modal").modal("show");
+        $("#kategori_modal #modal_title").text("Tambah Kategori");
+        $("#kategori_modal").modal("show");
     });
 
-    $('#asosiasi_table tbody').on('click', '#edit', function() {
-        var data = $('#asosiasi_table').DataTable().row($(this).parents('tr')).data();
-        $("#asosiasi_modal #asosiasi").val(data.asosiasi);
-        $("#asosiasi_modal #id").val(data.id);
+    $('#kategori_table tbody').on('click', '#edit', function() {
+        var data = $('#kategori_table').DataTable().row($(this).parents('tr')).data();
+        $("#kategori_modal #kategori").val(data.kategori);
+        $("#kategori_modal #id").val(data.id);
 
-        $("#asosiasi_modal #modal_title").text("Edit Asosiasi");
-        $("#asosiasi_modal").modal("show");
+        $("#kategori_modal #modal_title").text("Edit Kategori");
+        $("#kategori_modal").modal("show");
     });
 
-    $('#asosiasi_table tbody').on('click', '#delete', function() {
-        var data = $('#asosiasi_table').DataTable().row($(this).parents('tr')).data();
+    $('#kategori_table tbody').on('click', '#delete', function() {
+        var data = $('#kategori_table').DataTable().row($(this).parents('tr')).data();
         Swal.fire({
             title: "Apakah anda yakin?",
-            text: "data "+data.asosiasi+" akan dihapus dari sistem",
+            text: "data "+data.kategori+" akan dihapus dari sistem",
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Ya, Silahkan!",
@@ -280,7 +280,7 @@ $breadcrumb_items = [
         }).then(function(result) {
             if (result.value) {
                 $.ajax({
-                    url: `<?= base_url() ?>asosiasi/delete/${data.id}`,
+                    url: `<?= base_url() ?>kategori/delete/${data.id}`,
                     type: 'post',
                     dataType: 'json',
                     data: "id="+data.id,
@@ -299,7 +299,7 @@ $breadcrumb_items = [
                     success: function(response) {
                         Swal.close()
                         if (response.status) {                
-                            showAsosiasi();
+                            showKategori();
                             toastr.warning(response.messages);
                         } else {
                             toastr.error("Gagal!");
@@ -310,7 +310,7 @@ $breadcrumb_items = [
                     }
                 });
             } else if (result.dismiss === "cancel") {
-                toastr.error("data "+data.asosiasi+" tidak jadi dihapus");                
+                toastr.error("data "+data.kategori+" tidak jadi dihapus");                
             }
         });
         
@@ -319,17 +319,17 @@ $breadcrumb_items = [
     });
 
 
-    $('#asosiasi_modal').on('hidden.bs.modal', function(e) {
+    $('#kategori_modal').on('hidden.bs.modal', function(e) {
         $(this).find("input,textarea").val('').end();
     }) 
 
-    $('#asosiasi_form').on('submit', function(e) {
+    $('#kategori_form').on('submit', function(e) {
         e.preventDefault()
         var form_data = $(this).serializeArray();
-        let id = $('#asosiasi_form #id').val();
+        let id = $('#kategori_form #id').val();
         let route = (id != '') ?
-            `<?= base_url() ?>asosiasi/${id}/edit` :
-            "<?= route_to('asosiasi.store') ?>";
+            `<?= base_url() ?>kategori/${id}/edit` :
+            "<?= route_to('kategori.store') ?>";
         
         $.ajax({
             url: route,
@@ -351,8 +351,8 @@ $breadcrumb_items = [
             success: function(response) {
                 Swal.close()
                 if (response.status) {
-                    $("#asosiasi_modal").modal("hide");
-                    showAsosiasi();
+                    $("#kategori_modal").modal("hide");
+                    showKategori();
                     toastr.success(response.messages);
                 } else {
                     toastr.error("Gagal!");

@@ -3,33 +3,33 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\Asosiasi;
+use App\Models\Kategori;
 use CodeIgniter\API\ResponseTrait;
 
-class AsosiasiController extends BaseController
+class KategoriController extends BaseController
 {
     use ResponseTrait;
 
     public function datatable() {
-        $data = model(Asosiasi::class)->findAll();
+        $data = model(Kategori::class)->findAll();
 
         return json_encode(compact('data'));
     }
 
     public function index()
     {
-        $this->data['asosiasi'] = model(Asosiasi::class)->findAll();
+        $this->data['kategori'] = model(Kategori::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('master/asosiasi/index',$this->data);
+        return view('master/kategori/index',$this->data);
     }
 
     public function store() {
         // $setRules = [            
-        //     'asosiasi' => [
+        //     'kategori' => [
         //         'rules' => 'required',
         //         'errors' => [
-        //             'required' => 'Kolom asosiasi wajib diisi.'
+        //             'required' => 'Kolom kategori wajib diisi.'
         //         ],
         //     ],
         // ];  
@@ -38,24 +38,22 @@ class AsosiasiController extends BaseController
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
 
-        $request['asosiasi'] = $this->request->getPost('asosiasi');
-        $request['ketua'] = $this->request->getPost('ketua');
-        $request['alamat'] = $this->request->getPost('alamat');
-        $request['nohp'] = $this->request->getPost('nohp');
-        model(Asosiasi::class)->insert($request);
+        $request['kategori'] = $this->request->getPost('kategori');
+        $request['keterangan'] = $this->request->getPost('keterangan');
+        model(Kategori::class)->insert($request);
 
         return $this->respondCreated([
             'status' => true,
-            'messages' => 'Data asosiasi berhasil ditambahkan.',
+            'messages' => 'Data kategori berhasil ditambahkan.',
         ]);
     }
 
     public function update($id) {
         // $setRules = [            
-        //     'asosiasi' => [
+        //     'kategori' => [
         //         'rules' => 'required',
         //         'errors' => [
-        //             'required' => 'Kolom asosiasi wajib diisi.'
+        //             'required' => 'Kolom kategori wajib diisi.'
         //         ],
         //     ],
         // ];
@@ -64,25 +62,23 @@ class AsosiasiController extends BaseController
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
 
-        $request['asosiasi'] = $this->request->getPost('asosiasi');
-        $request['ketua'] = $this->request->getPost('ketua');
-        $request['alamat'] = $this->request->getPost('alamat');
-        $request['nohp'] = $this->request->getPost('nohp');
+        $request['kategori'] = $this->request->getPost('kategori');
+        $request['keterangan'] = $this->request->getPost('keterangan');
         $request['id'] = $id;
-        model(Asosiasi::class)->save($request);
+        model(Kategori::class)->save($request);
 
         return $this->respondUpdated([
             'status' => true,
-            'messages' => 'Data asosiasi berhasil diubah.',
+            'messages' => 'Data kategori berhasil diubah.',
         ]);
     }
 
     public function delete($id)
     {
-        model(Asosiasi::class)->where('id', $id)->delete();
+        model(Kategori::class)->where('id', $id)->delete();
         return $this->respondUpdated([
             'status' => true,
-            'messages' => 'Data asosiasi berhasil diubah.',
+            'messages' => 'Data kategori berhasil diubah.',
         ]);
     }
 }

@@ -5,7 +5,7 @@ use App\Controllers\AgamaController;
 use App\Controllers\AnnouncementController;
 use App\Controllers\PengajuanController;
 use App\Controllers\InvoiceController;
-use App\Controllers\AsosiasiController;
+use App\Controllers\KategoriController;
 use App\Controllers\DocController;
 use App\Controllers\JenisPakanController;
 use App\Controllers\KategoriInvoiceController;
@@ -122,12 +122,12 @@ $routes->group('invoice', ['filter' => 'login'],function ($routes) {
     $routes->post('(:num)/lunaskan', [InvoiceController::class, 'lunaskan'], ['as' => 'invoice.lunaskan']);
 });
 
-$routes->group('asosiasi', ['filter' => 'login'],function ($routes) {
-    $routes->get('/', [AsosiasiController::class, 'index'], ['as' => 'asosiasi.index']);
-    $routes->post('store', [AsosiasiController::class, 'store'], ['as' => 'asosiasi.store']);
-    $routes->get('datatable', [AsosiasiController::class, 'datatable'], ['as' => 'asosiasi.datatable']);
-    $routes->post('(:num)/edit', [AsosiasiController::class, 'update'], ['as' => 'asosiasi.update']);
-    $routes->post('delete/(:num)', [AsosiasiController::class, 'delete'], ['as' => 'asosiasi.delete']);
+$routes->group('kategori', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [KategoriController::class, 'index'], ['as' => 'kategori.index']);
+    $routes->post('store', [KategoriController::class, 'store'], ['as' => 'kategori.store']);
+    $routes->get('datatable', [KategoriController::class, 'datatable'], ['as' => 'kategori.datatable']);
+    $routes->post('(:num)/edit', [KategoriController::class, 'update'], ['as' => 'kategori.update']);
+    $routes->post('delete/(:num)', [KategoriController::class, 'delete'], ['as' => 'kategori.delete']);
 });
 
 $routes->group('suplierpakan', ['filter' => 'login'],function ($routes) {
