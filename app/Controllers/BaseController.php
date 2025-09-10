@@ -33,7 +33,7 @@ abstract class BaseController extends Controller
      */
     protected $request;
 
-    protected $suplier;
+    
     protected $asosiasi;
     protected $datainvoice;
     /**
@@ -62,23 +62,7 @@ abstract class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
        
-        $this->suplier = model(SuplierPakan::class)
-        ->select('*')
-        ->findAll(); 
-
-        $this->data['datainvoice'] = model(Invoice::class)
-        ->select('*')->where('status !=', 'LUNAS')->where('usersfk',user()->id)
-        ->findAll();  
-
-        $this->data['datapengajuan'] = model(Pengajuan::class)
-        ->select('pengajuan_t.*,users.namapeternakan')->where('pengajuan_t.disetujui','0')->join('users','users.id=pengajuan_t.user_id')->where('pengajuan_t.user_id',user()->id)
-        ->findAll(); 
-
-        $this->asosiasi = model(Asosiasi::class)
-        ->select('asosiasi_m.*,count(users.id) as jumlah')
-        ->join('users','users.asosiasifk=asosiasi_m.id')
-        ->groupby('users.asosiasifk')
-        ->findAll(); 
+    
         // $this->suplier['suplier'] = model(SuplierPakan::class)
         // ->select('*')
         // ->findAll();

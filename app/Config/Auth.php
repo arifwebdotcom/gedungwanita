@@ -100,7 +100,7 @@ class Auth extends \Myth\Auth\Config\Auth
      * @var string[]
      */
     public $validFields = [
-        'email','username','nohp'
+        'email','username'
     ];
 
     /**

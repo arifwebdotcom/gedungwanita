@@ -1,391 +1,242 @@
-<!DOCTYPE html>
-<html lang="en">
-	<!--begin::Head-->
-	<head><base href="../">
-		<title>Koperasi PPN</title>
-		<meta name="description" content="Koperasi Pinsar Petelur Nasional" />
-		<meta name="keywords" content="Koperasi Pinsar Petelur Nasional" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta charset="utf-8" />
-		<meta property="og:locale" content="en_US" />
-		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Koperasi Pinsar Petelur Nasional" />
-		<meta property="og:url" content="https://koperasippn.com/" />
-		<meta property="og:site_name" content="Koperasi PPN" />
-		<link rel="shortcut icon" href="<?= base_url() ?>assets/media/logos/favicon.ico" />
-		<!--begin::Fonts-->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-		<!--end::Fonts-->
-		<!--begin::Global Stylesheets Bundle(used by all pages)-->
-		<link href="<?= base_url() ?>assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="<?= base_url() ?>assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="<?= base_url() ?>assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/> 
-		<link href="<?= base_url() ?>assets/css/custom.css" rel="stylesheet" type="text/css" />
-		<style>
-			.select2-container {
-				z-index: 1600; /* Adjust as needed */
-			}
+<!doctype html>
 
-			.notmodal .select2-container {
-				z-index: 1; /* Adjust as needed */
-			}
+<html
+  lang="en"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
 
-			.credit-card {
-				width: 350px;
-				height: 220px;
-				border-radius: 15px;
-				background: linear-gradient(135deg, #2b78e4, #6a11cb);
-				position: relative;
-				perspective: 1000px;
-				box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-			}
+    <title>Demo: Dashboard - Analytics | Materio - Bootstrap Dashboard FREE</title>
 
-			.credit-card-front,
-			.credit-card-back {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				backface-visibility: hidden;
-				transition: transform 0.6s;
-			}
+    <meta name="description" content="" />
 
-			.credit-card-front {
-				transform: rotateY(0deg);
-			}
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <!-- build:css assets/vendor/css/theme.css -->
+
+    <link rel="stylesheet" href="../assets/vendor/libs/node-waves/node-waves.css" />
+
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="assets/vendor/css/custom.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+	<!-- <link rel="stylesheet" href="../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css"> -->
+	<!-- DataTables CSS -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 
 
-			.credit-card-number {
-				font-size: 18px;
-				color: #fff;
-				position: absolute;
-				top: 80px;
-				left: 20px;
-			}
+    <!-- Vendors CSS -->
 
-			.credit-card-label {
-				font-size: 14px;
-				color: #fff;
-				position: absolute;
-				top: 50px;
-				left: 20px;
-			}
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-			.credit-card-info {
-				position: absolute;
-				bottom: 20px;
-				left: 20px;
-				color: #fff;
-			}
+    <!-- endbuild -->
 
-			.credit-card-holder,
-			.credit-card-expiry {
-				font-size: 14px;
-				margin-bottom: 5px;
-			}
-			.cardholder-img {
-				width: 80px;
-				height: 80px;
-				border-radius: 50%;
-				position: absolute;
-				top: 20px;
-				right: 20px;
-				border: 2px solid #fff;
-			}
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
-			.password-toggle {
-				position: relative;
-			}
+    <!-- Page CSS -->
 
-			.password-toggle input[type="password"] {
-				padding-right: 40px; /* Space for the toggle button */
-			}
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 
-			.password-toggle .toggle-password {
-				position: absolute;
-				top: 68%;
-				right: 20px;
-				transform: translateY(-50%);
-				cursor: pointer;
-			}
+    <!--? Config: Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file. -->
 
-			.password-toggle .toggle-repassword {
-				position: absolute;
-				top: 68%;
-				right: 20px;
-				transform: translateY(-50%);
-				cursor: pointer;
-			}
+    <script src="../assets/js/config.js"></script>
+  </head>
 
-			
-		</style>
-		<!--end::Global Stylesheets Bundle-->
-	</head>
-	<!--end::Head-->
-	<!--begin::Body-->
-	<body id="kt_body" style="background-image: url(<?= base_url() ?>assets/media/patterns/header-bg.jpg)" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled aside-enabled">
-		<!--begin::Main-->
-		<!--begin::Root-->
-		<div class="d-flex flex-column flex-root">
-			<!--begin::Page-->
-			<div class="page d-flex flex-row flex-column-fluid">
-				<!--begin::Wrapper-->
-				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-					
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
 
-				<!-- Header -->
-				<?= $this->include('layouts/navbar'); ?>
-					
-					
-					<!--begin::Toolbar-->
-					<div class="toolbar py-5 py-lg-15" id="kt_toolbar">
-						<!--begin::Container-->
-						<div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
-							
-							<?= view_cell('App\Cells\SubNavCell::setMenuBarModul') ?>	
-							<!--begin::Actions-->
-							<div class="d-flex align-items-center py-3 py-md-1">
-										
-								<!--begin::Button-->
-								<a href="<?= base_url() ?>profile" class="btn btn-bg-white btn-active-color-primary"  id="kt_toolbar_primary_button">Lengkapi Profile</a>
-								<!--end::Button-->
-							</div>
-							<!--end::Actions-->
-						</div>
-						<!--end::Container-->
-					</div>
-					<!--end::Toolbar-->
-					<!--begin::Container-->
-					<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
-					
-						<?= $this->include('layouts/menubar'); ?>
-						
-						<!--begin::Post-->
-						<div class="content flex-row-fluid" id="kt_content">
-							<!--begin::Row-->
-							<?= $this->renderSection('content'); ?>
-							
-						</div>
-						<!--end::Post-->
-					</div>
-					<!--end::Container-->
-					<!--begin::Footer-->
-					<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
-						<!--begin::Container-->
-						<div class="container-xxl d-flex flex-column flex-md-row align-items-center justify-content-between">
-							<!--begin::Copyright-->
-							<div class="text-dark order-2 order-md-1">
-								<span class="text-muted fw-bold me-1">2024©</span>
-								<a href="http://www.arifweb.com/" target="_blank" class="text-gray-800 text-hover-primary">Arifweb</a>
-							</div>
-							<!--end::Copyright-->
-							
-						</div>
-						<!--end::Container-->
-					</div>
-					<!--end::Footer-->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+            <a href="index.html" class="app-brand-link">
+              <span class="app-brand-logo demo me-1">
+                <span class="text-primary">
+                  <svg width="30" height="24" viewBox="0 0 250 196" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M12.3002 1.25469L56.655 28.6432C59.0349 30.1128 60.4839 32.711 60.4839 35.5089V160.63C60.4839 163.468 58.9941 166.097 56.5603 167.553L12.2055 194.107C8.3836 196.395 3.43136 195.15 1.14435 191.327C0.395485 190.075 0 188.643 0 187.184V8.12039C0 3.66447 3.61061 0.0522461 8.06452 0.0522461C9.56056 0.0522461 11.0271 0.468577 12.3002 1.25469Z"
+                      fill="currentColor" />
+                    <path
+                      opacity="0.077704"
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M0 65.2656L60.4839 99.9629V133.979L0 65.2656Z"
+                      fill="black" />
+                    <path
+                      opacity="0.077704"
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M0 65.2656L60.4839 99.0795V119.859L0 65.2656Z"
+                      fill="black" />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M237.71 1.22393L193.355 28.5207C190.97 29.9889 189.516 32.5905 189.516 35.3927V160.631C189.516 163.469 191.006 166.098 193.44 167.555L237.794 194.108C241.616 196.396 246.569 195.151 248.856 191.328C249.605 190.076 250 188.644 250 187.185V8.09597C250 3.64006 246.389 0.027832 241.935 0.027832C240.444 0.027832 238.981 0.441882 237.71 1.22393Z"
+                      fill="currentColor" />
+                    <path
+                      opacity="0.077704"
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M250 65.2656L189.516 99.8897V135.006L250 65.2656Z"
+                      fill="black" />
+                    <path
+                      opacity="0.077704"
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M250 65.2656L189.516 99.0497V120.886L250 65.2656Z"
+                      fill="black" />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M12.2787 1.18923L125 70.3075V136.87L0 65.2465V8.06814C0 3.61223 3.61061 0 8.06452 0C9.552 0 11.0105 0.411583 12.2787 1.18923Z"
+                      fill="currentColor" />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M12.2787 1.18923L125 70.3075V136.87L0 65.2465V8.06814C0 3.61223 3.61061 0 8.06452 0C9.552 0 11.0105 0.411583 12.2787 1.18923Z"
+                      fill="white"
+                      fill-opacity="0.15" />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M237.721 1.18923L125 70.3075V136.87L250 65.2465V8.06814C250 3.61223 246.389 0 241.935 0C240.448 0 238.99 0.411583 237.721 1.18923Z"
+                      fill="currentColor" />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M237.721 1.18923L125 70.3075V136.87L250 65.2465V8.06814C250 3.61223 246.389 0 241.935 0C240.448 0 238.99 0.411583 237.721 1.18923Z"
+                      fill="white"
+                      fill-opacity="0.3" />
+                  </svg>
+                </span>
+              </span>
+              <span class="app-brand-text demo menu-text fw-semibold ms-2">Materio</span>
+            </a>
+
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+              <i class="menu-toggle-icon d-xl-inline-block align-middle"></i>
+            </a>
+          </div>
+
+          <div class="menu-inner-shadow"></div>
+
+          <ul class="menu-inner py-1">
+            <!-- Dashboards -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link ">
+                <i class="menu-icon icon-base ri ri-home-smile-line"></i>
+                <div data-i18n="Dashboards">Dashboards</div>
+              </a>              
+            </li>
+
+            
+
+            <!-- Apps & Pages -->
+            <li class="menu-header mt-7">
+              <span class="menu-header-text">Apps &amp; Pages</span>
+            </li>
+            <li class="menu-item">
+              <a href="<?= route_to('member.index') ?>" class="menu-link">
+                <i class="menu-icon icon-base ri ri-mail-open-line"></i>
+                <div data-i18n="Email">Member</div>
+                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
+              </a>
+            </li>          
+            <li class="menu-item">
+              <a href="<?= route_to('kategori.index') ?>" class="menu-link">
+                <i class="menu-icon icon-base ri ri-mail-open-line"></i>
+                <div data-i18n="Email">Kelas</div>
+                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
+              </a>
+            </li>          
+            
+            
+          </ul>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- navbar -->
+          <?= $this->include('layouts/navbar'); ?>
+		
+		  	<div class="content-wrapper">
+            	<div class="container-xxl flex-grow-1 container-p-y">
+					<!--begin::Row-->
+					<?= $this->renderSection('content'); ?>						
 				</div>
-				<!--end::Wrapper-->
-			</div>
-			<!--end::Page-->
-		</div>
-		<!--end::Root-->
-		<!--end::Activities drawer-->	
-		<!--begin::Scrolltop-->
-		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-			<!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-			<span class="svg-icon">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-					<rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="black" />
-					<path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="black" />
-				</svg>
-			</span>
-			<!--end::Svg Icon-->
-		</div>
-		<!--end::Scrolltop-->
-		<!--end::Main-->
-		<?= view_cell('App\Cells\ModalAddCell::getDataModal') ?>
-		
-		<script>var hostUrl = "<?= base_url() ?>assets/";</script>
-		<script>var base_url = "<?= base_url() ?>";</script>
-		<!--begin::Javascript-->
-		<!--begin::Global Javascript Bundle(used by all pages)-->
-		<script src="<?= base_url() ?>assets/plugins/global/plugins.bundle.js"></script>
-		<script src="<?= base_url() ?>assets/js/scripts.bundle.js"></script>
-		<!--end::Global Javascript Bundle-->
-		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="<?= base_url() ?>assets/js/custom/widgets.js"></script>
-		<script src="<?= base_url() ?>assets/js/custom/apps/chat/chat.js"></script>
-		<script src="<?= base_url() ?>assets/js/custom/JqueryPrintArea/jquery.PrintArea.js"></script>
-		<script src="<?= base_url() ?>assets/js/custom/modals/create-app.js"></script>
-		<script src="<?= base_url() ?>assets/js/custom/modals/upgrade-plan.js"></script>
-		<script src="<?= base_url() ?>assets/js/custom/documentation/general/toastr.js"></script>
-		<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-LWmdCm3ybl8nFlXU"></script>
-		<!--end::Page Custom Javascript-->
-		<!--end::Javascript-->
-		
-		
-			<script> 
-				function togglePasswordVisibility() {
-					var passwordField = document.getElementById("password");
-					var toggleButton = document.querySelector(".toggle-password");
+          	</div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
 
-					if (passwordField.type === "password") {
-					passwordField.type = "text";
-					toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
-					} else {
-					passwordField.type = "password";
-					toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
-					}
-				}
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
 
-				function toggleRePasswordVisibility() {
-					var passwordField = document.getElementById("repassword");
-					var toggleButton = document.querySelector(".toggle-repassword");
+    
 
-					if (passwordField.type === "password") {
-					passwordField.type = "text";
-					toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
-					} else {
-					passwordField.type = "password";
-					toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
-					}
-				}
+    <!-- Core JS -->
+	<div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;"></div>
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
 
-				//if(<?= user()->iscomplete ?> == 0 && <?= user()->isadmin ?> != 1){				
-					$(window).on('load', function() {
-						//$('#kt_modal_create_app').modal('show');
-					});
-					var def = 0;
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/node-waves/node-waves.js"></script>
 
-					$("#bersedia").on('change', function() {
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-						if ($(this).is(':checked') && def == 0) {
-							
-							let id = $('#kt_modal_create_app_form #id').val();
+    <script src="../assets/vendor/js/menu.js"></script>
 
-							$.ajax({
-								url: `<?= base_url() ?>dashboard/${id}/edit` ,
-								method: 'POST',
-								dataType: 'json',
-								data: { id: $("#kt_modal_create_app_form #id").val(), bersediamembayar: $(this).is(':checked')},
-								success: function(response) {		
-									if (response.status) {										
-										toastr.success(response.messages);
-									}
-								}
-							});						
-						}
-					});
-					
-				//}
-				
-				// var input1 = document.querySelector("#jenispakan");
+    <!-- endbuild -->
 
-				// // Initialize Tagify components on the above inputs
-				// new Tagify(input1);
+    <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
-				//var form;
-				
-					// Tags. For more info, please visit the official plugin site: https://yaireo.github.io/tagify/
-					var tags = new Tagify(document.querySelector('#jenispakan'), {
-						whitelist: ["Sentrat", "Pakan Jadi", "Self Mixing"],
-						maxTags: 5,
-						dropdown: {
-							maxItems: 10,           // <- mixumum allowed rendered suggestions
-							enabled: 0,             // <- show suggestions on focus
-							closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
-						}
-					});
-					tags.on("change", function(){
-						// Revalidate the field when an option is chosen
-						validator.revalidateField('tags');
-					});
+    <!-- Main JS -->
 
-					$.ajax({
-						url: '<?= route_to('doc.tagify') ?>',
-						method: 'GET',
-						dataType: 'json',
-						success: function(data) {
-							// Update the Tagify whitelist with the received data
-							var whitelist = data;
-							var tagss = new Tagify(document.querySelector('#pullet'), {
-								whitelist: whitelist,
-								maxTags: 5,
-								dropdown: {
-									maxItems: 10,           // <- mixumum allowed rendered suggestions
-									enabled: 0,             // <- show suggestions on focus
-									closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
-								}
-							});
-							tagss.on("change", function(){
-								// Revalidate the field when an option is chosen
-								validator.revalidateField('tagss');
-							});
-						},
-						error: function(xhr, status, error) {
-							console.error(xhr.responseText);
-						}
-					});
-					
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/custom.js"></script>
+    <script src="../assets/js/ui-modals.js"></script>
+    <script src="../assets/js/ui-toasts.js"></script>
 
-					// Due date. For more info, please visit the official plugin site: https://flatpickr.js.org/
-					
+    <!-- Page JS -->
+    <script src="../assets/js/dashboards-analytics.js"></script>
 
-				toastr.options = {
-					"closeButton": true,
-					"debug": false,
-					"newestOnTop": false,
-					"progressBar": true,
-					"positionClass": "toast-top-right",
-					"preventDuplicates": false,
-					"onclick": null,
-					"showDuration": "300",
-					"hideDuration": "1000",
-					"timeOut": "5000",
-					"extendedTimeOut": "1000",
-					"showEasing": "swing",
-					"hideEasing": "linear",
-					"showMethod": "fadeIn",
-					"hideMethod": "fadeOut"
-				};
-			var _BASE = '<?= base_url() ?>';
-			const ajaxRequest = (route, method = 'post', data = null) => {
-				return new Promise((resolve, reject) => {
-					$.ajax({
-						url: route,
-						type: method,
-						dataType: 'json',
-						data: data,
-						beforeSend: function() {
-							Swal.fire({ 
-								allowOutsideClick: false,
-								title: 'Harap Menunggu',
-								text: 'Permintaan sedang di proses.',
-								showCancelButton: false,
-								showConfirmButton: false,
-								didOpen: () => {
-									Swal.showLoading()
-								}
-							})
-						},
-						success: function(response) {
-							Swal.close()
-							if (response.status) {
-								resolve(response)
-							} else {
-								reject(response)
-							}
-						},
-						error: function(err) {
-							Swal.close()
-							reject(err)
-						}
-					});
-				})
-			}
-		</script>
+	<!-- DataTables JS -->
+	<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-		<?= $this->renderSection('script'); ?>
-	</body>  
-	<!--end::Body-->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!-- Place this tag before closing body tag for github widget button. -->
+    <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+
+	<?= $this->renderSection('script'); ?>
+  </body>
 </html>

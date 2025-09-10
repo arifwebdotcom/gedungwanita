@@ -19,16 +19,16 @@
             <div class="card-body mt-1">
               <h4 class="mb-1">Welcome to FunFit! 👋🏻</h4>
               <p class="mb-5">Please sign-in to your account and start the adventure</p>
-
-              <form id="formAuthentication" class="mb-5" action="index.html" method="POST">
+             <?= view('Myth\Auth\Views\_message_block') ?>
+              <form id="formAuthentication" novalidate="novalidate" class="mb-5" action="<?= url_to('login') ?>" method="POST">
                 <div class="form-floating form-floating-outline mb-5 form-control-validation">
                   <input
                     type="text"
                     class="form-control"
                     id="email"
-                    name="email-username"
+                    name="login"
                     placeholder="Enter your email or username"
-                    autofocus />
+                    autofocus <?= session('errors.login') ? ' is-invalid' : '' ?> />
                   <label for="email">Email or Username</label>
                 </div>
                 <div class="mb-5">
@@ -41,7 +41,7 @@
                           class="form-control"
                           name="password"
                           placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                          aria-describedby="password" />
+                          aria-describedby="password" <?= session('errors.login') ? ' is-invalid' : '' ?> />
                         <label for="password">Password</label>
                       </div>
                       <span class="input-group-text cursor-pointer"

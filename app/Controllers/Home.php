@@ -10,17 +10,9 @@ class Home extends BaseController
 
     public function index(): string
     {        
-        $this->data['suplierpakan'] =  $this->suplier;
-        $this->data['asosiasi'] =  $this->asosiasi;
-        $this->data['notification'] =  model(Announcement::class)->findAll();
-        if(user()->isadmin == 1){
-            $this->data['setoran'] =  model(Invoice::class)->select("sum(total) as total")->where("status","LUNAS")->first();
-            $this->data['tungakan'] =  model(Invoice::class)->select("sum(total) as total")->where("status !=","LUNAS")->first();        
-        }else{
-            $this->data['setoran'] =  model(Invoice::class)->select("sum(total) as total")->where("usersfk",user()->id)->where("status","LUNAS")->first();
-            $this->data['tungakan'] =  model(Invoice::class)->select("sum(total) as total")->where("usersfk",user()->id)->where("status !=","LUNAS")->first();        
-        }
-        $this->data['leafletharga'] =  model(Setting::class)->where('param','leafletharga')->first();
+        
+        $this->data['username'] =  user()->username;
+        
         //return view('layouts/app');
         //return view('dashboard/dashboard',$data);
         return view('dashboard/dashboard',$this->data);

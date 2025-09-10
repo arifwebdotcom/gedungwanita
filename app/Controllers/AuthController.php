@@ -83,18 +83,28 @@ class AuthController extends Controller
         $password = $this->request->getPost('password');
         $remember = (bool) $this->request->getPost('remember');
 
+        //dd(password_hash($password, PASSWORD_DEFAULT)." ".$password);
+
         // Determine credential type
         //$type = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
             $type = 'email';
-        } elseif (is_numeric($login) && strlen($login) >= 10) { // Assuming phone number has at least 10 digits
-            $type = 'nohp';
         } else {
             $type = 'username';
         }
 
+        
+        $hash = '$2y$10$ccw4ZxXS/KWXgj8pzIZ.uedFFektLBKO5mGBY5vIgHqc32otgtwtq';
+
+        log_message('debug', 'Attempt login with : ' . json_encode(password_verify('bisa', $hash)));
+
+        if (! $this->auth->attempt([$type => $login, 'password' => $password], $remember)) {
+            log_message('error', 'Auth error: ' . $this->auth->error());
+            return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
+        }
+
         // Try to log them in...
-        if (! $this->auth->attempt([$type => $login, 'passwords' => $password], $remember)) {
+        if (! $this->auth->attempt([$type => $login, 'password' => $password], $remember)) {
             return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
         }
 
