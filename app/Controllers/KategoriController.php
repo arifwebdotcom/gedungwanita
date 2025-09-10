@@ -62,7 +62,7 @@ class KategoriController extends BaseController
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
 
-        $request['kategori'] = $this->request->getPost('kategori');
+        $request['kelas'] = $this->request->getPost('kelas');
         $request['keterangan'] = $this->request->getPost('keterangan');
         $request['id'] = $id;
         model(Kategori::class)->save($request);
