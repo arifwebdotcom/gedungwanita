@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="assets/vendor/css/custom.css" />
     <link rel="stylesheet" href="../assets/css/demo.css" />
 
+    <link rel="stylesheet" href="../assets/css/app-calendar.css">
+
 	<!-- <link rel="stylesheet" href="../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css"> -->
 	<!-- DataTables CSS -->
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -145,7 +147,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link ">
+              <a href="<?= route_to('jadwal.index') ?>" class="menu-link ">
                 <i class="menu-icon icon-base ri ri-home-smile-line"></i>
                 <div data-i18n="Dashboards">Dashboards</div>
               </a>              
@@ -155,18 +157,25 @@
 
             <!-- Apps & Pages -->
             <li class="menu-header mt-7">
-              <span class="menu-header-text">Apps &amp; Pages</span>
+              <span class="menu-header-text">Master Data</span>
             </li>
             <li class="menu-item">
               <a href="<?= route_to('member.index') ?>" class="menu-link">
-                <i class="menu-icon icon-base ri ri-mail-open-line"></i>
+                <i class="menu-icon icon-base ri ri-grid-line"></i>
                 <div data-i18n="Email">Member</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
             </li>          
             <li class="menu-item">
+              <a href="<?= route_to('paket.index') ?>" class="menu-link">
+                <i class="menu-icon icon-base ri ri-grid-line"></i>
+                <div data-i18n="Email">Paket</div>
+                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
+              </a>
+            </li>          
+            <li class="menu-item">
               <a href="<?= route_to('kategori.index') ?>" class="menu-link">
-                <i class="menu-icon icon-base ri ri-mail-open-line"></i>
+                <i class="menu-icon icon-base ri ri-grid-line"></i>
                 <div data-i18n="Email">Kelas</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>

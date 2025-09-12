@@ -4,16 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Agama extends Model
+class Pendaftaran extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'agama_m';
+    protected $table            = 'pendaftaran_t';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
-    protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'agama', 'reportdisplay'];
+    protected $protectFields    = false;
 
     // Dates
     protected $useTimestamps = true;
@@ -38,16 +37,5 @@ class Agama extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-
-    public function get_agama($numrows,$keywords)
-    {
-        $builder = $this->select('agama_m.*')
-        ->when($keywords, static function ($query, $keywords) {
-            $query->like('agama_m.agama', $keywords);
-        })
-        ->findAll($numrows);
-        return $builder;
-    }
 
 }

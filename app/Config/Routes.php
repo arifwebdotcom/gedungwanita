@@ -1,7 +1,7 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
-use App\Controllers\AgamaController;
+use App\Controllers\PaketController;
 use App\Controllers\AnnouncementController;
 use App\Controllers\PengajuanController;
 use App\Controllers\InvoiceController;
@@ -10,7 +10,7 @@ use App\Controllers\DocController;
 use App\Controllers\JenisPakanController;
 use App\Controllers\MemberController;
 use App\Controllers\UserController;
-use App\Controllers\SuplierPakanController;
+use App\Controllers\JadwalController;
 use App\Controllers\ProfileController;
 use App\Controllers\DashboardController;
 use App\Controllers\AuthController;
@@ -59,12 +59,12 @@ $routes->group('profile', ['filter' => 'login'],function ($routes) {
     $routes->post('editharga', [ProfileController::class, 'update'], ['as' => 'profile.update']);
 });
 
-$routes->group('agama', ['filter' => 'login'],function ($routes) {
-    $routes->get('/', [AgamaController::class, 'index'], ['as' => 'agama.index']);
-    $routes->post('store', [AgamaController::class, 'store'], ['as' => 'agama.store']);
-    $routes->get('datatable', [AgamaController::class, 'datatable'], ['as' => 'agama.datatable']);
-    $routes->post('(:num)/edit', [AgamaController::class, 'update'], ['as' => 'agama.update']);
-    $routes->post('delete/(:num)', [AgamaController::class, 'delete'], ['as' => 'agama.delete']);
+$routes->group('paket', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [PaketController::class, 'index'], ['as' => 'paket.index']);
+    $routes->post('store', [PaketController::class, 'store'], ['as' => 'paket.store']);
+    $routes->get('datatable', [PaketController::class, 'datatable'], ['as' => 'paket.datatable']);
+    $routes->post('(:num)/edit', [PaketController::class, 'update'], ['as' => 'paket.update']);
+    $routes->post('delete/(:num)', [PaketController::class, 'delete'], ['as' => 'paket.delete']);
 });
 
 $routes->group('laporan', ['filter' => 'login'],function ($routes) {
@@ -130,12 +130,12 @@ $routes->group('kategori', ['filter' => 'login'],function ($routes) {
     $routes->post('delete/(:num)', [KategoriController::class, 'delete'], ['as' => 'kategori.delete']);
 });
 
-$routes->group('suplierpakan', ['filter' => 'login'],function ($routes) {
-    $routes->get('/', [SuplierPakanController::class, 'index'], ['as' => 'suplierpakan.index']);
-    $routes->post('store', [SuplierPakanController::class, 'store'], ['as' => 'suplierpakan.store']);
-    $routes->get('datatable', [SuplierPakanController::class, 'datatable'], ['as' => 'suplierpakan.datatable']);
-    $routes->post('(:num)/edit', [SuplierPakanController::class, 'update'], ['as' => 'suplierpakan.update']);
-    $routes->post('delete/(:num)', [SuplierPakanController::class, 'delete'], ['as' => 'suplierpakan.delete']);
+$routes->group('jadwal', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [JadwalController::class, 'index'], ['as' => 'jadwal.index']);
+    $routes->post('store', [JadwalController::class, 'store'], ['as' => 'jadwal.store']);
+    $routes->get('datatable', [JadwalController::class, 'datatable'], ['as' => 'jadwal.datatable']);
+    $routes->post('(:num)/edit', [JadwalController::class, 'update'], ['as' => 'jadwal.update']);
+    $routes->post('delete/(:num)', [JadwalController::class, 'delete'], ['as' => 'jadwal.delete']);
 });
 
 $routes->group('doc', ['filter' => 'login'],function ($routes) {
