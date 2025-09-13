@@ -13,7 +13,7 @@ class KategoriController extends BaseController
     public function datatable() {
         $data = model(Kategori::class)->findAll();
 
-        return json_encode(compact('data'));
+        return json_encode(compact('data')); 
     }
 
     public function index()
@@ -25,21 +25,8 @@ class KategoriController extends BaseController
     }
 
     public function store() {
-        // $setRules = [            
-        //     'kategori' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Kolom kategori wajib diisi.'
-        //         ],
-        //     ],
-        // ];  
-
-        // if (!$this->validate($setRules)) {
-        //     return $this->failValidationErrors($this->validator->getErrors());
-        // }
-
-        $request['kelas'] = $this->request->getPost('kelas');
-        $request['keterangan'] = $this->request->getPost('keterangan');
+        $request['kategori'] = $this->request->getPost('kategori');
+        $request['reportdisplay'] = $this->request->getPost('kategori');
         model(Kategori::class)->insert($request);
 
         return $this->respondCreated([
@@ -49,21 +36,7 @@ class KategoriController extends BaseController
     }
 
     public function update($id) {
-        // $setRules = [            
-        //     'kategori' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Kolom kategori wajib diisi.'
-        //         ],
-        //     ],
-        // ];
-
-        // if (!$this->validate($setRules)) {
-        //     return $this->failValidationErrors($this->validator->getErrors());
-        // }
-
-        $request['kelas'] = $this->request->getPost('kelas');
-        $request['keterangan'] = $this->request->getPost('keterangan');
+        $request['kategori'] = $this->request->getPost('kategori');
         $request['id'] = $id;
         model(Kategori::class)->save($request);
 

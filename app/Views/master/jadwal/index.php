@@ -25,7 +25,7 @@ $breadcrumb_items = [
     <div class="card-body py-3 row">
         <div class="col app-calendar-sidebar border-end  col-12 col-md-2" id="app-calendar-sidebar">
             <div class="border-bottom my-sm-0 mb-4 p-5">
-                <button class="btn btn-primary btn-toggle-sidebar w-100 waves-effect waves-light" data-bs-toggle="offcanvas" data-bs-target="#addEventSidebar" aria-controls="addEventSidebar">
+                <button class="btn btn-primary btn-toggle-sidebar w-100 waves-effect waves-light"  data-bs-toggle="modal" data-bs-target="#jadwal_modal" id="btn_create" aria-controls="addEventSidebar">
                     <i class="icon-base ri ri-add-line icon-16px me-1_5"></i>
                     <span class="align-middle">Tambah Pendaftaran</span>
                 </button>
@@ -59,74 +59,87 @@ $breadcrumb_items = [
     <!--begin::Body-->
 </div>
 <!--end::Tables Widget 11-->
-<div class="modal fade" id="suplierpakan_modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="jadwal_modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
             <div class="modal-header">
-                <!--begin::Modal title-->
-                <h2 id="modal_title">Penjadwalan</h2>
-                <!--end::Modal title-->
-                <!--begin::Close-->
-                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                    <span class="svg-icon svg-icon-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->
-                </div>
-                <!--end::Close-->
+                <h5 class="modal-title" id="modal_title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!--end::Modal header-->
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form id="suplierpakan_form" class="form" >
+                <form id="jadwal_form" class="form" >
                     <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-7 fv-row">
+                    <div class="d-flex flex-column fv-row">
                         <input type="hidden" name="id" id="id">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">Suplier Pakan</span>                            
+                            <span class="required">Member</span>                            
                         </label>
                         <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="" id="suplierpakan" name="suplierpakan" />
+                        <select id="member" name="memberfk" class="select2" style="width: 100%;">
+                            <?php foreach($member as $row) {?>
+                            <option value="<?= $row->id; ?>"><?= $row->nama; ?></option>
+                            <?php } ?>                            
+                        </select>
                     </div>     
-                    <div class="d-flex flex-column mb-7 fv-row">
+                    <div class="d-flex flex-column fv-row">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">Alamat</span>                            
+                            <span class="required">Paket</span>                            
                         </label>
                         <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="" id="alamat" name="alamat" />
-                    </div>                   
-                    <div class="d-flex flex-column mb-7 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">No HP</span>                            
-                        </label>
-                        <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="" id="nohp" name="nohp" />
+                        <select id="paket" name="paketfk" class="select2" style="width: 100%;">
+                            <?php foreach($paket as $row) {?>
+                            <option value="<?= $row->id; ?>"><?= $row->namapaket; ?></option>
+                            <?php } ?>                            
+                        </select>
                     </div>    
-                    <!--end::Input group-->
-                    <!--begin::Actions-->
-                    <div class="text-center pt-15">
-                        <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">Discard</button>
-                        <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
-                            <span class="indicator-label">Submit</span>
-                            <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
+                    <div class="d-flex flex-column fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                            <span class="required">Perminggu</span>                            
+                        </label>
+                        <!--end::Label-->
+                        <input type="number" class="form-control form-control-solid" placeholder="" id="perminggu" name="perminggu" />
+                    </div>                  
+                    <div class="d-flex flex-column fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                            <span class="required">Tgl Mulai</span>                            
+                        </label>
+                        <!--end::Label-->
+                        <input type="date" class="form-control form-control-solid" placeholder="" id="mulai" name="mulai" />
+                    </div>    
+                    <div class="d-flex flex-column fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                            <span class="required">Tgl Selesai</span>                            
+                        </label>
+                        <!--end::Label-->
+                        <input type="date" class="form-control form-control-solid" placeholder="" id="selesai" name="selesai" />
+                    </div>   
+                    <div class="d-flex flex-column fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                            <span class="required">Biaya</span>                            
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" class="form-control form-control-solid" placeholder="" id="biaya" name="biaya" />
+                    </div>       
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan</button>
                     </div>
                     <!--end::Actions-->
                 </form>
-                <!--end::Form-->
-            </div>
+                <!--end::Form-->            
             <!--end::Modal body-->
         </div>
         <!--end::Modal content-->
@@ -143,6 +156,35 @@ $breadcrumb_items = [
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
 <script>
+
+
+    $(document).ready(function () {
+        $('#member').select2({
+            theme: 'bootstrap-5',
+            placeholder: "Pilih Member...",
+            allowClear: true,
+            dropdownParent: $('#jadwal_modal') // biar dropdown gak ketutup modal backdrop
+        });
+        
+        $('#paket').select2({
+            theme: 'bootstrap-5',
+            placeholder: "Pilih Member...",
+            allowClear: true,
+            dropdownParent: $('#jadwal_modal') // biar dropdown gak ketutup modal backdrop
+        });
+        $('#member').select2({
+            theme: 'bootstrap-5',
+            placeholder: "Pilih Member...",
+            allowClear: true,
+            dropdownParent: $('#jadwal_modal') // biar dropdown gak ketutup modal backdrop
+        });
+
+        $('#btn_create').on('click', function() {
+            $("#jadwal_modal #modal_title").text("Tambah Jadwal");
+            $("#jadwal_modal").modal("show");
+        });
+    });
+
   document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
 

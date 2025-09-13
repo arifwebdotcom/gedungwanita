@@ -12,8 +12,7 @@ class Kategori extends Model
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
-    protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'kelas', 'keterangan'];
+    protected $protectFields    = false;
 
     // Dates
     protected $useTimestamps = true;
@@ -39,5 +38,15 @@ class Kategori extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+
+    public function get_kategori($numrows,$keywords)
+    {
+        $builder = $this->select('kategori_m.*')
+        ->when($keywords, static function ($query, $keywords) {
+            $query->like('kategori_m.kategori', $keywords);
+        })
+        ->findAll($numrows);
+        return $builder;
+    }
 
 }

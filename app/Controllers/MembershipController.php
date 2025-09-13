@@ -3,22 +3,22 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\Periode;
+use App\Models\Membership;
 use CodeIgniter\API\ResponseTrait;
 
-class PeriodeController extends BaseController
+class MembershipController extends BaseController
 {
     use ResponseTrait;
 
     public function datatable() {
-        $data = model(Periode::class)->findAll();
+        $data = model(Membership::class)->findAll();
 
         return json_encode(compact('data')); 
     }
 
     public function index()
     {
-        $this->data['periode'] = model(Periode::class)->findAll();
+        $this->data['periode'] = model(Membership::class)->findAll();
 
         // print_r(json_encode(compact('data')));
         return view('master/periode/index',$this->data);
@@ -43,7 +43,7 @@ class PeriodeController extends BaseController
         $request['status'] = $this->request->getPost('status');
         $request['hargasekilo'] = $this->request->getPost('hargasekilo');
         $request['expired'] = date("Y-m-d",strtotime($this->request->getPost('expired')));
-        model(Periode::class)->insert($request);
+        model(Membership::class)->insert($request);
 
         return $this->respondCreated([
             'status' => true,
@@ -71,7 +71,7 @@ class PeriodeController extends BaseController
         $request['nama'] = $this->request->getPost('nama');
         $request['expired'] = $this->request->getPost('expired');
         $request['id'] = $id;
-        model(Periode::class)->save($request);
+        model(Membership::class)->save($request);
 
         return $this->respondUpdated([
             'status' => true,
@@ -81,7 +81,7 @@ class PeriodeController extends BaseController
 
     public function delete($id)
     {
-        model(Periode::class)->where('id', $id)->delete();
+        model(Membership::class)->where('id', $id)->delete();
         return $this->respondUpdated([
             'status' => true,
             'messages' => 'Data periode berhasil diubah.',

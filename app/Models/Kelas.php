@@ -4,15 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Paket extends Model
+class Kelas extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'paket_m';
+    protected $table            = 'kelas_m';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
-    protected $protectFields    = false;
+    protected $protectFields    = true;
+    protected $allowedFields    = ['id', 'kelas', 'keterangan'];
 
     // Dates
     protected $useTimestamps = true;
@@ -38,15 +39,5 @@ class Paket extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-
-    public function get_paket($numrows,$keywords)
-    {
-        $builder = $this->select('paket_m.*')
-        ->when($keywords, static function ($query, $keywords) {
-            $query->like('paket_m.paket', $keywords);
-        })
-        ->findAll($numrows);
-        return $builder;
-    }
 
 }

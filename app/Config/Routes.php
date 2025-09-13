@@ -1,11 +1,11 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
-use App\Controllers\PaketController;
+use App\Controllers\KategoriController;
 use App\Controllers\AnnouncementController;
 use App\Controllers\PengajuanController;
 use App\Controllers\InvoiceController;
-use App\Controllers\KategoriController;
+use App\Controllers\KelasController;
 use App\Controllers\DocController;
 use App\Controllers\JenisPakanController;
 use App\Controllers\MemberController;
@@ -59,12 +59,12 @@ $routes->group('profile', ['filter' => 'login'],function ($routes) {
     $routes->post('editharga', [ProfileController::class, 'update'], ['as' => 'profile.update']);
 });
 
-$routes->group('paket', ['filter' => 'login'],function ($routes) {
-    $routes->get('/', [PaketController::class, 'index'], ['as' => 'paket.index']);
-    $routes->post('store', [PaketController::class, 'store'], ['as' => 'paket.store']);
-    $routes->get('datatable', [PaketController::class, 'datatable'], ['as' => 'paket.datatable']);
-    $routes->post('(:num)/edit', [PaketController::class, 'update'], ['as' => 'paket.update']);
-    $routes->post('delete/(:num)', [PaketController::class, 'delete'], ['as' => 'paket.delete']);
+$routes->group('kategori', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [KategoriController::class, 'index'], ['as' => 'kategori.index']);
+    $routes->post('store', [KategoriController::class, 'store'], ['as' => 'kategori.store']);
+    $routes->get('datatable', [KategoriController::class, 'datatable'], ['as' => 'kategori.datatable']);
+    $routes->post('(:num)/edit', [KategoriController::class, 'update'], ['as' => 'kategori.update']);
+    $routes->post('delete/(:num)', [KategoriController::class, 'delete'], ['as' => 'kategori.delete']);
 });
 
 $routes->group('laporan', ['filter' => 'login'],function ($routes) {
@@ -122,12 +122,12 @@ $routes->group('invoice', ['filter' => 'login'],function ($routes) {
     $routes->post('(:num)/lunaskan', [InvoiceController::class, 'lunaskan'], ['as' => 'invoice.lunaskan']);
 });
 
-$routes->group('kategori', ['filter' => 'login'],function ($routes) {
-    $routes->get('/', [KategoriController::class, 'index'], ['as' => 'kategori.index']);
-    $routes->post('store', [KategoriController::class, 'store'], ['as' => 'kategori.store']);
-    $routes->get('datatable', [KategoriController::class, 'datatable'], ['as' => 'kategori.datatable']);
-    $routes->post('(:num)/edit', [KategoriController::class, 'update'], ['as' => 'kategori.update']);
-    $routes->post('delete/(:num)', [KategoriController::class, 'delete'], ['as' => 'kategori.delete']);
+$routes->group('kelas', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [KelasController::class, 'index'], ['as' => 'kelas.index']);
+    $routes->post('store', [KelasController::class, 'store'], ['as' => 'kelas.store']);
+    $routes->get('datatable', [KelasController::class, 'datatable'], ['as' => 'kelas.datatable']);
+    $routes->post('(:num)/edit', [KelasController::class, 'update'], ['as' => 'kelas.update']);
+    $routes->post('delete/(:num)', [KelasController::class, 'delete'], ['as' => 'kelas.delete']);
 });
 
 $routes->group('jadwal', ['filter' => 'login'],function ($routes) {

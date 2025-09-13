@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Pendaftaran;
+use App\Models\Member;
 use App\Models\Paket;
 use CodeIgniter\API\ResponseTrait;
 
@@ -36,6 +37,7 @@ class JadwalController extends BaseController
     public function index()
     {
         $this->data['paket'] = model(Paket::class)->findAll();
+        $this->data['member'] = model(Member::class)->findAll();
 
         // print_r(json_encode(compact('data')));
         return view('master/jadwal/index',$this->data);

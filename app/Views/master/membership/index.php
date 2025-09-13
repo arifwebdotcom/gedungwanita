@@ -4,10 +4,10 @@
 <!-- Content Header (Page header) -->
 <?php
 $breadcrumb_items = [
-    'title' => 'Kelas',
+    'title' => 'Membership',
     'items' => [
         ['name' => 'Master', 'active' => false],
-        ['name' => 'Kelas', 'active' => true]
+        ['name' => 'Membership', 'active' => true]
     ]
 ];
 ?>
@@ -16,11 +16,11 @@ $breadcrumb_items = [
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-3 mb-1">Master Kelas</span>
-            <span class="text-muted mt-1 fw-bold fs-7">Data Kelas</span>
+            <span class="card-label fw-bolder fs-3 mb-1">Master Membership</span>
+            <span class="text-muted mt-1 fw-bold fs-7">Data Membership</span>
         </h3>
         <div class="card-toolbar">            
-            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kategori_modal">
+            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#paket_modal">
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
             <span class="svg-icon svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -28,7 +28,7 @@ $breadcrumb_items = [
                     <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                 </svg>
             </span>
-            <!--end::Svg Icon-->Tambah Kelas</a>
+            <!--end::Svg Icon-->Tambah Membership</a>
         </div>
     </div>
     <!--end::Header-->
@@ -38,7 +38,7 @@ $breadcrumb_items = [
         <div class="table-responsive">
             <!--begin::Table-->
             <div class="table-responsive text-nowrap">
-                <table class="table" id="kategori_table">
+                <table class="table" id="paket_table">
                 <thead>
                     <tr>
                     <th class="w-25px rounded-start">
@@ -46,9 +46,11 @@ $breadcrumb_items = [
                             <input class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-13-check">
                         </div>
                     </th>
-                    <th>Kelas</th>
-                    <th>Ketarangan</th>
-                    <th>Actions</th>
+                    <th>Membership</th>
+                    <th>Usia</th>
+                    <th>Durasi</th>
+                    <th>Kapasitas</th>
+                    <th>Action</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0"> 
@@ -63,7 +65,7 @@ $breadcrumb_items = [
     <!--begin::Body-->
 </div>
 <!--end::Tables Widget 11-->
-<div class="modal fade" id="kategori_modal" tabindex="-1" aria-modal="true" role="dialog">
+<div class="modal fade" id="paket_modal" tabindex="-1" aria-modal="true" role="dialog">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -71,13 +73,13 @@ $breadcrumb_items = [
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        <form id="kategori_form" class="form" >
+        <form id="paket_form" class="form" >
         <div class="row">
             <div class="col mb-6 mt-2">
             <div class="form-floating form-floating-outline">
                 <input type="hidden" name="id" id="id">
                 <input type="text" id="kelas" name="kelas" class="form-control" placeholder="Enter Name">
-                <label for="kelas">Kelas</label>
+                <label for="kelas">Membership</label>
             </div>
             </div>
         </div>
@@ -106,11 +108,11 @@ $breadcrumb_items = [
 
 <script>
     $(document).ready(function() {
-        //$("#kategori_table").DataTable();
-        showKategori();
+        //$("#paket_table").DataTable();
+        showMembership();
     });
 
-    const showKategori = () => {
+    const showMembership = () => {
         console.log("show");
         const columns = [
             {
@@ -123,12 +125,26 @@ $breadcrumb_items = [
                 }
             },
             {
-                name: "Kelas",
-                data: "kelas"
+                name: "Membership",
+                data: "namapaket"
             },
             {
-                name: "Ketarangan",
-                data: "keterangan"
+                name: "Usia",
+                data: null, 
+                render: function(data, type, row) {
+                    return row.usiaawal + ' - ' + row.usiaakhir+ ' Tahun';
+                }
+            },
+            {
+                name: "Durasi",
+                data: "null", 
+                render: function(data, type, row) {
+                    return row.durasi + ' menit ';
+                }
+            },
+            {
+                name: "Kapasitas",
+                data: "kapasitas"
             },
             {
                 width: "10%",
@@ -147,12 +163,12 @@ $breadcrumb_items = [
         ];
 
 
-        var table = $('#kategori_table').DataTable({
+        var table = $('#paket_table').DataTable({
             searching: true,
             destroy: true,
             lengthChange: false,
             ajax: {
-                url: "<?= route_to('kategori.datatable') ?>",
+                url: "<?= route_to('paket.datatable') ?>",
             },
             columns: columns,
             "dom":
@@ -171,25 +187,25 @@ $breadcrumb_items = [
     }
 
     $('#btn_create').on('click', function() {
-        $("#kategori_modal #modal_title").text("Tambah Kategori");
-        $("#kategori_modal").modal("show");
+        $("#paket_modal #modal_title").text("Tambah Membership");
+        $("#paket_modal").modal("show");
     });
 
-    $('#kategori_table tbody').on('click', '#edit', function() {
-        var data = $('#kategori_table').DataTable().row($(this).parents('tr')).data();
-        $("#kategori_modal #kelas").val(data.kelas);
-        $("#kategori_modal #keterangan").val(data.keterangan);
-        $("#kategori_modal #id").val(data.id);
+    $('#paket_table tbody').on('click', '#edit', function() {
+        var data = $('#paket_table').DataTable().row($(this).parents('tr')).data();
+        $("#paket_modal #kelas").val(data.kelas);
+        $("#paket_modal #keterangan").val(data.keterangan);
+        $("#paket_modal #id").val(data.id);
 
-        $("#kategori_modal #modal_title").text("Edit Kategori");
-        $("#kategori_modal").modal("show");
+        $("#paket_modal #modal_title").text("Edit Membership");
+        $("#paket_modal").modal("show");
     });
 
-    $('#kategori_table tbody').on('click', '#delete', function() {
-        var data = $('#kategori_table').DataTable().row($(this).parents('tr')).data();
+    $('#paket_table tbody').on('click', '#delete', function() {
+        var data = $('#paket_table').DataTable().row($(this).parents('tr')).data();
         Swal.fire({
             title: "Apakah anda yakin?",
-            text: "data "+data.kategori+" akan dihapus dari sistem",
+            text: "data "+data.paket+" akan dihapus dari sistem",
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Ya, Silahkan!",
@@ -198,7 +214,7 @@ $breadcrumb_items = [
         }).then(function(result) {
             if (result.value) {
                 $.ajax({
-                    url: `<?= base_url() ?>kategori/delete/${data.id}`,
+                    url: `<?= base_url() ?>paket/delete/${data.id}`,
                     type: 'post',
                     dataType: 'json',
                     data: "id="+data.id,
@@ -217,7 +233,7 @@ $breadcrumb_items = [
                     success: function(response) {
                         Swal.close()
                         if (response.status) {                
-                            showKategori();
+                            showMembership();
                             toastr.warning(response.messages);
                         } else {
                             toastr.error("Gagal!");
@@ -228,7 +244,7 @@ $breadcrumb_items = [
                     }
                 });
             } else if (result.dismiss === "cancel") {
-                toastr.error("data "+data.kategori+" tidak jadi dihapus");                
+                toastr.error("data "+data.paket+" tidak jadi dihapus");                
             }
         });
         
@@ -237,17 +253,17 @@ $breadcrumb_items = [
     });
 
 
-    $('#kategori_modal').on('hidden.bs.modal', function(e) {
+    $('#paket_modal').on('hidden.bs.modal', function(e) {
         $(this).find("input,textarea").val('').end();
     }) 
 
-    $('#kategori_form').on('submit', function(e) {
+    $('#paket_form').on('submit', function(e) {
         e.preventDefault()
         var form_data = $(this).serializeArray();
-        let id = $('#kategori_form #id').val();
+        let id = $('#paket_form #id').val();
         let route = (id != '') ?
-            `<?= base_url() ?>kategori/${id}/edit` :
-            "<?= route_to('kategori.store') ?>";
+            `<?= base_url() ?>paket/${id}/edit` :
+            "<?= route_to('paket.store') ?>";
         
         $.ajax({
             url: route,
@@ -256,8 +272,8 @@ $breadcrumb_items = [
             data: form_data,
             success: function(response) {                
                 if (response.status) {
-                    $("#kategori_modal").modal("hide");
-                    showKategori();
+                    $("#paket_modal").modal("hide");
+                    showMembership();
                     toastr.success(response.messages,"Sukses");
                 } else {
                     toastr.error("Gagal!","Error");
