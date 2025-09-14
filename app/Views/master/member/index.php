@@ -38,7 +38,7 @@ $breadcrumb_items = [
         <div class="table-responsive">
             <!--begin::Table-->
             <div class="table-responsive text-nowrap">
-                <table class="table" id="member_table">
+                <table class="table" id="member_table"  style="width:100%">
                 <thead>
                     <tr>
                     <th class="w-25px rounded-start">

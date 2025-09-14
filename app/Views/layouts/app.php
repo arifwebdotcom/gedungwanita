@@ -77,7 +77,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo" style="width:100%">
-            <a href="index.html" class="app-brand-link">
+            <a href="<?= route_to('jadwal.index') ?>" class="app-brand-link">
               <img src="/assets/img/funfit.png" class="img" style="width: 100%;height: auto;max-height: 65px;object-fit: scale-down">
             </a>
 
@@ -90,41 +90,38 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
-            <li class="menu-item">
+            <li class="menu-item <?= url_is('jadwal*') ? 'active' : '' ?>">
               <a href="<?= route_to('jadwal.index') ?>" class="menu-link ">
                 <i class="menu-icon icon-base ri ri-home-smile-line"></i>
                 <div data-i18n="Dashboards">Dashboards</div>
               </a>              
             </li>
-
-            
-
             <!-- Apps & Pages -->
             <li class="menu-header mt-7">
               <span class="menu-header-text">Master Data</span>
             </li>
-            <li class="menu-item">
+            <li class="menu-item <?= url_is('member*') ? 'active' : '' ?>">
               <a href="<?= route_to('member.index') ?>" class="menu-link">
                 <i class="menu-icon icon-base ri ri-grid-line"></i>
                 <div data-i18n="Email">Member</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
             </li>        
-            <li class="menu-item">
+            <li class="menu-item <?= url_is('kelas*') ? 'active' : '' ?>">
               <a href="<?= route_to('kelas.index') ?>" class="menu-link">
                 <i class="menu-icon icon-base ri ri-grid-line"></i>
                 <div data-i18n="Email">Kelas</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
             </li>          
-             <li class="menu-item">
+             <li class="menu-item <?= url_is('kategori*') ? 'active' : '' ?>">
               <a href="<?= route_to('kategori.index') ?>" class="menu-link">
                 <i class="menu-icon icon-base ri ri-grid-line"></i>
                 <div data-i18n="Email">Kategori</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
             </li>   
-            <li class="menu-item">
+            <li class="menu-item <?= url_is('paket*') ? 'active' : '' ?>">
               <a href="<?= route_to('paket.index') ?>" class="menu-link">
                 <i class="menu-icon icon-base ri ri-grid-line"></i>
                 <div data-i18n="Email">Paket</div>
@@ -141,8 +138,7 @@
                 <div data-i18n="Email">Laporan</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
-            </li>
-            
+            </li>            
           </ul>
         </aside>
         <!-- / Menu -->

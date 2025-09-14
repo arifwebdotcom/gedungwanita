@@ -57,3 +57,12 @@ function formatRupiah(angka) {
             maximumFractionDigits: 0
         });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.querySelector(".layout-menu-toggle");
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      document.body.classList.toggle("layout-menu-collapsed");
+    });
+  }
+});

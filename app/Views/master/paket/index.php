@@ -38,7 +38,7 @@ $breadcrumb_items = [
         <div class="table-responsive">
             <!--begin::Table-->
             <div class="table-responsive text-nowrap">
-                <table class="table" id="paket_table">
+                <table class="table" id="paket_table" style="width:100%">
                 <thead>
                     <tr>
                     <th class="w-25px rounded-start">
@@ -190,8 +190,12 @@ $breadcrumb_items = [
                 name: "Periode Minggu",
                 data: "null", 
                 render: function(data, type, row) {
-                    return row.periodeminggu + ' / minggu ';
+                    return row.perminggu + ' / minggu ';
                 }
+            },
+            {
+                name: "Total Sesi",
+                data: "totalsesi"
             },
             {
                 name: "Biaya",
