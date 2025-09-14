@@ -130,7 +130,18 @@
                 <div data-i18n="Email">Paket</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
-            </li>   
+            </li>  
+            
+             <li class="menu-header mt-7">
+              <span class="menu-header-text">Laporan</span>
+            </li>
+            <li class="menu-item">
+              <a href="<?= route_to('laporan.index') ?>" class="menu-link">
+                <i class="menu-icon icon-base ri ri-grid-line"></i>
+                <div data-i18n="Email">Laporan</div>
+                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
+              </a>
+            </li>
             
           </ul>
         </aside>
