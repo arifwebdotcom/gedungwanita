@@ -36,7 +36,7 @@ $breadcrumb_items = [
                     <label class="form-check-label" for="selectAll">View All</label>
                 </div>
                 <div class="app-calendar-events-filter text-heading">
-                    <?php foreach($paket as $row){ ?>
+                    <?php foreach($kategori as $row){ ?>
                     <div class="form-check mb-5 ms-2">
                         <input class="form-check-input input-filter"
                             type="checkbox"
@@ -46,7 +46,7 @@ $breadcrumb_items = [
                             checked
                             style="background-color: <?= $row->color ?>; border-color: <?= $row->color ?>;">
                         <label class="form-check-label" for="select-<?= $row->id ?>">
-                        <?= $row->namapaket ?>
+                        <?= $row->namakategori ?>
                         </label>
                     </div>
                     <?php } ?>        
@@ -91,12 +91,12 @@ $breadcrumb_items = [
                     <div class="d-flex flex-column fv-row">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">Paket</span>                            
+                            <span class="required">Kategori</span>                            
                         </label>
                         <!--end::Label-->
-                        <select id="paket" name="paketfk" class="select2" style="width: 100%;">
-                            <?php foreach($paket as $row) {?>
-                            <option value="<?= $row->id; ?>"><?= $row->namapaket; ?></option>
+                        <select id="kategori" name="kategorifk" class="select2" style="width: 100%;">
+                            <?php foreach($kategori as $row) {?>
+                            <option value="<?= $row->id; ?>"><?= $row->namakategori; ?></option>
                             <?php } ?>                            
                         </select>
                     </div>    
@@ -166,7 +166,7 @@ $breadcrumb_items = [
             dropdownParent: $('#jadwal_modal') // biar dropdown gak ketutup modal backdrop
         });
         
-        $('#paket').select2({
+        $('#kategori').select2({
             theme: 'bootstrap-5',
             placeholder: "Pilih Member...",
             allowClear: true,
@@ -188,8 +188,8 @@ $breadcrumb_items = [
   document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
 
-  // ambil semua id paket dari PHP (default semua dipilih)  
-  var selectedPaket = <?= json_encode(array_map('intval', array_column($paket, 'id'))); ?>;
+  // ambil semua id kategori dari PHP (default semua dipilih)  
+  var selectedPaket = <?= json_encode(array_map('intval', array_column($kategori, 'id'))); ?>;
 
 
   // Set warna awal checkbox sesuai data-color
@@ -246,7 +246,7 @@ $breadcrumb_items = [
         url: '/jadwal/datatable',
         dataType: 'json',
         success: function(response) {
-          let filtered = response.filter(ev => selectedPaket.includes(parseInt(ev.paket_id)));
+          let filtered = response.filter(ev => selectedPaket.includes(parseInt(ev.kategori_id)));
           successCallback(filtered);
         },
         error: function() {

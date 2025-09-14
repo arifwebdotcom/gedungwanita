@@ -106,14 +106,7 @@
                 <div data-i18n="Email">Member</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
-            </li>          
-            <li class="menu-item">
-              <a href="<?= route_to('paket.index') ?>" class="menu-link">
-                <i class="menu-icon icon-base ri ri-grid-line"></i>
-                <div data-i18n="Email">Paket</div>
-                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
-              </a>
-            </li>          
+            </li>        
             <li class="menu-item">
               <a href="<?= route_to('kelas.index') ?>" class="menu-link">
                 <i class="menu-icon icon-base ri ri-grid-line"></i>
@@ -121,7 +114,13 @@
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
             </li>          
-            
+             <li class="menu-item">
+              <a href="<?= route_to('kategori.index') ?>" class="menu-link">
+                <i class="menu-icon icon-base ri ri-grid-line"></i>
+                <div data-i18n="Email">Kategori</div>
+                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
+              </a>
+            </li>   
             
           </ul>
         </aside>

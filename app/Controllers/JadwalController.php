@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\Pendaftaran;
 use App\Models\Member;
 use App\Models\Paket;
+use App\Models\Kategori;
+use App\Models\Kelas;
 use CodeIgniter\API\ResponseTrait;
 
 class JadwalController extends BaseController
@@ -13,9 +15,9 @@ class JadwalController extends BaseController
     use ResponseTrait;
 
     public function datatable() {
-        $model = model(Pendaftaran::class)->select('pendaftaran_t.id as id,member_m.nama,paket_m.id as idpaket,paket_m.color,paket_m.namapaket,jadwalpendaftaran_t.tanggal')
+        $model = model(Pendaftaran::class)->select('pendaftaran_t.id as id,member_m.nama,kategori_m.id as idkategori,kategori_m.color,kategori_m.namakategori,jadwalpendaftaran_t.tanggal')
         ->join('member_m','member_m.id=pendaftaran_t.memberfk')
-        ->join('paket_m','paket_m.id=pendaftaran_t.paketfk')
+        ->join('kategori_m','kategori_m.id=pendaftaran_t.kategorifk')
         ->join('jadwalpendaftaran_t','jadwalpendaftaran_t.pendaftaranfk = pendaftaran_t.id');
         //$model = new Pendaftaran();
         $data = $model->findAll();
@@ -24,10 +26,10 @@ class JadwalController extends BaseController
         foreach ($data as $row) {
             $events[] = [
                 'id'    => $row->id,
-                'title' => $row->nama . ' - ' . $row->namapaket,
+                'title' => $row->nama . ' - ' . $row->namakategori,
                 'start' => $row->tanggal,
                 'color' => $row->color,
-                'paket_id' => $row->idpaket,
+                'kategori_id' => $row->idkategori,
             ];
         }
 
@@ -36,7 +38,7 @@ class JadwalController extends BaseController
 
     public function index()
     {
-        $this->data['paket'] = model(Paket::class)->findAll();
+        $this->data['kategori'] = model(Kategori::class)->findAll();
         $this->data['member'] = model(Member::class)->findAll();
 
         // print_r(json_encode(compact('data')));
