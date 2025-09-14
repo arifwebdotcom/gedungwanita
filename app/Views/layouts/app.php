@@ -54,6 +54,9 @@
     <!-- endbuild -->
 
     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+    <!-- Choice  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+
 
     <!-- Page CSS -->
 
@@ -118,6 +121,13 @@
               <a href="<?= route_to('kategori.index') ?>" class="menu-link">
                 <i class="menu-icon icon-base ri ri-grid-line"></i>
                 <div data-i18n="Email">Kategori</div>
+                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
+              </a>
+            </li>   
+            <li class="menu-item">
+              <a href="<?= route_to('paket.index') ?>" class="menu-link">
+                <i class="menu-icon icon-base ri ri-grid-line"></i>
+                <div data-i18n="Email">Paket</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
             </li>   
@@ -191,6 +201,9 @@
 
   <!-- Select2 JS -->
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <!-- Choice -->
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
 
 
     <!-- Place this tag before closing body tag for github widget button. -->

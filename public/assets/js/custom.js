@@ -48,3 +48,12 @@ const toastr = {
     this.show('info', message, title);
   }
 };
+
+function formatRupiah(angka) {
+    if (!angka) return "Rp. 0";
+    return "Rp. " + parseFloat(angka)
+        .toLocaleString('id-ID', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+}

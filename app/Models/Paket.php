@@ -4,17 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Periode extends Model
+class Paket extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'periode_t';
+    protected $table            = 'paket_m';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'periode', 'nama','status','hargasekilo','expired'];
-
+    protected $allowedFields    = ['id', 'keterangan', 'periodebulan','perminggu','totalsesi','biaya','biayapersesi'];
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
@@ -38,5 +37,16 @@ class Periode extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    public function get_paket($numrows,$keywords)
+    {
+        $builder = $this->select('paket_m.*')
+        ->when($keywords, static function ($query, $keywords) {
+            $query->like('paket_m.paket', $keywords);
+        })
+        ->findAll($numrows);
+        return $builder;
+    }
 
 }
