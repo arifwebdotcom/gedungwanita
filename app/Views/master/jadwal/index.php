@@ -475,6 +475,9 @@ $breadcrumb_items = [
         let kelasDefault = info.event.extendedProps.kelas;
         let kategoriDefault = info.event.extendedProps.kategori_id;
 
+        // format default value untuk datetime-local (yyyy-MM-ddTHH:mm)
+        let defaultTanggal = info.event.start.toISOString().slice(0,16);
+
         Swal.fire({
             title: pasien,
             html: `
@@ -507,6 +510,11 @@ $breadcrumb_items = [
                         <?php } ?>
                     </select>
                 </div>
+
+                <div class="mb-3">
+                    <label for="tanggal" class="form-label">Ubah Tanggal</label>
+                    <input type="datetime-local" id="tanggal" class="form-control" value="${defaultTanggal}">
+                </div>
             </div>
             `,
             showCancelButton: true,
@@ -522,7 +530,8 @@ $breadcrumb_items = [
                 return {
                     checkin: popup.querySelector('#checkin').checked ? 1 : 0,
                     kelasfk: popup.querySelector('#kelas').value,
-                    kategorifk: popup.querySelector('#kategori').value
+                    kategorifk: popup.querySelector('#kategori').value,
+                    tanggal: popup.querySelector('#tanggal').value
                 }
             }
         }).then((result) => {
@@ -531,7 +540,8 @@ $breadcrumb_items = [
                     id: info.event.id,
                     checkin: result.value.checkin,
                     kelasfk: result.value.kelasfk,
-                    kategorifk: result.value.kategorifk
+                    kategorifk: result.value.kategorifk,
+                    tanggal: result.value.tanggal // dikirim ke backend
                 };
 
                 $.ajax({
@@ -549,7 +559,6 @@ $breadcrumb_items = [
             }
         });
     },
-
     events: function(fetchInfo, successCallback, failureCallback) {
       $.ajax({
         url: '/jadwal/datatable',
