@@ -475,8 +475,15 @@ $breadcrumb_items = [
         let kelasDefault = info.event.extendedProps.kelas;
         let kategoriDefault = info.event.extendedProps.kategori_id;
 
-        // format default value untuk datetime-local (yyyy-MM-ddTHH:mm)
-        let defaultTanggal = info.event.start.toISOString().slice(0,16);
+        // format default value untuk datetime-local (yyyy-MM-ddTHH:mm)        
+        let start = info.event.start;
+        let year = start.getFullYear();
+        let month = String(start.getMonth() + 1).padStart(2, '0'); 
+        let day = String(start.getDate()).padStart(2, '0');
+        let hours = String(start.getHours()).padStart(2, '0');
+        let minutes = String(start.getMinutes()).padStart(2, '0');
+
+        let defaultTanggal = `${year}-${month}-${day}T${hours}:${minutes}`;
 
         Swal.fire({
             title: pasien,

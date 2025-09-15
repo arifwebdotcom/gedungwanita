@@ -149,7 +149,7 @@ class JadwalController extends BaseController
         $kelasfk    = $this->request->getPost('kelasfk');     // id kelas
         $kategorifk = $this->request->getPost('kategorifk');  // id kategori
         $tanggal = $this->request->getPost('tanggal');  // id kategori
-
+        
         $jadwalModel = new JadwalPendaftaran();
 
         // pastikan data ada
@@ -166,7 +166,7 @@ class JadwalController extends BaseController
             'checkin'    => $checkin,
             'kategorifk' => $kategorifk,
             'kelasfk'    => $kelasfk,
-            'tanggal'    => $tanggal
+            'tanggal'    => date("Y-m-d H:i:s",strtotime($tanggal))
         ];
 
         try {
