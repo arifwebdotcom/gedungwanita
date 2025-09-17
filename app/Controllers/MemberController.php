@@ -41,6 +41,69 @@ class MemberController extends BaseController
         ]);
     }
 
+    public function storeupload()
+    {
+        $validation = \Config\Services::validation();
+
+        $validation->setRules([
+            'image' => 'uploaded[image]|max_size[image,2048]|is_image[image]'
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'status' => false,
+                'messages' => $validation->getErrors()
+            ]);
+        }
+
+        $file = $this->request->getFile('image');
+
+        if ($file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+            $file->move(FCPATH . 'assets/img/avatars', $newName);
+
+            $memberModel = new Member();
+            $memberModel->insert([
+                'image' => $newName
+            ]);
+
+            return $this->response->setJSON([
+                'status' => true,
+                'messages' => 'Upload berhasil!'
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'status' => false,
+            'messages' => 'Upload gagal!'
+        ]);
+    }
+
+    public function updateupload($id)
+    {
+        $file = $this->request->getFile('image');
+        $memberModel = new Member();
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+            $file->move(FCPATH . 'assets/img/avatars', $newName);
+
+            $memberModel->update($id, [
+                'image' => $newName
+            ]);
+
+            return $this->response->setJSON([
+                'status' => true,
+                'messages' => 'Update berhasil!'
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'status' => false,
+            'messages' => 'Tidak ada file yang diupload'
+        ]);
+    }
+
     public function update($id) {
 
         $request['member'] = $this->request->getPost('member');

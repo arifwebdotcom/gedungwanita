@@ -133,6 +133,7 @@ $routes->group('jadwal', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [JadwalController::class, 'index'], ['as' => 'jadwal.index']);
     $routes->post('store', [JadwalController::class, 'store'], ['as' => 'jadwal.store']);
     $routes->get('datatable', [JadwalController::class, 'datatable'], ['as' => 'jadwal.datatable']);
+    $routes->get('datatablelist', [JadwalController::class, 'datatablelist'], ['as' => 'jadwal.datatablelist']);
     $routes->post('(:num)/edit', [JadwalController::class, 'update'], ['as' => 'jadwal.update']);
     $routes->post('delete/(:num)', [JadwalController::class, 'delete'], ['as' => 'jadwal.delete']);
     $routes->post('getkategoribyusiakelas', [JadwalController::class, 'getKategoriByUsiaKelas'], ['as' => 'kategori.getkategori']);
@@ -159,8 +160,10 @@ $routes->group('paket', ['filter' => 'login'],function ($routes) {
 $routes->group('member', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [MemberController::class, 'index'], ['as' => 'member.index']);
     $routes->post('store', [MemberController::class, 'store'], ['as' => 'member.store']);
+    $routes->post('storeupload', [MemberController::class, 'storeupload'], ['as' => 'member.storeupload']);
     $routes->get('datatable', [MemberController::class, 'datatable'], ['as' => 'member.datatable']);
     $routes->post('(:num)/edit', [MemberController::class, 'update'], ['as' => 'member.update']);
+    $routes->post('(:num)/editupload', [MemberController::class, 'updateupload'], ['as' => 'member.updateupload']);
     $routes->post('delete/(:num)', [MemberController::class, 'delete'], ['as' => 'member.delete']);
 });
 

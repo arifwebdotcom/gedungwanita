@@ -101,6 +101,34 @@ $breadcrumb_items = [
     </div>
 </div>
 
+<div class="modal fade" id="upload_member_modal" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="modal_title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form id="member_upload_form" class="form" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col mb-6 mt-2">
+            <div class="form-floating form-floating-outline">
+                <input type="hidden" name="id" id="id">
+                <input type="file" id="image" name="image" class="form-control" placeholder="Enter Name">
+                <label for="image">Foto Anak</label>
+            </div>
+            </div>
+        </div>        
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan</button>
+        </div>
+        </form>
+    </div>
+    </div>
+</div>
+
 <!-- modal detail -->
 <div class="modal fade" id="modalLong" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -540,9 +568,27 @@ $breadcrumb_items = [
                 data: "nama",
                 render: function (data, type, row) {
                 if (row.jeniskelamin === 'L') {
-                    return `<span class="badge rounded-pill bg-label-danger">${data}</span>`;
+                    return `<div class="d-flex justify-content-start align-items-center user-name">
+                            <div class="avatar-wrapper">
+                              <div class="avatar me-2">
+                                <img src="assets/img/avatars/${row.image}" alt="Avatar" class="rounded-circle">
+                              </div>
+                            </div>
+                            <div class="d-flex flex-column">
+                              <span class="badge rounded-pill bg-label-danger">${data}</span>
+                            </div>
+                          </div>`;
                 } else if (row.jeniskelamin === 'P') {
-                    return `<span class="badge rounded-pill bg-label-info">${data}</span>`;
+                    return `<div class="d-flex justify-content-start align-items-center user-name">
+                            <div class="avatar-wrapper">
+                              <div class="avatar me-2">
+                                <img src="assets/img/avatars/${row.image}" alt="Avatar" class="rounded-circle">
+                              </div>
+                            </div>
+                            <div class="d-flex flex-column">
+                              <span class="badge rounded-pill bg-label-info">${data}</span>
+                            </div>
+                          </div>`;
                 } else {
                     return data; // fallback, kalau kosong/tidak ada
                 }
@@ -606,7 +652,10 @@ $breadcrumb_items = [
                 width: "10%",
                 sortable: false,
                 render: function(data, type, row, meta) {
-                    return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
+                    return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-upload upload" id="upload">
+                                <i class="icon-base ri ri-upload-2-line icon-22px"></i>
+                            </button>
+                            <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
                                 <i class="icon-base ri ri-edit-box-line icon-22px"></i>
                             </button>
                             <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit delete" id="delete">
@@ -658,6 +707,15 @@ $breadcrumb_items = [
 
         $("#member_modal #modal_title").text("Edit Member");
         $("#member_modal").modal("show");
+    });
+    
+    $('#member_table tbody').on('click', '#upload', function() {
+        var data = $('#member_table').DataTable().row($(this).parents('tr')).data();
+
+        $("#upload_member_modal #id").val(data.id);
+
+        $("#upload_member_modal #modal_title").text("Upload Foto Member");
+        $("#upload_member_modal").modal("show");
     });
 
     $('#member_table tbody').on('click', '#view', function() {
@@ -793,5 +851,40 @@ $breadcrumb_items = [
             }
         });    
     });
+    
+    $('#member_upload_form').on('submit', function(e) {
+        e.preventDefault();
+
+        // Gunakan FormData agar file ikut terkirim
+        var form_data = new FormData(this);
+
+        let id = $('#member_upload_form #id').val();
+        let route = (id != '') ?
+            `<?= base_url() ?>member/${id}/editupload` :
+            "<?= route_to('member.storeupload') ?>";
+
+        $.ajax({
+            url: route,
+            type: 'POST',
+            data: form_data,
+            dataType: 'json',
+            contentType: false,   // penting untuk FormData
+            processData: false,   // penting untuk FormData
+            success: function(response) {                
+                if (response.status) {
+                    $("#upload_member_modal").modal("hide");
+                    showMember();
+                    toastr.success(response.messages, "Sukses");
+                } else {
+                    toastr.error("Gagal!", "Error");
+                }
+            },
+            error: function(err) {
+                toastr.error("Gagal upload!", "Error");
+                console.log(err);
+            }
+        });    
+    });
+
 </script>
 <?= $this->endSection() ?>

@@ -16,24 +16,66 @@ class JadwalController extends BaseController
     use ResponseTrait;
 
     public function datatable() {
-        $model = model(Pendaftaran::class)->select('jadwalpendaftaran_t.id as id,member_m.nama,jadwalpendaftaran_t.kategorifk as idkategori,kategori_m.color,kategori_m.namakategori,jadwalpendaftaran_t.tanggal,jadwalpendaftaran_t.checkin,jadwalpendaftaran_t.kelasfk')
-        ->join('member_m','member_m.id=pendaftaran_t.memberfk')        
-        ->join('jadwalpendaftaran_t','jadwalpendaftaran_t.pendaftaranfk = pendaftaran_t.id')
-        ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk');
-        //$model = new Pendaftaran();
-        $data = $model->findAll();
+        $model = model(Pendaftaran::class)
+                ->select('jadwalpendaftaran_t.id as id,
+                        member_m.nama,
+                        jadwalpendaftaran_t.kategorifk as idkategori,
+                        kategori_m.color,
+                        kategori_m.namakategori,
+                        jadwalpendaftaran_t.tanggal,
+                        jadwalpendaftaran_t.checkin,
+                        jadwalpendaftaran_t.kelasfk')
+                ->join('member_m','member_m.id=pendaftaran_t.memberfk')        
+                ->join('jadwalpendaftaran_t','jadwalpendaftaran_t.pendaftaranfk = pendaftaran_t.id')
+                ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk');
 
-        $events = [];
-        foreach ($data as $row) {
-            $events[] = [
-                'id'    => $row->id,
-                'title' => $row->nama . ' - ' . $row->namakategori,
-                'start' => $row->tanggal,
-                'color' => $row->color,
-                'checkin' => $row->checkin,
-                'kelas' => $row->kelasfk,
-                'kategori_id' => $row->idkategori,
-            ];
+            $data = $model->findAll();
+
+            $grouped = [];
+
+            // group by tanggal (jam harus sama persis)
+            foreach ($data as $row) {
+                $key = $row->tanggal; // YYYY-mm-dd HH:ii:ss
+
+                if (!isset($grouped[$key])) {
+                    $grouped[$key] = [
+                        'id' => $row->id,
+                        'start' => $row->tanggal,
+                        'title' => $row->nama,
+                        'color' => $row->color,
+                        'checkin' => $row->checkin,
+                        'kelas' => $row->kelasfk,
+                        'kategori_id' => $row->idkategori,
+                    ];
+                } else {
+                    // tambahkan nama pasien lain dengan <br>
+                    $grouped[$key]['title'] .= "\n" . $row->nama;
+                }
+            }
+
+            $events = array_values($grouped);
+
+            return $this->response->setJSON($events);
+    }
+    
+    public function datatablelist() {
+        $model = model(Pendaftaran::class)
+        ->select('jadwalpendaftaran_t.id as id,member_m.nama,jadwalpendaftaran_t.kategorifk as idkategori,kategori_m.color,kategori_m.namakategori,jadwalpendaftaran_t.tanggal,jadwalpendaftaran_t.checkin,jadwalpendaftaran_t.kelasfk') 
+        ->join('member_m','member_m.id=pendaftaran_t.memberfk') 
+        ->join('jadwalpendaftaran_t','jadwalpendaftaran_t.pendaftaranfk = pendaftaran_t.id') 
+        ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk'); 
+        //$model = new Pendaftaran(); 
+        $data = $model->findAll(); 
+        $events = []; 
+        foreach ($data as $row) { 
+            $events[] = [ 
+                'id' => $row->id, 
+                'title' => $row->nama, 
+                'start' => $row->tanggal, 
+                'color' => $row->color, 
+                'checkin' => $row->checkin, 
+                'kelas' => $row->kelasfk, 
+                'kategori_id' => $row->idkategori, ]; 
         }
 
         return $this->response->setJSON($events);
@@ -83,6 +125,7 @@ class JadwalController extends BaseController
         $request['mulai'] = $this->request->getPost('mulai');
         $request['selesai'] = $this->request->getPost('selesai');
         $request['biaya'] = $this->request->getPost('biaya');
+        $request['biayapendaftaran'] = $this->request->getPost('biayapendaftaran');
 
         $Qpaket = model(Paket::class)->where("id",$request['paketfk'])->first();
         $request['perminggu'] = $Qpaket->perminggu;

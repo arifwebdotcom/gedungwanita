@@ -33,18 +33,30 @@ $breadcrumb_items = [
         <div class="row card-header mx-0 px-2">
             <div class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto">
                 <h5 class="card-title mb-0">
-                    DataTable with Buttons
+                    Filter
                 </h5>
             </div>
             <div class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto">
                 <div class="dt-buttons btn-group flex-wrap"> 
-                    <div class='form-group'>
-                        
-                        
+                    <div class='form-group me-2'>
+                        <select id="kelas" name="kelasfk" class="form-control select2" style="width: 100%;">
+                            <option value="0">Pilih Kelas</option>
+                            <?php foreach($kelas as $row) {?>
+                            <option value="<?= $row->id; ?>"><?= $row->kelas; ?></option>
+                            <?php } ?>                            
+                        </select>                      
+                    </div>
+                    <div class='form-group me-2'>
+                        <select id="kategori" name="kategorifk" class="form-control select2" style="width: 100%;">
+                            <option value="0">Pilih Kategori</option>
+                            <?php foreach($kategori as $row) {?>
+                            <option value="<?= $row->id; ?>"><?= $row->namakategori; ?></option>
+                            <?php } ?>                            
+                        </select>                        
                     </div>
                     <div class="btn-group">
-                        <input class='form-control' type='text' name='number' placeholder='80' id='numrows' value='50'>
-                        <button type="button" class="btn btn-icon btn-primary waves-effect waves-light">
+                        <input type="text" class="form-control" placeholder="Masukkan nilai" id="numrows" value="50" />
+                        <button class="btn btn-outline-success btn-primary waves-effect waves-light" type="button" id="cari">
                             <svg class="aa-SubmitIcon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.041 15.856c-0.034 0.026-0.067 0.055-0.099 0.087s-0.060 0.064-0.087 0.099c-1.258 1.213-2.969 1.958-4.855 1.958-1.933 0-3.682-0.782-4.95-2.050s-2.050-3.017-2.050-4.95 0.782-3.682 2.050-4.95 3.017-2.050 4.95-2.050 3.682 0.782 4.95 2.050 2.050 3.017 2.050 4.95c0 1.886-0.745 3.597-1.959 4.856zM21.707 20.293l-3.675-3.675c1.231-1.54 1.968-3.493 1.968-5.618 0-2.485-1.008-4.736-2.636-6.364s-3.879-2.636-6.364-2.636-4.736 1.008-6.364 2.636-2.636 3.879-2.636 6.364 1.008 4.736 2.636 6.364 3.879 2.636 6.364 2.636c2.125 0 4.078-0.737 5.618-1.968l3.675 3.675c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path></svg>
                         </button>
                     </div>                     
@@ -100,7 +112,7 @@ $breadcrumb_items = [
             <div class="col mb-6 mt-2">
             <div class="form-floating form-floating-outline">
                 <input type="hidden" name="id" id="id">
-                <select class="form-control" name="kelasfk">
+                <select class="form-control" name="kelasfk">                    
                     <?php foreach($kelas as $row) {?>
                         <option value="<?= $row->id; ?>"><?= $row->kelas; ?></option>
                     <?php } ?> 
@@ -175,7 +187,7 @@ $breadcrumb_items = [
 <script>
     $(document).ready(function() {
         //$("#laporan_table").DataTable();
-        showLaporan();
+        init();
 
        
     });
@@ -203,114 +215,243 @@ $breadcrumb_items = [
             $('#warna').val(hexa);
             });
 
-    const showLaporan = () => {
-        const columns = [
-            {
-                width: "10%",
-                sortable: false,
-                render: function(data, type, row, meta) {
-                    return `<div class="form-check form-check-sm form-check-custom form-check-solid">
-                                <input class="form-check-input widget-13-check" type="checkbox" value="${row.id}">
-                            </div>`;
-                }
-            },
-            {
-                name: "Nama",
-                data: "nama",
-                render: function (data, type, row) {
-                if (row.jeniskelamin === 'L') {
-                    return `<span class="badge rounded-pill bg-label-danger">${data}</span>`;
-                } else if (row.jeniskelamin === 'P') {
-                    return `<span class="badge rounded-pill bg-label-info">${data}</span>`;
-                } else {
-                    return data; // fallback, kalau kosong/tidak ada
-                }
-                }
-            },
-            {
-                name: "Tgl Lahir",
-                data: "tgllahir",
-                render: function (data, type, row) {
-                if (!data) return "-";
+    $("#cari").click(function() {
+        init();
+    });
 
-                // parsing tanggal
-                const dob = new Date(data); // data harus format YYYY-MM-DD dari server
-                const day = String(dob.getDate()).padStart(2, '0');
-                const month = String(dob.getMonth() + 1).padStart(2, '0');
-                const year = dob.getFullYear();
+    function init() {
 
-                // hitung umur
-                const today = new Date();
-                let age = today.getFullYear() - year;
-                const m = today.getMonth() - dob.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-                    age--;
-                }
+        var kelas = "";
+        if ($("#kelas").val() && $("#kelas").val() != "0") {
+            kelas = "&kelas=" + $("#kelas").val();
+        }
 
-                return `${day}-${month}-${year} (${age} Tahun)`;
-                }
-            },
-            {
-                name: "Kategori",
-                data: "namakategori"
-            },
-            {
-                name: "Kelas",
-                data: "kelas"
-            },           
-            {
-                name: "Checkin",
-                data: "",
-                render: function(data,type,row,meta){
-                    if(row.checkin == 1){
-                        return ` <span class="badge rounded-pill  bg-label-success">Sudah</span>`;
-                    }else{
-                        return ` <span class="badge rounded-pill  bg-label-warning">Belum</span>`;
-                    }
-                }
-            },           
-            {
-                width: "10%",
-                sortable: false,
-                render: function(data, type, row, meta) {
-                    return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
-                                <i class="icon-base ri ri-edit-box-line icon-22px"></i>
-                            </button>
-                            <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit delete" id="delete">
-                                <i class="icon-base ri ri-delete-bin-fill icon-22px"></i>
-                            </button>
-                            `;
-                }
-            },
-            
-        ];
+        var kategori = "";
+        if ($("#kategori").val() && $("#kategori").val() != "0") {
+            kategori = "&kategori=" + $("#kategori").val();
+        }
 
         var numrows = "0";
         if ($("#numrows").val()) {
             numrows = $("#numrows").val();
         }
 
+        $('#laporan_table').DataTable().destroy();
+        //var table = $('#invoice_table').DataTable().destroy();
         var table = $('#laporan_table').DataTable({
-            searching: true,
-            destroy: true,
-            lengthChange: false,
+            "destroy": true,
+            "searching": false,
+            'info': true,
+            "lengthChange": false,
             ajax: {
-                url: "<?= route_to('laporan.datatable') ?>"+ `?numrows=${numrows}`,
+                type: "GET",
+                url: "<?= route_to('laporan.datatable') ?>"+ `?numrows=${numrows}${kelas}`,
+                dataType: 'JSON',
+                error: function(e) {
+                    alert(e);
+                },
             },
-            columns: columns,
-            "dom":
-                "<'row'" +
-                "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
-                "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
-                ">" +
+            columns: [                
+                {
+                    width: "10%",
+                    sortable: false,
+                    render: function(data, type, row, meta) {
+                        return `<div class="form-check form-check-sm form-check-custom form-check-solid">
+                                    <input class="form-check-input widget-13-check" type="checkbox" value="${row.id}">
+                                </div>`;
+                    }
+                },
+                {
+                    name: "Nama",
+                    data: "nama",
+                    render: function (data, type, row) {
+                    if (row.jeniskelamin === 'L') {
+                        return `<span class="badge rounded-pill bg-label-danger">${data}</span>`;
+                    } else if (row.jeniskelamin === 'P') {
+                        return `<span class="badge rounded-pill bg-label-info">${data}</span>`;
+                    } else {
+                        return data; // fallback, kalau kosong/tidak ada
+                    }
+                    }
+                },
+                {
+                    name: "Tgl Lahir",
+                    data: "tgllahir",
+                    render: function (data, type, row) {
+                    if (!data) return "-";
 
-                "<'table-responsive'tr>" +
+                    // parsing tanggal
+                    const dob = new Date(data); // data harus format YYYY-MM-DD dari server
+                    const day = String(dob.getDate()).padStart(2, '0');
+                    const month = String(dob.getMonth() + 1).padStart(2, '0');
+                    const year = dob.getFullYear();
 
-                "<'row'" +
-                "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
-                "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
-                ">"
-        });
+                    // hitung umur
+                    const today = new Date();
+                    let age = today.getFullYear() - year;
+                    const m = today.getMonth() - dob.getMonth();
+                    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                        age--;
+                    }
+
+                    return `${day}-${month}-${year} (${age} Tahun)`;
+                    }
+                },
+                {
+                    name: "Kategori",
+                    data: "namakategori"
+                },
+                {
+                    name: "Kelas",
+                    data: "kelas"
+                },           
+                {
+                    name: "Checkin",
+                    data: "",
+                    render: function(data,type,row,meta){
+                        if(row.checkin == 1){
+                            return ` <span class="badge rounded-pill  bg-label-success">Sudah</span>`;
+                        }else{
+                            return ` <span class="badge rounded-pill  bg-label-warning">Belum</span>`;
+                        }
+                    }
+                },           
+                {
+                    width: "10%",
+                    sortable: false,
+                    render: function(data, type, row, meta) {
+                        return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
+                                    <i class="icon-base ri ri-edit-box-line icon-22px"></i>
+                                </button>
+                                <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit delete" id="delete">
+                                    <i class="icon-base ri ri-delete-bin-fill icon-22px"></i>
+                                </button>
+                                `;
+                    }
+                },
+            ]
+        })
+
+    }
+
+    const showLaporan = () => {
+        // const columns = [
+        //     {
+        //         width: "10%",
+        //         sortable: false,
+        //         render: function(data, type, row, meta) {
+        //             return `<div class="form-check form-check-sm form-check-custom form-check-solid">
+        //                         <input class="form-check-input widget-13-check" type="checkbox" value="${row.id}">
+        //                     </div>`;
+        //         }
+        //     },
+        //     {
+        //         name: "Nama",
+        //         data: "nama",
+        //         render: function (data, type, row) {
+        //         if (row.jeniskelamin === 'L') {
+        //             return `<span class="badge rounded-pill bg-label-danger">${data}</span>`;
+        //         } else if (row.jeniskelamin === 'P') {
+        //             return `<span class="badge rounded-pill bg-label-info">${data}</span>`;
+        //         } else {
+        //             return data; // fallback, kalau kosong/tidak ada
+        //         }
+        //         }
+        //     },
+        //     {
+        //         name: "Tgl Lahir",
+        //         data: "tgllahir",
+        //         render: function (data, type, row) {
+        //         if (!data) return "-";
+
+        //         // parsing tanggal
+        //         const dob = new Date(data); // data harus format YYYY-MM-DD dari server
+        //         const day = String(dob.getDate()).padStart(2, '0');
+        //         const month = String(dob.getMonth() + 1).padStart(2, '0');
+        //         const year = dob.getFullYear();
+
+        //         // hitung umur
+        //         const today = new Date();
+        //         let age = today.getFullYear() - year;
+        //         const m = today.getMonth() - dob.getMonth();
+        //         if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        //             age--;
+        //         }
+
+        //         return `${day}-${month}-${year} (${age} Tahun)`;
+        //         }
+        //     },
+        //     {
+        //         name: "Kategori",
+        //         data: "namakategori"
+        //     },
+        //     {
+        //         name: "Kelas",
+        //         data: "kelas"
+        //     },           
+        //     {
+        //         name: "Checkin",
+        //         data: "",
+        //         render: function(data,type,row,meta){
+        //             if(row.checkin == 1){
+        //                 return ` <span class="badge rounded-pill  bg-label-success">Sudah</span>`;
+        //             }else{
+        //                 return ` <span class="badge rounded-pill  bg-label-warning">Belum</span>`;
+        //             }
+        //         }
+        //     },           
+        //     {
+        //         width: "10%",
+        //         sortable: false,
+        //         render: function(data, type, row, meta) {
+        //             return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
+        //                         <i class="icon-base ri ri-edit-box-line icon-22px"></i>
+        //                     </button>
+        //                     <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit delete" id="delete">
+        //                         <i class="icon-base ri ri-delete-bin-fill icon-22px"></i>
+        //                     </button>
+        //                     `;
+        //         }
+        //     },
+            
+        // ];
+        
+        // var kelas = "";
+        // if ($("#kelas").val() && $("#kelas").val() != "0") {
+        //     kelas = "&kelas=" + $("#kelas").val();
+        // }
+
+        // var kategori = "";
+        // if ($("#kategori").val() && $("#kategori").val() != "0") {
+        //     kategori = "&kategori=" + $("#kategori").val();
+        // }
+
+        // var numrows = "0";
+        // if ($("#numrows").val()) {
+        //     numrows = $("#numrows").val();
+        // }
+
+        // var table = $('#laporan_table').DataTable({
+        //     searching: true,
+        //     destroy: true,
+        //     lengthChange: false,
+        //     ajax: {
+        //         url: "<?= route_to('laporan.datatable') ?>"+ `?numrows=${numrows}${kelas}`,
+        //     },
+        //     columns: columns,
+        //     "dom":
+        //         "<'row'" +
+        //         "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
+        //         "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
+        //         ">" +
+
+        //         "<'table-responsive'tr>" +
+
+        //         "<'row'" +
+        //         "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
+        //         "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
+        //         ">"
+        // });
     }
 
     $('#btn_create').on('click', function() {
@@ -365,7 +506,7 @@ $breadcrumb_items = [
                     success: function(response) {
                         Swal.close()
                         if (response.status) {                
-                            showLaporan();
+                            init();
                             toastr.warning(response.messages);
                         } else {
                             toastr.error("Gagal!");
@@ -405,7 +546,7 @@ $breadcrumb_items = [
             success: function(response) {                
                 if (response.status) {
                     $("#laporan_modal").modal("hide");
-                    showLaporan();
+                    init();
                     toastr.success(response.messages,"Sukses");
                 } else {
                     toastr.error("Gagal!","Error");

@@ -4,10 +4,10 @@
 <!-- Content Header (Page header) -->
 <?php
 $breadcrumb_items = [
-    'title' => 'Suplier Pakan',
+    'title' => 'Jadwal',
     'items' => [
         ['name' => 'Master', 'active' => false],
-        ['name' => 'Suplier Pakan', 'active' => true]
+        ['name' => 'Jadwal', 'active' => true]
     ]
 ];
 ?>
@@ -29,7 +29,27 @@ $breadcrumb_items = [
                     <i class="icon-base ri ri-add-line icon-16px me-1_5"></i>
                     <span class="align-middle">Tambah Pendaftaran</span>
                 </button>
-            </div>            
+            </div>                            
+                <h5>Group Filters</h5>   
+                    <div class="form-check mb-5">
+                        <label class="switch switch-success">
+                            <input type="checkbox" class="switch-input"  id="isgroup">
+                            <span class="switch-toggle-slider">
+                            <span class="switch-on">
+                                <i class="icon-base ri ri-check-line"></i>
+                            </span>
+                            <span class="switch-off">
+                                <i class="icon-base ri ri-close-line"></i>
+                            </span>
+                            </span>
+                            <span class="switch-label">Tampilkan Group</span>
+                        </label>
+                        <!-- <input class="form-check-input input-filter" type="checkbox" id="isgroup" >
+                        <label class="form-check-label" for="isgroup">
+                        Tampilkan Group
+                        </label> -->
+                    </div>
+                <hr>         
                 <h5>Event Filters</h5>            
                 <div class="form-check form-check-secondary mb-5 ms-2">
                     <input class="form-check-input select-all" type="checkbox" id="selectAll" data-value="all" >
@@ -205,6 +225,14 @@ $breadcrumb_items = [
                         <!--end::Label-->
                         <input type="text" class="form-control form-control-solid" placeholder="" id="biaya" name="biaya" readonly="readonly" />
                     </div>       
+                    <div class="d-flex flex-column fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                            <span class="required">Biaya Pendaftaran</span>                            
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" class="form-control form-control-solid" placeholder="" id="biayapendaftaran" name="biayapendaftaran" />
+                    </div>       
                 </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
@@ -229,6 +257,8 @@ $breadcrumb_items = [
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
 <script>
+
+    let useGroup = false;
 
     document.addEventListener("DOMContentLoaded", function() {
     // helper: reorder <option> berdasarkan value (numerik)
@@ -454,10 +484,20 @@ $breadcrumb_items = [
     initialView: 'dayGridMonth',
     themeSystem: 'bootstrap5',
     headerToolbar: {
-      left: 'prev,next today',
+      left: 'prev,next today printButton',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listDay,listWeek'
     },
+    customButtons: {
+        printButton: {
+        text: 'Print',
+        click: function() {
+            window.print(); // langsung print halaman
+        }
+        }
+    },
+    slotEventOverlap: false,
+    eventOverlap: false,
     buttonText: {
       month: 'Month',
       week: 'Week',
@@ -567,8 +607,9 @@ $breadcrumb_items = [
         });
     },
     events: function(fetchInfo, successCallback, failureCallback) {
+        let url = useGroup ? '/jadwal/datatable' : '/jadwal/datatablelist';
       $.ajax({
-        url: '/jadwal/datatable',
+        url: url,
         dataType: 'json',
         success: function(response) {
           let filtered = response.filter(ev => selectedPaket.includes(parseInt(ev.kategori_id)));
@@ -581,7 +622,10 @@ $breadcrumb_items = [
     },
 
     eventDisplay: 'block',
-
+    eventContent: function(arg) {
+        let title = arg.event.title.split(',').join('<br>'); // ubah koma jadi baris baru
+        return { html: `<div class="fc-event-title">${title}</div>` };
+    },
     eventDidMount: function(info) {
       if (info.event.extendedProps.color) {
         info.el.style.backgroundColor = info.event.extendedProps.color;
@@ -627,6 +671,11 @@ $breadcrumb_items = [
 
     calendar.refetchEvents();
   });
+
+  $('#isgroup').on('change', function() {
+    useGroup = $(this).is(':checked');  
+    calendar.refetchEvents(); // refresh events
+    });
 
   // Select All handler
   $('#selectAll').on('change', function() {
