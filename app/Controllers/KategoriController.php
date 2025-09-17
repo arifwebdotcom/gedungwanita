@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Kategori;
+use App\Models\Kelas;
 use CodeIgniter\API\ResponseTrait;
 
 class KategoriController extends BaseController
@@ -19,14 +20,19 @@ class KategoriController extends BaseController
     public function index()
     {
         $this->data['kategori'] = model(Kategori::class)->findAll();
+        $this->data['kelas'] = model(Kelas::class)->findAll();
 
         // print_r(json_encode(compact('data')));
         return view('master/kategori/index',$this->data);
     }
 
     public function store() {
-        $request['kategori'] = $this->request->getPost('kategori');
-        $request['reportdisplay'] = $this->request->getPost('kategori');
+        $request['namakategori'] = $this->request->getPost('namakategori');
+        $request['usiaawal'] = $this->request->getPost('usiaawal');
+        $request['usiaakhir'] = $this->request->getPost('usiaakhir');
+        $request['durasi'] = $this->request->getPost('durasi');
+        $request['kapasitas'] = $this->request->getPost('kapasitas');
+        $request['color'] = $this->request->getPost('warna');
         model(Kategori::class)->insert($request);
 
         return $this->respondCreated([
@@ -35,8 +41,13 @@ class KategoriController extends BaseController
         ]);
     }
 
-    public function update($id) {
-        $request['kategori'] = $this->request->getPost('kategori');
+    public function update($id) {        
+        $request['namakategori'] = $this->request->getPost('namakategori');
+        $request['usiaawal'] = $this->request->getPost('usiaawal');
+        $request['usiaakhir'] = $this->request->getPost('usiaakhir');
+        $request['durasi'] = $this->request->getPost('durasi');
+        $request['kapasitas'] = $this->request->getPost('kapasitas');
+        $request['color'] = $this->request->getPost('warna');
         $request['id'] = $id;
         model(Kategori::class)->save($request);
 

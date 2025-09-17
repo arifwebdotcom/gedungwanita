@@ -39,6 +39,10 @@
 
     <link rel="stylesheet" href="../assets/css/app-calendar.css">
 
+    <!-- Color Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+
     
 
 

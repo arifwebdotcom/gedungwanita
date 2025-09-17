@@ -6,7 +6,7 @@ use App\Controllers\AnnouncementController;
 use App\Controllers\PengajuanController;
 use App\Controllers\InvoiceController;
 use App\Controllers\KelasController;
-use App\Controllers\DocController;
+use App\Controllers\LaporanController;
 use App\Controllers\PaketController;
 use App\Controllers\MemberController;
 use App\Controllers\UserController;
@@ -16,7 +16,6 @@ use App\Controllers\DashboardController;
 use App\Controllers\AuthController;
 use App\Controllers\PeriodeController;
 use App\Controllers\NotificationController;
-use App\Controllers\LaporanController;
 use App\Config\Auth as AuthConfig;
 
 /**
@@ -140,13 +139,12 @@ $routes->group('jadwal', ['filter' => 'login'],function ($routes) {
     $routes->post('jadwalpendaftaran', [JadwalController::class, 'updatejadwalpendaftaran'], ['as' => 'kategori.updatejadwalpendaftaran']);
 });
 
-$routes->group('doc', ['filter' => 'login'],function ($routes) {
-    $routes->get('/', [DocController::class, 'index'], ['as' => 'doc.index']);
-    $routes->post('store', [DocController::class, 'store'], ['as' => 'doc.store']);
-    $routes->get('datatable', [DocController::class, 'datatable'], ['as' => 'doc.datatable']);
-    $routes->get('tagify', [DocController::class, 'tagify'], ['as' => 'doc.tagify']);
-    $routes->post('(:num)/edit', [DocController::class, 'update'], ['as' => 'doc.update']);
-    $routes->post('delete/(:num)', [DocController::class, 'delete'], ['as' => 'doc.delete']);
+$routes->group('laporan', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [LaporanController::class, 'index'], ['as' => 'laporan.index']);
+    $routes->post('store', [LaporanController::class, 'store'], ['as' => 'laporan.store']);
+    $routes->get('datatable', [LaporanController::class, 'datatable'], ['as' => 'laporan.datatable']);
+    $routes->post('(:num)/edit', [LaporanController::class, 'update'], ['as' => 'laporan.update']);
+    $routes->post('delete/(:num)', [LaporanController::class, 'delete'], ['as' => 'laporan.delete']);
 });
 
 $routes->group('paket', ['filter' => 'login'],function ($routes) {

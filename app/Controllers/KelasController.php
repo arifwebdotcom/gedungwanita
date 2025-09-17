@@ -40,6 +40,8 @@ class KelasController extends BaseController
 
         $request['kelas'] = $this->request->getPost('kelas');
         $request['keterangan'] = $this->request->getPost('keterangan');
+        $request['untukvendor'] = $this->request->getPost('untukvendor');
+        $request['untukfunfit'] = $this->request->getPost('untukfunfit');
         model(Kelas::class)->insert($request);
 
         return $this->respondCreated([
@@ -64,6 +66,8 @@ class KelasController extends BaseController
 
         $request['kelas'] = $this->request->getPost('kelas');
         $request['keterangan'] = $this->request->getPost('keterangan');
+        $request['untukvendor'] = $this->request->getPost('untukvendor');
+        $request['untukfunfit'] = $this->request->getPost('untukfunfit');
         $request['id'] = $id;
         model(Kelas::class)->save($request);
 

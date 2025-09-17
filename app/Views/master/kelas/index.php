@@ -48,6 +48,8 @@ $breadcrumb_items = [
                     </th>
                     <th>Kelas</th>
                     <th>Ketarangan</th>
+                    <th>Untuk Vendor</th>
+                    <th>Untuk Funfit</th>
                     <th>Actions</th>
                     </tr>
                 </thead>
@@ -86,6 +88,22 @@ $breadcrumb_items = [
             <div class="form-floating form-floating-outline">
                 <textarea class="form-control" name="keterangan" id="keterangan"></textarea>
                 <label for="keterangan">Keterangan</label>
+            </div>
+            </div>            
+        </div>
+        <div class="row g-4">
+            <div class="col mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="text" id="untukvendor" name="untukvendor" class="form-control" placeholder="prosentase vendor">
+                <label for="keterangan">Untuk Vendor</label>
+            </div>
+            </div>            
+        </div>
+        <div class="row g-4">
+            <div class="col mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="text" id="untukfunfit" name="untukfunfit" class="form-control" placeholder="prosentase funfit">
+                <label for="keterangan">Untuk Funfit</label>
             </div>
             </div>            
         </div>
@@ -129,6 +147,20 @@ $breadcrumb_items = [
             {
                 name: "Ketarangan",
                 data: "keterangan"
+            },
+            {
+                name: "Untuk Vendor",
+                data: "keterangan",
+                render: function(data, type, row, meta) {
+                    return row.untukvendor + " %";
+                }
+            },
+            {
+                name: "Untuk Funfit",
+                data: "keterangan",
+                render: function(data, type, row, meta) {
+                    return row.untukfunfit + " %";
+                }
             },
             {
                 width: "10%",
@@ -179,6 +211,8 @@ $breadcrumb_items = [
         var data = $('#kelas_table').DataTable().row($(this).parents('tr')).data();
         $("#kelas_modal #kelas").val(data.kelas);
         $("#kelas_modal #keterangan").val(data.keterangan);
+        $("#kelas_modal #untukvendor").val(data.untukvendor);
+        $("#kelas_modal #untukfunfit").val(data.untukfunfit);
         $("#kelas_modal #id").val(data.id);
 
         $("#kelas_modal #modal_title").text("Edit Kelas");
