@@ -279,6 +279,7 @@ $breadcrumb_items = [
         $("#kategori_modal #usiaakhir").val(data.usiaakhir);
         $("#kategori_modal #durasi").val(data.durasi);
         $("#kategori_modal #kapasitas").val(data.kapasitas);
+        $("#kategori_modal #warna").val(data.color);
         let color = data.color; // ambil dari atribut data-color
         pickr.setColor(color); // set default sesuai warna row
         //pickr.show();
