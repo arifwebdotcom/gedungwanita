@@ -59,7 +59,7 @@ $(function() {
                 dataType: "json",
                 success: function (response) {
                     if (response.status) {
-                            $("#pesan-sukses").html("<p style='color:green;'>" + response.message + "</p>");
+                            $("#pesan-sukses").html("<p style='color:green;'>" + response.message + "</p>"); 
                             toastr.success(response.messages,"Sukses");
                             //location.reload();
                             $("#form-member")[0].reset(); // reset form
