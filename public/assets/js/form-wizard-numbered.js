@@ -55,7 +55,9 @@ $(function() {
                 success: function (response) {
                     if (response.status) {
                             $("#result").html("<p style='color:green;'>" + response.message + "</p>");
-                            $("#formMember")[0].reset(); // reset form
+                            toastr.success(response.messages,"Sukses");
+                            location.reload();
+                            $("#form-member")[0].reset(); // reset form
                         } else {                       
                             $("#error").show();
                             let errorHtml = "<ul style='color:red;'>";

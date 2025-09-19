@@ -504,10 +504,9 @@ class AuthController extends Controller
             return $this->fail('Gagal menyimpan data');
         }
 
-        return $this->respondCreated([
-            'status'  => true,
-            'message' => 'Data member berhasil disimpan',
-            'id'      => $id
-        ]);
+        return $this->response->setJSON([
+                'status' => true,
+                'messages' => 'Data member berhasil disimpan'
+            ]);        
     }
 }

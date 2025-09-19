@@ -17,7 +17,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/assets/img/funfit.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -61,6 +61,7 @@
   </head>
 
   <body>
+    <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;"></div>
 	<?= $this->renderSection('main') ?>
     
     
@@ -83,6 +84,7 @@
 
     <script src="assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
     <script src="assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+    <script src="assets/js/custom.js"></script>
     
     <script src="assets/js/form-wizard-numbered.js"></script>
 
