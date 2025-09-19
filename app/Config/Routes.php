@@ -136,6 +136,7 @@ $routes->group('jadwal', ['filter' => 'login'],function ($routes) {
     $routes->get('datatablelist', [JadwalController::class, 'datatablelist'], ['as' => 'jadwal.datatablelist']);
     $routes->post('(:num)/edit', [JadwalController::class, 'update'], ['as' => 'jadwal.update']);
     $routes->post('delete/(:num)', [JadwalController::class, 'delete'], ['as' => 'jadwal.delete']);
+    $routes->post('hapus', [JadwalController::class, 'hapus'], ['as' => 'jadwal.hapus']);
     $routes->post('getkategoribyusiakelas', [JadwalController::class, 'getKategoriByUsiaKelas'], ['as' => 'kategori.getkategori']);
     $routes->post('jadwalpendaftaran', [JadwalController::class, 'updatejadwalpendaftaran'], ['as' => 'kategori.updatejadwalpendaftaran']);
 });

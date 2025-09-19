@@ -593,11 +593,14 @@ $breadcrumb_items = [
             </div>
             `,
             showCancelButton: true,
+            showDenyButton: true,
             confirmButtonText: 'Simpan',
             cancelButtonText: 'Batal',
+            denyButtonText: 'Hapus',
             customClass: {
                 confirmButton: 'btn btn-primary',
-                cancelButton: 'btn btn-secondary ms-2'
+                cancelButton: 'btn btn-secondary ms-2',
+                denyButton: 'btn btn-danger ms-2'
             },
             buttonsStyling: false,
             preConfirm: () => {
@@ -629,6 +632,36 @@ $breadcrumb_items = [
                     },
                     error: function() {
                         Swal.fire('Error', 'Gagal menyimpan data', 'error');
+                    }
+                });
+            } else if (result.isDenied) {
+                // Hapus
+                Swal.fire({
+                    title: 'Yakin hapus?',
+                    text: 'Data jadwal akan dihapus permanen.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, hapus',
+                    cancelButtonText: 'Batal',
+                    customClass: {
+                        confirmButton: 'btn btn-danger',
+                        cancelButton: 'btn btn-secondary ms-2'
+                    },
+                    buttonsStyling: false
+                }).then((confirmDelete) => {
+                    if (confirmDelete.isConfirmed) {
+                        $.ajax({
+                            url: '/jadwal/hapus',
+                            method: 'POST',
+                            data: { id: info.event.id },
+                            success: function() {
+                                Swal.fire('Dihapus!', 'Jadwal berhasil dihapus.', 'success');
+                                calendar.refetchEvents();
+                            },
+                            error: function() {
+                                Swal.fire('Error', 'Gagal menghapus data', 'error');
+                            }
+                        });
                     }
                 });
             }

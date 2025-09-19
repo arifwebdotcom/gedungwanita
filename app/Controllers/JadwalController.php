@@ -27,7 +27,8 @@ class JadwalController extends BaseController
                         jadwalpendaftaran_t.kelasfk')
                 ->join('member_m','member_m.id=pendaftaran_t.memberfk')        
                 ->join('jadwalpendaftaran_t','jadwalpendaftaran_t.pendaftaranfk = pendaftaran_t.id')
-                ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk');
+                ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk')
+                ->where('jadwalpendaftaran_t.deleted_at','!=',null);
 
             $data = $model->findAll();
 
@@ -63,7 +64,8 @@ class JadwalController extends BaseController
         ->select('jadwalpendaftaran_t.id as id,member_m.nama,jadwalpendaftaran_t.kategorifk as idkategori,kategori_m.color,kategori_m.namakategori,jadwalpendaftaran_t.tanggal,jadwalpendaftaran_t.checkin,jadwalpendaftaran_t.kelasfk') 
         ->join('member_m','member_m.id=pendaftaran_t.memberfk') 
         ->join('jadwalpendaftaran_t','jadwalpendaftaran_t.pendaftaranfk = pendaftaran_t.id') 
-        ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk'); 
+        ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk')
+        ->where('jadwalpendaftaran_t.deleted_at',null); 
         //$model = new Pendaftaran(); 
         $data = $model->findAll(); 
         $events = []; 
@@ -262,10 +264,20 @@ class JadwalController extends BaseController
 
     public function delete($id)
     {
-        model(Pendaftaran::class)->where('id', $id)->delete();
+        model(JadwalPendaftaran::class)->where('id', $id)->delete();
         return $this->respondUpdated([
             'status' => true,
             'messages' => 'Data jadwal berhasil diubah.',
+        ]);
+    }
+
+    public function hapus()
+    {
+        $id = $this->request->getPost('id');
+        model(JadwalPendaftaran::class)->where('id', $id)->delete();
+        return $this->respondUpdated([
+            'status' => true,
+            'messages' => 'Data jadwal berhasil dihapus.',
         ]);
     }
 }
