@@ -142,6 +142,7 @@ class JadwalController extends BaseController
 
         $jamsesi1 = $this->request->getPost('jamsesi1');
         $jamsesi2 = $this->request->getPost('jamsesi2');
+        $jamsesi3 = $this->request->getPost('jamsesi3');
 
         $currentWeek = null;
         $sesiCount = 0;
@@ -163,6 +164,9 @@ class JadwalController extends BaseController
                 } elseif ($sesiCount == 1) {
                     // sesi kedua minggu ini
                     $jam = $jamsesi2;
+                }  elseif ($sesiCount == 2) {
+                    // sesi kedua minggu ini
+                    $jam = $jamsesi3;
                 } else {
                     continue; // skip kalau sudah lebih dari 2 sesi
                 }

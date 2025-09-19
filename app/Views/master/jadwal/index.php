@@ -158,7 +158,7 @@ $breadcrumb_items = [
                         </select>
                     </div>         
                     <div class="row">
-                        <div class=" flex-column fv-row col-md-6" id="divjamsesi1">
+                        <div class=" flex-column fv-row col-md-4" id="divjamsesi1">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span class="required" id="labeljamsesi1">Jam Hari 1</span>                            
@@ -179,13 +179,34 @@ $breadcrumb_items = [
                                 <option value="19:00">19:00</option>
                             </select>
                         </div>            
-                        <div class=" flex-column fv-row col-md-6" id="divjamsesi2">
+                        <div class=" flex-column fv-row col-md-4" id="divjamsesi2">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span class="required" id="labeljamsesi2">Jam Hari 2</span>                            
                             </label>
                             <!--end::Label-->
                             <select id="jamsesi2" name="jamsesi2" class="form-control">
+                                <option value="08:00">08:00</option>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                                <option value="17:00">17:00</option>
+                                <option value="18:00">18:00</option>
+                                <option value="19:00">19:00</option>
+                            </select>
+                        </div>  
+                        <div class=" flex-column fv-row col-md-4" id="divjamsesi3">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span class="required" id="labeljamsesi3">Jam Hari 3</span>                            
+                            </label>
+                            <!--end::Label-->
+                            <select id="jamsesi3" name="jamsesi3" class="form-control">
                                 <option value="08:00">08:00</option>
                                 <option value="09:00">09:00</option>
                                 <option value="10:00">10:00</option>
@@ -344,12 +365,19 @@ $breadcrumb_items = [
             if (selected.length === 1) {
                 $('#divjamsesi1').show();
                 $('#divjamsesi2').hide();
+                $('#divjamsesi3').hide();
             } else if (selected.length === 2) {
                 $('#divjamsesi1').show();
+                $('#divjamsesi2').show();   
+                $('#divjamsesi3').hide();     
+            } else if (selected.length === 3) {
+                $('#divjamsesi1').show();
                 $('#divjamsesi2').show();
+                $('#divjamsesi3').show();
             } else {
                 $('#divjamsesi1').hide();
                 $('#divjamsesi2').hide();
+                $('#divjamsesi3').hide();
             }
         });
 
