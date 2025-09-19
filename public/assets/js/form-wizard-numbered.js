@@ -42,6 +42,11 @@ $(function() {
                 }
             });
 
+            if (!$("#terms-conditions").is(":checked")) {
+                toastr.error("Anda harus menyetujui syarat & ketentuan!","Gagal");
+                return;
+            }
+
             // ubah array harapanortu jadi string koma
             if (Array.isArray(dataObj.harapanortu)) {
                 dataObj.harapanortu = dataObj.harapanortu.join(",");
@@ -54,10 +59,11 @@ $(function() {
                 dataType: "json",
                 success: function (response) {
                     if (response.status) {
-                            $("#result").html("<p style='color:green;'>" + response.message + "</p>");
+                            $("#pesan-sukses").html("<p style='color:green;'>" + response.message + "</p>");
                             toastr.success(response.messages,"Sukses");
-                            location.reload();
+                            //location.reload();
                             $("#form-member")[0].reset(); // reset form
+                             t.to(1);
                         } else {                       
                             $("#error").show();
                             let errorHtml = "<ul style='color:red;'>";

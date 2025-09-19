@@ -10,6 +10,10 @@
                 Error !
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
+              <div class="alert alert-success alert-dismissible" role="alert" id="pesan-sukses" style="display:none;">
+                Error !
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
             </div>          
             <div class="bs-stepper-header">
               <div class="step active" data-target="#datadiri">
@@ -31,21 +35,8 @@
                   <span class="bs-stepper-label">
                     <span class="bs-stepper-number">02</span>
                     <span class="d-flex flex-column gap-1 ms-2">
-                      <span class="bs-stepper-title">Kebiasaan Anak</span>
-                      <span class="bs-stepper-subtitle">Kebiasaan Sehari-hari Anak</span>
-                    </span>
-                  </span>
-                </button>
-              </div>
-              <div class="line"></div>
-              <div class="step" data-target="#perilaku">
-                <button type="button" class="step-trigger" aria-selected="false">
-                  <span class="bs-stepper-circle"><i class="icon-base ri ri-check-line"></i></span>
-                  <span class="bs-stepper-label">
-                    <span class="bs-stepper-number">03</span>
-                    <span class="d-flex flex-column gap-1 ms-2">
-                      <span class="bs-stepper-title">Perilaku Gerak</span>
-                      <span class="bs-stepper-subtitle">Perilaku Gerak dan Minat Fisik Anak</span>
+                      <span class="bs-stepper-title">Screening Anak</span>
+                      <span class="bs-stepper-subtitle">Pertanyaan Screening Anak Berkebutuhan Khusus</span>
                     </span>
                   </span>
                 </button>
@@ -55,14 +46,14 @@
                 <button type="button" class="step-trigger" aria-selected="false">
                   <span class="bs-stepper-circle"><i class="icon-base ri ri-check-line"></i></span>
                   <span class="bs-stepper-label">
-                    <span class="bs-stepper-number">04</span>
+                    <span class="bs-stepper-number">03</span>
                     <span class="d-flex flex-column gap-1 ms-2">
-                      <span class="bs-stepper-title">Catatan Kesehatan</span>
-                      <span class="bs-stepper-subtitle">Catatan Kesehatan Umum</span>
+                      <span class="bs-stepper-title">Inform Concent</span>
+                      <span class="bs-stepper-subtitle">Persetujuan</span>
                     </span>
                   </span>
                 </button>
-              </div>
+              </div>              
             </div>
             <div class="bs-stepper-content">
               <form method="post" id="form-member" action="<?= route_to('member.store') ?>">
@@ -130,112 +121,9 @@
                         <label for="waortu">Wa Ortu</label>
                       </div>
                     </div>
-                    <div class="col-12 d-flex justify-content-between">
-                      <button class="btn btn-outline-secondary btn-prev waves-effect" disabled="" type="button">
-                        <i class="icon-base ri ri-arrow-left-line icon-sm me-sm-1 me-0"></i>
-                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                      </button>
-                      <button type="button" class="btn btn-primary btn-next waves-effect waves-light"><span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="icon-base ri ri-arrow-right-line icon-sm"></i></button>
-                    </div>
-                  </div>
-                </div>
-                <!-- Personal Info -->
-                <div id="kebiasaan" class="content">
-                  <div class="content-header mb-4">
-                    <h6 class="mb-0">Kebiasaan</h6>
-                    <small>Kebiasaan Sehari-hari Anak.</small>
-                  </div>
-                  <div class="row g-6">
                     <div class="col-sm-6 form-password-toggle">
                       <div class="mb-6">
-                        <label class="d-block form-label">1. Apakah anak memiliki jadwal tidur yang teratur?</label>
-                        <div class="d-flex gap-4">
-                          <div class="form-check mb-0">
-                            <input type="radio" id="tidurteratur-male" name="tidurteratur" class="form-check-input" value="YA" required checked>
-                            <label class="form-check-label" for="tidurteratur-male">YA</label>
-                          </div>
-                          <div class="form-check mb-0">
-                            <input type="radio" id="tidurteratur-female" name="tidurteratur" class="form-check-input" value="TIDAK" required>
-                            <label class="form-check-label" for="tidurteratur-female">TIDAK</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-3 form-password-toggle">
-                      <div class="form-floating form-floating-outline mb-5 form-control-validation">
-                        <input type="time" class="form-control" id="tidurmulai" name="tidurmulai" placeholder="Masukkan Jam Tidur" />
-                        <label for="tidurmulai">Jam Tidur</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-3 form-password-toggle">
-                      <div class="form-floating form-floating-outline mb-5 form-control-validation">
-                        <input type="time" class="form-control" id="bangun" name="bangun" placeholder="Masukkan Jam Bangun" />
-                        <label for="bangun">Jam Bangun</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 form-password-toggle">
-                      <div class="mb-6">
-                        <label class="d-block form-label">2. Apakah anak cukup istirahat setiap hari (tidur siang, tidak mudah mengantuk)?</label>
-                        <div class="d-flex gap-4">
-                          <div class="form-check mb-0">
-                            <input type="radio" id="cukupistirahat-male" name="cukupistirahat" class="form-check-input" value="YA" required checked>
-                            <label class="form-check-label" for="cukupistirahat-male">YA</label>
-                          </div>
-                          <div class="form-check mb-0">
-                            <input type="radio" id="cukupistirahat-female" name="cukupistirahat" class="form-check-input" value="TIDAK" required>
-                            <label class="form-check-label" for="cukupistirahat-female">TIDAK</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 form-password-toggle">
-                      <div class="mb-6">
-                        <label class="d-block form-label">3.	Apakah anak cenderung malas bergerak dan banyak terpapar screentime (nonton tv/gadget)?</label>
-                        <div class="d-flex gap-4">
-                          <div class="form-check mb-0">
-                            <input type="radio" id="malasgerak-male" name="malasgerak" class="form-check-input" value="YA" required checked>
-                            <label class="form-check-label" for="malasgerak-male">YA</label>
-                          </div>
-                          <div class="form-check mb-0">
-                            <input type="radio" id="malasgerak-female" name="malasgerak" class="form-check-input" value="TIDAK" required>
-                            <label class="form-check-label" for="malasgerak-female">TIDAK</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 form-password-toggle">
-                      <div class="mb-6">
-                        <label class="d-block form-label">4.	Apakah anak memiliki kesulitan untuk fokus saat melakukan aktivitas/ belajar?</label>
-                        <div class="d-flex gap-4">
-                          <div class="form-check mb-0">
-                            <input type="radio" id="sulitfokus-male" name="sulitfokus" class="form-check-input" value="YA" required checked>
-                            <label class="form-check-label" for="sulitfokus-male">YA</label>
-                          </div>
-                          <div class="form-check mb-0">
-                            <input type="radio" id="sulitfokus-female" name="sulitfokus" class="form-check-input" value="TIDAK" required>
-                            <label class="form-check-label" for="sulitfokus-female">TIDAK</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 form-password-toggle">
-                      <div class="mb-6">
-                        <label class="d-block form-label">5.	Apakah anak mudah lelah saat melakukan kegiatan fisik seperti lari, melompat, atau memanjat?</label>
-                        <div class="d-flex gap-4">
-                          <div class="form-check mb-0">
-                            <input type="radio" id="mudahlelah-male" name="mudahlelah" class="form-check-input" value="YA" required checked>
-                            <label class="form-check-label" for="mudahlelah-male">YA</label>
-                          </div>
-                          <div class="form-check mb-0">
-                            <input type="radio" id="mudahlelah-female" name="mudahlelah" class="form-check-input" value="TIDAK" required>
-                            <label class="form-check-label" for="mudahlelah-female">TIDAK</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 form-password-toggle">
-                      <div class="mb-6">
-                        <label class="d-block form-label">6.	Apakah anak disekolah mengikuti ekstrakurikuler?</label>
+                        <label class="d-block form-label">Apakah anak disekolah mengikuti ekstrakurikuler?</label>
                         <div class="d-flex gap-4">
                           <div class="form-check mb-0">
                             <input type="radio" id="ikutekstra-male" name="ikutekstra" class="form-check-input" value="YA" required checked>
@@ -256,45 +144,22 @@
                     </div>
                     <div class="col-sm-6 form-password-toggle">
                       <div class="mb-6">
-                        <label class="d-block form-label">7.	Apakah saat di dalam kelas anak bisa duduk dengan tenang?</label>
+                        <label class="d-block form-label">Apakah anak memiliki kesulitan untuk fokus saat melakukan aktivitas/ belajar?</label>
                         <div class="d-flex gap-4">
                           <div class="form-check mb-0">
-                            <input type="radio" id="bisatenang-male" name="bisatenang" class="form-check-input" value="YA" required checked>
-                            <label class="form-check-label" for="bisatenang-male">YA</label>
+                            <input type="radio" id="sulitfokus-male" name="sulitfokus" class="form-check-input" value="YA" required checked>
+                            <label class="form-check-label" for="sulitfokus-male">YA</label>
                           </div>
                           <div class="form-check mb-0">
-                            <input type="radio" id="bisatenang-female" name="bisatenang" class="form-check-input" value="TIDAK" required>
-                            <label class="form-check-label" for="bisatenang-female">TIDAK</label>
+                            <input type="radio" id="sulitfokus-female" name="sulitfokus" class="form-check-input" value="TIDAK" required>
+                            <label class="form-check-label" for="sulitfokus-female">TIDAK</label>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-sm-6 form-password-toggle">
-                      <div class="form-floating form-floating-outline mb-5 form-control-validation">
-                        <input type="text" class="form-control" id="keluhan" name="keluhan" placeholder="Masukkan Keluhan" />
-                        <label for="keluhan">Nama Keluhan</label>
-                      </div>
-                    </div>
-                    
-                    <div class="col-12 d-flex justify-content-between">
-                      <button class="btn btn-outline-secondary btn-prev waves-effect" type="button">
-                        <i class="icon-base ri ri-arrow-left-line icon-sm me-sm-1 me-0"></i>
-                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                      </button>
-                      <button type="button" class="btn btn-primary btn-next waves-effect waves-light"><span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="icon-base ri ri-arrow-right-line icon-sm"></i></button>
-                    </div>
-                  </div>
-                </div>
-                <!-- Personal Info -->
-                <div id="perilaku" class="content">
-                  <div class="content-header mb-4">
-                    <h6 class="mb-0">Perilaku</h6>
-                    <small>Perilaku Gerak dan Minat Fisik Anak.</small>
-                  </div>
-                  <div class="row g-6">
-                    <div class="col-sm-6 form-password-toggle">
                       <div class="mb-6">
-                        <label class="d-block form-label">1.	Apakah anak suka bergerak atau aktif secara fisik?</label>
+                        <label class="d-block form-label">Anak menyukai kegiatan fisik seperti lari dan lompat (apakah anak aktif)</label>
                         <div class="d-flex gap-4">
                           <div class="form-check mb-0">
                             <input type="radio" id="sukafisik-male" name="sukafisik" class="form-check-input" value="YA" required checked>
@@ -312,14 +177,23 @@
                       </div>
                     </div>
                     <div class="col-sm-6 form-password-toggle">
-                      <div class="form-floating form-floating-outline mb-6">
-                        <textarea class="form-control h-px-100" id="kegiatanfavorit" name="kegiatanfavorit" placeholder="Lari / Memanjat / Berenang "></textarea>
-                        <label for="kegiatanfavorit">2.	Apa kegiatan fisik favorit anak di rumah</label>
+                      <div class="mb-6">
+                        <label class="d-block form-label">Apakah anak cukup istirahat setiap hari (tidur siang, tidak mudah mengantuk)?</label>
+                        <div class="d-flex gap-4">
+                          <div class="form-check mb-0">
+                            <input type="radio" id="cukupistirahat-male" name="cukupistirahat" class="form-check-input" value="YA" required checked>
+                            <label class="form-check-label" for="cukupistirahat-male">YA</label>
+                          </div>
+                          <div class="form-check mb-0">
+                            <input type="radio" id="cukupistirahat-female" name="cukupistirahat" class="form-check-input" value="TIDAK" required>
+                            <label class="form-check-label" for="cukupistirahat-female">TIDAK</label>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-sm-6 form-password-toggle">
                       <div class="mb-6">
-                        <label class="d-block form-label">3.	Apakah anak menunjukkan ketertarikan terhadap aktivitas olahraga tertentu?</label>
+                        <label class="d-block form-label">Apakah anak menunjukkan ketertarikan terhadap aktivitas olahraga tertentu?</label>
                         <div class="d-flex gap-4">
                           <div class="form-check mb-0">
                             <input type="radio" id="tertarikolahraga-male" name="tertarikolahraga" class="form-check-input" value="YA" required checked>
@@ -331,54 +205,47 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-sm-6 form-password-toggle">
-                      <div class="form-floating form-floating-outline mb-5 form-control-validation">
-                        <input type="text" class="form-control" id="jenisolahraga" name="jenisolahraga" placeholder="Masukkan Jenis Olahraga" />
-                        <label for="jenisolahraga">Jenis Olahraga</label>
-                      </div>
-                    </div>
+                    </div>                    
                     <div class="col-12 d-flex justify-content-between">
-                      <button class="btn btn-outline-secondary btn-prev waves-effect" type="button">
+                      <button class="btn btn-outline-secondary btn-prev waves-effect" disabled="" type="button">
                         <i class="icon-base ri ri-arrow-left-line icon-sm me-sm-1 me-0"></i>
                         <span class="align-middle d-sm-inline-block d-none">Previous</span>
                       </button>
-                      <button type="button"  class="btn btn-primary btn-next waves-effect waves-light"><span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="icon-base ri ri-arrow-right-line icon-sm"></i></button>
+                      <button type="button" class="btn btn-primary btn-next waves-effect waves-light"><span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="icon-base ri ri-arrow-right-line icon-sm"></i></button>
                     </div>
                   </div>
                 </div>
-                <!-- Social Links -->
-                <div id="catatan" class="content">
+                <!-- Personal Info -->
+                <div id="kebiasaan" class="content">
                   <div class="content-header mb-4">
-                    <h6 class="mb-0">Catatan</h6>
-                    <small>Catatan Kesehatan Umum.</small>
+                    <h6 class="mb-0">Screening</h6>
+                    <small>Pertanyaan Screening Anak Berkebutuhan Khusus</small>
                   </div>
                   <div class="row g-6">
                     <div class="col-sm-6 form-password-toggle">
                       <div class="mb-6">
-                        <label class="d-block form-label">1.	Apakah ada kondisi kesehatan yang perlu diperhatikan saat anak beraktivitas fisik? (contoh: tidak boleh terlalu kecapekan, flat foot,dll)</label>
+                        <label class="d-block form-label">1.	Apakah anak pernah didiagnosis oleh tenaga profesional (dokter, psikolog, terapis) memiliki kebutuhan khusus tertentu?</label>
                         <div class="d-flex gap-4">
                           <div class="form-check mb-0">
-                            <input type="radio" id="perludiperhatikan-male" name="perludiperhatikan" class="form-check-input" value="YA" required checked>
-                            <label class="form-check-label" for="perludiperhatikan-male">YA</label>
+                            <input type="radio" id="diagnosisabk-male" name="diagnosisabk" class="form-check-input" value="YA" required checked>
+                            <label class="form-check-label" for="diagnosisabk-male">YA</label>
                           </div>
                           <div class="form-check mb-0">
-                            <input type="radio" id="perludiperhatikan-female" name="perludiperhatikan" class="form-check-input" value="TIDAK" required>
-                            <label class="form-check-label" for="perludiperhatikan-female">TIDAK</label>
+                            <input type="radio" id="diagnosisabk-female" name="diagnosisabk" class="form-check-input" value="TIDAK" required>
+                            <label class="form-check-label" for="diagnosisabk-female">TIDAK</label>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-sm-6 form-password-toggle">
-                      <div class="form-floating form-floating-outline mb-5 form-control-validation">
-                        <input type="text" class="form-control" id="jelaskanperludiperhatikan" name="jelaskanperludiperhatikan" placeholder="Masukkan Penjelasan" />
-                        <label for="jelaskanperludiperhatikan">Jika ya, jelaskan secara singkat</label>
+                      <div class="form-floating form-floating-outline mb-6">
+                        <textarea class="form-control h-px-100" id="diagnosis" name="diagnosis" placeholder="Patah Tulang / Kejang / Asma "></textarea>
+                        <label for="diagnosis">Jika ya, Sebutkan Kebutuhan Khususnya</label>
                       </div>
                     </div>
-                  <div class="row g-6">
                     <div class="col-sm-6 form-password-toggle">
                       <div class="mb-6">
-                        <label class="d-block form-label">2.	Apakah anak sedang dalam pengawasan khusus dari dokter atau terapis?</label>
+                        <label class="d-block form-label">2. Apakah anak sedang dalam pengawasan khusus dari dokter atau terapis?</label>
                         <div class="d-flex gap-4">
                           <div class="form-check mb-0">
                             <input type="radio" id="diawasidokter-male" name="diawasidokter" class="form-check-input" value="YA" required checked>
@@ -396,65 +263,135 @@
                         <input type="text" class="form-control" id="terapi" name="terapi" placeholder="Masukkan Terapi" />
                         <label for="terapi">Jika ya, sebutkan jenis pengobatan/ terapi</label>
                       </div>
-                    </div>
+                    </div>                  
                     <div class="col-sm-6 form-password-toggle">
                       <div class="mb-6">
-                        <label class="d-block form-label">3.	Apakah anak memiliki riwayat gangguan kesehatan sebelumnya ?</label>
+                        <label class="d-block form-label">3. Bagaimana kemampuan anak dalam berinteraksi dengan teman sebaya?</label>
                         <div class="d-flex gap-4">
                           <div class="form-check mb-0">
-                            <input type="radio" id="gangguankesehatan-male" name="gangguankesehatan" class="form-check-input" value="YA" required checked>
-                            <label class="form-check-label" for="gangguankesehatan-male">YA</label>
+                            <input type="radio" id="interaksi-male" name="interaksi" class="form-check-input" value="1" required checked>
+                            <label class="form-check-label" for="interaksi-male">Mudah Bergaul</label>
                           </div>
                           <div class="form-check mb-0">
-                            <input type="radio" id="gangguankesehatan-female" name="gangguankesehatan" class="form-check-input" value="TIDAK" required>
-                            <label class="form-check-label" for="gangguankesehatan-female">TIDAK</label>
+                            <input type="radio" id="interaksi-female" name="interaksi" class="form-check-input" value="2" required>
+                            <label class="form-check-label" for="interaksi-female">Butuh Pendampingan</label>
+                          </div>
+                          <div class="form-check mb-0">
+                            <input type="radio" id="interaksi-menyendiri" name="interaksi" class="form-check-input" value="3" required>
+                            <label class="form-check-label" for="interaksi-menyendiri">Menyendiri</label>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-sm-6 form-password-toggle">
-                      <div class="form-floating form-floating-outline mb-6">
-                        <textarea class="form-control h-px-100" id="jenisgangguankesehatan" name="jenisgangguankesehatan" placeholder="Patah Tulang / Kejang / Asma "></textarea>
-                        <label for="jenisgangguankesehatan">Jika ya, Sebutkan Gangguan Kesehatan</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 form-password-toggle">
                       <div class="mb-6">
-                        <label class="d-block form-label">4.	Apakah anak memiliki riwayat/post opname sebelumnya ?</label>
+                        <label class="d-block form-label">4. Apakah anak menunjukkan perilaku khusus (misalnya hiperaktif, tantrum, sulit fokus)?</label>
                         <div class="d-flex gap-4">
                           <div class="form-check mb-0">
-                            <input type="radio" id="postopname-male" name="postopname" class="form-check-input" value="YA" required checked>
-                            <label class="form-check-label" for="postopname-male">YA</label>
+                            <input type="radio" id="perilakukhusus-male" name="perilakukhusus" class="form-check-input" value="YA" required checked>
+                            <label class="form-check-label" for="perilakukhusus-male">YA</label>
                           </div>
                           <div class="form-check mb-0">
-                            <input type="radio" id="postopname-female" name="postopname" class="form-check-input" value="TIDAK" required>
-                            <label class="form-check-label" for="postopname-female">TIDAK</label>
+                            <input type="radio" id="perilakukhusus-female" name="perilakukhusus" class="form-check-input" value="TIDAK" required>
+                            <label class="form-check-label" for="perilakukhusus-female">TIDAK</label>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-sm-6 form-password-toggle">
                       <div class="form-floating form-floating-outline mb-5 form-control-validation">
-                        <input type="text" class="form-control" id="kapan" name="kapan" placeholder="Masukkan Terapi" />
-                        <label for="kapan">Jika ya, Kapan ?</label>
+                        <input type="text" class="form-control" id="jenisperilakukhusus" name="jenisperilakukhusus" placeholder="Masukkan Terapi" />
+                        <label for="jenisperilakukhusus">Jika ya, Sebutkan Perilaku Khusus</label>
                       </div>
                     </div>
                     <div class="col-sm-6 form-password-toggle">
                       <div class="mb-6">
-                        <label class="d-block form-label">5.	Apakah anak melalui fase merangkak sebelum belajar berdiri/berjalan?</label>
+                        <label class="d-block form-label">5. Apakah anak bisa mengikuti instruksi sederhana (contoh: “ayo duduk”, “angkat tangan”)?</label>
                         <div class="d-flex gap-4">
                           <div class="form-check mb-0">
-                            <input type="radio" id="merangkak-male" name="merangkak" class="form-check-input" value="YA" required checked>
-                            <label class="form-check-label" for="merangkak-male">YA</label>
+                            <input type="radio" id="instruksisederhana-male" name="instruksisederhana" class="form-check-input" value="1" required checked>
+                            <label class="form-check-label" for="instruksisederhana-male">YA</label>
                           </div>
                           <div class="form-check mb-0">
-                            <input type="radio" id="merangkak-female" name="merangkak" class="form-check-input" value="TIDAK" required>
-                            <label class="form-check-label" for="merangkak-female">TIDAK</label>
+                            <input type="radio" id="instruksisederhana-female" name="instruksisederhana" class="form-check-input" value="2" required>
+                            <label class="form-check-label" for="instruksisederhana-female">KADANG-KADANG</label>
+                          </div>
+                          <div class="form-check mb-0">
+                            <input type="radio" id="instruksisederhana-menyendiri" name="instruksisederhana" class="form-check-input" value="3" required>
+                            <label class="form-check-label" for="instruksisederhana-menyendiri">TIDAK</label>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-sm-6 form-password-toggle">
+                      <div class="mb-6">
+                        <label class="d-block form-label">6. Bagaimana kemampuan motorik kasar anak (berlari, melompat, naik-turun tangga)?</label>
+                        <div class="d-flex gap-4">
+                          <div class="form-check mb-0">
+                            <input type="radio" id="motorikkasar-male" name="motorikkasar" class="form-check-input" value="1" required checked>
+                            <label class="form-check-label" for="motorikkasar-male">BAIK</label>
+                          </div>
+                          <div class="form-check mb-0">
+                            <input type="radio" id="motorikkasar-female" name="motorikkasar" class="form-check-input" value="2" required>
+                            <label class="form-check-label" for="motorikkasar-female">Perlu bantuan</label>
+                          </div>
+                          <div class="form-check mb-0">
+                            <input type="radio" id="motorikkasar-menyendiri" name="motorikkasar" class="form-check-input" value="3" required>
+                            <label class="form-check-label" for="motorikkasar-menyendiri">Belum Berkembang</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 form-password-toggle">
+                      <div class="mb-6">
+                        <label class="d-block form-label">7. Bagaimana kemampuan motorik halus anak (memegang pensil, meronce, membuka botol)?</label>
+                        <div class="d-flex gap-4">
+                          <div class="form-check mb-0">
+                            <input type="radio" id="motorikhalus-male" name="motorikhalus" class="form-check-input" value="1" required checked>
+                            <label class="form-check-label" for="motorikhalus-male">BAIK</label>
+                          </div>
+                          <div class="form-check mb-0">
+                            <input type="radio" id="motorikhalus-female" name="motorikhalus" class="form-check-input" value="2" required>
+                            <label class="form-check-label" for="motorikhalus-female">Perlu bantuan</label>
+                          </div>
+                          <div class="form-check mb-0">
+                            <input type="radio" id="motorikhalus-menyendiri" name="motorikhalus" class="form-check-input" value="3" required>
+                            <label class="form-check-label" for="motorikhalus-menyendiri">Belum Berkembang</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 form-password-toggle">
+                      <div class="mb-6">
+                        <label class="d-block form-label">8. Apakah anak memerlukan pendamping khusus saat mengikuti aktivitas di gym/kelas?</label>
+                        <div class="d-flex gap-4">
+                          <div class="form-check mb-0">
+                            <input type="radio" id="pendampingkhusus-male" name="pendampingkhusus" class="form-check-input" value="YA" required checked>
+                            <label class="form-check-label" for="pendampingkhusus-male">YA</label>
+                          </div>
+                          <div class="form-check mb-0">
+                            <input type="radio" id="pendampingkhusus-female" name="pendampingkhusus" class="form-check-input" value="TIDAK" required>
+                            <label class="form-check-label" for="pendampingkhusus-female">TIDAK</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                      <button class="btn btn-outline-secondary btn-prev waves-effect" type="button">
+                        <i class="icon-base ri ri-arrow-left-line icon-sm me-sm-1 me-0"></i>
+                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                      </button>
+                      <button type="button" class="btn btn-primary btn-next waves-effect waves-light"><span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="icon-base ri ri-arrow-right-line icon-sm"></i></button>
+                    </div>
+                  </div>
+                </div>                
+                <!-- Social Links -->
+                <div id="catatan" class="content">
+                  <div class="content-header mb-4">
+                    <h6 class="mb-0">Inform Concent</h6>
+                    <small>Persetujuan.</small>
+                  </div>
+                  <div class="col-sm-6 form-password-toggle">
                       <div class="mb-6">
                         <label class="d-block form-label">Apakah harapan/ tujuan orang tua mendaftarkan Ananda di FunFit?</label>
                         <div class="gap-4">
@@ -481,6 +418,8 @@
                         </div>
                       </div>
                     </div>
+                  
+                  <div class="row g-6">                    
                     <div class="p-4 border rounded">
                       Saya memahami bahwa kegiatan di gym anak bersifat optional/ tambahan yang tidak dapat menggantikan terapi dan sekolah. Saya juga memahami akan adanya resiko-resiko yang mungkin dapat terjadi disaat aktivitas gym berlangsung meskipun kelas sudah dipersiapkan agar anak aman dan nyaman. Saya tidak berkeberatan apabila ada kemungkinan wajah anak saya terlihat saat proses pengambilan gambar/ video untuk kepentingan promosi atau edukasi.
                     </div>
