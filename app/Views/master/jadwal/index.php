@@ -535,8 +535,11 @@ $breadcrumb_items = [
     },
     slotMinTime: "08:00:00",
     slotMaxTime: "20:00:00",
+    slotDuration: "00:30:00",      // durasi slot
+    slotLabelInterval: "00:30:00", // interval label ditampilkan
     eventClick: function (info) {
         var pasien = info.event.title;
+        var totip = info.event.extendedProps.tooltip;
         var waktu = info.event.start.toLocaleString();
 
         let checkinDefault = info.event.extendedProps.checkin == "1";
@@ -554,7 +557,7 @@ $breadcrumb_items = [
         let defaultTanggal = `${year}-${month}-${day}T${hours}:${minutes}`;
 
         Swal.fire({
-            title: pasien,
+            title: totip,
             html: `
             <div class="text-start">
                 <p><strong>Jadwal:</strong> ${waktu}</p>
@@ -684,7 +687,7 @@ $breadcrumb_items = [
 
     eventDisplay: 'block',
     eventContent: function(arg) {
-        let title = arg.event.title.split(',').join('<br>'); // ubah koma jadi baris baru
+        let title = arg.event.title; // ubah koma jadi baris baru
         return { html: `<div class="fc-event-title">${title}</div>` };
     },
     eventDidMount: function(info) {
@@ -693,6 +696,14 @@ $breadcrumb_items = [
         info.el.style.borderColor = info.event.extendedProps.color;
         info.el.classList.add('text-white', 'border-0', 'rounded-pill', 'px-2');
       }
+      if (info.event.extendedProps.tooltip) {
+            new bootstrap.Tooltip(info.el, {
+            title: info.event.extendedProps.tooltip,
+            placement: 'top',
+            trigger: 'hover',
+            container: 'body'
+            });
+        }
     }
   });
 

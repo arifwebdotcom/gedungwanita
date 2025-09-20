@@ -50,13 +50,29 @@ class JadwalController extends BaseController
                     ];
                 } else {
                     // tambahkan nama pasien lain dengan <br>
-                    $grouped[$key]['title'] .= "\n" . $row->nama;
+                    $grouped[$key]['title'] .= "," . $row->nama;
                 }
             }
 
             $events = array_values($grouped);
 
-            return $this->response->setJSON($events);
+            //dd($events['tanggal']);
+            $eventsfix = [];
+            foreach($events as $row){       
+                array_push($eventsfix,array(
+                    'id' => $row['id'],
+                        'start' => $row['start'],
+                        'title' => mb_strimwidth($row['title'], 0, 18, "..."),
+                        'tooltip' => $row['title'],
+                        'color' => $row['color'],
+                        'checkin' => $row['checkin'],
+                        'kelas' => $row['kelas'],
+                        'kategori_id' => $row['kategori_id']
+                ));         
+                
+            }
+
+            return $this->response->setJSON($eventsfix);
     }
     
     public function datatablelist() {
@@ -73,6 +89,7 @@ class JadwalController extends BaseController
             $events[] = [ 
                 'id' => $row->id, 
                 'title' => $row->nama, 
+                'tooltip' => $row->nama, 
                 'start' => $row->tanggal, 
                 'color' => $row->color, 
                 'checkin' => $row->checkin, 
