@@ -62,7 +62,7 @@ class JadwalController extends BaseController
                 array_push($eventsfix,array(
                     'id' => $row['id'],
                         'start' => $row['start'],
-                        'title' => mb_strimwidth($row['title'], 0, 18, "..."),
+                        'title' => mb_strimwidth($row['title'], 0, 15, "..."),
                         'tooltip' => $row['title'],
                         'color' => $row['color'],
                         'checkin' => $row['checkin'],
