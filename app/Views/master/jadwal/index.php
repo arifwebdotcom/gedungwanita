@@ -508,21 +508,49 @@ $breadcrumb_items = [
     }
   });
 
+  
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     themeSystem: 'bootstrap5',
     headerToolbar: {
-      left: 'prev,next today printButton',
+      left: 'prev,next today exportImage',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listDay,listWeek'
     },
     customButtons: {
-        printButton: {
-        text: 'Print',
-        click: function() {
-            window.print(); // langsung print halaman
-        }
-        }
+        // printButton: {
+        // text: 'Print',
+        // click: function() {
+        //     window.print(); // langsung print halaman
+        // }
+        // },
+        exportImage: {
+            text: 'Export Image',
+            click: function() {
+            let calendarEl = document.getElementById("calendar");
+            html2canvas(calendarEl, {
+                useCORS: true,
+                backgroundColor: "#ffffff", // jangan null biar aman
+                onclone: function(doc) {
+                // fix: ganti css var modern jadi hex supaya html2canvas gak error
+                doc.querySelectorAll('*').forEach(el => {
+                    let color = window.getComputedStyle(el).color;
+                    if (color.includes("color(")) {
+                    el.style.color = "#000000"; // fallback aman
+                    }
+                    let bg = window.getComputedStyle(el).backgroundColor;
+                    if (bg.includes("color(")) {
+                    el.style.backgroundColor = "#ffffff";
+                    }
+                });
+                }
+            }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = 'calendar.png';
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            });
+        }}
     },
     slotEventOverlap: false,
     eventOverlap: false,

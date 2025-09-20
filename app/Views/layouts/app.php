@@ -215,6 +215,8 @@
   <!-- Choice -->
   <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
 
     <!-- Place this tag before closing body tag for github widget button. -->
