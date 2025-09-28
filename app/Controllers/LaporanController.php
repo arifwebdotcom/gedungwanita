@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Kategori;
 use App\Models\Kelas;
+use App\Models\Transaksi;
+use App\Models\Pendaftaran;
 use App\Models\JadwalPendaftaran;
 use CodeIgniter\API\ResponseTrait;
 
@@ -29,6 +31,25 @@ class LaporanController extends BaseController
 
         // print_r(json_encode(compact('data')));
         return view('master/laporan/index',$this->data);
+    }
+
+    public function datatablepembayaran() {
+        $kategori = $this->request->getVar('kategori');
+        $kelas = $this->request->getVar('kelas');
+        $numrows = $this->request->getVar('numrows');
+        $data = model(Pendaftaran::class)->getDaftarTransaksiPembayaran($kategori,$kelas, $numrows);
+
+        return json_encode(compact('data'));
+    }    
+
+    public function pembayaran()
+    {
+        $this->data['laporan'] = model(JadwalPendaftaran::class)->findAll();
+        $this->data['kategori'] = model(Kategori::class)->findAll();
+        $this->data['kelas'] = model(Kelas::class)->findAll();
+
+        // print_r(json_encode(compact('data')));
+        return view('master/laporan/pembayaran',$this->data);
     }
 
     public function store() {
@@ -71,6 +92,29 @@ class LaporanController extends BaseController
         $request['laporan'] = $this->request->getPost('laporan');
         $request['id'] = $id;
         model(JadwalPendaftaran::class)->save($request);
+
+        return $this->respondUpdated([
+            'status' => true,
+            'messages' => 'Data laporan berhasil diubah.',
+        ]);
+    }
+
+    public function updatepembayaran($id) {       
+        
+        $request['jumlahbayar'] = $this->request->getPost('jumlahbayar');
+        $request['status'] = $this->request->getPost('status');
+        $request['tglbayar'] = $this->request->getPost('tglbayar');
+        $request['id'] = $id;
+        model(Pendaftaran::class)->save($request);
+
+        $namaanak = $this->request->getPost('namaanak');
+
+        $requesttransaksi['jumlah'] = $this->request->getPost('jumlahbayar');
+        $requesttransaksi['transaksi'] = "Pembayaran atas nama ".$namaanak;
+        $requesttransaksi['userfk'] = user()->id;
+        $requesttransaksi['jenis'] = "D";
+        $requesttransaksi['pendaftaranfk'] = $id;
+        model(Transaksi::class)->save($requesttransaksi);
 
         return $this->respondUpdated([
             'status' => true,

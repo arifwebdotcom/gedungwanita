@@ -40,7 +40,7 @@ class JadwalPendaftaran extends Model
 
     public function getDaftarTransaksi($kategori,$kelas, $numrows){
         $builder = $this
-            ->select("jadwalpendaftaran_t.*,member_m.nama,member_m.jeniskelamin,member_m.tgllahir,kategori_m.namakategori,kelas_m.kelas")
+            ->select("jadwalpendaftaran_t.*,member_m.nama,member_m.jeniskelamin,member_m.tgllahir,kategori_m.namakategori,kelas_m.kelas,pendaftaran_t.status")
             ->join('pendaftaran_t','pendaftaran_t.id=jadwalpendaftaran_t.pendaftaranfk')
             ->join('kelas_m','kelas_m.id=jadwalpendaftaran_t.kelasfk')
             ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk')
@@ -55,5 +55,7 @@ class JadwalPendaftaran extends Model
             ->findAll($numrows);
             return $builder;         
     }
+    
+    
 
 }

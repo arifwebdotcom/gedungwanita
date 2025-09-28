@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Pendaftaran extends Model
+class TransaksiModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'pendaftaran_t';
+    protected $table            = 'transaksi_t';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
@@ -38,21 +38,15 @@ class Pendaftaran extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getDaftarTransaksiPembayaran($kategori,$kelas, $numrows){
-        $builder = $this
-            ->select("pendaftaran_t.*,member_m.nama,member_m.jeniskelamin,member_m.tgllahir,kategori_m.namakategori,kelas_m.kelas")            
-            ->join('kelas_m','kelas_m.id=pendaftaran_t.kelasfk')
-            ->join('kategori_m','kategori_m.id=pendaftaran_t.kategorifk')
-            ->join('member_m','member_m.id=pendaftaran_t.memberfk')
-            ->when($kategori, static function ($query, $kategori) {
-                $query->like('pendaftaran_t.kategorifk', $kategori);
-            })
-            ->when($kelas, static function ($query, $kelas) {
-                $query->like('pendaftaran_t.kelasfk', $kelas);
-            })        
-            ->orderBy('pendaftaran_t.mulai', 'DESC')
-            ->findAll($numrows);
-            return $builder;         
+
+    public function get_user_transaction_t($numrows,$keywords)
+    {
+        $builder = $this->select('user_transaction_t.*')
+        ->when($keywords, static function ($query, $keywords) {
+            $query->like('user_transaction_t.user_transaction_t', $keywords);
+        })
+        ->findAll($numrows);
+        return $builder;
     }
 
 }

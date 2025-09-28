@@ -143,9 +143,12 @@ $routes->group('jadwal', ['filter' => 'login'],function ($routes) {
 
 $routes->group('laporan', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [LaporanController::class, 'index'], ['as' => 'laporan.index']);
+    $routes->get('pembayaran', [LaporanController::class, 'pembayaran'], ['as' => 'laporan.pembayaran']);
     $routes->post('store', [LaporanController::class, 'store'], ['as' => 'laporan.store']);
     $routes->get('datatable', [LaporanController::class, 'datatable'], ['as' => 'laporan.datatable']);
+    $routes->get('datatablepembayaran', [LaporanController::class, 'datatablepembayaran'], ['as' => 'laporan.datatablepembayaran']);
     $routes->post('(:num)/edit', [LaporanController::class, 'update'], ['as' => 'laporan.update']);
+    $routes->post('(:num)/editpembayaran', [LaporanController::class, 'updatepembayaran'], ['as' => 'laporan.updatepembayaran']);
     $routes->post('delete/(:num)', [LaporanController::class, 'delete'], ['as' => 'laporan.delete']);
 });
 
