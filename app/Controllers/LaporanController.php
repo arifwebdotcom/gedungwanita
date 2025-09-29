@@ -124,7 +124,7 @@ class LaporanController extends BaseController
 
     public function delete($id)
     {
-        model(JadwalPendaftaran::class)->where('id', $id)->delete();
+        model(Pendaftaran::class)->where('id', $id)->delete();
         return $this->respondUpdated([
             'status' => true,
             'messages' => 'Data laporan berhasil diubah.',
