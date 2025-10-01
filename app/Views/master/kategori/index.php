@@ -50,6 +50,7 @@ $breadcrumb_items = [
                     <th>Usia</th>
                     <th>Durasi</th>
                     <th>Kapasitas</th>
+                    <th>Tipe</th>
                     <th>Warna</th>
                     <th>Action</th>
                     </tr>
@@ -135,7 +136,17 @@ $breadcrumb_items = [
                 </div>
             </div>                               
         </div>        
-        
+        <div class="row g-4">
+            <div class="col mb-2">
+                <div class="form-floating form-floating-outline">
+                    <select class="form-control" name="tipe">                        
+                        <option value="REGULER">REGULER</option>                        
+                        <option value="TRIAL">TRIAL</option>                        
+                    </select>
+                    <label for="tipe">Tipe</label>
+                </div>
+            </div>                               
+        </div>                
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
@@ -215,6 +226,10 @@ $breadcrumb_items = [
             {
                 name: "Kapasitas",
                 data: "kapasitas"
+            },
+            {
+                name: "Tipe",
+                data: "tipe"
             },
             {
                 name: "Warna",

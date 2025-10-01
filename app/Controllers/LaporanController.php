@@ -52,6 +52,24 @@ class LaporanController extends BaseController
         return view('master/laporan/pembayaran',$this->data);
     }
 
+    public function datatablevendor() {
+        $status = $this->request->getVar('status');
+        $bulan = $this->request->getVar('bulan');
+        $data = model(JadwalPendaftaran::class)->getDaftarTransaksiVendor($status,$bulan);
+
+        return json_encode(compact('data'));
+    }    
+
+    public function vendor()
+    {
+        $this->data['laporan'] = model(JadwalPendaftaran::class)->findAll();
+        $this->data['kategori'] = model(Kategori::class)->findAll();
+        $this->data['kelas'] = model(Kelas::class)->findAll();
+
+        // print_r(json_encode(compact('data')));
+        return view('master/laporan/vendor',$this->data);
+    }
+
     public function store() {
         // $setRules = [            
         //     'laporan' => [

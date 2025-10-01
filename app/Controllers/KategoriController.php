@@ -32,6 +32,7 @@ class KategoriController extends BaseController
         $request['usiaakhir'] = $this->request->getPost('usiaakhir');
         $request['durasi'] = $this->request->getPost('durasi');
         $request['kapasitas'] = $this->request->getPost('kapasitas');
+        $request['tipe'] = $this->request->getPost('tipe');
         $request['color'] = $this->request->getPost('warna');
         model(Kategori::class)->insert($request);
 
@@ -47,6 +48,7 @@ class KategoriController extends BaseController
         $request['usiaakhir'] = $this->request->getPost('usiaakhir');
         $request['durasi'] = $this->request->getPost('durasi');
         $request['kapasitas'] = $this->request->getPost('kapasitas');
+        $request['tipe'] = $this->request->getPost('tipe');
         $request['color'] = $this->request->getPost('warna');
         $request['id'] = $id;
         model(Kategori::class)->save($request);
