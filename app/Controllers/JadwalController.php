@@ -28,9 +28,9 @@ class JadwalController extends BaseController
                 ->join('member_m','member_m.id=pendaftaran_t.memberfk')        
                 ->join('jadwalpendaftaran_t','jadwalpendaftaran_t.pendaftaranfk = pendaftaran_t.id')
                 ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk')
-                ->where('jadwalpendaftaran_t.deleted_at',null)
-                ->where('jadwalpendaftaran_t.tanggal >=','2025-10-22 00:01')
-                ->where('jadwalpendaftaran_t.tanggal <=','2025-10-22 23:59');
+                ->where('jadwalpendaftaran_t.deleted_at',null);
+                // ->where('jadwalpendaftaran_t.tanggal >=','2025-10-22 00:01')
+                // ->where('jadwalpendaftaran_t.tanggal <=','2025-10-22 23:59');
 
             $data = $model->findAll();
 
