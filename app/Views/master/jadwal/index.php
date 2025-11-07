@@ -252,7 +252,7 @@ $breadcrumb_items = [
                             <span class="required">Biaya Pendaftaran</span>                            
                         </label>
                         <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="" id="biayapendaftaran" name="biayapendaftaran" />
+                        <input type="text" class="form-control form-control-solid" placeholder="" id="biayapendaftaran" name="biayapendaftaran" ninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                     </div>       
                 </div>
                     <div class="modal-footer">

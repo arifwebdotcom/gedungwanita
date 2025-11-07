@@ -68,7 +68,7 @@ $breadcrumb_items = [
                     <th>Kategori</th>
                     <th>Kelas</th>
                     <th>Biaya</th>
-                    <th>Biaya Vendor</th>
+                    <th>Biaya Admin</th>
                     <th>Pembayaran</th>
                     <th>Check In</th>
                     <th>Action</th>
