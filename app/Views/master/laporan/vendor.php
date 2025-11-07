@@ -26,6 +26,9 @@ $breadcrumb_items = [
                 <h5 class="card-title mb-0" id="total">
                     Total : 
                 </h5>
+                <h5 class="card-title mb-0" id="totaladmin">
+                    Total Biaya Admin: 
+                </h5>
             </div>
             <div class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto">
                 <div class="dt-buttons btn-group flex-wrap"> 
