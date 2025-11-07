@@ -218,7 +218,7 @@ $breadcrumb_items = [
             <label class="form-check-label" id='totaltagihan'>Total Tagihan : </label>
             <div class="col mb-2">
                 <div class="form-floating form-floating-outline">
-                    <input type="text" id="jumlahbayar" name="jumlahbayar" class="form-control" placeholder="Jumlah Dibayar">
+                    <input type="text" id="jumlahbayar" name="jumlahbayar" class="form-control" placeholder="Jumlah Dibayar" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                     <label for="jumlahbayar">Jumlah Dibayar</label>
                 </div>
             </div>                               
