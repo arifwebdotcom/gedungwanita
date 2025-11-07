@@ -59,6 +59,14 @@ class LaporanController extends BaseController
 
         return json_encode(compact('data'));
     }    
+    
+    public function datatablebiayaadmin() {
+        $status = $this->request->getVar('status');
+        $bulan = $this->request->getVar('bulan');
+        $data = model(JadwalPendaftaran::class)->getDaftarTransaksiBiayaAdmin($status,$bulan);
+
+        return json_encode(compact('data'));
+    }    
 
     public function vendor()
     {
@@ -68,6 +76,17 @@ class LaporanController extends BaseController
 
         // print_r(json_encode(compact('data')));
         return view('master/laporan/vendor',$this->data);
+    }
+    
+    
+    public function biayaadmin()
+    {
+        $this->data['laporan'] = model(JadwalPendaftaran::class)->findAll();
+        $this->data['kategori'] = model(Kategori::class)->findAll();
+        $this->data['kelas'] = model(Kelas::class)->findAll();
+
+        // print_r(json_encode(compact('data')));
+        return view('master/laporan/biayaadmin',$this->data);
     }
 
     public function store() {

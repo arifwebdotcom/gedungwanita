@@ -82,6 +82,32 @@ class JadwalPendaftaran extends Model
             return $builder;         
     }
     
+    public function getDaftarTransaksiBiayaAdmin($status,$bulan){
+        $builder = $this
+            ->select("jadwalpendaftaran_t.*,member_m.nama,member_m.jeniskelamin,member_m.tgllahir,kategori_m.namakategori,kelas_m.kelas,pendaftaran_t.status
+            ,pendaftaran_t.biayapendaftaran as biayapendaftaran")
+            ->join('pendaftaran_t','pendaftaran_t.id=jadwalpendaftaran_t.pendaftaranfk')
+            ->join('kelas_m','kelas_m.id=jadwalpendaftaran_t.kelasfk')
+            ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk')
+            ->join('member_m','member_m.id=pendaftaran_t.memberfk')
+            ->where('kelas_m.id',2)
+            ->where('kategori_m.tipe','REGULER')
+            ->where('jadwalpendaftaran_t.checkin',1)
+            ->when($status, static function ($query, $status) {
+                $query->like('pendaftaran_t.status', $status);
+            })
+            ->when($bulan, static function ($query, $bulan) {
+                $startDate = $bulan . '-01';
+                $endDate   = date('Y-m-t', strtotime($bulan . '-01'));
+
+                $query->where('jadwalpendaftaran_t.tanggal >=', $startDate)
+                    ->where('jadwalpendaftaran_t.tanggal <=', $endDate);
+            })       
+            ->orderBy('jadwalpendaftaran_t.tanggal', 'DESC')
+            ->findAll();
+            return $builder;         
+    }
+    
     
 
 }

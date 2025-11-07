@@ -6,8 +6,8 @@
 $breadcrumb_items = [
     'title' => 'Laporan',
     'items' => [
-        ['name' => 'Master', 'active' => false],
-        ['name' => 'Laporan', 'active' => true]
+        ['name' => 'Laporan', 'active' => false],
+        ['name' => 'Biaya Admin', 'active' => true]
     ]
 ];
 ?>
@@ -17,45 +17,29 @@ $breadcrumb_items = [
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
             <span class="card-label fw-bolder fs-3 mb-1">Laporan</span>
-            <span class="text-muted mt-1 fw-bold fs-7">Data Laporan</span>
+            <span class="text-muted mt-1 fw-bold fs-7">Data Laporan Biaya Admin</span>
         </h3>
-        <div class="card-toolbar">            
-            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#laporan_modal">
-            <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-            <span class="svg-icon svg-icon-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                </svg>
-            </span>
-            <!--end::Svg Icon-->Tambah Laporan</a>            
+        <div class="card-toolbar">                                  
         </div>
         <div class="row card-header mx-0 px-2">
             <div class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto">
-                <h5 class="card-title mb-0">
-                    Filter
+                <h5 class="card-title mb-0" id="total">
+                    Total : 
                 </h5>
             </div>
             <div class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto">
                 <div class="dt-buttons btn-group flex-wrap"> 
-                    <div class='form-group me-2'>
-                        <select id="kelas" name="kelasfk" class="form-control select2" style="width: 100%;">
-                            <option value="0">Pilih Kelas</option>
-                            <?php foreach($kelas as $row) {?>
-                            <option value="<?= $row->id; ?>"><?= $row->kelas; ?></option>
-                            <?php } ?>                            
-                        </select>                      
+                    <div class='form-group me-2'>                        
+                        <input type="month" class="form-control" id="bulan" name="monthYear">                    
                     </div>
                     <div class='form-group me-2'>
-                        <select id="kategori" name="kategorifk" class="form-control select2" style="width: 100%;">
-                            <option value="0">Pilih Kategori</option>
-                            <?php foreach($kategori as $row) {?>
-                            <option value="<?= $row->id; ?>"><?= $row->namakategori; ?></option>
-                            <?php } ?>                            
+                        <select id="status" name="status" class="form-control select2" style="width: 100%;">
+                            <option value="0">Pilih Status Pembayaran</option>                            
+                            <option value="LUNAS">LUNAS</option>
+                            <option value="BELUM BAYAR">BELUM BAYAR</option>                            
                         </select>                        
                     </div>
-                    <div class="btn-group">
-                        <input type="text" class="form-control" placeholder="Masukkan nilai" id="numrows" value="50" />
+                    <div class="btn-group">                        
                         <button class="btn btn-outline-success btn-primary waves-effect waves-light" type="button" id="cari">
                             <svg class="aa-SubmitIcon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.041 15.856c-0.034 0.026-0.067 0.055-0.099 0.087s-0.060 0.064-0.087 0.099c-1.258 1.213-2.969 1.958-4.855 1.958-1.933 0-3.682-0.782-4.95-2.050s-2.050-3.017-2.050-4.95 0.782-3.682 2.050-4.95 3.017-2.050 4.95-2.050 3.682 0.782 4.95 2.050 2.050 3.017 2.050 4.95c0 1.886-0.745 3.597-1.959 4.856zM21.707 20.293l-3.675-3.675c1.231-1.54 1.968-3.493 1.968-5.618 0-2.485-1.008-4.736-2.636-6.364s-3.879-2.636-6.364-2.636-4.736 1.008-6.364 2.636-2.636 3.879-2.636 6.364 1.008 4.736 2.636 6.364 3.879 2.636 6.364 2.636c2.125 0 4.078-0.737 5.618-1.968l3.675 3.675c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path></svg>
                         </button>
@@ -83,6 +67,8 @@ $breadcrumb_items = [
                     <th>Usia</th>                    
                     <th>Kategori</th>
                     <th>Kelas</th>
+                    <th>Biaya</th>
+                    <th>Biaya Vendor</th>
                     <th>Pembayaran</th>
                     <th>Check In</th>
                     <th>Action</th>
@@ -181,7 +167,7 @@ $breadcrumb_items = [
     </div>
 </div>
 
-<div class="modal fade" id="pembayaran_modal" tabindex="-1" aria-modal="true" role="dialog">
+<div class="modal fade" id="vendor_modal" tabindex="-1" aria-modal="true" role="dialog">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -189,7 +175,7 @@ $breadcrumb_items = [
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        <form id="pembayaran_form" class="form" >        
+        <form id="vendor_form" class="form" >        
         <div class="row g-4">
             <div class="col mb-2">
             <div class="form-floating form-floating-outline">
@@ -263,8 +249,6 @@ $breadcrumb_items = [
     $(document).ready(function() {
         //$("#laporan_table").DataTable();
         init();
-
-       
     });
 
     const pickr = Pickr.create({
@@ -296,19 +280,14 @@ $breadcrumb_items = [
 
     function init() {
 
-        var kelas = "";
-        if ($("#kelas").val() && $("#kelas").val() != "0") {
-            kelas = "&kelas=" + $("#kelas").val();
+        var bulan = "";
+        if ($("#bulan").val() && $("#bulan").val() != "0") {
+            bulan = "&bulan=" + $("#bulan").val();
         }
 
-        var kategori = "";
-        if ($("#kategori").val() && $("#kategori").val() != "0") {
-            kategori = "&kategori=" + $("#kategori").val();
-        }
-
-        var numrows = "0";
-        if ($("#numrows").val()) {
-            numrows = $("#numrows").val();
+        var status = "";
+        if ($("#status").val() && $("#status").val() != "0") {
+            status = "&status=" + $("#status").val();
         }
 
         $('#laporan_table').DataTable().destroy();
@@ -320,7 +299,7 @@ $breadcrumb_items = [
             "lengthChange": false,
             ajax: {
                 type: "GET",
-                url: "<?= route_to('laporan.datatablepembayaran') ?>"+ `?numrows=${numrows}${kelas}`,
+                url: "<?= route_to('laporan.datatablebiayaadmin') ?>"+ `?1=1${bulan}${status}`,
                 dataType: 'JSON',
                 error: function(e) {
                     alert(e);
@@ -381,6 +360,20 @@ $breadcrumb_items = [
                     data: "kelas"
                 },           
                 {
+                    name: "Biaya",
+                    data: "biaya",
+                    render: function(data, type, row, meta) {
+                        return rupiah(data)
+                    }
+                },           
+                {
+                    name: "Biaya Admin",
+                    data: "biayapendaftaran",
+                    render: function(data, type, row, meta) {
+                        return rupiah(data)
+                    }
+                },           
+                {
                     name: "Pembayaran",
                     data: "status",
                     render: function(data,type,row,meta){
@@ -408,9 +401,7 @@ $breadcrumb_items = [
                     width: "10%",
                     sortable: false,
                     render: function(data, type, row, meta) {
-                        return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
-                                    <i class="icon-base ri ri-cash-line icon-22px"></i>
-                                </button>
+                        return `
                                 <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit delete" id="delete">
                                     <i class="icon-base ri ri-delete-bin-fill icon-22px"></i>
                                 </button>
@@ -419,6 +410,17 @@ $breadcrumb_items = [
                 },
             ]
         })
+
+        table.on('draw', function () {
+            var total = 0;
+            // ambil semua data dari kolom biaya_vendor
+            table.column(6, { page: 'all' }).data().each(function (value, index) {
+                total += parseFloat(value) || 0;
+            });
+
+            // tampilkan ke elemen #total pakai helper rupiah()
+            $('#total').text('Total : ' + rupiah(total));
+        });
 
     }
 
@@ -440,15 +442,14 @@ $breadcrumb_items = [
 
     $('#laporan_table tbody').on('click', '#edit', function() {
         var data = $('#laporan_table').DataTable().row($(this).parents('tr')).data();
-        $("#pembayaran_modal #kategori").val(data.namakategori);
-        $("#pembayaran_modal #kelas").val(data.kelas);
-        $("#pembayaran_modal #namaanak").val(data.nama);
-        $("#pembayaran_modal #status").val(data.status);
-        $("#pembayaran_modal #id").val(data.id);
-        $("#pembayaran_modal #jumlahbayar").val(data.jumlahbayar);
-        $("#pembayaran_modal #modal_title").text("Edit Laporan Pembayaran");
-        $("#pembayaran_modal #totaltagihan").html("Biaya Pendaftaran :"+rupiah(data.biayapendaftaran)+"<br> Biaya :"+rupiah(data.biaya)+"<p>Total :"+rupiah(parseInt(data.biayapendaftaran)+parseInt(data.biaya)));
-        $("#pembayaran_modal").modal("show");
+        $("#vendor_modal #kategori").val(data.namakategori);
+        $("#vendor_modal #kelas").val(data.kelas);
+        $("#vendor_modal #namaanak").val(data.nama);
+        $("#vendor_modal #status").val(data.status);
+        $("#vendor_modal #id").val(data.id);
+        $("#vendor_modal #modal_title").text("Edit Laporan");
+        $("#vendor_modal #totaltagihan").html("Biaya Pendaftaran :"+rupiah(data.biayapendaftaran)+"<br> Biaya :"+rupiah(data.biaya)+"<p>Total :"+rupiah(parseInt(data.biayapendaftaran)+parseInt(data.biaya)));
+        $("#vendor_modal").modal("show");
     });
 
     $('#laporan_table tbody').on('click', '#delete', function() {
@@ -535,12 +536,12 @@ $breadcrumb_items = [
         });    
     });
 
-    $('#pembayaran_form').on('submit', function(e) {
+    $('#vendor_form').on('submit', function(e) {
         e.preventDefault()
         var form_data = $(this).serializeArray();
-        let id = $('#pembayaran_form #id').val();
+        let id = $('#vendor_form #id').val();
         let route = (id != '') ?
-            `<?= base_url() ?>laporan/${id}/editpembayaran` :
+            `<?= base_url() ?>laporan/${id}/editvendor` :
             "<?= route_to('laporan.store') ?>";
         
         $.ajax({
@@ -550,7 +551,7 @@ $breadcrumb_items = [
             data: form_data,
             success: function(response) {                
                 if (response.status) {
-                    $("#pembayaran_modal").modal("hide");
+                    $("#vendor_modal").modal("hide");
                     init();
                     toastr.success(response.messages,"Sukses");
                 } else {

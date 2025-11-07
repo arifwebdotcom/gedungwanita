@@ -156,6 +156,13 @@
                 <div data-i18n="Email">Laporan Vendor</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
+            </li> 
+            <li class="menu-item">
+              <a href="<?= route_to('laporan.biayaadmin') ?>" class="menu-link">
+                <i class="menu-icon icon-base ri ri-grid-line"></i>
+                <div data-i18n="Email">Laporan Admin</div>
+                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
+              </a>
             </li>            
           </ul>
         </aside>
