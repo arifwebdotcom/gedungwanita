@@ -69,6 +69,7 @@ $breadcrumb_items = [
                     <th>Kelas</th>
                     <th>Biaya</th>
                     <th>Biaya Vendor</th>
+                    <th>Biaya Admin</th>
                     <th>Pembayaran</th>
                     <th>Check In</th>
                     <th>Action</th>
@@ -376,6 +377,13 @@ $breadcrumb_items = [
                     }
                 },           
                 {
+                    name: "Biaya Admin",
+                    data: "biaya_admin",
+                    render: function(data, type, row, meta) {
+                        return rupiah(data)
+                    }
+                },           
+                {
                     name: "Pembayaran",
                     data: "status",
                     render: function(data,type,row,meta){
@@ -420,8 +428,15 @@ $breadcrumb_items = [
                 total += parseFloat(value) || 0;
             });
 
+            var totaladmin = 0;
+            // ambil semua data dari kolom biaya_vendor
+            table.column(7, { page: 'all' }).data().each(function (value, index) {
+                totaladmin += parseFloat(value) || 0;
+            });
+
             // tampilkan ke elemen #total pakai helper rupiah()
             $('#total').text('Total : ' + rupiah(total));
+            $('#totaladmin').text('Total Admin : ' + rupiah(totaladmin));
         });
 
     }
