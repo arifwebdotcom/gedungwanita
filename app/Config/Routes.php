@@ -143,11 +143,13 @@ $routes->group('jadwal', ['filter' => 'login'],function ($routes) {
 
 $routes->group('laporan', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [LaporanController::class, 'index'], ['as' => 'laporan.index']);
+    $routes->get('kelas', [LaporanController::class, 'kelas'], ['as' => 'laporan.kelas']);
     $routes->get('pembayaran', [LaporanController::class, 'pembayaran'], ['as' => 'laporan.pembayaran']);
     $routes->get('vendor', [LaporanController::class, 'vendor'], ['as' => 'laporan.vendor']);
     $routes->get('biayaadmin', [LaporanController::class, 'biayaadmin'], ['as' => 'laporan.biayaadmin']);
     $routes->post('store', [LaporanController::class, 'store'], ['as' => 'laporan.store']);
     $routes->get('datatable', [LaporanController::class, 'datatable'], ['as' => 'laporan.datatable']);
+    $routes->get('datatablekelas', [LaporanController::class, 'datatablekelas'], ['as' => 'laporan.datatablekelas']);
     $routes->get('datatablepembayaran', [LaporanController::class, 'datatablepembayaran'], ['as' => 'laporan.datatablepembayaran']);
     $routes->get('datatablevendor', [LaporanController::class, 'datatablevendor'], ['as' => 'laporan.datatablevendor']);
     $routes->get('datatablebiayaadmin', [LaporanController::class, 'datatablebiayaadmin'], ['as' => 'laporan.datatablebiayaadmin']);

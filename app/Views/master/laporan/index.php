@@ -54,6 +54,9 @@ $breadcrumb_items = [
                             <?php } ?>                            
                         </select>                        
                     </div>
+                    <div class='form-group me-2'>
+                        <input type="text" class="form-control" placeholder="Keywords" id="keywords"/>                       
+                    </div>
                     <div class="btn-group">
                         <input type="text" class="form-control" placeholder="Masukkan nilai" id="numrows" value="50" />
                         <button class="btn btn-outline-success btn-primary waves-effect waves-light" type="button" id="cari">
@@ -74,16 +77,16 @@ $breadcrumb_items = [
                 <table class="table" id="laporan_table"  style="width:100%">
                 <thead>
                     <tr>
-                    <th class="w-25px rounded-start">
-                        <div class="form-check form-check-sm form-check-custom form-check-solid">
-                            <input class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-13-check">
-                        </div>
-                    </th>
+                    <th>No</th>            
                     <th>Nama</th>            
                     <th>Usia</th>                    
+                    <th>Nama Ortu</th>                    
                     <th>Kategori</th>
                     <th>Kelas</th>
-                    <th>Check In</th>
+                    <th>Pilihan Jadwal</th>
+                    <th>Planning</th>
+                    <th>Mulai</th>
+                    <th>Jumlah Checkin</th>
                     <th>Action</th>
                     </tr>
                 </thead>
@@ -236,6 +239,11 @@ $breadcrumb_items = [
             numrows = $("#numrows").val();
         }
 
+        var keywords = "";
+        if ($("#keywords").val() && $("#keywords").val() != "0") {
+            keywords = "&keywords=" + $("#keywords").val();
+        }
+
         $('#laporan_table').DataTable().destroy();
         //var table = $('#invoice_table').DataTable().destroy();
         var table = $('#laporan_table').DataTable({
@@ -245,7 +253,7 @@ $breadcrumb_items = [
             "lengthChange": false,
             ajax: {
                 type: "GET",
-                url: "<?= route_to('laporan.datatable') ?>"+ `?numrows=${numrows}${kelas}`,
+                url: "<?= route_to('laporan.datatable') ?>"+ `?numrows=${numrows}${kelas}${kategori}${keywords}`,
                 dataType: 'JSON',
                 error: function(e) {
                     alert(e);
@@ -255,10 +263,8 @@ $breadcrumb_items = [
                 {
                     width: "10%",
                     sortable: false,
-                    render: function(data, type, row, meta) {
-                        return `<div class="form-check form-check-sm form-check-custom form-check-solid">
-                                    <input class="form-check-input widget-13-check" type="checkbox" value="${row.id}">
-                                </div>`;
+                    render: function (data, type, row, meta) {
+                        return meta.row + 1; // nomor urut dimulai dari 1
                     }
                 },
                 {
@@ -298,6 +304,10 @@ $breadcrumb_items = [
                     }
                 },
                 {
+                    name: "Nama Ortu",
+                    data: "namaortu"
+                },
+                {
                     name: "Kategori",
                     data: "namakategori"
                 },
@@ -306,16 +316,32 @@ $breadcrumb_items = [
                     data: "kelas"
                 },           
                 {
-                    name: "Checkin",
-                    data: "",
-                    render: function(data,type,row,meta){
-                        if(row.checkin == 1){
-                            return ` <span class="badge rounded-pill  bg-label-success">Sudah</span>`;
-                        }else{
-                            return ` <span class="badge rounded-pill  bg-label-warning">Belum</span>`;
-                        }
-                    }
+                    name: "Pilihan Jadwal",
+                    data: "pilihanjadwal"
                 },           
+                {
+                    name: "Planning",
+                    data: "planning"
+                },           
+                {
+                    name: "Mulai",
+                    data: "mulai"
+                },           
+                {
+                    name: "Jumlah Checkin",
+                    data: "jumlahcheckin"
+                },           
+                // {
+                //     name: "Checkin",
+                //     data: "",
+                //     render: function(data,type,row,meta){
+                //         if(row.checkin == 1){
+                //             return ` <span class="badge rounded-pill  bg-label-success">Sudah</span>`;
+                //         }else{
+                //             return ` <span class="badge rounded-pill  bg-label-warning">Belum</span>`;
+                //         }
+                //     }
+                // },           
                 {
                     width: "10%",
                     sortable: false,

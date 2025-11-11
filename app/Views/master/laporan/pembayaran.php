@@ -320,7 +320,7 @@ $breadcrumb_items = [
             "lengthChange": false,
             ajax: {
                 type: "GET",
-                url: "<?= route_to('laporan.datatablepembayaran') ?>"+ `?numrows=${numrows}${kelas}`,
+                url: "<?= route_to('laporan.datatablepembayaran') ?>"+ `?numrows=${numrows}${kelas}${kategori}`,
                 dataType: 'JSON',
                 error: function(e) {
                     alert(e);

@@ -16,9 +16,10 @@ class LaporanController extends BaseController
 
     public function datatable() {
         $kategori = $this->request->getVar('kategori');
+        $keywords = $this->request->getVar('keywords');
         $kelas = $this->request->getVar('kelas');
         $numrows = $this->request->getVar('numrows');
-        $data = model(JadwalPendaftaran::class)->getDaftarTransaksi($kategori,$kelas, $numrows);
+        $data = model(JadwalPendaftaran::class)->getDaftarTransaksi($kategori,$kelas, $numrows, $keywords);
 
         return json_encode(compact('data'));
     }    
@@ -50,6 +51,25 @@ class LaporanController extends BaseController
 
         // print_r(json_encode(compact('data')));
         return view('master/laporan/pembayaran',$this->data);
+    }
+
+    public function datatablekelas() {
+        $kategori = $this->request->getVar('kategori');
+        $kelas = $this->request->getVar('kelas');
+        $bulan = $this->request->getVar('bulan');
+        $data = model(JadwalPendaftaran::class)->getDaftarTransaksiKelas($kategori,$kelas,$bulan);
+
+        return json_encode(compact('data'));
+    }    
+
+    public function kelas()
+    {
+        $this->data['laporan'] = model(JadwalPendaftaran::class)->findAll();
+        $this->data['kategori'] = model(Kategori::class)->findAll();
+        $this->data['kelas'] = model(Kelas::class)->findAll();
+
+        // print_r(json_encode(compact('data')));
+        return view('master/laporan/kelas',$this->data);
     }
 
     public function datatablevendor() {
