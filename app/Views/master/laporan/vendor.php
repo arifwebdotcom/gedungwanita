@@ -33,6 +33,9 @@ $breadcrumb_items = [
             <div class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto">
                 <div class="dt-buttons btn-group flex-wrap"> 
                     <div class='form-group me-2'>                        
+                        <input type="text" class="form-control" id="nama" name="nama">                    
+                    </div>
+                    <div class='form-group me-2'>                        
                         <input type="month" class="form-control" id="bulan" name="monthYear">                    
                     </div>
                     <div class='form-group me-2'>
@@ -290,6 +293,10 @@ $breadcrumb_items = [
         if ($("#bulan").val() && $("#bulan").val() != "0") {
             bulan = "&bulan=" + $("#bulan").val();
         }
+        var nama = "";
+        if ($("#nama").val() && $("#nama").val() != "0") {
+            nama = "&nama=" + $("#nama").val();
+        }
 
         var status = "";
         if ($("#status").val() && $("#status").val() != "0") {
@@ -305,7 +312,7 @@ $breadcrumb_items = [
             "lengthChange": false,
             ajax: {
                 type: "GET",
-                url: "<?= route_to('laporan.datatablevendor') ?>"+ `?1=1${bulan}${status}`,
+                url: "<?= route_to('laporan.datatablevendor') ?>"+ `?1=1${bulan}${status}${nama}`,
                 dataType: 'JSON',
                 error: function(e) {
                     alert(e);

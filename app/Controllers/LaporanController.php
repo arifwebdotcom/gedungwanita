@@ -75,7 +75,8 @@ class LaporanController extends BaseController
     public function datatablevendor() {
         $status = $this->request->getVar('status');
         $bulan = $this->request->getVar('bulan');
-        $data = model(JadwalPendaftaran::class)->getDaftarTransaksiVendor($status,$bulan);
+        $nama = $this->request->getVar('nama');
+        $data = model(JadwalPendaftaran::class)->getDaftarTransaksiVendor($status,$bulan,$nama);
 
         return json_encode(compact('data'));
     }    

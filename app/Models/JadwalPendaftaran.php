@@ -135,7 +135,7 @@ class JadwalPendaftaran extends Model
         return "{$perminggu}x seminggu ({$mulaiFmt} – {$selesaiFmt}, ±{$bulan} bulan)";
     }
 
-    public function getDaftarTransaksiVendor($status,$bulan){
+    public function getDaftarTransaksiVendor($status,$bulan,$nama){
         $builder = $this
             ->select("jadwalpendaftaran_t.*,member_m.nama,member_m.jeniskelamin,member_m.tgllahir,kategori_m.namakategori,kelas_m.kelas,pendaftaran_t.status
             ,(jadwalpendaftaran_t.biaya * kelas_m.untukvendor / 100) as biaya_vendor, pendaftaran_t.biayapendaftaran as biaya_admin")
@@ -148,6 +148,9 @@ class JadwalPendaftaran extends Model
             ->where('jadwalpendaftaran_t.checkin',1)
             ->when($status, static function ($query, $status) {
                 $query->like('pendaftaran_t.status', $status);
+            })
+            ->when($nama, static function ($query, $nama) {
+                $query->like('member_m.nama', $nama);
             })
             ->when($bulan, static function ($query, $bulan) {
                 $startDate = $bulan . '-01';
