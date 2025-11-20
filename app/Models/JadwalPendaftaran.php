@@ -89,6 +89,7 @@ class JadwalPendaftaran extends Model
                 $query->like('jadwalpendaftaran_t.kelasfk', $kelas);
             })
             ->where('jadwalpendaftaran_t.deleted_at IS NULL')
+            ->where('pendaftaran_t.deleted_at IS NULL')
             ->groupBy('jadwalpendaftaran_t.pendaftaranfk')
             ->orderBy('member_m.nama', 'ASC')
             ->findAll($numrows);
