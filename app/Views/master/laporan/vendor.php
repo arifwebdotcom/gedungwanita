@@ -71,6 +71,7 @@ $breadcrumb_items = [
                     </th>
                     <th>Nama</th>            
                     <th>Usia</th>                    
+                    <th>Checkin</th>
                     <th>Kategori</th>
                     <th>Kelas</th>
                     <th>Paket</th>
@@ -364,6 +365,10 @@ $breadcrumb_items = [
 
                     return `${day}-${month}-${year} (${age} Tahun)`;
                     }
+                },
+                {
+                    name: "Checkin",
+                    data: "tanggal"
                 },
                 {
                     name: "Kategori",
