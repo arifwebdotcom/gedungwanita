@@ -365,7 +365,7 @@ $breadcrumb_items = [
 
                     return `${day}-${month}-${year} (${age} Tahun)`;
                     }
-                },
+                }, 
                 {
                     name: "Checkin",
                     data: "tanggal"
