@@ -444,13 +444,13 @@ $breadcrumb_items = [
         table.on('draw', function () {
             var total = 0;
             // ambil semua data dari kolom biaya_vendor
-            table.column(6, { page: 'all' }).data().each(function (value, index) {
+            table.column(7, { page: 'all' }).data().each(function (value, index) {
                 total += parseFloat(value) || 0;
             });
 
             var totaladmin = 0;
             // ambil semua data dari kolom biaya_vendor
-            table.column(7, { page: 'all' }).data().each(function (value, index) {
+            table.column(8, { page: 'all' }).data().each(function (value, index) {
                 totaladmin += parseFloat(value) || 0;
             });
 
