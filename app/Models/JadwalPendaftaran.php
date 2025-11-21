@@ -138,7 +138,7 @@ class JadwalPendaftaran extends Model
 
     public function getDaftarTransaksiVendor($status,$bulan,$nama){
         $builder = $this
-            ->select("sjadwalpendaftaran_t.*,member_m.nama,paket_m.keterangan as namapaket,member_m.id as idmember,member_m.jeniskelamin,member_m.tgllahir,kategori_m.namakategori,kelas_m.kelas,pendaftaran_t.status
+            ->select("jadwalpendaftaran_t.*,member_m.nama,paket_m.keterangan as namapaket,member_m.id as idmember,member_m.jeniskelamin,member_m.tgllahir,kategori_m.namakategori,kelas_m.kelas,pendaftaran_t.status
             ,(jadwalpendaftaran_t.biaya * kelas_m.untukvendor / 100) as biaya_vendor, pendaftaran_t.biayapendaftaran as biaya_admin")
             ->join('pendaftaran_t','pendaftaran_t.id=jadwalpendaftaran_t.pendaftaranfk')
             ->join('kelas_m','kelas_m.id=jadwalpendaftaran_t.kelasfk')
