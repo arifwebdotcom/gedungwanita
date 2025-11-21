@@ -73,6 +73,7 @@ $breadcrumb_items = [
                     <th>Usia</th>                    
                     <th>Kategori</th>
                     <th>Kelas</th>
+                    <th>Paket</th>
                     <th>Biaya</th>
                     <th>Biaya Vendor</th>
                     <th>Biaya Admin</th>
@@ -371,6 +372,10 @@ $breadcrumb_items = [
                 {
                     name: "Kelas",
                     data: "kelas"
+                },           
+                {
+                    name: "Paket",
+                    data: "namapaket"
                 },           
                 {
                     name: "Biaya",

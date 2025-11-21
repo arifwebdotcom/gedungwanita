@@ -659,7 +659,9 @@ $breadcrumb_items = [
                     data: data,
                     success: function(res) {
                         Swal.fire('Tersimpan!', 'Data berhasil diperbarui.', 'success');
+                        calendar.removeAllEvents();
                         calendar.refetchEvents();
+
                     },
                     error: function() {
                         Swal.fire('Error', 'Gagal menyimpan data', 'error');
