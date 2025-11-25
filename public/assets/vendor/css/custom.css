@@ -1,0 +1,103 @@
+:root {
+  /* ganti ke warna barumu */
+  --bs-primary: #a5d0bc;
+  --bs-primary-rgb: 13, 148, 136;
+
+  /* opsional (Bootstrap 5.3) untuk varian-subtle */
+  --bs-primary-text-emphasis: #a5d0bc;
+  --bs-primary-bg-subtle: rgba(117,136,126,.15);
+  --bs-primary-border-subtle: rgba(117,136,126,.3);
+}
+
+/* kalau Materio-mu punya mode dark lewat data attribute */
+[data-theme="dark"] {
+  --bs-primary: #10b2a1;
+  --bs-primary-rgb: 16, 178, 161;
+}
+	
+
+.authentication-wrapper.authentication-basic .authentication-inner {
+  max-width: 500px; /* default */
+}
+
+@media (min-width: 768px) {
+  .authentication-wrapper.authentication-basic .authentication-inner {
+    max-width: 800px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .authentication-wrapper.authentication-basic .authentication-inner {
+    max-width: 1000px;
+  }
+}
+
+
+.layout-menu-collapsed .layout-menu {
+  width: 70px !important; /* tampil hanya icon */
+}
+
+.layout-menu-collapsed .layout-page {
+  padding-left: 70px !important;
+}
+
+
+.layout-menu,
+.layout-page {
+  transition: all 0.3s ease;
+}
+
+
+.pickr .pcr-button {
+  min-width: 200px;
+  height: 40px;
+}
+
+
+.fc-timegrid-event {
+  position: relative !important;
+  margin-top: 2px !important;
+  margin-left: 0 !important; /* biar tidak sejajar */
+  width: 100% !important;    /* penuh ke bawah */
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .fc-header-toolbar,
+  .fc-toolbar,
+  .fc-button-group,
+  .fc-button {
+    display: none !important;
+  }
+
+  #calendar, #calendar * {
+    visibility: visible;
+  }
+
+  #calendar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  
+}
+
+
+.fc .fc-button {
+  padding: 2px 6px;      /* lebih kecil dari default */
+  font-size: 13px;       /* perkecil teks */
+  line-height: 2.2;      /* rapatkan tinggi */
+  border-radius: 4px;    /* sudut agak kecil */  
+  background-color: #a5d0bc;
+  border: #a5d0bc;
+}
+
+.fc .fc-button .fc-button-active{
+  background-color: #769687;
+  border: #769687;
+}

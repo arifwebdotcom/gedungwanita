@@ -51,7 +51,8 @@ $routes->group('', [], static function ($routes) {
     $routes->post($reservedRoutes['reset-password'], 'AuthController::attemptReset');
 });
 
-$routes->get('/', 'Home::index', ['filter' => 'login','as' => 'home']);
+$routes->get('/', 'IndexController::index', );
+$routes->get('/login', 'IndexController::index', ['filter' => 'login','as' => 'home']);
 
 $routes->group('profile', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [ProfileController::class, 'index'], ['as' => 'profile.index']);
