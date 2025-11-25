@@ -47,6 +47,7 @@
 
     
       <link rel="stylesheet" href="../assets/vendor/css/front-page.css">
+      <link rel="stylesheet" href="../assets/vendor/css/floating-wpp.min.css">
     
     <!-- Vendors CSS -->
     
@@ -71,6 +72,75 @@
   padding-bottom: 0px !important;
 }
 
+.footer-dark {
+  width: 100%;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  padding: 40px 20px 20px;
+  margin-top: 40px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  width: 160px;
+  margin-bottom: 10px;
+}
+
+.footer-desc {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.footer-social {
+  display: flex;
+  gap: 20px;
+}
+
+.social-link {
+  color: #ffffff;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.social-link:hover {
+  opacity: 1;
+  color: #4caf50; /* highlight effect */
+}
+
+.footer-copy {
+  text-align: center;
+  padding-top: 20px;
+  font-size: 13px;
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-social {
+    margin-top: 20px;
+  }
+}
+
+
 </style>
    <script src="../../assets/js/front-config.js"></script><style id="custom-css"></style>
 
@@ -90,23 +160,8 @@
         </button>
         <!-- Mobile menu toggle: End-->
         <a href="landing-page.html" class="app-brand-link">
-          <span class="app-brand-logo demo">
-  <span class="text-primary">
-    <svg width="30" height="24" viewBox="0 0 250 196" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3002 1.25469L56.655 28.6432C59.0349 30.1128 60.4839 32.711 60.4839 35.5089V160.63C60.4839 163.468 58.9941 166.097 56.5603 167.553L12.2055 194.107C8.3836 196.395 3.43136 195.15 1.14435 191.327C0.395485 190.075 0 188.643 0 187.184V8.12039C0 3.66447 3.61061 0.0522461 8.06452 0.0522461C9.56056 0.0522461 11.0271 0.468577 12.3002 1.25469Z" fill="currentColor"></path>
-      <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M0 65.2656L60.4839 99.9629V133.979L0 65.2656Z" fill="black"></path>
-      <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M0 65.2656L60.4839 99.0795V119.859L0 65.2656Z" fill="black"></path>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M237.71 1.22393L193.355 28.5207C190.97 29.9889 189.516 32.5905 189.516 35.3927V160.631C189.516 163.469 191.006 166.098 193.44 167.555L237.794 194.108C241.616 196.396 246.569 195.151 248.856 191.328C249.605 190.076 250 188.644 250 187.185V8.09597C250 3.64006 246.389 0.027832 241.935 0.027832C240.444 0.027832 238.981 0.441882 237.71 1.22393Z" fill="currentColor"></path>
-      <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M250 65.2656L189.516 99.8897V135.006L250 65.2656Z" fill="black"></path>
-      <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M250 65.2656L189.516 99.0497V120.886L250 65.2656Z" fill="black"></path>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2787 1.18923L125 70.3075V136.87L0 65.2465V8.06814C0 3.61223 3.61061 0 8.06452 0C9.552 0 11.0105 0.411583 12.2787 1.18923Z" fill="currentColor"></path>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2787 1.18923L125 70.3075V136.87L0 65.2465V8.06814C0 3.61223 3.61061 0 8.06452 0C9.552 0 11.0105 0.411583 12.2787 1.18923Z" fill="white" fill-opacity="0.15"></path>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M237.721 1.18923L125 70.3075V136.87L250 65.2465V8.06814C250 3.61223 246.389 0 241.935 0C240.448 0 238.99 0.411583 237.721 1.18923Z" fill="currentColor"></path>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M237.721 1.18923L125 70.3075V136.87L250 65.2465V8.06814C250 3.61223 246.389 0 241.935 0C240.448 0 238.99 0.411583 237.721 1.18923Z" fill="white" fill-opacity="0.3"></path>
-    </svg>
-  </span>
-</span>
-          <span class="app-brand-text demo menu-text fw-semibold ms-2 ps-1">Materio</span>
+         <img src="https://www.sasanakridakusuma.com/wp-content/uploads/2023/10/FooterLogo.png" alt="Logo Sasana Krida Kusuma" class="app-brand-logo demo logo scaleX-n1-rtl" style="width: 35px;">
+          <span class="app-brand-text demo menu-text fw-semibold ms-2 ps-1">Sasana Krida Kusuma</span>
         </a>
       </div>
       <!-- Menu logo wrapper: End -->
@@ -515,13 +570,50 @@
   </div>
 
 <!-- / Sections:End -->
+ <footer class="footer-dark">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <img src="https://www.sasanakridakusuma.com/wp-content/uploads/2023/10/FooterLogo.png" alt="Logo" class="footer-logo">
+      <p class="footer-desc">Sistem Informasi Gedung Wanita</p>
+    </div>
+
+    <div class="footer-social">
+      <a href="https://wa.me/6281234567890" class="social-link" aria-label="WhatsApp">
+        <!-- WhatsApp SVG -->
+        <svg width="26" height="26" viewBox="0 0 32 32" fill="currentColor">
+          <path d="M16.002 3.2c-7.04 0-12.8 5.76-12.8 12.8 0 2.262.589 4.46 1.707 6.4L3.2 28.8l6.635-1.726A12.734 12.734 0 0 0 16.002 28.8c7.04 0 12.8-5.76 12.8-12.8s-5.76-12.8-12.8-12.8Zm0 23.467a10.6 10.6 0 0 1-5.419-1.52l-.387-.23-3.934 1.024 1.056-3.84-.253-.394a10.607 10.607 0 1 1 8.937 4.96Zm5.973-7.92c-.32-.16-1.92-.96-2.218-1.067-.298-.107-.515-.16-.73.16-.213.32-.837 1.067-1.026 1.28-.19.213-.378.24-.698.08-.32-.16-1.344-.496-2.56-1.584-.947-.843-1.586-1.882-1.773-2.202-.186-.32-.02-.493.14-.653.144-.144.32-.374.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.73-1.76-1-2.4-.264-.64-.535-.554-.73-.56-.187-.007-.4-.01-.613-.01-.213 0-.56.08-.853.4-.293.32-1.12 1.093-1.12 2.666 0 1.573 1.147 3.093 1.306 3.307.16.213 2.253 3.44 5.467 4.72.764.33 1.36.53 1.825.678.766.244 1.462.21 2.013.127.614-.092 1.92-.784 2.194-1.544.273-.76.273-1.413.187-1.544-.08-.133-.293-.213-.613-.373Z"/>
+        </svg>
+      </a>
+
+      <a href="#" class="social-link" aria-label="Facebook">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2V9.5a3 3 0 0 1 3.2-3.3 13 13 0 0 1 1.9.2v2h-1.1c-1.1 0-1.4.7-1.4 1.4V12h2.5l-.4 3h-2.1v7A10 10 0 0 0 22 12"/>
+        </svg>
+      </a>
+
+      <a href="#" class="social-link" aria-label="Instagram">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.51 5.51 0 0 0 12 7.5zm0 2A3.5 3.5 0 1 1 8.5 13 3.5 3.5 0 0 1 12 9.5zm4.75-3.75a1 1 0 1 0 1 1 1 1 0 0 0-1-1z"/>
+        </svg>
+      </a>
+
+      <a href="#" class="social-link" aria-label="YouTube">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21.6 7.2s-.2-1.6-.8-2.3c-.8-.9-1.6-.9-2-1C16.2 3.6 12 3.6 12 3.6h-.1s-4.2 0-6.8.3c-.4.1-1.2.1-2 1-.6.7-.8 2.3-.8 2.3S2 9.2 2 11.2v1.6c0 2 .2 4 2.3 4.5 2.6.3 5.3.3 5.3.3h1.5s4.2 0 6.8-.3c.4-.1 1.2-.1 2-1 .6-.7.8-2.3.8-2.3s.2-1.6.2-3.6v-1.6c-.1-2-.3-3.6-.3-3.6zM10 14.8V9.2l5.3 2.8-5.3 2.8z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-copy">
+    © 2025 Gedung Wanita — All Rights Reserved.
+  </div>
+</footer>
+
 
     
-      <div class="buy-now">
-        <a href="#!" target="_blank" class="btn btn-danger btn-buy-now waves-effect waves-light">Buy Now</a>
-      </div>
+        <div id="whatsappnot" class="floating-wpp" style="left: auto; right: 15px;"></div>
     
-
     
 
     <!-- Core JS -->
@@ -532,6 +624,7 @@
     
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
+    
     <script src="../assets/vendor/libs/node-waves/node-waves.js"></script>
 
     
@@ -545,5 +638,20 @@
 
     <!-- Page JS -->
     <script src="../../assets/js/front-page-landing.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../assets/vendor/js/floating-wpp.min.js"></script>
+    <script>
+     $('#whatsappnot').floatingWhatsApp({
+        phone: '62895343619616',     // nomor WA kamu (pakai format internasional)
+        popupMessage: 'Ada yang bisa dibantu?', 
+        showPopup: true,             // tampilkan popup chat
+        position: 'right',           // left atau right
+        message: 'Halo, saya mau tanya...', 
+        headerTitle: 'Chat dengan Kami',
+        size: '60px',
+        backgroundColor: '#25d366',  // warna tombol
+        showOnIE: false
+    });
+    </script>
     
   </body></html>
