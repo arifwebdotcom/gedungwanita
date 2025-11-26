@@ -13,7 +13,7 @@ class Paket extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'keterangan', 'periodebulan','perminggu','totalsesi','biaya','biayapersesi'];
+    protected $allowedFields    = [];
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
