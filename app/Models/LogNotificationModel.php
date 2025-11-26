@@ -40,14 +40,4 @@ class LogNotification extends Model
     protected $afterDelete    = [];
 
 
-    public function get_agama($numrows,$keywords)
-    {
-        $builder = $this->select('agama_m.*')
-        ->when($keywords, static function ($query, $keywords) {
-            $query->like('agama_m.agama', $keywords);
-        })
-        ->findAll($numrows);
-        return $builder;
-    }
-
 }

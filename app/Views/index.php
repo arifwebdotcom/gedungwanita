@@ -197,7 +197,7 @@
       <ul class="navbar-nav flex-row align-items-center ms-auto">
         
         <li>
-          <a href="../vertical-menu-template/auth-login-cover.html" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4 waves-effect waves-light" target="_blank"> <span class="icon-base ri ri-user-line me-md-1 icon-18px"></span><span class="d-none d-md-block">Login/Register</span></a>
+          <a href="<?= base_url("login");?>" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4 waves-effect waves-light" target="_blank"> <span class="icon-base ri ri-user-line me-md-1 icon-18px"></span><span class="d-none d-md-block">Login/Register</span></a>
         </li>
         <!-- navbar button: End -->
       </ul>
