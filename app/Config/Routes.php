@@ -52,7 +52,7 @@ $routes->group('', [], static function ($routes) {
 });
 
 $routes->get('/', 'IndexController::index', );
-$routes->get('/booking/submit', 'IndexController::bookingStore', ['as' => 'booking.store'] );
+$routes->post('/booking/submit', 'IndexController::bookingStore', ['as' => 'booking.store'] );
 $routes->get('/booking', 'IndexController::booking', );
 $routes->get('/login', 'IndexController::index', ['filter' => 'login','as' => 'home']);
 

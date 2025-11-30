@@ -217,6 +217,7 @@
       <div class="card px-4">
         <div class="row">
           <div class="col-lg-7 card-body border-end p-8 ps-7">
+            <form method="post" action="/booking/submit" id="booking_form">
             <h4 class="mb-2">Form Booking</h4>
             <p class="mb-0">
               Kategori Event
@@ -245,8 +246,7 @@
                 </div>
               </div>
             </div>
-            <h4 class="mb-6">Detail Pemesan</h4>
-            <form method="post" action="/booking/submit" id="booking_form">
+            <h4 class="mb-6">Detail Pemesan</h4>            
               <div class="row g-4">
                 <div class="col-md-6">
                   <div class="form-floating form-floating-outline ">
@@ -324,7 +324,6 @@
                     </div>
                   </div>                  
                 </div>
-              </form>
             </div>
           </div>
           <div class="col-lg-5 card-body p-8 pe-7">
@@ -446,9 +445,12 @@
     
 
     <!-- Page JS -->
+     <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;"></div>
     <script src="../../assets/js/front-page-landing.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../assets/vendor/js/floating-wpp.min.js"></script>
+    <script src="../assets/js/ui-modals.js"></script>
+    <script src="../assets/js/ui-toasts.js"></script>
     <script>
       const paketData = <?= json_encode($paket) ?>;
       document.getElementById('paket').addEventListener('change', function() {

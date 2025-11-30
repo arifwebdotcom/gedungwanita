@@ -4,10 +4,10 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Pendaftaran;
-use App\Models\Member;
+use App\Models\Client;
 use App\Models\Paket;
-use App\Models\Kategori;
-use App\Models\Kelas;
+use App\Models\Tipe;
+use App\Models\Booking;
 use App\Models\JadwalPendaftaran;
 use CodeIgniter\API\ResponseTrait;
 
@@ -79,25 +79,24 @@ class JadwalController extends BaseController
     }
     
     public function datatablelist() {
-        $model = model(Pendaftaran::class)
-        ->select('jadwalpendaftaran_t.id as id,member_m.nama,jadwalpendaftaran_t.kategorifk as idkategori,kategori_m.color,kategori_m.namakategori,jadwalpendaftaran_t.tanggal,jadwalpendaftaran_t.checkin,jadwalpendaftaran_t.kelasfk') 
-        ->join('member_m','member_m.id=pendaftaran_t.memberfk') 
-        ->join('jadwalpendaftaran_t','jadwalpendaftaran_t.pendaftaranfk = pendaftaran_t.id') 
-        ->join('kategori_m','kategori_m.id=jadwalpendaftaran_t.kategorifk')
-        ->where('jadwalpendaftaran_t.deleted_at',null); 
+        $model = model(Booking::class)
+        ->select('booking_t.id as id,client_m.pemesan,booking_t.tipefk as idtipe,tipe_m.color,tipe_m.tipeevent,booking_t.tanggal,booking_t.sesi,booking_t.status') 
+        ->join('client_m','client_m.id=booking_t.clientfk') 
+        ->join('tipe_m','tipe_m.id=booking_t.tipefk')
+        ->where('booking_t.deleted_at',null); 
         //$model = new Pendaftaran(); 
         $data = $model->findAll(); 
         $events = []; 
         foreach ($data as $row) { 
             $events[] = [ 
                 'id' => $row->id, 
-                'title' => $row->nama, 
-                'tooltip' => $row->nama, 
+                'title' => $row->pemesan, 
+                'tooltip' => $row->pemesan, 
                 'start' => $row->tanggal, 
+                'sesi' => $row->sesi, 
                 'color' => $row->color, 
-                'checkin' => $row->checkin, 
-                'kelas' => $row->kelasfk, 
-                'kategori_id' => $row->idkategori, ]; 
+                'status' => $row->status, 
+                'tipe_id' => $row->idtipe, ]; 
         }
 
         return $this->response->setJSON($events);
@@ -119,19 +118,9 @@ class JadwalController extends BaseController
 
     public function index()
     {
-        $this->data['kategori'] = model(Kategori::class)->findAll();
-        $this->data['kelas'] = model(Kelas::class)->findAll();
-        $this->data['member'] = model(Member::class)->findAll();
-        $this->data['paket'] = model(Paket::class)->findAll();
-
-        foreach ($this->data['member'] as &$m) {
-            $birthDate = new \DateTime($m->tgllahir);   // 🔹 pakai \DateTime
-            $today     = new \DateTime('today');          // 🔹 pakai \DateTime
-            $diff      = $birthDate->diff($today);
-
-            // usia dalam tahun bulat
-            $m->usia = $diff->y;
-        }
+        $this->data['tipe'] = model(Tipe::class)->findAll();
+        $this->data['client'] = model(Client::class)->findAll();        
+        $this->data['paket'] = model(Paket::class)->findAll();        
 
         // print_r(json_encode(compact('data')));
         return view('master/jadwal/index',$this->data);

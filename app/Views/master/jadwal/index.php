@@ -56,7 +56,7 @@ $breadcrumb_items = [
                     <label class="form-check-label" for="selectAll">View All</label>
                 </div>
                 <div class="app-calendar-events-filter text-heading">
-                    <?php foreach($kategori as $row){ ?>
+                    <?php foreach($tipe as $row){ ?>
                     <div class="form-check mb-5 ms-2">
                         <input class="form-check-input input-filter"
                             type="checkbox"
@@ -66,10 +66,10 @@ $breadcrumb_items = [
                             checked
                             style="background-color: <?= $row->color ?>; border-color: <?= $row->color ?>;">
                         <label class="form-check-label" for="select-<?= $row->id ?>">
-                        <?= $row->namakategori ?>
+                        <?= $row->tipeevent ?>
                         </label>
                     </div>
-                    <?php } ?>        
+                    <?php } ?>      
                 </div>
         </div>
         <div class="col app-calendar-content col-12 col-md-10" >
@@ -102,36 +102,12 @@ $breadcrumb_items = [
                             <span class="required">Member</span>                            
                         </label>
                         <!--end::Label-->
-                        <select id="member" name="memberfk" class="select2" style="width: 100%;">
-                            <?php foreach($member as $row) {?>
-                            <option value="<?= $row->id; ?>" data-usia="<?= $row->usia; ?>"><?= $row->nama; ?></option>
+                        <select id="client" name="clientfk" class="select2" style="width: 100%;">
+                            <?php foreach($client as $row) {?>
+                            <option value="<?= $row->id; ?>" ><?= $row->pemesan; ?></option>
                             <?php } ?>                            
                         </select>
-                    </div>     
-                    <div class="d-flex flex-column fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">Kelas</span>                            
-                        </label>
-                        <!--end::Label-->
-                        <select id="kelas" name="kelasfk" class="select2" style="width: 100%;">
-                            <?php foreach($kelas as $row) {?>
-                            <option value="<?= $row->id; ?>"><?= $row->kelas; ?></option>
-                            <?php } ?>                            
-                        </select>
-                    </div> 
-                    <div class="d-flex flex-column fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">Kategori</span>                            
-                        </label>
-                        <!--end::Label-->
-                        <select id="kategori" name="kategorifk" class="select2" style="width: 100%;">
-                            <?php foreach($kategori as $row) {?>
-                            <option value="<?= $row->id; ?>"><?= $row->namakategori; ?></option>
-                            <?php } ?>                            
-                        </select>
-                    </div>                       
+                    </div>                                      
                     <div class="d-flex flex-column fv-row">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
@@ -140,88 +116,10 @@ $breadcrumb_items = [
                         <!--end::Label-->
                         <select id="paket" name="paketfk" class="select2" style="width: 100%;">
                             <?php foreach($paket as $row) {?>
-                            <option value="<?= $row->id; ?>"  data-periodebulan="<?= $row->periodebulan; ?>" data-biaya="<?= $row->biaya; ?>"><?= $row->keterangan; ?></option>
+                            <option value="<?= $row->id; ?>"  data-tipefk="<?= $row->tipefk; ?>" ><?= $row->paket; ?></option>
                             <?php } ?>                            
                         </select>
-                    </div>         
-                    <div class="d-flex flex-column fv-row">
-                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">Pilih Hari (multiple)</span>                            
-                        </label>
-                        <select id="hari" name="hari[]" class="select2" multiple="multiple" style="width: 100%;">
-                            <option value="1">Senin</option>
-                            <option value="2">Selasa</option>
-                            <option value="3">Rabu</option>
-                            <option value="4">Kamis</option>
-                            <option value="5">Jum'at</option>
-                            <option value="6">Sabtu</option>
-                        </select>
-                    </div>         
-                    <div class="row">
-                        <div class=" flex-column fv-row col-md-4" id="divjamsesi1">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                <span class="required" id="labeljamsesi1">Jam Hari 1</span>                            
-                            </label>
-                            <!--end::Label-->
-                            <select id="jamsesi1" name="jamsesi1" class="form-control">
-                                <option value="08:00">08:00</option>
-                                <option value="09:00">09:00</option>
-                                <option value="10:00">10:00</option>
-                                <option value="11:00">11:00</option>
-                                <option value="12:00">12:00</option>
-                                <option value="13:00">13:00</option>
-                                <option value="14:00">14:00</option>
-                                <option value="15:00">15:00</option>
-                                <option value="16:00">16:00</option>
-                                <option value="17:00">17:00</option>
-                                <option value="18:00">18:00</option>
-                                <option value="19:00">19:00</option>
-                            </select>
-                        </div>            
-                        <div class=" flex-column fv-row col-md-4" id="divjamsesi2">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                <span class="required" id="labeljamsesi2">Jam Hari 2</span>                            
-                            </label>
-                            <!--end::Label-->
-                            <select id="jamsesi2" name="jamsesi2" class="form-control">
-                                <option value="08:00">08:00</option>
-                                <option value="09:00">09:00</option>
-                                <option value="10:00">10:00</option>
-                                <option value="11:00">11:00</option>
-                                <option value="12:00">12:00</option>
-                                <option value="13:00">13:00</option>
-                                <option value="14:00">14:00</option>
-                                <option value="15:00">15:00</option>
-                                <option value="16:00">16:00</option>
-                                <option value="17:00">17:00</option>
-                                <option value="18:00">18:00</option>
-                                <option value="19:00">19:00</option>
-                            </select>
-                        </div>  
-                        <div class=" flex-column fv-row col-md-4" id="divjamsesi3">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                <span class="required" id="labeljamsesi3">Jam Hari 3</span>                            
-                            </label>
-                            <!--end::Label-->
-                            <select id="jamsesi3" name="jamsesi3" class="form-control">
-                                <option value="08:00">08:00</option>
-                                <option value="09:00">09:00</option>
-                                <option value="10:00">10:00</option>
-                                <option value="11:00">11:00</option>
-                                <option value="12:00">12:00</option>
-                                <option value="13:00">13:00</option>
-                                <option value="14:00">14:00</option>
-                                <option value="15:00">15:00</option>
-                                <option value="16:00">16:00</option>
-                                <option value="17:00">17:00</option>
-                                <option value="18:00">18:00</option>
-                                <option value="19:00">19:00</option>
-                            </select>
-                        </div>            
-                    </div>            
+                    </div>                                      
                     <div class="d-flex flex-column fv-row">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
@@ -488,7 +386,7 @@ $breadcrumb_items = [
   var calendarEl = document.getElementById('calendar');
 
   // ambil semua id kategori dari PHP (default semua dipilih)  
-  var selectedPaket = <?= json_encode(array_map('intval', array_column($kategori, 'id'))); ?>;
+  var selectedPaket = <?= json_encode(array_map('intval', array_column($tipe, 'id'))); ?>;
 
 
   // Set warna awal checkbox sesuai data-color
@@ -595,28 +493,7 @@ $breadcrumb_items = [
                     <input type="checkbox" id="checkin" class="form-check-input" ${checkinDefault ? 'checked' : ''}/>
                 </div>
 
-                <div class="mb-3">
-                    <label for="kelas" class="form-label">Pilih Kelas</label>
-                    <select id="kelas" class="form-select">
-                        <?php foreach($kelas as $row) { ?>
-                        <option value="<?= $row->id; ?>" ${kelasDefault == "<?= $row->id; ?>" ? 'selected' : ''}>
-                            <?= $row->kelas; ?>
-                        </option>
-                        <?php } ?>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label for="kategori" class="form-label">Pilih Kategori</label>
-                    <select id="kategori" class="form-select">
-                        <?php foreach($kategori as $row) { ?>
-                        <option value="<?= $row->id; ?>" ${kategoriDefault == "<?= $row->id; ?>" ? 'selected' : ''}>
-                            <?= $row->namakategori; ?>
-                        </option>
-                        <?php } ?>
-                    </select>
-                </div>
-
+                
                 <div class="mb-3">
                     <label for="tanggal" class="form-label">Ubah Tanggal</label>
                     <input type="datetime-local" id="tanggal" class="form-control" value="${defaultTanggal}">
@@ -706,7 +583,7 @@ $breadcrumb_items = [
         url: url,
         dataType: 'json',
         success: function(response) {
-          let filtered = response.filter(ev => selectedPaket.includes(parseInt(ev.kategori_id)));
+          let filtered = response.filter(ev => selectedPaket.includes(parseInt(ev.tipe_id)));
           successCallback(filtered);
         },
         error: function() {
