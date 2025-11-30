@@ -46,12 +46,11 @@ $breadcrumb_items = [
                             <input class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-13-check">
                         </div>
                     </th>
-                    <th>Keterangan</th>
-                    <th>Bulan</th>
-                    <th>Minggu</th>
-                    <th>Sesi</th>
-                    <th>Biaya</th>
-                    <th>Biaya Per Sesi</th>
+                    <th>Paket</th>
+                    <th>Fasilitas</th>
+                    <th>Harga</th>
+                    <th>Catatan</th>
+                    <th>Syarat</th>
                     <th>Action</th>
                     </tr>
                 </thead>
@@ -80,51 +79,54 @@ $breadcrumb_items = [
             <div class="col mb-6 mt-2">
             <div class="form-floating form-floating-outline">
                 <input type="hidden" name="id" id="id">
-                <textarea class="form-control" name="keterangan" id="keterangan"></textarea>
-                <label for="kelas">Paket</label>
+                <textarea class="form-control" name="paket" id="paket"></textarea>
+                <label for="paket">Nama Paket</label>
             </div>
             </div>
         </div>
         <div class="row g-4">
             <div class="col mb-2">
             <div class="form-floating form-floating-outline">
-                <input type="number" id="bulan" name="bulan" class="form-control" placeholder="1 / 3">
-                <label for="bulan">Bulan</label>
+                <select class="form-select" id="tipe" name="tipe" aria-label="Floating label select example">
+                    <?php foreach ($tipe as $row) : ?>
+                    <option value="<?= $row->id ?>"><?= $row->tipeevent ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="tipe">Tipe</label>
             </div>
             </div>            
         </div>
         <div class="row g-4">
             <div class="col mb-2">
             <div class="form-floating form-floating-outline">
-                <input type="number" id="minggu" name="minggu" class="form-control" placeholder="1 / 2">
-                <label for="minggu">Minggu</label>
+                <input type="number" id="harga" name="harga" class="form-control" placeholder="Harga">
+                <label for="harga">Harga</label>
             </div>
             </div>            
         </div>
         <div class="row g-4">
             <div class="col mb-2">
             <div class="form-floating form-floating-outline">
-                <input type="number" id="totalsesi" name="totalsesi" class="form-control" placeholder="Total Sesi">
-                <label for="totalsesi">Total Sesi</label>
+                <textarea class="form-control" name="fasilitas" id="fasilitas" style="height: 90px;"></textarea>
+                <label for="fasilitas">Fasilitas</label>
             </div>
             </div>            
         </div>
         <div class="row g-4">
             <div class="col mb-2">
             <div class="form-floating form-floating-outline">
-                <input type="text" id="biaya" name="biaya" class="form-control" placeholder="Biaya">
-                <label for="biaya">Biaya</label>
+                <textarea class="form-control" name="catatan" id="catatan" style="height: 90px;"></textarea>
+                <label for="catatan">Catatan</label>
             </div>
-            </div>            
+            </div>
         </div>
         <div class="row g-4">
             <div class="col mb-2">
             <div class="form-floating form-floating-outline">
-                <input type="text" id="biayapersesi" name="biayapersesi" class="form-control" placeholder="Enter Name">
-                <label for="biayapersesi">Biaya Persesi</label>
+                <textarea class="form-control" name="syarat" id="syarat" style="height: 90px;"></textarea>
+                <label for="syarat">Syarat</label>
             </div>
-            </div>            
-        </div>
+            </div>
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
@@ -143,24 +145,34 @@ $breadcrumb_items = [
 <script>
     $(document).ready(function() {
         //$("#paket_table").DataTable();
-        showPaket();
+        showPaket();        
+    });
 
-        function hitungBiayaPerSesi() {
-            let totalSesi = parseInt($('#totalsesi').val()) || 0;
-            let biaya = parseFloat($('#biaya').val().replace(/\./g, '').replace(/,/g, '')) || 0;
-
-            if (totalSesi > 0 && biaya > 0) {
-            let perSesi = Math.ceil(biaya / totalSesi); // 🔹 roundup
-            $('#biayapersesi').val(perSesi);
-            } else {
-            $('#biayapersesi').val('');
-            }
-        }
-
-        $('#totalsesi, #biaya').on('input', function() {
-            hitungBiayaPerSesi();
+    $('#paket_modal').on('shown.bs.modal', function () {        
+        tinymce.remove('#fasilitas');
+        tinymce.init({
+            selector: '#fasilitas',
+            menubar: false,                    // Hilangkan menu File, Edit, View, dll
+            toolbar: 'undo redo | bold italic | bullist numlist',  
+            plugins: 'lists',                  // Cukup plugin list saja
+            height: 200
         });
-
+        tinymce.remove('#catatan');
+        tinymce.init({
+            selector: '#catatan',
+            menubar: false,                    // Hilangkan menu File, Edit, View, dll
+            toolbar: 'undo redo | bold italic | bullist numlist',  
+            plugins: 'lists',                  // Cukup plugin list saja
+            height: 200
+        });
+        tinymce.remove('#syarat');
+        tinymce.init({
+            selector: '#syarat',
+            menubar: false,                    // Hilangkan menu File, Edit, View, dll
+            toolbar: 'undo redo | bold italic | bullist numlist',  
+            plugins: 'lists',                  // Cukup plugin list saja
+            height: 200
+        });
     });
 
     const showPaket = () => {
@@ -174,43 +186,33 @@ $breadcrumb_items = [
                                 <input class="form-check-input widget-13-check" type="checkbox" value="${row.id}">
                             </div>`;
                 }
+            },           
+            {
+                name: "Paket",
+                data: "paket"
             },
             {
-                name: "Keterangan",
-                data: "keterangan"
-            },
-            {
-                name: "Periode Bulan",
+                name: "Fasilitas",
                 data: null, 
                 render: function(data, type, row) {
-                    return row.periodebulan + ' Bulan';
+                    return row.fasilitas;
                 }
             },
             {
-                name: "Periode Minggu",
-                data: "null", 
-                render: function(data, type, row) {
-                    return row.perminggu + ' / minggu ';
-                }
-            },
-            {
-                name: "Total Sesi",
-                data: "totalsesi"
-            },
-            {
-                name: "Biaya",
+                name: "Harga",
                 data: null, 
                 render: function(data, type, row) {
-                    return formatRupiah(row.biaya);
+                    return rupiah(row.harga);
                 }
             },
             {
-                name: "Biaya",
-                data: null, 
-                render: function(data, type, row) {
-                    return formatRupiah(row.biayapersesi);
-                }
+                name: "Catatan",
+                data: "catatan"
             },
+            {
+                name: "Syarat",
+                data: "syarat"
+            },            
             {
                 width: "10%",
                 sortable: false,
@@ -251,6 +253,13 @@ $breadcrumb_items = [
         });
     }
 
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
+
     $('#btn_create').on('click', function() {
         $("#paket_modal #modal_title").text("Tambah Paket");
         $("#paket_modal").modal("show");
@@ -258,12 +267,13 @@ $breadcrumb_items = [
 
     $('#paket_table tbody').on('click', '#edit', function() {
         var data = $('#paket_table').DataTable().row($(this).parents('tr')).data();
-        $("#paket_modal #bulan").val(data.periodebulan);
-        $("#paket_modal #minggu").val(data.perminggu);
-        $("#paket_modal #totalsesi").val(data.totalsesi);
-        $("#paket_modal #biaya").val(data.biaya);
-        $("#paket_modal #biayapersesi").val(data.biayapersesi);
-        $("#paket_modal #keterangan").val(data.keterangan);
+        $("#paket_modal #paket").val(data.paket);
+        $("#paket_modal #tipe").val(data.tipefk);
+        $("#paket_modal #harga").val(data.harga);
+        $("#paket_modal #fasilitas").val(data.fasilitas);
+        $("#paket_modal #catatan").val(data.catatan);
+        $("#paket_modal #syarat").val(data.syarat);
+        $("#paket_modal #file").val(data.file);
         $("#paket_modal #id").val(data.id);
 
         $("#paket_modal #modal_title").text("Edit Paket");

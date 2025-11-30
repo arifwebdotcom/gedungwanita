@@ -4,15 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Paket extends Model
+class Tipe extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'paket_m';
+    protected $table            = 'tipe_m';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
-    protected $protectFields    = false;
+    protected $protectFields    = true;
+    protected $allowedFields    = [];
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
@@ -38,11 +39,11 @@ class Paket extends Model
     protected $afterDelete    = [];
 
 
-    public function get_paket($numrows,$keywords)
+    public function get_tipe($numrows,$keywords)
     {
-        $builder = $this->select('paket_m.*')
+        $builder = $this->select('tipe_m.*')
         ->when($keywords, static function ($query, $keywords) {
-            $query->like('paket_m.paket', $keywords);
+            $query->like('tipe_m.tipe', $keywords);
         })
         ->findAll($numrows);
         return $builder;

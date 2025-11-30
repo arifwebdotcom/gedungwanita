@@ -4,10 +4,10 @@
 <!-- Content Header (Page header) -->
 <?php
 $breadcrumb_items = [
-    'title' => 'Kategori',
+    'title' => 'Client',
     'items' => [
         ['name' => 'Master', 'active' => false],
-        ['name' => 'Kategori', 'active' => true]
+        ['name' => 'Client', 'active' => true]
     ]
 ];
 ?>
@@ -16,11 +16,11 @@ $breadcrumb_items = [
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-3 mb-1">Master Kategori</span>
-            <span class="text-muted mt-1 fw-bold fs-7">Data Kategori</span>
+            <span class="card-label fw-bolder fs-3 mb-1">Master</span>
+            <span class="text-muted mt-1 fw-bold fs-7">Data Client</span>
         </h3>
         <div class="card-toolbar">            
-            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kategori_modal">
+            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#client_modal">
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
             <span class="svg-icon svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -28,7 +28,7 @@ $breadcrumb_items = [
                     <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                 </svg>
             </span>
-            <!--end::Svg Icon-->Tambah Kategori</a>
+            <!--end::Svg Icon-->Tambah Client</a>
         </div>
     </div>
     <!--end::Header-->
@@ -38,7 +38,7 @@ $breadcrumb_items = [
         <div class="table-responsive">
             <!--begin::Table-->
             <div class="table-responsive text-nowrap">
-                <table class="table" id="kategori_table"  style="width:100%">
+                <table class="table" id="client_table"  style="width:100%">
                 <thead>
                     <tr>
                     <th class="w-25px rounded-start">
@@ -46,12 +46,13 @@ $breadcrumb_items = [
                             <input class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-13-check">
                         </div>
                     </th>
-                    <th>Kategori</th>
-                    <th>Usia</th>
-                    <th>Durasi</th>
-                    <th>Kapasitas</th>
-                    <th>Tipe</th>
-                    <th>Warna</th>
+                    <th>Pemesan</th>
+                    <th>Mempelai</th>
+                    <th>Tanggal</th>
+                    <th>Paket</th>
+                    <th>Status</th>
+                    <th>Tgl Booking</th>
+                    <th>NoHP</th>
                     <th>Action</th>
                     </tr>
                 </thead>
@@ -67,7 +68,7 @@ $breadcrumb_items = [
     <!--begin::Body-->
 </div>
 <!--end::Tables Widget 11-->
-<div class="modal fade" id="kategori_modal" tabindex="-1" aria-modal="true" role="dialog">
+<div class="modal fade" id="client_modal" tabindex="-1" aria-modal="true" role="dialog">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -75,78 +76,139 @@ $breadcrumb_items = [
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        <form id="kategori_form" class="form" >
+        <form id="client_form" class="form" >
+        
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="text" id="pemesan" name="pemesan" class="form-control" placeholder="Pemesan">
+                <label for="pemesan">Pemesan</label>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email">
+                <label for="email">Email</label>
+            </div>
+        </div>
+
+        <!-- No HP -->
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="text" id="nohp" name="nohp" class="form-control" placeholder="No HP">
+                <label for="nohp">No HP</label>
+            </div>
+        </div>
+
+        <!-- CPP -->
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="text" id="cpp" name="cpp" class="form-control" placeholder="CPP">
+                <label for="cpp">CPP</label>
+            </div>
+        </div>
+
+        <!-- IG CPP -->
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="text" id="igcpp" name="igcpp" class="form-control" placeholder="Instagram CPP">
+                <label for="igcpp">IG CPP</label>
+            </div>
+        </div>
+
+        <!-- CPW -->
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="text" id="cpw" name="cpw" class="form-control" placeholder="CPW">
+                <label for="cpw">CPW</label>
+            </div>
+        </div>
+
+        <!-- IG CPW -->
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="text" id="igcpw" name="igcpw" class="form-control" placeholder="Instagram CPW">
+                <label for="igcpw">IG CPW</label>
+            </div>
+        </div>
+
+        <!-- No HP Saudara -->
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="text" id="nohpsaudara" name="nohpsaudara" class="form-control" placeholder="No HP Saudara">
+                <label for="nohpsaudara">No HP Saudara</label>
+            </div>
+        </div>
+
+        <!-- Tanggal -->
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="date" id="tanggal" name="tanggal" class="form-control" placeholder="Tanggal">
+                <label for="tanggal">Tanggal</label>
+            </div>
+        </div>
+
         <div class="row">
-            <div class="col mb-6 mt-2">
-            <div class="form-floating form-floating-outline">
-                <input type="hidden" name="id" id="id">
-                <select class="form-control" name="kelasfk">
-                    <?php foreach($kelas as $row) {?>
-                        <option value="<?= $row->id; ?>"><?= $row->kelas; ?></option>
-                    <?php } ?> 
-                </select>
-                <label for="kelas">Kelas</label>
-            </div>
-            </div>
-        </div>
-        <div class="row g-4">
-            <div class="col mb-2">
-            <div class="form-floating form-floating-outline">
-                <input type="text" id="namakategori" name="namakategori" class="form-control" placeholder="Enter Name">
-                <label for="namakategori">Kategori</label>
-            </div>
-            </div>            
-        </div>
-        <div class="row g-4">
-            <div class="col mb-2">
-                <div class="form-floating form-floating-outline">                    
-                    <label class="form-label" style="padding-left: 0px!important;">Warna</label><br><p>
-                    <div id="picker"></div>
-                    <input type="hidden" id="warna" name="warna" value="#000000">                    
-                </div>
-            </div>                               
-        </div>
-        <div class="row g-4">
+            <!-- Sesi -->
             <div class="col-md-6 mb-2">
                 <div class="form-floating form-floating-outline">
-                    <input type="number" step="0.1" id="usiaawal" name="usiaawal" class="form-control" placeholder="Enter Name">
-                    <label for="usiaawal">Usia Awal</label>
-                </div>
-            </div>            
-            <div class="col-md-6 mb-2">
-                <div class="form-floating form-floating-outline">
-                    <input type="number" step="0.1" id="usiaakhir" name="usiaakhir" class="form-control" placeholder="Enter Name">
-                    <label for="usiaakhir">Usia Akhir</label>
-                </div>
-            </div>            
-        </div>
-        <div class="row g-4">
-            <div class="col mb-2">
-                <div class="form-floating form-floating-outline">
-                    <input type="text" id="durasi" name="durasi" class="form-control" placeholder="Durasi">
-                    <label for="durasi">Durasi</label>
-                </div>
-            </div>                               
-        </div>
-        <div class="row g-4">
-            <div class="col mb-2">
-                <div class="form-floating form-floating-outline">
-                    <input type="text" id="kapasitas" name="kapasitas" class="form-control" placeholder="Kapasitas">
-                    <label for="kapasitas">Kapasitas</label>
-                </div>
-            </div>                               
-        </div>        
-        <div class="row g-4">
-            <div class="col mb-2">
-                <div class="form-floating form-floating-outline">
-                    <select class="form-control" name="tipe">                        
-                        <option value="REGULER">REGULER</option>                        
-                        <option value="TRIAL">TRIAL</option>                        
+                    <select id="sesi" name="sesi" class="form-select">
+                        <option value="PAGI">PAGI</option>
+                        <option value="SIANG">SIANG</option>
+                        <option value="MALAM">MALAM</option>
                     </select>
-                    <label for="tipe">Tipe</label>
+                    <label for="sesi">Sesi</label>
                 </div>
-            </div>                               
-        </div>                
+            </div>
+
+        <!-- Status -->
+         
+           <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <select id="status" name="status" class="form-select">
+                        <option value="KEEP">KEEP</option>
+                        <option value="DP">DP</option>
+                        <option value="50%">50%</option>
+                        <option value="LUNAS">LUNAS</option>
+                    </select>
+                    <label for="status">Status</label>
+                </div>
+            </div>
+         </div>
+
+            <!-- Paket -->
+            <div class="col-md-12 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="text" id="paket" name="paket" class="form-control" placeholder="Paket">
+                    <label for="paket">Paket</label>
+                </div>
+            </div>
+
+        <!-- Detail -->
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <textarea id="detail" name="detail" class="form-control" style="height: 120px" placeholder="Detail"></textarea>
+                <label for="detail">Detail</label>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Harga Asli -->
+            <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="number" step="0.01" id="hargaasli" name="hargaasli" class="form-control" placeholder="Harga Asli">
+                    <label for="hargaasli">Harga Asli</label>
+                </div>
+            </div>
+
+        <!-- Harga Deal -->
+            <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="number" step="0.01" id="hargadeal" name="hargadeal" class="form-control" placeholder="Harga Deal">
+                    <label for="hargadeal">Harga Deal</label>
+                </div>
+            </div>    
+        </div>
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
@@ -164,8 +226,8 @@ $breadcrumb_items = [
 
 <script>
     $(document).ready(function() {
-        //$("#kategori_table").DataTable();
-        showKategori();
+        //$("#client_table").DataTable();
+        showClient();
 
        
     });
@@ -193,7 +255,7 @@ $breadcrumb_items = [
             $('#warna').val(hexa);
             });
 
-    const showKategori = () => {
+    const showClient = () => {      
         console.log("show");
         const columns = [
             {
@@ -206,41 +268,35 @@ $breadcrumb_items = [
                 }
             },
             {
-                name: "Kategori",
-                data: "namakategori"
+                name: "Pemesan",
+                data: "pemesan"
             },
             {
-                name: "Usia",
-                data: null, 
-                render: function(data, type, row) {
-                    return row.usiaawal + ' - ' + row.usiaakhir+ ' Tahun';
-                }
+                name: "Mempelai",
+                data: "mempelai"
             },
             {
-                name: "Durasi",
+                name: "Tanggal",
                 data: "null", 
                 render: function(data, type, row) {
-                    return row.durasi + ' menit ';
+                    return row.tanggal + ' ~ ' + row.sesi;
                 }
             },
             {
-                name: "Kapasitas",
-                data: "kapasitas"
+                name: "Paket",
+                data: "paket"
             },
             {
-                name: "Tipe",
-                data: "tipe"
+                name: "Status",
+                data: "status"
             },
             {
-                name: "Warna",
-                data: "color",
-                render: function (data, type, row) {
-                    if (!data) return '';
-                    return `<span class="badge rounded-pill" 
-                                style="background-color:${data}; color:#fff;">
-                                ${data}
-                            </span>`;
-                }
+                name: "Tgl Booking",
+                data: "created_at"
+            },
+            {
+                name: "NoHP",
+                data: "nohp"
             },
             {
                 width: "10%",
@@ -259,12 +315,12 @@ $breadcrumb_items = [
         ];
 
 
-        var table = $('#kategori_table').DataTable({
+        var table = $('#client_table').DataTable({
             searching: true,
             destroy: true,
             lengthChange: false,
             ajax: {
-                url: "<?= route_to('kategori.datatable') ?>",
+                url: "<?= route_to('client.datatable') ?>",
             },
             columns: columns,
             "dom":
@@ -283,31 +339,31 @@ $breadcrumb_items = [
     }
 
     $('#btn_create').on('click', function() {
-        $("#kategori_modal #modal_title").text("Tambah Kategori");
-        $("#kategori_modal").modal("show");
+        $("#client_modal #modal_title").text("Tambah Client");
+        $("#client_modal").modal("show");
     });
 
-    $('#kategori_table tbody').on('click', '#edit', function() {
-        var data = $('#kategori_table').DataTable().row($(this).parents('tr')).data();
-        $("#kategori_modal #namakategori").val(data.namakategori);
-        $("#kategori_modal #usiaawal").val(data.usiaawal);
-        $("#kategori_modal #usiaakhir").val(data.usiaakhir);
-        $("#kategori_modal #durasi").val(data.durasi);
-        $("#kategori_modal #kapasitas").val(data.kapasitas);
-        $("#kategori_modal #warna").val(data.color);
+    $('#client_table tbody').on('click', '#edit', function() {
+        var data = $('#client_table').DataTable().row($(this).parents('tr')).data();
+        $("#client_modal #namaclient").val(data.namaclient);
+        $("#client_modal #usiaawal").val(data.usiaawal);
+        $("#client_modal #usiaakhir").val(data.usiaakhir);
+        $("#client_modal #durasi").val(data.durasi);
+        $("#client_modal #kapasitas").val(data.kapasitas);
+        $("#client_modal #warna").val(data.color);
         let color = data.color; // ambil dari atribut data-color
         pickr.setColor(color); // set default sesuai warna row
         //pickr.show();
-        $("#kategori_modal #id").val(data.id);
-        $("#kategori_modal #modal_title").text("Edit Kategori");
-        $("#kategori_modal").modal("show");
+        $("#client_modal #id").val(data.id);
+        $("#client_modal #modal_title").text("Edit Client");
+        $("#client_modal").modal("show");
     });
 
-    $('#kategori_table tbody').on('click', '#delete', function() {
-        var data = $('#kategori_table').DataTable().row($(this).parents('tr')).data();
+    $('#client_table tbody').on('click', '#delete', function() {
+        var data = $('#client_table').DataTable().row($(this).parents('tr')).data();
         Swal.fire({
             title: "Apakah anda yakin?",
-            text: "data "+data.kategori+" akan dihapus dari sistem",
+            text: "data "+data.client+" akan dihapus dari sistem",
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Ya, Silahkan!",
@@ -316,7 +372,7 @@ $breadcrumb_items = [
         }).then(function(result) {
             if (result.value) {
                 $.ajax({
-                    url: `<?= base_url() ?>kategori/delete/${data.id}`,
+                    url: `<?= base_url() ?>client/delete/${data.id}`,
                     type: 'post',
                     dataType: 'json',
                     data: "id="+data.id,
@@ -335,7 +391,7 @@ $breadcrumb_items = [
                     success: function(response) {
                         Swal.close()
                         if (response.status) {                
-                            showKategori();
+                            showClient();
                             toastr.warning(response.messages);
                         } else {
                             toastr.error("Gagal!");
@@ -346,7 +402,7 @@ $breadcrumb_items = [
                     }
                 });
             } else if (result.dismiss === "cancel") {
-                toastr.error("data "+data.kategori+" tidak jadi dihapus");                
+                toastr.error("data "+data.client+" tidak jadi dihapus");                
             }
         });
         
@@ -355,17 +411,17 @@ $breadcrumb_items = [
     });
 
 
-    $('#kategori_modal').on('hidden.bs.modal', function(e) {
+    $('#client_modal').on('hidden.bs.modal', function(e) {
         $(this).find("input,textarea").val('').end();
     }) 
 
-    $('#kategori_form').on('submit', function(e) {
+    $('#client_form').on('submit', function(e) {
         e.preventDefault()
         var form_data = $(this).serializeArray();
-        let id = $('#kategori_form #id').val();
+        let id = $('#client_form #id').val();
         let route = (id != '') ?
-            `<?= base_url() ?>kategori/${id}/edit` :
-            "<?= route_to('kategori.store') ?>";
+            `<?= base_url() ?>client/${id}/edit` :
+            "<?= route_to('client.store') ?>";
         
         $.ajax({
             url: route,
@@ -374,8 +430,8 @@ $breadcrumb_items = [
             data: form_data,
             success: function(response) {                
                 if (response.status) {
-                    $("#kategori_modal").modal("hide");
-                    showKategori();
+                    $("#client_modal").modal("hide");
+                    showClient();
                     toastr.success(response.messages,"Sukses");
                 } else {
                     toastr.error("Gagal!","Error");

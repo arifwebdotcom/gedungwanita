@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Paket;
+use App\Models\Tipe;
 use CodeIgniter\API\ResponseTrait;
 
 class PaketController extends BaseController
@@ -19,6 +20,7 @@ class PaketController extends BaseController
     public function index()
     {
         $this->data['paket'] = model(Paket::class)->findAll();
+        $this->data['tipe'] = model(Tipe::class)->findAll();
 
         // print_r(json_encode(compact('data')));
         return view('master/paket/index',$this->data);
@@ -38,12 +40,13 @@ class PaketController extends BaseController
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
 
-        $request['keterangan'] = $this->request->getPost('keterangan');
-        $request['periodebulan'] = $this->request->getPost('bulan');
-        $request['perminggu'] = $this->request->getPost('minggu');
-        $request['totalsesi'] = $this->request->getPost('totalsesi');
-        $request['biaya'] = $this->request->getPost('biaya');
-        $request['biayapersesi'] = $this->request->getPost('biayapersesi');
+        $request['paket'] = $this->request->getPost('paket');
+        $request['tipefk'] = $this->request->getPost('tipe');
+        $request['harga'] = $this->request->getPost('harga');
+        $request['fasilitas'] = $this->request->getPost('fasilitas');
+        $request['catatan'] = $this->request->getPost('catatan');
+        $request['syarat'] = $this->request->getPost('syarat');
+        $request['file'] = $this->request->getPost('file');
         model(Paket::class)->insert($request);
 
         return $this->respondCreated([
@@ -66,12 +69,13 @@ class PaketController extends BaseController
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
 
-        $request['keterangan'] = $this->request->getPost('keterangan');
-        $request['periodebulan'] = $this->request->getPost('bulan');
-        $request['perminggu'] = $this->request->getPost('minggu');
-        $request['totalsesi'] = $this->request->getPost('totalsesi');
-        $request['biaya'] = $this->request->getPost('biaya');
-        $request['biayapersesi'] = $this->request->getPost('biayapersesi');
+        $request['paket'] = $this->request->getPost('paket');
+        $request['tipefk'] = $this->request->getPost('tipe');
+        $request['harga'] = $this->request->getPost('harga');
+        $request['fasilitas'] = $this->request->getPost('fasilitas');
+        $request['catatan'] = $this->request->getPost('catatan');
+        $request['syarat'] = $this->request->getPost('syarat');
+        $request['file'] = $this->request->getPost('file');
         $request['updated_at'] = date("Y-m-d H:i:s");
         $request['id'] = $id;
         model(Paket::class)->save($request);
@@ -97,7 +101,7 @@ class PaketController extends BaseController
         model(Paket::class)->where('id', $id)->delete();
         return $this->respondUpdated([
             'status' => true,
-            'messages' => 'Data paket berhasil diubah.',
+            'messages' => 'Data paket berhasil dihapus.',
         ]);
     }
 }

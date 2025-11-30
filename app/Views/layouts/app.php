@@ -12,12 +12,12 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
 
-    <title>FunFit</title>
+    <title>Sasana Krida Kusuma</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/img/funfit.png" />
+    <link rel="icon" type="image/x-icon" href="/assets/img/logo.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,12 +43,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
 
-    
-
-
+   
 	<!-- <link rel="stylesheet" href="../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css"> -->
 	<!-- DataTables CSS -->
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+ <!-- TinyMCE JS -->
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js"></script>
+
 
 
     <!-- Vendors CSS -->
@@ -82,7 +83,8 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo" style="width:100%">
             <a href="<?= route_to('jadwal.index') ?>" class="app-brand-link">
-              <img src="/assets/img/funfit.png" class="img" style="width: 100%;height: auto;max-height: 65px;object-fit: scale-down">
+              <img src="/assets/img/logo.png" class="img" style="width: 100%;height: auto;max-height: 35px;object-fit: scale-down">
+              Sasana Krida Kusuma
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -104,27 +106,13 @@
             <li class="menu-header mt-7">
               <span class="menu-header-text">Master Data</span>
             </li>
-            <li class="menu-item <?= url_is('member*') ? 'active' : '' ?>">
-              <a href="<?= route_to('member.index') ?>" class="menu-link">
+            <li class="menu-item <?= url_is('client*') ? 'active' : '' ?>">
+              <a href="<?= route_to('client.index') ?>" class="menu-link">
                 <i class="menu-icon icon-base ri ri-grid-line"></i>
-                <div data-i18n="Email">Member</div>
+                <div data-i18n="Email">Client</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
-            </li>        
-            <li class="menu-item <?= url_is('kelas*') ? 'active' : '' ?>">
-              <a href="<?= route_to('kelas.index') ?>" class="menu-link">
-                <i class="menu-icon icon-base ri ri-grid-line"></i>
-                <div data-i18n="Email">Kelas</div>
-                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
-              </a>
-            </li>          
-             <li class="menu-item <?= url_is('kategori*') ? 'active' : '' ?>">
-              <a href="<?= route_to('kategori.index') ?>" class="menu-link">
-                <i class="menu-icon icon-base ri ri-grid-line"></i>
-                <div data-i18n="Email">Kategori</div>
-                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
-              </a>
-            </li>   
+            </li>                  
             <li class="menu-item <?= url_is('paket*') ? 'active' : '' ?>">
               <a href="<?= route_to('paket.index') ?>" class="menu-link">
                 <i class="menu-icon icon-base ri ri-grid-line"></i>

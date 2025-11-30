@@ -1,7 +1,7 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
-use App\Controllers\KategoriController;
+use App\Controllers\ClientController;
 use App\Controllers\AnnouncementController;
 use App\Controllers\PengajuanController;
 use App\Controllers\InvoiceController;
@@ -52,6 +52,8 @@ $routes->group('', [], static function ($routes) {
 });
 
 $routes->get('/', 'IndexController::index', );
+$routes->get('/booking/submit', 'IndexController::bookingStore', ['as' => 'booking.store'] );
+$routes->get('/booking', 'IndexController::booking', );
 $routes->get('/login', 'IndexController::index', ['filter' => 'login','as' => 'home']);
 
 $routes->group('profile', ['filter' => 'login'],function ($routes) {
@@ -59,12 +61,12 @@ $routes->group('profile', ['filter' => 'login'],function ($routes) {
     $routes->post('editharga', [ProfileController::class, 'update'], ['as' => 'profile.update']);
 });
 
-$routes->group('kategori', ['filter' => 'login'],function ($routes) {
-    $routes->get('/', [KategoriController::class, 'index'], ['as' => 'kategori.index']);
-    $routes->post('store', [KategoriController::class, 'store'], ['as' => 'kategori.store']);
-    $routes->get('datatable', [KategoriController::class, 'datatable'], ['as' => 'kategori.datatable']);
-    $routes->post('(:num)/edit', [KategoriController::class, 'update'], ['as' => 'kategori.update']);
-    $routes->post('delete/(:num)', [KategoriController::class, 'delete'], ['as' => 'kategori.delete']);    
+$routes->group('client', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [ClientController::class, 'index'], ['as' => 'client.index']);
+    $routes->post('store', [ClientController::class, 'store'], ['as' => 'client.store']);
+    $routes->get('datatable', [ClientController::class, 'datatable'], ['as' => 'client.datatable']);
+    $routes->post('(:num)/edit', [ClientController::class, 'update'], ['as' => 'client.update']);
+    $routes->post('delete/(:num)', [ClientController::class, 'delete'], ['as' => 'client.delete']);
 });
 
 $routes->group('laporan', ['filter' => 'login'],function ($routes) {
