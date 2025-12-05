@@ -26,19 +26,7 @@ class AnnouncementController extends BaseController
 
     public function store() {
         helper(['form', 'url']);
-        // $setRules = [            
-        //     'announcement' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Kolom announcement wajib diisi.'
-        //         ],
-        //     ],
-        // ];  
-
-        // if (!$this->validate($setRules)) {
-        //     return $this->failValidationErrors($this->validator->getErrors());
-        // }
-
+        
         $input = $this->validate([
             'file' => [
                 'uploaded[file]',

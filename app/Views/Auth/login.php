@@ -17,7 +17,7 @@
             <!-- /Logo -->
 
             <div class="card-body mt-1">
-              <h4 class="mb-1">Welcome to FunFit! 👋🏻</h4>
+              <h4 class="mb-1">Welcome to Sasana Krida Kusuma! 👋🏻</h4>
               <p class="mb-5">Please sign-in to your account and start the adventure</p>
              <?= view('Myth\Auth\Views\_message_block') ?>
               <form id="formAuthentication" novalidate="novalidate" class="mb-5" action="<?= url_to('login') ?>" method="POST">

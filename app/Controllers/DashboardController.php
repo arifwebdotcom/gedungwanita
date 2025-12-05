@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\Agama;
+use App\Models\Booking;
 use App\Models\Setting;
 use App\Models\Asosiasi;
 use App\Models\Invoice;
@@ -18,73 +18,70 @@ class DashboardController extends BaseController
     use ResponseTrait;
 
     public function index(){
-        $this->data['userData'] = $this->userData;
+        $this->data['userData'] = '-';
         //return view('layouts/app');
         return view('dashboard/dashboard',$this->data);
     }
 
-    public function payment(){
-        \Midtrans\Config::$serverKey = 'SB-Mid-server-c_BeG1nsGdJxwveXVqhagZOu';
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
+    public function grouped()
+    {
+        $start = $this->request->getGet('start_date');
+        $end   = $this->request->getGet('end_date');
 
-        $invoicefk = $this->request->getPost('id');
-
-        $datatransaction['user_id'] = user()->id;
-        $datatransaction['status'] = 'inquiry';
-        $datatransaction['invoicefk'] = $invoicefk;
-        $datatransaction['amount'] = $this->request->getPost('amount');
-        $TransactionModel = new TransactionModel();
-        $TransactionModel->insert($datatransaction);
-
-        // Get the last insert ID
-        $users_transaction_id = $TransactionModel->getInsertID();
-        
-        $detailinvoice = model(Invoice::class)->getDetailInvoiceNumber($invoicefk);
-        //dd($detailinvoice);
-        $item_details = array();
-        $gross_amount = 0;
-        foreach($detailinvoice  as $key => $row){
-            $datatransactiondetail['users_transaction_id'] = $users_transaction_id;
-            $datatransactiondetail['name'] = $row->nama;
-            $datatransactiondetail['qty'] = $row->qty;
-            $datatransactiondetail['price'] = $row->harga;
-            $datatransactiondetail['subtotal'] = $row->subtotal;
-            $gross_amount = $gross_amount+$row->subtotal;
-        
-            $TransactionDetailModel = new TransactionDetailModel();
-            $TransactionDetailModel->insert($datatransactiondetail);
-            $users_transaction_detail_id = $TransactionModel->getInsertID();
-            array_push($item_details,array("id"=>$users_transaction_detail_id,"price"=>$row->harga,"quantity"=>$row->qty,"name"=>$row->nama));
-            
+        // Default awal & akhir tahun ini jika tidak diberikan
+        if (!$start || !$end) {
+            $start = date('Y-01-01');
+            $end   = date('Y-12-31');
         }
 
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => $users_transaction_id,
-                'gross_amount' => $gross_amount,
-            ),
-            "item_details" => $item_details,
-            'customer_details' => array(
-                'first_name' => $this->request->getPost('namapeternak'),
-                'last_name' => ' ',
-                'email' => $this->request->getPost('email'),
-                'phone' => $this->request->getPost('notelp'),
-            ),
-        );
-        
-        //print_r($params);
-        
-        return $this->respondCreated([
-            'status' => true,
-            'params' => $params,
-            'snapToken' => \Midtrans\Snap::getSnapToken($params),
-            'messages' => 'Data doc berhasil ditambahkan.',
-        ]);
+        $bookingModel = new Booking();
+
+        // Gunakan alias 'bulan' untuk DATE_FORMAT supaya aman dipakai di GROUP/ORDER
+        $builder = $bookingModel->select("
+                DATE_FORMAT(tanggal, '%Y-%m') AS bulan,
+                SUM(status = 'KEEP')  AS keep_count,
+                SUM(status = 'DP')    AS dp_count,
+                SUM(status = '50%')   AS fifty_count,
+                SUM(status = 'LUNAS') AS lunas_count
+            ")
+            ->where('tanggal >=', $start)
+            ->where('tanggal <=', $end)
+            ->groupBy('bulan')                   // gunakan alias
+            ->orderBy('bulan', 'ASC');           // gunakan alias
+
+        $data = $builder->get()->getResultArray();
+
+        $months = [
+            '01' => 'Januari',
+            '02' => 'Februari',
+            '03' => 'Maret',
+            '04' => 'April',
+            '05' => 'Mei',
+            '06' => 'Juni',
+            '07' => 'Juli',
+            '08' => 'Agustus',
+            '09' => 'September',
+            '10' => 'Oktober',
+            '11' => 'November',
+            '12' => 'Desember'
+        ];
+
+        // Optional: pastikan angka dikembalikan sebagai integer (bukan string)
+        foreach ($data as &$row) {
+            $parts = explode('-', $row['bulan']); // [0]=tahun , [1]=bulan
+
+            $tahun = $parts[0];
+            $bulan = $parts[1];
+
+            $row['bulan_indonesia'] = $months[$bulan] . " " . $tahun;
+
+            $row['keep_count']  = (int) $row['keep_count'];
+            $row['dp_count']    = (int) $row['dp_count'];
+            $row['fifty_count'] = (int) $row['fifty_count'];
+            $row['lunas_count'] = (int) $row['lunas_count'];
+        }
+
+        return $this->respond($data);
     }
 
     public function datapie()
@@ -112,16 +109,5 @@ class DashboardController extends BaseController
 
     }
 
-    public function update($id) {
-
-        $request['bersediamembayar'] = ($this->request->getPost('bersediamembayar')?"1":"0");
-        $request['id'] = $id;
-        model(UserModels::class)->save($request);
-
-        return $this->respondUpdated([
-            'status' => true,
-            'messages' => 'Terima kasih anda Bersedia membayar.',
-        ]);
-    }
 
 }

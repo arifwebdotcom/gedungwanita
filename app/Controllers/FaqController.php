@@ -3,33 +3,33 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\Kelas;
+use App\Models\Faq;
 use CodeIgniter\API\ResponseTrait;
 
-class KelasController extends BaseController
+class FaqController extends BaseController
 {
     use ResponseTrait;
 
     public function datatable() {
-        $data = model(Kelas::class)->findAll();
+        $data = model(Faq::class)->findAll();
 
         return json_encode(compact('data'));
     }
 
     public function index()
     {
-        $this->data['kelas'] = model(Kelas::class)->findAll();
+        $this->data['faq'] = model(Faq::class)->findAll();
 
         // print_r(json_encode(compact('data')));
-        return view('master/kelas/index',$this->data);
+        return view('master/faq/index',$this->data);
     }
 
     public function store() {
         // $setRules = [            
-        //     'kelas' => [
+        //     'faq' => [
         //         'rules' => 'required',
         //         'errors' => [
-        //             'required' => 'Kolom kelas wajib diisi.'
+        //             'required' => 'Kolom faq wajib diisi.'
         //         ],
         //     ],
         // ];  
@@ -38,24 +38,23 @@ class KelasController extends BaseController
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
 
-        $request['kelas'] = $this->request->getPost('kelas');
-        $request['keterangan'] = $this->request->getPost('keterangan');
-        $request['untukvendor'] = $this->request->getPost('untukvendor');
-        $request['untukfunfit'] = $this->request->getPost('untukfunfit');
-        model(Kelas::class)->insert($request);
+        $request['pertanyaan'] = $this->request->getPost('pertanyaan');
+        $request['jawaban'] = $this->request->getPost('jawaban');
+        $request['prioritas'] = $this->request->getPost('prioritas');
+        model(Faq::class)->insert($request);
 
         return $this->respondCreated([
             'status' => true,
-            'messages' => 'Data kelas berhasil ditambahkan.',
+            'messages' => 'Data faq berhasil ditambahkan.',
         ]);
     }
 
     public function update($id) {
         // $setRules = [            
-        //     'kelas' => [
+        //     'faq' => [
         //         'rules' => 'required',
         //         'errors' => [
-        //             'required' => 'Kolom kelas wajib diisi.'
+        //             'required' => 'Kolom faq wajib diisi.'
         //         ],
         //     ],
         // ];
@@ -64,25 +63,24 @@ class KelasController extends BaseController
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
 
-        $request['kelas'] = $this->request->getPost('kelas');
-        $request['keterangan'] = $this->request->getPost('keterangan');
-        $request['untukvendor'] = $this->request->getPost('untukvendor');
-        $request['untukfunfit'] = $this->request->getPost('untukfunfit');
+        $request['pertanyaan'] = $this->request->getPost('pertanyaan');
+        $request['jawaban'] = $this->request->getPost('jawaban');
+        $request['prioritas'] = $this->request->getPost('prioritas');
         $request['id'] = $id;
-        model(Kelas::class)->save($request);
+        model(Faq::class)->save($request);
 
         return $this->respondUpdated([
             'status' => true,
-            'messages' => 'Data kelas berhasil diubah.',
+            'messages' => 'Data faq berhasil diubah.',
         ]);
     }
 
     public function delete($id)
     {
-        model(Kelas::class)->where('id', $id)->delete();
+        model(Faq::class)->where('id', $id)->delete();
         return $this->respondUpdated([
             'status' => true,
-            'messages' => 'Data kelas berhasil diubah.',
+            'messages' => 'Data faq berhasil diubah.',
         ]);
     }
 }

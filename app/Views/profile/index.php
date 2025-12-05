@@ -1,394 +1,230 @@
 <?= $this->extend('layouts/app'); ?>
 
 <?= $this->section('content'); ?>
-
-
-<div class="card mb-5 mb-xl-8">
-    <div class="card-body pt-9 pb-0">
-        <!--begin::Details-->
-        <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
-            <!--begin: Pic-->
-            <div class="me-7 mb-4">
-                <?php 
-                if(user()->avatar != null){    
-                    $avatar_user = base_url()."uploads/".user()->avatar;
-                }else{
-                    $avatar_user = base_url()."assets/media/avatars/blank.png";
-                }?>
-                <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                    <img src="<?= $avatar_user ?>" alt="image" />
-                    <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
+<div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">          
+            <div class="row">
+                <div class="col-md-12">
+                <div class="nav-align-top">
+                    <ul class="nav nav-pills flex-column flex-md-row mb-6 gap-2 gap-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="pages-account-settings-account.html"><i class="icon-base ri ri-group-line icon-sm me-1_5"></i> Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active waves-effect waves-light" href="javascript:void(0);"><i class="icon-base ri ri-notification-4-line icon-sm me-1_5"></i> Notifikasi</a>
+                    </li>
+                    </ul>
                 </div>
-            </div>
-            <!--end::Pic-->
-            <!--begin::Info-->
-            <div class="flex-grow-1">
-                <!--begin::Title-->
-                <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
-                    <!--begin::User-->
-                    <div class="d-flex flex-column">
-                        <!--begin::Name-->
-                        <div class="d-flex align-items-center mb-2">
-                            <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1"><?= $profile->namapeternakan ?></a>
-                            <a href="#">
-                                <!--begin::Svg Icon | path: icons/duotune/general/gen026.svg-->
-                                <span class="svg-icon svg-icon-1 svg-icon-primary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-                                        <path d="M10.0813 3.7242C10.8849 2.16438 13.1151 2.16438 13.9187 3.7242V3.7242C14.4016 4.66147 15.4909 5.1127 16.4951 4.79139V4.79139C18.1663 4.25668 19.7433 5.83365 19.2086 7.50485V7.50485C18.8873 8.50905 19.3385 9.59842 20.2758 10.0813V10.0813C21.8356 10.8849 21.8356 13.1151 20.2758 13.9187V13.9187C19.3385 14.4016 18.8873 15.491 19.2086 16.4951V16.4951C19.7433 18.1663 18.1663 19.7433 16.4951 19.2086V19.2086C15.491 18.8873 14.4016 19.3385 13.9187 20.2758V20.2758C13.1151 21.8356 10.8849 21.8356 10.0813 20.2758V20.2758C9.59842 19.3385 8.50905 18.8873 7.50485 19.2086V19.2086C5.83365 19.7433 4.25668 18.1663 4.79139 16.4951V16.4951C5.1127 15.491 4.66147 14.4016 3.7242 13.9187V13.9187C2.16438 13.1151 2.16438 10.8849 3.7242 10.0813V10.0813C4.66147 9.59842 5.1127 8.50905 4.79139 7.50485V7.50485C4.25668 5.83365 5.83365 4.25668 7.50485 4.79139V4.79139C8.50905 5.1127 9.59842 4.66147 10.0813 3.7242V3.7242Z" fill="#00A3FF" />
-                                        <path class="permanent" d="M14.8563 9.1903C15.0606 8.94984 15.3771 8.9385 15.6175 9.14289C15.858 9.34728 15.8229 9.66433 15.6185 9.9048L11.863 14.6558C11.6554 14.9001 11.2876 14.9258 11.048 14.7128L8.47656 12.4271C8.24068 12.2174 8.21944 11.8563 8.42911 11.6204C8.63877 11.3845 8.99996 11.3633 9.23583 11.5729L11.3706 13.4705L14.8563 9.1903Z" fill="white" />
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                            </a>
-                            <button class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3"><?= $profile->asosiasi ?></button>
+                <div class="card">
+                    <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="card-header">
+                        <h5 class="mb-1">Notifikasi</h5>
+                        <p class="mb-1 card-subtitle mt-0">Setting Notifikasi</p>
                         </div>
-                        <!--end::Name-->
-                        <!--begin::Info-->
-                        <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
-                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                            <!--begin::Svg Icon | path: icons/duotune/communication/com006.svg-->
-                            <span class="svg-icon svg-icon-4 me-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path opacity="0.3" d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM12 7C10.3 7 9 8.3 9 10C9 11.7 10.3 13 12 13C13.7 13 15 11.7 15 10C15 8.3 13.7 7 12 7Z" fill="black" />
-                                    <path d="M12 22C14.6 22 17 21 18.7 19.4C17.9 16.9 15.2 15 12 15C8.8 15 6.09999 16.9 5.29999 19.4C6.99999 21 9.4 22 12 22Z" fill="black" />
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon--><?= $profile->first_name ?> <?= $profile->last_name ?></a>
-                            <a href="https://maps.google.com/?q=<?= $profile->lat ?>,<?= $profile->long ?>" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
-                            <span class="svg-icon svg-icon-4 me-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path opacity="0.3" d="M18.0624 15.3453L13.1624 20.7453C12.5624 21.4453 11.5624 21.4453 10.9624 20.7453L6.06242 15.3453C4.56242 13.6453 3.76242 11.4453 4.06242 8.94534C4.56242 5.34534 7.46242 2.44534 11.0624 2.04534C15.8624 1.54534 19.9624 5.24534 19.9624 9.94534C20.0624 12.0453 19.2624 13.9453 18.0624 15.3453Z" fill="black" />
-                                    <path d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z" fill="black" />
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon--><?= $profile->kotakabupaten ?></a>
-                            <a href="tel:<?= $profile->nohp ?>" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
-                            <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
-                            <span class="svg-icon svg-icon-4 me-1">
-                                <i class="fas fa-phone"></i>
-                            </span><?= $profile->nohp ?></a>
-                        </div>
-                        <!--end::Info-->
-                    </div>
-                    <!--end::User-->                    
-                </div>
-                <!--end::Title-->
-                <!--begin::Stats-->
-                <div class="d-flex flex-wrap flex-stack">
-                    <!--begin::Wrapper-->
-                    <div class="d-flex flex-column flex-grow-1 pe-8">
-                        <!--begin::Stats-->
-                        <div class="d-flex flex-wrap">
-                            <!--begin::Stat-->
-                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                <!--begin::Number-->
-                                <div class="d-flex align-items-center">
-                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-                                    <span class="svg-icon svg-icon-3 svg-icon-success me-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="black" />
-                                            <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="black" />
-                                        </svg>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="<?= $profile->populasi ?>" data-kt-countup-prefix="">0</div>
-                                </div>
-                                <!--end::Number-->
-                                <!--begin::Label-->
-                                <div class="fw-bold fs-6 text-gray-400">Populasi</div>
-                                <!--end::Label-->
+                        <div class="card-body">
+                        <form id="notifForm" class="mb-5" action="<?= route_to('profile.update') ?>" method="POST">
+                        <div class="d-flex mb-4 align-items-center">
+                            <div class="flex-shrink-0">
+                            <img src="../assets/img/icons/brands/wa.png" alt="whatsapp" class="me-4" height="32">
                             </div>
-                            <!--end::Stat-->
-                            <!--begin::Stat-->
-                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                <!--begin::Number-->
-                                <div class="d-flex align-items-center">                                    
-                                    <div class="fs-2 fw-bolder" data-kt-countup="false" data-kt-countup-value=""><?= $profile->frequensireplacement; ?></div>
-                                </div>
-                                <!--end::Number-->
-                                <!--begin::Label-->
-                                <div class="fw-bold fs-6 text-gray-400">Frequensi Replacement</div>
-                                <!--end::Label-->
+                            <div class="flex-grow-1 d-flex align-items-center justify-content-between">
+                            <div class="mb-sm-0 mb-2">
+                                <h6 class="mb-0">Whatsapp</h6>
+                                <small>Aktifkan Notifikasi Whatsapp</small>
                             </div>
-                            <!--end::Stat-->                            
+                            <div class="text-end">
+                                <div class="form-check form-switch mb-0">
+                                <input type="checkbox" class="form-check-input" name="whatsappaktif" <?= ($whatsappaktif == 'true') ? 'checked' : '' ?>>
+                                </div>
+                            </div>
+                            </div>
                         </div>
-                        <!--end::Stats-->
+                        <div class="d-flex mb-4 align-items-center">
+                            <input type="text" class="form-control me-4" placeholder="Masukkan apiKey" name="apikey" value="<?= $apikey ?? '' ?>" />
+                            <label for="apikey" class="visually-hidden">Masukkan apiKey</label>
+                        </div>
+                        <div class="d-flex mb-4 align-items-center">
+                            <input type="text" class="form-control me-4" placeholder="Masukkan numberKey" name="numberkey" value="<?= $numberkey ?? '' ?>" />
+                            <label for="numberkey" class="visually-hidden">Masukkan numberKey</label>
+                        </div>
+                        <div class="d-flex mb-4 align-items-center">
+                            <div class="flex-shrink-0">
+                            <img src="../assets/img/icons/brands/telegram.png" alt="telegram" class="me-4" height="32">
+                            </div>
+                            <div class="flex-grow-1 d-flex align-items-center justify-content-between">
+                            <div class="mb-sm-0 mb-2">
+                                <h6 class="mb-0">Telegram</h6>
+                                <small>Aktifkan Notifikasi Telegram</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="form-check form-switch mb-0">
+                                <input type="checkbox" class="form-check-input" name="telegramaktif" <?= ($telegramaktif == 'true') ? 'checked' : '' ?>>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4 align-items-center">
+                            <input type="text" class="form-control me-4" placeholder="Masukkan Telegram id" name="telegramid" value="<?= $telegramid ?? '' ?>" />
+                            <label for="telegramid" class="visually-hidden">Masukkan Telegram id</label>
+                        </div>
+                        <div class="d-flex mb-4 align-items-center">
+                            <input type="text" class="form-control me-4" placeholder="Masukkan Screet Token" name="screettoken" value="<?= $screettoken ?? '' ?>" />
+                            <label for="screettoken" class="visually-hidden">Masukkan Screet Token</label>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                            <img src="../assets/img/icons/brands/email.png" alt="email" class="me-4" height="32">
+                            </div>
+                            <div class="flex-grow-1 d-flex align-items-center justify-content-between">
+                            <div class="mb-sm-0 mb-2">
+                                <h6 class="mb-0">Email <?= $emailaktif ?></h6>
+                                <small>Aktifkan Notifikasi EMail</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="form-check form-switch mb-0">
+                                <input type="checkbox" class="form-check-input" name="emailaktif" <?= ($emailaktif == 'true') ? 'checked' : '' ?>>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button type="submit" class="btn btn-primary me-3 waves-effect waves-light">Simpan Perubahan</button>
+                        </div>
+                        </form>
+                        </div>
                     </div>
-                    <!--end::Wrapper-->                    
+                    <div class="col-md-6 col-12">
+                        <div class="card-header">
+                        <h5 class="mb-1">Social Accounts</h5>
+                        <p class="mb-1 card-subtitle mt-0">Display content from social accounts on your site</p>
+                        </div>
+                        <div class="card-body">
+                        <!-- Social Accounts -->
+                        <div class="d-flex mb-4 align-items-center">
+                            <div class="flex-shrink-0">
+                            <img src="../../assets/img/icons/brands/facebook.png" alt="facebook" class="me-4" height="32">
+                            </div>
+                            <div class="flex-grow-1 row  align-items-center">
+                            <div class="col-7">
+                                <h6 class="mb-0">Facebook</h6>
+                                <small>Not Connected</small>
+                            </div>
+                            <div class="col-5 text-end">
+                                <button class="btn btn-outline-secondary btn-icon waves-effect"><i class="icon-base ri ri-link icon-22px"></i></button>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4 align-items-center">
+                            <div class="flex-shrink-0">
+                            <img src="https://demos.themeselection.com/materio-bootstrap-html-admin-template/assets/img/icons/brands/twitter-light.png" alt="twitter" class="me-4" height="32" data-app-dark-img="icons/brands/twitter-dark.png" data-app-light-img="icons/brands/twitter-light.png" style="visibility: visible;">
+                            </div>
+                            <div class="flex-grow-1 row  align-items-center">
+                            <div class="col-7">
+                                <h6 class="mb-0">Twitter</h6>
+                                <a href="https://x.com/Theme_Selection" target="_blank" class="small">@ThemeSelection</a>
+                            </div>
+                            <div class="col-5 text-end">
+                                <button class="btn btn-outline-danger btn-icon waves-effect"><i class="icon-base ri ri-delete-bin-line icon-22px"></i></button>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4 align-items-center">
+                            <div class="flex-shrink-0">
+                            <img src="../../assets/img/icons/brands/instagram.png" alt="instagram" class="me-4" height="32">
+                            </div>
+                            <div class="flex-grow-1 row  align-items-center">
+                            <div class="col-7">
+                                <h6 class="mb-0">instagram</h6>
+                                <a href="https://www.instagram.com/themeselection/" target="_blank" class="small">@ThemeSelection</a>
+                            </div>
+                            <div class="col-5 text-end">
+                                <button class="btn btn-outline-danger btn-icon waves-effect"><i class="icon-base ri ri-delete-bin-line icon-22px"></i></button>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4 align-items-center">
+                            <div class="flex-shrink-0">
+                            <img src="../../assets/img/icons/brands/dribbble.png" alt="dribbble" class="me-4" height="32">
+                            </div>
+                            <div class="flex-grow-1 row  align-items-center">
+                            <div class="col-7">
+                                <h6 class="mb-0">Dribbble</h6>
+                                <small>Not Connected</small>
+                            </div>
+                            <div class="col-5 text-end">
+                                <button class="btn btn-outline-secondary btn-icon waves-effect"><i class="icon-base ri ri-link icon-22px"></i></button>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                            <img src="../../assets/img/icons/brands/behance.png" alt="behance" class="me-4" height="32">
+                            </div>
+                            <div class="flex-grow-1 row  align-items-center">
+                            <div class="col-7">
+                                <h6 class="mb-0">Behance</h6>
+                                <small>Not Connected</small>
+                            </div>
+                            <div class="col-5 text-end">
+                                <button class="btn btn-outline-secondary btn-icon waves-effect"><i class="icon-base ri ri-link icon-22px"></i></button>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- /Social Accounts -->
+                        </div>
+                    </div>
+                    </div>
                 </div>
-                <!--end::Stats-->
+                </div>
             </div>
-            <!--end::Info-->
-        </div>
-        <!--end::Details-->
-        <!--begin::Navs-->
-        <div class="d-flex overflow-auto h-55px">
-            <ul class="nav nav-tabs nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap nav-tabs-line" role="tablist">
-                <!--begin::Nav item-->
-                <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#kt_profile_details_view" role="tab" >Overview</a>
-                </li>
-                <!--end::Nav item-->
-                <!--begin::Nav item-->
-                <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#kt_tab_pane_2" role="tab" >Ubah Password</a>
-                </li>
-                <!--end::Nav item--> 
-                <!--begin::Nav item-->
-                <?php if(user()->isadmin == 1){ ?>
-                <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#kt_tab_pane_3" role="tab" >Harga Telur</a>
-                </li>
-                <!--end::Nav item--> 
-                <?php } ?>               
-            </ul>
-        </div>
-        <!--begin::Navs-->
-    </div>
 
-</div>
-    <!--begin::details View-->
-    <div class="tab-content mt-5" id="myTabContent">
-        <div class="card mb-5 mb-xl-10 tab-pane fade show active" id="kt_profile_details_view" role="tabpanel" aria-labelledby="kt_profile_details_view">
-            <!--begin::Card header-->
-            <div class="card-header cursor-pointer">
-                <!--begin::Card title-->
-                <div class="card-title m-0">
-                    <h3 class="fw-bolder m-0">Profile Details</h3>
-                </div>
-                <!--end::Card title-->
-                <!--begin::Action-->
-                <a href="<?= base_url() ?>user/user-edit/<?= user_id(); ?>" class="btn btn-primary align-self-center">Edit Profile</a>
-                <!--end::Action-->
+                    </div>
+                    <!-- / Content -->
+
+                    
+                    
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl">
+                
             </div>
-            <!--begin::Card header-->
-            <!--begin::Card body-->
-            <div class="card-body p-9">
-                <!--begin::Row-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Nama Peternak</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800"><?= $profile->username ?> </span>
-                    </div>
-                    <!--end::Col-->
+            </footer>
+            <!-- / Footer -->
+
+                    
                 </div>
-                <!--end::Row-->
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">No HP</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8 fv-row">
-                        <span class="fw-bold text-gray-800 fs-6"><?= $profile->nohp ?></span>
-                        <span class="badge badge-success">&#10003; Group Whatsapp</span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">No Telpon
-                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Phone number must be active"></i></label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8 d-flex align-items-center">
-                        <span class="fw-bolder fs-6 text-gray-800 me-2"><?= $profile->notelp ?></span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Jenis Pakan</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8">
-                        <a href="#" class="fw-bold fs-6 text-gray-800 text-hover-primary"><?= $profile->jenispakan ?></a>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Suplier
-                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Country of origination"></i></label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800"><?= $profile->nama ?></span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Strain DOC/Pullet Yang Digunakan</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800"><?= $profile->pullet ?></span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row mb-10">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Replacement Ayam</label>
-                    <!--begin::Label-->
-                    <!--begin::Label-->
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800"><?= $profile->replacement ?></span>
-                    </div>
-                    <!--begin::Label-->
-                </div>
-                <!--end::Input group-->                
-            </div>
-            <!--end::Card body-->
-        </div>
-        <!--end::details View-->
-        <div class="card mb-5 mb-xl-10 tab-pane fade " id="kt_tab_pane_2" role="tabpanel" aria-labelledby="kt_tab_pane_2">
-            <!--begin::Card header-->
-            <div class="card-header cursor-pointer">
-                <!--begin::Card title-->
-                <div class="card-title m-0">
-                    <h3 class="fw-bolder m-0">Ubah Password</h3>
-                </div>               
-            </div>
-            <!--begin::Card header-->
-            <!--begin::Card body-->
-            <div class="card-body p-9">
-            <form class="form w-100" novalidate="novalidate" method="post" id="chage_password_form">
-                <!--begin::Input group-->
-                <div class="fv-row mb-10 col-lg-6  password-toggle">
-                    <!--begin::Label-->
-                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                        <span class="required">Password</span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Password"></i>
-                    </label>
-                    <!--end::Label-->
-                    <!--begin::Input-->
-                    <input type="password" class="form-control form-control-lg form-control-solid" name="password" id="password" placeholder="" required />
-                    <input type="hidden" name="id" id="id" value="<?= user()->id; ?>">
-                    <!--end::Input-->
-                    <span class="toggle-password" onclick="togglePasswordVisibility()">
-                        <i class="fas fa-eye"></i>
-                    </span>
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="fv-row mb-10 col-lg-6  password-toggle">
-                    <!--begin::Label-->
-                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                        <span class="required">Re Password</span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Masukkan Re Password"></i>
-                    </label>
-                    <!--end::Label-->
-                    <!--begin::Input-->
-                    <input type="password" class="form-control form-control-lg form-control-solid" name="repassword" id="repassword" placeholder=""  />
-                    <!--end::Input-->
-                    <span class="toggle-repassword" onclick="toggleRePasswordVisibility()">
-                        <i class="fas fa-eye"></i>
-                    </span>
-                </div>
-                <!--end::Input group-->
-                <!--begin::Actions-->
-                <div class="text-left">
-                    <!--begin::Submit button-->
-                    <button type="submit" class="btn btn-primary align-self-center">
-                        <span class="indicator-label">Continue</span>
-                        <span class="indicator-progress">Please wait...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                    <!--end::Submit button-->
-                </div>
-                <!--end::Actions-->
-                </form>
-            </div>
-            <!--end::Card body-->
-        </div>
-        <?php if(user()->isadmin == 1){ ?>
-        <div class="card mb-5 mb-xl-10 tab-pane fade " id="kt_tab_pane_3" role="tabpanel" aria-labelledby="kt_tab_pane_3">
-            <!--begin::Card header-->
-            <div class="card-header cursor-pointer">
-                <!--begin::Card title-->
-                <div class="card-title m-0">
-                    <h3 class="fw-bolder m-0">Harga Telur</h3>
-                </div>               
-            </div>
-            <!--begin::Card header-->
-            <!--begin::Card body-->
-            <div class="card-body p-9">
-            <form action="<?= base_url() ?>profile/editharga" method="post" enctype="multipart/form-data" id="form_import">
-                <!--begin::Input group-->
-                <div class="col-lg-7">
-                <!--begin::Image input-->
-                    <?php if($leafletharga->value){
-                        $leaflet = base_url()."uploads/leafletharga/".$leafletharga->value;
-                    }else{
-                        $leaflet = base_url()."assets/media/avatars/blank.png";
-                    } ?>
-                    <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('<?= $leaflet ?>')">
-                        <!--begin::Preview existing avatar-->
-                        <div class="image-input-wrapper w-475px h-500px" style="background-image: url('<?= $leaflet ?>')"></div>
-                        <!--end::Preview existing avatar-->
-                        <!--begin::Label-->
-                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-                            <i class="bi bi-pencil-fill fs-7"></i>
-                            <!--begin::Inputs-->
-                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                            <input type="hidden" name="avatar_remove" value="<?= $leafletharga->value; ?>"/>
-                            <!--end::Inputs-->
-                        </label>
-                        <!--end::Label-->
-                        <!--begin::Cancel-->
-                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
-                            <i class="bi bi-x fs-2"></i>
-                        </span>
-                        <!--end::Cancel-->
-                        <!--begin::Remove-->
-                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
-                            <i class="bi bi-x fs-2"></i>
-                        </span>
-                        <!--end::Remove-->
-                    </div>
-                    <!--end::Image input-->
-                    <!--begin::Hint-->
-                    <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                    <!--end::Hint-->
-                </div>
-                <!--begin::Actions-->
-                <div class="text-left">
-                    <!--begin::Submit button-->
-                    <button type="submit" class="btn btn-primary align-self-center">
-                        <span class="indicator-label">Continue</span>
-                        <span class="indicator-progress">Please wait...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                    <!--end::Submit button-->
-                </div>
-                <!--end::Actions-->
-                </form>
-            </div>
-            <!--end::Card body-->
-        </div>
-        <?php } ?>
-    </div>
 <!--end::Navbar-->
 <?= $this->endSection(); ?>
 
 <?= $this->section('script') ?>
 
 <script>
+
+    document.getElementById("notifForm").addEventListener("submit", function(e) {
+        e.preventDefault(); // hentikan submit dulu
+
+        Swal.fire({
+            title: 'Simpan Perubahan?',
+            text: "Pastikan pengaturan notifikasi sudah benar.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, simpan!',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#d33',  
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Lanjut submit form
+                e.target.submit();
+            }
+        });
+
+    });
+
+
     $('#chage_password_form').on('submit', function(e) {
         e.preventDefault()
         var passwordField = $("#password").val();

@@ -2,6 +2,7 @@
 
 use CodeIgniter\Router\RouteCollection;
 use App\Controllers\ClientController;
+use App\Controllers\FaqController;
 use App\Controllers\AnnouncementController;
 use App\Controllers\PengajuanController;
 use App\Controllers\InvoiceController;
@@ -58,15 +59,24 @@ $routes->get('/login', 'IndexController::index', ['filter' => 'login','as' => 'h
 
 $routes->group('profile', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [ProfileController::class, 'index'], ['as' => 'profile.index']);
-    $routes->post('editharga', [ProfileController::class, 'update'], ['as' => 'profile.update']);
+    $routes->post('/update', [ProfileController::class, 'update'], ['as' => 'profile.update']);    
 });
 
 $routes->group('client', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [ClientController::class, 'index'], ['as' => 'client.index']);
     $routes->post('store', [ClientController::class, 'store'], ['as' => 'client.store']);
     $routes->get('datatable', [ClientController::class, 'datatable'], ['as' => 'client.datatable']);
-    $routes->post('(:num)/edit', [ClientController::class, 'update'], ['as' => 'client.update']);
+    $routes->get('show/(:num)', [ClientController::class, 'show'], ['as' => 'client.show']);
+    $routes->post('addcicilan/(:num)', [ClientController::class, 'addCicilan'], ['as' => 'client.addCicilan']);
     $routes->post('delete/(:num)', [ClientController::class, 'delete'], ['as' => 'client.delete']);
+});
+
+$routes->group('faq', ['filter' => 'login'],function ($routes) {
+    $routes->get('/', [FaqController::class, 'index'], ['as' => 'faq.index']);
+    $routes->post('store', [FaqController::class, 'store'], ['as' => 'faq.store']);
+    $routes->get('datatable', [FaqController::class, 'datatable'], ['as' => 'faq.datatable']);
+    $routes->post('(:num)/edit', [FaqController::class, 'update'], ['as' => 'faq.update']);
+    $routes->post('delete/(:num)', [FaqController::class, 'delete'], ['as' => 'faq.delete']);
 });
 
 $routes->group('laporan', ['filter' => 'login'],function ($routes) {
@@ -197,9 +207,8 @@ $routes->group('user', ['filter' => 'login'],function ($routes) {
 
 $routes->group('dashboard', ['filter' => 'login'], function ($routes) {
     $routes->get('/', [DashboardController::class, 'index'], ['as' => 'dashboard.index']);    
-    $routes->post('payment', [DashboardController::class, 'payment'], ['as' => 'dashboard.payment']); 
     $routes->get('datapie', [DashboardController::class, 'datapie'], ['as' => 'dashboard.datapie']); 
-    $routes->post('(:num)/edit', [DashboardController::class, 'update'], ['as' => 'dashboard.update']);
+    $routes->get('grouped', [DashboardController::class, 'grouped'], ['as' => 'dashboard.grouped']); 
 });
 
 $routes->group('notification', function ($routes) {

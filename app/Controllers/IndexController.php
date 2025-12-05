@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Paket;
+use App\Models\Faq;
 use App\Models\Client;
 use App\Models\Booking;
 use CodeIgniter\API\ResponseTrait;
@@ -15,7 +16,7 @@ class IndexController extends BaseController
 
     public function index(): string
     {               
-        $this->data['asd'] = "-";
+        $this->data['faq'] = model(Faq::class)->orderBy('prioritas','asc')->findAll();
         return view('index',$this->data);
     }
 
@@ -78,7 +79,7 @@ class IndexController extends BaseController
     }
 
     function sendMessage($message_text) {
-        $telegram_id = "-5054224363";
+            $telegram_id = "-5054224363";
             $secret_token = "8300841272:AAH0LH_wqEWzTniRiIayOC1HhaiB4EyZLDY";
 
 		    $url = "https://api.telegram.org/bot" . $secret_token . "/sendMessage?parse_mode=html&chat_id=" . $telegram_id;

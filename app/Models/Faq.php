@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class Faq extends Model
+{
+    protected $DBGroup          = 'default';
+    protected $table            = 'faq_m';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'object';
+    protected $useSoftDeletes   = true;
+    protected $protectFields    = false;
+    // Dates
+    protected $useTimestamps = true;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
+
+    // Validation
+    protected $validationRules      = [];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
+    protected $cleanValidationRules = true;
+
+    // Callbacks
+    protected $allowCallbacks = true;
+    protected $beforeInsert   = [];
+    protected $afterInsert    = [];
+    protected $beforeUpdate   = [];
+    protected $afterUpdate    = [];
+    protected $beforeFind     = [];
+    protected $afterFind      = [];
+    protected $beforeDelete   = [];
+    protected $afterDelete    = [];
+
+
+    public function get_paket($numrows,$keywords)
+    {
+        $builder = $this->select('faq_m.*')
+        ->when($keywords, static function ($query, $keywords) {
+            $query->like('faq_m.paket', $keywords);
+        })
+        ->findAll($numrows);
+        return $builder;
+    }
+
+}

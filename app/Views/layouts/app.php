@@ -26,18 +26,18 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap"
       rel="stylesheet" />
 
-    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/fonts/iconify-icons.css') ?>" />
 
     <!-- Core CSS -->
     <!-- build:css assets/vendor/css/theme.css -->
 
-    <link rel="stylesheet" href="../assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/libs/node-waves/node-waves.css') ?>" />
 
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
-    <link rel="stylesheet" href="../assets/vendor/css/custom.css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/css/core.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/css/custom.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('assets/css/demo.css') ?>" />
 
-    <link rel="stylesheet" href="../assets/css/app-calendar.css">
+    <link rel="stylesheet" href="<?= base_url('assets/css/app-calendar.css') ?>" />
 
     <!-- Color Picker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
@@ -54,11 +54,11 @@
 
     <!-- Vendors CSS -->
 
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') ?>" />
 
     <!-- endbuild -->
 
-    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/libs/apex-charts/apex-charts.css') ?>" />
     <!-- Choice  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 
@@ -66,12 +66,12 @@
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="<?= base_url('assets/vendor/js/helpers.js') ?>"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 
     <!--? Config: Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file. -->
 
-    <script src="../assets/js/config.js"></script>
+    <script src="<?= base_url('assets/js/config.js') ?>"></script>
   </head>
 
   <body>
@@ -119,8 +119,23 @@
                 <div data-i18n="Email">Paket</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
+            </li> 
+            <li class="menu-item <?= url_is('faq*') ? 'active' : '' ?>">
+              <a href="<?= route_to('faq.index') ?>" class="menu-link">
+                <i class="menu-icon icon-base ri ri-grid-line"></i>
+                <div data-i18n="Email">Faq</div>
+                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
+              </a>
             </li>  
-            
+            <li class="menu-header mt-7">
+              <span class="menu-header-text">Menu</span>
+            </li> 
+            <li class="menu-item <?= url_is('dashboard*') ? 'active' : '' ?>">
+              <a href="<?= route_to('dashboard.index') ?>" class="menu-link ">
+                <i class="menu-icon icon-base ri ri-home-smile-line"></i>
+                <div data-i18n="Dashboards">Dashboards</div>
+              </a>              
+            </li>
              <li class="menu-header mt-7">
               <span class="menu-header-text">Laporan</span>
             </li>
@@ -188,30 +203,30 @@
 
     <!-- Core JS -->
 	<div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;"></div>
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="<?= base_url('assets/vendor/libs/jquery/jquery.js') ?>"></script>
 
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="<?= base_url('assets/vendor/libs/popper/popper.js') ?>"></script>
+    <script src="<?= base_url('assets/vendor/js/bootstrap.js') ?>"></script>
+    <script src="<?= base_url('assets/vendor/libs/node-waves/node-waves.js') ?>"></script>
 
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="<?= base_url('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') ?>"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="<?= base_url('assets/vendor/js/menu.js') ?>"></script>
 
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="<?= base_url('assets/vendor/libs/apex-charts/apexcharts.js') ?>"></script>
 
     <!-- Main JS -->
 
-    <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/custom.js"></script>
-    <script src="../assets/js/ui-modals.js"></script>
-    <script src="../assets/js/ui-toasts.js"></script>
+    <script src="<?= base_url('assets/js/main.js') ?>"></script>
+    <script src="<?= base_url('assets/js/custom.js') ?>"></script>
+    <script src="<?= base_url('assets/js/ui-modals.js') ?>"></script>
+    <script src="<?= base_url('assets/js/ui-toasts.js') ?>"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/dashboards-analytics.js"></script>
+    <script src="<?= base_url('assets/js/dashboards-analytics.js') ?>"></script>
 
 	<!-- DataTables JS -->
 	<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

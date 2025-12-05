@@ -8,11 +8,6 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use App\Models\Agama;
-use App\Models\SuplierPakan;
-use App\Models\Asosiasi;
-use App\Models\Invoice;
-use App\Models\Pengajuan;
 
 /**
  * Class BaseController

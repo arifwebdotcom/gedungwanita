@@ -70,16 +70,26 @@ $breadcrumb_items = [
 <!--end::Tables Widget 11-->
 <div class="modal fade" id="client_modal" tabindex="-1" aria-modal="true" role="dialog">
     <div class="modal-dialog" role="document">
+    <form id="client_form" class="form" >
     <div class="modal-content">
         <div class="modal-header">
         <h5 class="modal-title" id="modal_title">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        <form id="client_form" class="form" >
-        
         <div class="col-md-12 mb-2">
             <div class="form-floating form-floating-outline">
+                <select id="tipefk" name="tipefk" class="form-select">
+                    <?php foreach($tipe as $t): ?>
+                        <option value="<?= $t->id ?>"><?= $t->tipeevent ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="tipefk">Tipe Event</label>
+            </div>
+        </div>
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">                
+                <input type="hidden" id="id" name="id" class="form-control">
                 <input type="text" id="pemesan" name="pemesan" class="form-control" placeholder="Pemesan">
                 <label for="pemesan">Pemesan</label>
             </div>
@@ -92,7 +102,13 @@ $breadcrumb_items = [
                 <label for="email">Email</label>
             </div>
         </div>
-
+        <!-- Alamat -->
+        <div class="col-md-12 mb-2">
+            <div class="form-floating form-floating-outline">
+                <input type="text" id="alamat" name="alamat" class="form-control" placeholder="Alamat">
+                <label for="alamat">Alamat</label>
+            </div>
+        </div>
         <!-- No HP -->
         <div class="col-md-12 mb-2">
             <div class="form-floating form-floating-outline">
@@ -180,7 +196,11 @@ $breadcrumb_items = [
             <!-- Paket -->
             <div class="col-md-12 mb-2">
                 <div class="form-floating form-floating-outline">
-                    <input type="text" id="paket" name="paket" class="form-control" placeholder="Paket">
+                    <select id="paket" name="paket" class="form-select">
+                        <?php foreach($paket as $p): ?>
+                            <option value="<?= $p->id ?>"><?= $p->paket ?></option>
+                        <?php endforeach; ?>
+                    </select>
                     <label for="paket">Paket</label>
                 </div>
             </div>
@@ -188,15 +208,15 @@ $breadcrumb_items = [
         <!-- Detail -->
         <div class="col-md-12 mb-2">
             <div class="form-floating form-floating-outline">
-                <textarea id="detail" name="detail" class="form-control" style="height: 120px" placeholder="Detail"></textarea>
-                <label for="detail">Detail</label>
+                <textarea id="keterangan" name="keterangan" class="form-control" style="height: 120px" placeholder="Detail"></textarea>
+                <label for="keterangan">Keterangan</label>
             </div>
         </div>
         <div class="row">
             <!-- Harga Asli -->
             <div class="col-md-6 mb-2">
                 <div class="form-floating form-floating-outline">
-                    <input type="number" step="0.01" id="hargaasli" name="hargaasli" class="form-control" placeholder="Harga Asli">
+                    <input type="number" step="1" id="hargaasli" name="hargaasli" class="form-control" placeholder="Harga Asli">
                     <label for="hargaasli">Harga Asli</label>
                 </div>
             </div>
@@ -213,9 +233,9 @@ $breadcrumb_items = [
         <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
         <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan</button>
-        </div>
-        </form>
+        </div>        
     </div>
+    </form>
     </div>
 </div>
 <!-- /.content -->
@@ -226,36 +246,14 @@ $breadcrumb_items = [
 
 <script>
     $(document).ready(function() {
-        //$("#client_table").DataTable();
+        $("#client_table").DataTable();
         showClient();
 
        
     });
 
-    const pickr = Pickr.create({
-            el: '#picker',
-            theme: 'classic',
-            default: '#000000',
-            components: {
-                preview: true,
-                opacity: true,
-                hue: true,
-                interaction: {
-                hex: true,
-                rgba: true,
-                input: true,
-                save: true
-                }
-            }
-            });
 
-            // kalau mau update saat selesai klik di luar (close dialog)
-            pickr.on('hide', (instance) => {
-            let hexa = instance.getColor().toHEXA().toString();
-            $('#warna').val(hexa);
-            });
-
-    const showClient = () => {      
+    function showClient() {      
         console.log("show");
         const columns = [
             {
@@ -273,7 +271,10 @@ $breadcrumb_items = [
             },
             {
                 name: "Mempelai",
-                data: "mempelai"
+                data: "null", 
+                render: function(data, type, row) {
+                    return row.cpp + ' & ' + row.cpw;
+                }
             },
             {
                 name: "Tanggal",
@@ -345,18 +346,8 @@ $breadcrumb_items = [
 
     $('#client_table tbody').on('click', '#edit', function() {
         var data = $('#client_table').DataTable().row($(this).parents('tr')).data();
-        $("#client_modal #namaclient").val(data.namaclient);
-        $("#client_modal #usiaawal").val(data.usiaawal);
-        $("#client_modal #usiaakhir").val(data.usiaakhir);
-        $("#client_modal #durasi").val(data.durasi);
-        $("#client_modal #kapasitas").val(data.kapasitas);
-        $("#client_modal #warna").val(data.color);
-        let color = data.color; // ambil dari atribut data-color
-        pickr.setColor(color); // set default sesuai warna row
-        //pickr.show();
-        $("#client_modal #id").val(data.id);
-        $("#client_modal #modal_title").text("Edit Client");
-        $("#client_modal").modal("show");
+        let id = data.bookingid;
+        window.location.href = "<?= base_url('client/show') ?>/" + id;
     });
 
     $('#client_table tbody').on('click', '#delete', function() {
@@ -428,7 +419,8 @@ $breadcrumb_items = [
             type: 'post',
             dataType: 'json',
             data: form_data,
-            success: function(response) {                
+            success: function(response) {     
+                console.log(response);           
                 if (response.status) {
                     $("#client_modal").modal("hide");
                     showClient();
