@@ -6,27 +6,22 @@ use App\Controllers\BaseController;
 use App\Models\UserModels;
 use App\Models\ModelUser;
 use App\Models\Kelurahan;
-use App\Models\Alamat;
-use App\Models\SuplierPakan;
-use App\Models\Asosiasi;
 use CodeIgniter\API\ResponseTrait;
 use Myth\Auth\Password;
 
 class UserController extends BaseController
 {
     use ResponseTrait;
-    protected $db;
-    protected $alamat;
+    protected $db;    
     //protected $suplier;
     public function __construct()
     {
         $this->db = db_connect();
-        $this->alamat = new Alamat();
        // $this->suplier = new SuplierPakan();
     }
 
     public function datatable() {
-        $data = model(UserModels::class)->select('users.*,alamat_m.provinsi,alamat_m.kotakabupaten,alamat_m.kecamatan,alamat_m.kelurahan,alamat_m.alamat,COALESCE(suplierpakan_m.nama, "-") AS namasuplier,suplierpakan_m.alamat as alamatsuplier,suplierpakan_m.nohp as nohpsuplier')->join('alamat_m','alamat_m.usersfk = users.id','left')->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')->findAll();
+        $data = model(UserModels::class)->select('users.*')->findAll();
         //$data = model(UserModels::class)->join('suplierpakan_m','users.suplierpakanfk = suplierpakan_m.id','left')->findAll();
 
         return json_encode(compact('data'));

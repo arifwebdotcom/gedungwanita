@@ -16,11 +16,11 @@ $breadcrumb_items = [
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-3 mb-1">Master Member</span>
-            <span class="text-muted mt-1 fw-bold fs-7">Data Member</span>
+            <span class="card-label fw-bolder fs-3 mb-1">Master User</span>
+            <span class="text-muted mt-1 fw-bold fs-7">Data User</span>
         </h3>
         <div class="card-toolbar">
-            <a href="<?= route_to('user.user_baru') ?>"  class="btn btn-sm btn-light-primary" >
+            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#user_modal">
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
             <span class="svg-icon svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -28,7 +28,7 @@ $breadcrumb_items = [
                     <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                 </svg>
             </span>
-            <!--end::Svg Icon-->Member Baru</a>
+            <!--end::Svg Icon-->User Baru</a>
         </div>
     </div>
     <!--end::Header-->
@@ -46,14 +46,11 @@ $breadcrumb_items = [
                                 <input class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-13-check">
                             </div>
                         </th>
-                        <th class="ps-4 ">Kode</th> 
-                        <th class="ps-4 ">Nama Peternak</th> 
-                        <th class="ps-4 ">Nama Peternakan</th>
-                        <th class="ps-4 ">No HP</th>
-                        <th class="ps-4 ">Alamat</th>
-                        <th class="ps-4 ">Populasi</th>
-                        <th class="ps-4 ">Jenis Pakan</th>
-                        <th class="ps-4 ">Suplier</th>
+                        <th class="ps-4 ">Email</th> 
+                        <th class="ps-4 ">Username</th> 
+                        <th class="ps-4 ">Nama</th>
+                        <th class="ps-4 ">Status</th>
+                        <th class="ps-4 ">Role</th>
                         <th class="min-w-200px rounded-end">Action</th>
                     </tr>
                 </thead>
@@ -79,19 +76,10 @@ $breadcrumb_items = [
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2 id="modal_title">Tambah User</h2>
+                <h5 class="modal-title" id="modal_title">Modal title</h5>
                 <!--end::Modal title-->
                 <!--begin::Close-->
-                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                    <span class="svg-icon svg-icon-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->
-                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <!--end::Close-->
             </div>
             <!--end::Modal header-->
@@ -156,37 +144,32 @@ $breadcrumb_items = [
                 }
             },
             {
-                name: "Kode",
-                data: "kodeanggota"
+                name: "Email",
+                data: "email"
             },
             {
-                name: "Nama Peternak",
-                data: "nama"
+                name: "Username",
+                data: "username"
             },            
             {
-                name: "Nama Peternakan",
-                data: "namapeternakan"
+                name: "Nama",
+                data: "nama"
             },
             {
-                name: "No Hp",
-                data: "nohp"
+                name: "Status",
+                data: "",
+                render: function(data, type, row, meta) {
+                    if (row.status === '1') {
+                        return `Aktif`;
+                    } else {
+                        return `Tidak Aktif`;
+                    } 
+                }
             },
             {
-                name: "Alamat",
-                data: "alamat"
-            },
-            {
-                name: "Populasi",
-                data: "populasi"
-            },
-            {
-                name: "Jenis Pakan",
-                data: "jenispakan"
-            },
-            {
-                name: "Suplier",
-                data: "namasuplier"
-            },
+                name: "Role",
+                data: "role"
+            },            
             {
                 width: "10%",
                 sortable: false,
@@ -214,25 +197,7 @@ $breadcrumb_items = [
                                 </span>
                                 <!--end::Svg Icon-->
                             </button>
-                            <a href="https://maps.google.com/?q=`+row.lat+`,`+row.long+`" target='_blank' class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
-                            <span class="svg-icon svg-icon-4 me-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path opacity="0.3" d="M18.0624 15.3453L13.1624 20.7453C12.5624 21.4453 11.5624 21.4453 10.9624 20.7453L6.06242 15.3453C4.56242 13.6453 3.76242 11.4453 4.06242 8.94534C4.56242 5.34534 7.46242 2.44534 11.0624 2.04534C15.8624 1.54534 19.9624 5.24534 19.9624 9.94534C20.0624 12.0453 19.2624 13.9453 18.0624 15.3453Z" fill="black" />
-                                    <path d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z" fill="black" />
-                                </svg>
-                            </span>
-                            <a href="<?= base_url() ?>user/membercard/`+row.id+`" target='_blank' class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
-                            <span class="svg-icon svg-icon-4 me-1">
-                                <span class="svg-icon svg-icon-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M22 7H2V11H22V7Z" fill="black"></path>
-                                        <path opacity="0.3" d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19ZM14 14C14 13.4 13.6 13 13 13H5C4.4 13 4 13.4 4 14C4 14.6 4.4 15 5 15H13C13.6 15 14 14.6 14 14ZM16 15.5C16 16.3 16.7 17 17.5 17H18.5C19.3 17 20 16.3 20 15.5C20 14.7 19.3 14 18.5 14H17.5C16.7 14 16 14.7 16 15.5Z" fill="black"></path>
-                                    </svg>
-                                </span>
-                            </span>
-                            <!--end::Svg Icon--></a>`;
+                            `;
                 }
             },
             
