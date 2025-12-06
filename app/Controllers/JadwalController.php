@@ -85,19 +85,34 @@ class JadwalController extends BaseController
         ->join('tipe_m','tipe_m.id=booking_t.tipefk')
         ->where('booking_t.deleted_at',null); 
         //$model = new Pendaftaran(); 
-        $data = $model->findAll(); 
-        $events = []; 
-        foreach ($data as $row) { 
-            $events[] = [ 
-                'id' => $row->id, 
-                'title' => $row->pemesan, 
-                'tooltip' => $row->pemesan, 
-                'start' => $row->tanggal, 
-                'sesi' => $row->sesi, 
-                'color' => $row->color, 
-                'status' => $row->status, 
-                'tipe_id' => $row->idtipe, ]; 
+        
+        $data = $model->findAll();
+
+        $events = [];
+
+        foreach ($data as $row) {
+
+            // Mapping warna berdasarkan status
+            $statusColor = match (strtolower($row->status)) {
+                'keep'  => '#ff0000',
+                'dp'    => '#ff8800',
+                '50%'   => '#007bff',
+                'lunas' => '#28a745',
+                default => '#6c757d', // abu-abu jika tidak diketahui
+            };
+
+            $events[] = [
+                'id'       => $row->id,
+                'title'    => $row->pemesan,
+                'tooltip'  => $row->pemesan,
+                'start'    => $row->tanggal,
+                'sesi'     => $row->sesi,
+                'color'    => $statusColor,
+                'status'   => $row->status,
+                'tipe_id'  => $row->idtipe,
+            ];
         }
+
 
         return $this->response->setJSON($events);
     }
