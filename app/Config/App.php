@@ -16,7 +16,25 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = "http://localhost:8080/";
+    public string $baseURL;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Jika akses lewat CLI (php spark), beri baseURL default
+        if (is_cli()) {
+            $this->baseURL = 'http://localhost:8080/';
+            return;
+        }
+
+        // Jika lewat HTTP (hosting / apache / nginx)
+        $host  = $_SERVER['HTTP_HOST'] ?? 'localhost:8080';
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+                    ? 'https://' : 'http://';
+
+        $this->baseURL = $scheme . $host . '/';
+    }
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
