@@ -69,7 +69,7 @@ $breadcrumb_items = [
 </div>
 <!--end::Tables Widget 11-->
 <div class="modal fade" id="client_modal" tabindex="-1" aria-modal="true" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg modal-simple" role="document">
     <form id="client_form" class="form" >
     <div class="modal-content">
         <div class="modal-header">
@@ -87,19 +87,37 @@ $breadcrumb_items = [
                 <label for="tipefk">Tipe Event</label>
             </div>
         </div>
-        <div class="col-md-12 mb-2">
-            <div class="form-floating form-floating-outline">                
-                <input type="hidden" id="id" name="id" class="form-control">
-                <input type="text" id="pemesan" name="pemesan" class="form-control" placeholder="Pemesan">
-                <label for="pemesan">Pemesan</label>
+        <div class="row">
+            <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">                
+                    <input type="hidden" id="id" name="id" class="form-control">
+                    <input type="text" id="pemesan" name="pemesan" class="form-control" placeholder="Pemesan">
+                    <label for="pemesan">Pemesan</label>
+                </div>
+            </div>
+            <!-- No HP Saudara -->
+            <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="text" id="nohpsaudara" name="nohpsaudara" class="form-control" placeholder="No HP Saudara">
+                    <label for="nohpsaudara">No HP Saudara</label>
+                </div>
             </div>
         </div>
 
-        <!-- Email -->
-        <div class="col-md-12 mb-2">
-            <div class="form-floating form-floating-outline">
-                <input type="email" id="email" name="email" class="form-control" placeholder="Email">
-                <label for="email">Email</label>
+        <div class="row">
+            <!-- No HP -->
+            <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="text" id="nohp" name="nohp" class="form-control" placeholder="No HP">
+                    <label for="nohp">No HP</label>
+                </div>
+            </div>
+            <!-- Email -->
+            <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Email">
+                    <label for="email">Email</label>
+                </div>
             </div>
         </div>
         <!-- Alamat -->
@@ -109,53 +127,44 @@ $breadcrumb_items = [
                 <label for="alamat">Alamat</label>
             </div>
         </div>
-        <!-- No HP -->
-        <div class="col-md-12 mb-2">
-            <div class="form-floating form-floating-outline">
-                <input type="text" id="nohp" name="nohp" class="form-control" placeholder="No HP">
-                <label for="nohp">No HP</label>
+        
+        <div class="row">
+            <!-- CPP -->
+            <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="text" id="cpp" name="cpp" class="form-control" placeholder="Nama CPP">
+                    <label for="cpp">Nama CPP</label>
+                </div>
             </div>
-        </div>
 
-        <!-- CPP -->
-        <div class="col-md-12 mb-2">
-            <div class="form-floating form-floating-outline">
-                <input type="text" id="cpp" name="cpp" class="form-control" placeholder="CPP">
-                <label for="cpp">CPP</label>
+            <!-- IG CPP -->
+            <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="text" id="igcpp" name="igcpp" class="form-control" placeholder="Instagram CPP">
+                    <label for="igcpp">IG CPP</label>
+                </div>
             </div>
         </div>
+        <div class="row">
+            <!-- CPW -->
+            <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="text" id="cpw" name="cpw" class="form-control" placeholder="Nama CPW">
+                    <label for="cpw">Nama CPW</label>
+                </div>
+            </div>
 
-        <!-- IG CPP -->
-        <div class="col-md-12 mb-2">
-            <div class="form-floating form-floating-outline">
-                <input type="text" id="igcpp" name="igcpp" class="form-control" placeholder="Instagram CPP">
-                <label for="igcpp">IG CPP</label>
+            <!-- IG CPW -->
+            <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="text" id="igcpw" name="igcpw" class="form-control" placeholder="Instagram CPW">
+                    <label for="igcpw">IG CPW</label>
+                </div>
             </div>
         </div>
+        
 
-        <!-- CPW -->
-        <div class="col-md-12 mb-2">
-            <div class="form-floating form-floating-outline">
-                <input type="text" id="cpw" name="cpw" class="form-control" placeholder="CPW">
-                <label for="cpw">CPW</label>
-            </div>
-        </div>
-
-        <!-- IG CPW -->
-        <div class="col-md-12 mb-2">
-            <div class="form-floating form-floating-outline">
-                <input type="text" id="igcpw" name="igcpw" class="form-control" placeholder="Instagram CPW">
-                <label for="igcpw">IG CPW</label>
-            </div>
-        </div>
-
-        <!-- No HP Saudara -->
-        <div class="col-md-12 mb-2">
-            <div class="form-floating form-floating-outline">
-                <input type="text" id="nohpsaudara" name="nohpsaudara" class="form-control" placeholder="No HP Saudara">
-                <label for="nohpsaudara">No HP Saudara</label>
-            </div>
-        </div>
+       
 
         <!-- Tanggal -->
         <div class="col-md-12 mb-2">
@@ -167,7 +176,7 @@ $breadcrumb_items = [
 
         <div class="row">
             <!-- Sesi -->
-            <div class="col-md-6 mb-2">
+            <div class="col-md-4 mb-2">
                 <div class="form-floating form-floating-outline">
                     <select id="sesi" name="sesi" class="form-select">
                         <option value="PAGI">PAGI</option>
@@ -180,7 +189,7 @@ $breadcrumb_items = [
 
         <!-- Status -->
          
-           <div class="col-md-6 mb-2">
+           <div class="col-md-4 mb-2">
                 <div class="form-floating form-floating-outline">
                     <select id="status" name="status" class="form-select">
                         <option value="KEEP">KEEP</option>
@@ -191,10 +200,7 @@ $breadcrumb_items = [
                     <label for="status">Status</label>
                 </div>
             </div>
-         </div>
-
-            <!-- Paket -->
-            <div class="col-md-12 mb-2">
+            <div class="col-md-4 mb-2">
                 <div class="form-floating form-floating-outline">
                     <select id="paket" name="paket" class="form-select">
                         <?php foreach($paket as $p): ?>
@@ -204,13 +210,30 @@ $breadcrumb_items = [
                     <label for="paket">Paket</label>
                 </div>
             </div>
+         </div>
 
-            <div class="col-md-12 mb-2">
+            <!-- Paket -->
+            
+        <div class="row">
+            <div class="col-md-4 mb-2">
                 <div class="form-floating form-floating-outline">
-                    <input type="number" step="1" id="kursi" name="kursi" class="form-control" placeholder="Kursi">
-                    <label for="kursi">Jumlah Kursi</label>
+                    <input type="number" step="1" id="kursi" name="kursi" class="form-control" placeholder="Jumlah Tamu">
+                    <label for="kursi">Jumlah Tamu</label>
                 </div>
             </div>
+            <div class="col-md-4 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="text" id="eo" name="eo" class="form-control" placeholder="Event Organizer">
+                    <label for="eo">Event Organizer</label>
+                </div>
+            </div>
+            <div class="col-md-4 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="text" id="katering" name="katering" class="form-control" placeholder="Katering">
+                    <label for="katering">Katering</label>
+                </div>
+            </div>
+        </div>
 
         <!-- Detail -->
         <div class="col-md-12 mb-2">

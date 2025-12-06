@@ -88,6 +88,14 @@ $breadcrumb_items = [
                     <input type="text"  id="hargadeal" name="hargadeal" class="form-control rupiah" placeholder="Harga Deal" value="<?= isset($client) ? $client->hargadeal : '' ?>">
                     <label for="hargadeal">Harga Deal</label>
                 </div>
+                <div class="form-floating form-floating-outline mb-2">
+                    <input type="text"  id="eo" name="eo" class="form-control " placeholder="Event Organizer" value="<?= isset($client) ? $client->eo : '' ?>">
+                    <label for="eo">Event Organizer</label>
+                </div>
+                <div class="form-floating form-floating-outline mb-2">
+                    <input type="text"  id="katering" name="katering" class="form-control" placeholder="Katering" value="<?= isset($client) ? $client->katering : '' ?>">
+                    <label for="katering">Katering</label>
+                </div>
             </div>
             <div class="col-md-4 mb-2">
                 <div class="form-floating form-floating-outline mb-2">
