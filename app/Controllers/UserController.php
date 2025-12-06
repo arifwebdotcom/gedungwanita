@@ -67,271 +67,39 @@ class UserController extends BaseController
         // if (!$this->validate($setRules)) {
         //     return $this->failValidationErrors($this->validator->getErrors());
         // }
-
-        $avatar ="";
-        $username = $this->request->getPost('username');
-        $namapeternakan = $this->request->getPost('namapeternakan');
-        $asosiasi = $this->request->getPost('asosiasifk');
-        if($this->request->getVar('avatar_remove')){
-            $file_name = $this->request->getVar('avatar_remove');
-            $file_path = './uploads/' . $file_name; 
-            
-            if (file_exists($file_path)) {
-                unlink($file_path);
-            } 
-        }
-        $file = $this->request->getFile('avatar');
-
-        if ($file && $file->isValid()) {            
-
-            $upload_path = './uploads/';
-            $extension = $file->getExtension();
-            $avatar = "avatar_".$namapeternakan."_".date("YmdHis").".".$extension;
-            
-            $file->move($upload_path, $avatar);
-        } 
-
-        $ktp ="";
-        if($this->request->getVar('ktp_remove')){
-            $file_name = $this->request->getVar('ktp_remove');
-            $file_path = './uploads/' . $file_name; 
-            
-            if (file_exists($file_path)) {
-                unlink($file_path);
-            } 
-        }
-        $file = $this->request->getFile('ktp');
-
-        if ($file && $file->isValid()) {            
-
-            $upload_path = './uploads/';
-            $extension = $file->getExtension();
-            $ktp = "ktp_".$namapeternakan."_".date("YmdHis").".".$extension;
-            
-            $file->move($upload_path, $ktp);
-        } 
-
-        $JP = json_decode($this->request->getPost('jenispakan'),true);
-        $jenispakan = "";
-        if ($JP !== null) {
-            foreach($JP as $row){
-                $jenispakan .= $row['value'].",";
-            }
-        }
-        $Pul = json_decode($this->request->getPost('pullet'),true);
-        $pullet = "";
-        if ($Pul !== null) {
-            foreach($Pul as $row){
-                $pullet .= $row['value'].",";
-            }
-        }
-        
-        $query = model(UserModels::class)->selectCount('id')->get()->getRowArray();    
-        $nourutnasional = reset($query);
-
-        $querycab = model(UserModels::class)->where('asosiasifk',$asosiasi)->selectCount('id')->get()->getRowArray();        
-        $nourutcabang = reset($querycab);
-        
-        $kodeanggota = sprintf("%04d", $nourutnasional)."/".sprintf("%03d", $nourutcabang)."/".$this->numberToRomanRepresentation($asosiasi)."/".date("Y");
-
-        //         kode member 
-        // nomor urut nasional / no cabang / kode cabang (romawi) / th gabung
-        // 0001 / 001 / VI / 23
-
-        $request['kodeanggota'] = $kodeanggota;
-        $request['first_name'] = $this->request->getPost('first_name');
-        $request['username'] = $username;
-        $request['notelp'] = $this->request->getPost('notelp');
-        $request['nohp'] = $this->request->getPost('nohp');
-        $request['namapeternakan'] = $namapeternakan;
-        $request['populasi'] = $this->request->getPost('populasi');
-        $request['asosiasifk'] = $asosiasi;
-        $request['suplierpakanfk'] = $this->request->getPost('suplierpakanfk');
-        $request['jenispakan'] = $jenispakan;
-        $request['pullet'] = $pullet;
-        $request['frequensireplacement'] = $this->request->getPost('frequensireplacement');
-        $request['replacement'] = $this->request->getPost('replacement');
-        $request['ktp'] = $ktp;
-        $request['avatar'] = $avatar;
-        $request['active'] = 1;
+        $request['nama'] = $this->request->getPost('nama');
         $request['email'] = $this->request->getPost('email');
+        $request['username'] = $this->request->getPost('username');
         $request['password_hash'] = Password::hash($this->request->getPost('password'));
-        $request['tglgabung'] = date("Y-m-d");
-        //dd($request);
-
-        $UserModel = new ModelUser();
-        $UserModel->save($request);       
-        $usersfk = $UserModel->insertID();
+        $request['status'] = $this->request->getPost('status');
+        $request['status_message'] = '1';
+        $request['active'] = $this->request->getPost('status');
+        $request['role'] = $this->request->getPost('role');
         
-        $data_alamat = [
-            'usersfk' => $usersfk,
-            'kodepos' => $this->request->getVar('kodepos'),
-            'kelurahanfk' => $this->request->getVar('kelurahanfk'),
-            'kelurahan' => $this->request->getVar('kelurahan'),
-            'kecamatan' => $this->request->getVar('kecamatan'),
-            'kecamatanfk' => $this->request->getVar('kecamatanfk'),
-            'kotakabupaten' => $this->request->getVar('kotakabupaten'),
-            'kotakabupatenfk' => $this->request->getVar('kotakabupatenfk'),
-            'provinsi' => $this->request->getVar('provinsi'),
-            'provinsifk' => $this->request->getVar('provinsifk'),
-            'alamat' => $this->request->getVar('alamat'),
-            'created_at' => date('Y-m-d H:i:s'),
-        ];
-        $this->alamat->insert($data_alamat);
+        model(UserModels::class)->save($request);
 
-        return redirect()->to(site_url('/user'));
+        return $this->respondUpdated([
+            'status' => true,
+            'messages' => 'Data User berhasil disimpan.',
+        ]);
     }
-
-    function numberToRomanRepresentation($number) {
-        $map = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
-        $returnValue = '';
-        while ($number > 0) {
-            foreach ($map as $roman => $int) {
-                if($number >= $int) {
-                    $number -= $int;
-                    $returnValue .= $roman;
-                    break;
-                }
-            }
-        }
-        return $returnValue;
-    }
-
-    
 
     public function update($id) {
-        // $setRules = [            
-        //     'user' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Kolom user wajib diisi.'
-        //         ],
-        //     ],
-        // ];
-
-        // if (!$this->validate($setRules)) {
-        //     return $this->failValidationErrors($this->validator->getErrors());
-        // }
-        $avatar ="";
-        $username = $this->request->getPost('username');
-        $namapeternakan = $this->request->getPost('namapeternakan');
-        $asosiasi = $this->request->getPost('asosiasifk');
-        $Qmodel = model(UserModels::class)->where('id', $id)->first();
-
-        $file = $this->request->getFile('avatar');
-
-        if ($file && $file->isValid()) {     
-            
-            if($Qmodel->avatar != null){
-                $file_path = './uploads/' . $Qmodel->avatar; 
-            
-                if (file_exists($file_path)) {
-                    unlink($file_path);
-                } 
-            }
-
-            $upload_path = './uploads/';
-            $extension = $file->getExtension();
-            $avatar = "avatar_".$namapeternakan."_".date("YmdHis").".".$extension;
-            
-            $file->move($upload_path, $avatar);
-            $request['avatar'] = $avatar;
-        } 
-
-        $ktp ="";
-        
-        $file = $this->request->getFile('ktp');
-
-        if ($file && $file->isValid()) {          
-            
-            if($Qmodel->ktp != null){
-                $file_path = './uploads/' . $Qmodel->ktp; 
-            
-                if (file_exists($file_path)) {
-                    unlink($file_path);
-                } 
-            }
-
-            $upload_path = './uploads/';
-            $extension = $file->getExtension();
-            $ktp = "ktp_".$namapeternakan."_".date("YmdHis").".".$extension;
-            
-            $file->move($upload_path, $ktp);
-            $request['ktp'] = $ktp;
-        } 
-
-        $idref = model(Alamat::class)->select('id')->where('usersfk', $id)->get()->getRow();
-
-        if ($idref !== null && isset($idref->id)) {
-            $data_tambahan_alamat = [
-                'usersfk' => $id,
-                'kodepos' => $this->request->getVar('kodepos'),
-                'kelurahanfk' => $this->request->getVar('kelurahanfk'),
-                'kelurahan' => $this->request->getVar('kelurahan'),
-                'kecamatan' => $this->request->getVar('kecamatan'),
-                'kecamatanfk' => $this->request->getVar('kecamatanfk'),
-                'kotakabupaten' => $this->request->getVar('kotakabupaten'),
-                'kotakabupatenfk' => $this->request->getVar('kotakabupatenfk'),
-                'provinsi' => $this->request->getVar('provinsi'),
-                'provinsifk' => $this->request->getVar('provinsifk'),
-                'alamat' => $this->request->getVar('alamat'),
-                'created_at' => date('Y-m-d H:i:s'),
-            ];
-
-            $this->alamat->where('id', $idref->id)->set($data_tambahan_alamat)->update();
-        }else{
-            $data_alamat = [
-                'usersfk' => $id,
-                'kodepos' => $this->request->getVar('kodepos'),
-                'kelurahanfk' => $this->request->getVar('kelurahanfk'),
-                'kelurahan' => $this->request->getVar('kelurahan'),
-                'kecamatan' => $this->request->getVar('kecamatan'),
-                'kecamatanfk' => $this->request->getVar('kecamatanfk'),
-                'kotakabupaten' => $this->request->getVar('kotakabupaten'),
-                'kotakabupatenfk' => $this->request->getVar('kotakabupatenfk'),
-                'provinsi' => $this->request->getVar('provinsi'),
-                'provinsifk' => $this->request->getVar('provinsifk'),
-                'alamat' => $this->request->getVar('alamat'),
-                'created_at' => date('Y-m-d H:i:s'),
-    
-            ];
-            $this->alamat->insert($data_alamat);
-        }
-
-        $JP = json_decode($this->request->getPost('jenispakan'),true);
-        $jenispakan = "";
-        if ($JP !== null) {
-            foreach($JP as $row){
-                $jenispakan .= $row['value'].",";
-            }
-        }
-        $Pul = json_decode($this->request->getPost('pullet'),true);
-        $pullet = "";
-        if ($Pul !== null) {
-            foreach($Pul as $row){
-                $pullet .= $row['value'].",";
-            }
-        }
-        
+        $request['nama'] = $this->request->getPost('nama');
+        $request['email'] = $this->request->getPost('email');
         $request['username'] = $this->request->getPost('username');
-        $request['notelp'] = $this->request->getPost('notelp');
-        $request['nohp'] = $this->request->getPost('nohp');
-        $request['asosiasifk'] = $this->request->getPost('asosiasifk');
-        $request['namapeternakan'] = $namapeternakan;
-        $request['populasi'] = $this->request->getPost('populasi');
-        $request['suplierpakanfk'] = $this->request->getPost('suplierpakanfk');
-        $request['jenispakan'] = $jenispakan;
-        $request['pullet'] = $pullet;
-        $request['frequensireplacement'] = $this->request->getPost('frequensireplacement');
-        $request['replacement'] = $this->request->getPost('replacement');            
+        $request['password_hash'] = Password::hash($this->request->getPost('password'));
+        $request['status'] = $this->request->getPost('status');
+        $request['active'] = $this->request->getPost('status');
+        $request['status_message'] = '1';
+        $request['role'] = $this->request->getPost('role');        
         $request['id'] = $id;
         model(UserModels::class)->save($request);
 
-        if(user()->isadmin == 1){
-            return redirect()->to(site_url('/user'));
-        }else{
-            return redirect()->to(site_url('/profile'));    
-        }
+       return $this->respondUpdated([
+            'status' => true,
+            'messages' => 'Data User berhasil diubah.',
+        ]);
         
     }
 
@@ -432,6 +200,10 @@ class UserController extends BaseController
 
     public function delete($id)
     {
+        $request['status'] = 0;
+        $request['active'] = 0;
+        $request['id'] = $id;
+        model(UserModels::class)->save($request);
         model(UserModels::class)->where('id', $id)->delete();
         return $this->respondUpdated([
             'status' => true,

@@ -38,6 +38,10 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/demo.css') ?>" />
 
     <link rel="stylesheet" href="<?= base_url('assets/css/app-calendar.css') ?>" />
+    <style>
+      .is-invalid { border-color: #dc3545 !important; }
+      .is-valid { border-color: #198754 !important; }
+    </style>
 
     <!-- Color Picker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
@@ -124,6 +128,13 @@
               <a href="<?= route_to('faq.index') ?>" class="menu-link">
                 <i class="menu-icon icon-base ri ri-grid-line"></i>
                 <div data-i18n="Email">Faq</div>
+                <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
+              </a>
+            </li>  
+            <li class="menu-item <?= url_is('user*') ? 'active' : '' ?>">
+              <a href="<?= route_to('user.index') ?>" class="menu-link">
+                <i class="menu-icon icon-base ri ri-grid-line"></i>
+                <div data-i18n="User">User</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
             </li>  

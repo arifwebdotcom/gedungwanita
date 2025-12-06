@@ -88,26 +88,64 @@ $breadcrumb_items = [
                 <!--begin::Form-->
                 <form id="user_form" class="form" >
                     <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-7 fv-row">
-                        <input type="hidden" name="id" id="id">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                            <span class="required">User</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a card holder's name"></i>
-                        </label>
-                        <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="" id="user" name="user" />
-                    </div>                    
+                    <div class="col-md-12 mb-2">
+                        <div class="form-floating form-floating-outline">                
+                            <input type="hidden" id="id" name="id" class="form-control">
+                            <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama">
+                            <label for="nama">Nama</label>
+                        </div>
+                    </div>       
+                    <div class="col-md-12 mb-2">
+                        <div class="form-floating form-floating-outline">                
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Email">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>       
+                    <div class="col-md-12 mb-2">
+                        <div class="form-floating form-floating-outline">
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username">
+                            <label for="username">Username</label>
+                        </div>
+                    </div> 
+                    <div class="col-md-12 mb-2">
+                        <div class="form-floating form-floating-outline">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>    
+                    <div class="col-md-12 mb-2">
+                        <div class="form-floating form-floating-outline">
+                            <input type="password" id="repassword" name="repassword" class="form-control" placeholder="Re Password">
+                            <label for="repassword">Re Password</label>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <div class="form-floating form-floating-outline">
+                                <select id="status" name="status" class="form-select">
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
+                                </select>
+                                <label for="status">Status</label>
+                            </div>
+                        </div>   
+                        <div class="col-md-6 mb-2">
+                            <div class="form-floating form-floating-outline">
+                                <select id="role" name="role" class="form-select">
+                                    <option value="1">ADMIN</option>
+                                    <option value="2">MARKETING</option>
+                                    <option value="3">KEUANGAN</option>
+                                </select>
+                                <label for="role">Role</label>
+                            </div>
+                        </div>   
+                    </div>        
                     <!--end::Input group-->
                     <!--begin::Actions-->
-                    <div class="text-center pt-15">
-                        <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">Discard</button>
-                        <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
-                            <span class="indicator-label">Submit</span>
-                            <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
-                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" id="btnSubmit" class="btn btn-primary waves-effect waves-light">Simpan</button>
+                    </div> 
                     <!--end::Actions-->
                 </form>
                 <!--end::Form-->
@@ -130,6 +168,24 @@ $breadcrumb_items = [
     $(document).ready(function() {
         //$("#user_table").DataTable();
         showUser();
+
+        function validatePassword() {
+            let pass  = $("#password").val();
+            let repass = $("#repassword").val();
+
+            if (pass !== "" && repass !== "" && pass === repass) {
+                $("#btnSubmit").prop("disabled", false);
+                $("#repassword").removeClass("is-invalid").addClass("is-valid");
+            } else {
+                $("#btnSubmit").prop("disabled", true);
+                $("#repassword").removeClass("is-valid").addClass("is-invalid");
+            }
+        }
+
+        $("#password, #repassword").on("keyup change", function () {
+            validatePassword();
+        });
+
     });
 
     const showUser = () => {
@@ -168,14 +224,23 @@ $breadcrumb_items = [
             },
             {
                 name: "Role",
-                data: "role"
+                data: "",
+                render: function(data, type, row, meta) {
+                    if (row.role === '1') {
+                        return `ADMIN`;
+                    } else if (row.role === '2') {
+                        return `MARKETING`;
+                    }else {
+                        return `KEUANGAN`;  
+                    }
+                }
             },            
             {
                 width: "10%",
                 sortable: false,
                 render: function(data, type, row, meta) {
-                    return `<a href="<?= base_url() ?>user/user-edit/`+row.id+`" target='_blank' >
-                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit" >
+                    return `
+                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit"  id="edit" >
                                 <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                 <span class="svg-icon svg-icon-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -185,7 +250,6 @@ $breadcrumb_items = [
                                 </span>
                                 <!--end::Svg Icon-->
                             </button>
-                            </a>
                             <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm delete" id="delete">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                 <span class="svg-icon svg-icon-3">
@@ -231,14 +295,18 @@ $breadcrumb_items = [
         $("#user_modal").modal("show");
     });
 
-    // $('#user_table tbody').on('click', '#edit', function() {
-    //     var data = $('#user_table').DataTable().row($(this).parents('tr')).data();
-    //     $("#user_modal #user").val(data.user);
-    //     $("#user_modal #id").val(data.id);
+    $('#user_table tbody').on('click', '#edit', function() {
+        var data = $('#user_table').DataTable().row($(this).parents('tr')).data();
+        $("#user_modal #nama").val(data.nama);
+        $("#user_modal #email").val(data.email);
+        $("#user_modal #username").val(data.username);
+        $("#user_modal #status").val(data.status);
+        $("#user_modal #role").val(data.role);
+        $("#user_modal #id").val(data.id);
 
-    //     $("#user_modal #modal_title").text("Edit User");
-    //     $("#user_modal").modal("show");
-    // });
+        $("#user_modal #modal_title").text("Edit User");
+        $("#user_modal").modal("show");
+    });
 
     $('#user_table tbody').on('click', '#delete', function() {
         var data = $('#user_table').DataTable().row($(this).parents('tr')).data();

@@ -16,11 +16,7 @@ class UserModels extends Model
     protected $primaryKey     = 'id';
     protected $returnType     = User::class;
     protected $useSoftDeletes = true;
-    protected $allowedFields  = [
-        'suplierpakanfk','email', 'username', 'password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash', 'asosiasifk',
-        'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at','first_name','last_name','lat','long','nohp',
-        'groupwa','namapeternakan','populasi','notelp','jenispakan','replacement','pullet','frequensireplacement','ktp','bersediamembayar','alasantidakbersedia','ktp','buktipembayaran','kodeanggota','isbayar','avatar'
-    ];
+    protected $protectFields    = false;    
     protected $useTimestamps   = true;
     protected $validationRules = [
         'email'         => 'required|valid_email|is_unique[users.email,id,{id}]',
