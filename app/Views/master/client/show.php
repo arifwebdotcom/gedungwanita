@@ -89,12 +89,8 @@ $breadcrumb_items = [
                     <label for="hargadeal">Harga Deal</label>
                 </div>
                 <div class="form-floating form-floating-outline mb-2">
-                    <input type="text"  id="eo" name="eo" class="form-control " placeholder="Event Organizer" value="<?= isset($client) ? $client->eo : '' ?>">
-                    <label for="eo">Event Organizer</label>
-                </div>
-                <div class="form-floating form-floating-outline mb-2">
-                    <input type="text"  id="katering" name="katering" class="form-control" placeholder="Katering" value="<?= isset($client) ? $client->katering : '' ?>">
-                    <label for="katering">Katering</label>
+                    <input type="text"  id="lainlain" name="lainlain" class="form-control rupiah" placeholder="Lain-lain" value="<?= isset($client) ? $client->lainlain : '' ?>">
+                    <label for="lainlain">Lain-lain</label>
                 </div>
             </div>
             <div class="col-md-4 mb-2">
@@ -131,9 +127,17 @@ $breadcrumb_items = [
                     <input type="text"  id="kursi" name="kursi" class="form-control" placeholder="Kursi" value="<?= isset($client) ? $client->kursi : '' ?>">
                     <label for="kursi">Jumlah Kursi</label>
                 </div>
-                <div class="form-floating form-floating-outline">
-                    <textarea id="keterangan" name="keterangan" class="form-control" style="height: 120px" placeholder="Detail"><?= isset($client) ? $client->keterangan : '' ?></textarea>
+                <div class="form-floating form-floating-outline mb-2">
+                    <textarea id="keterangan" name="keterangan" class="form-control" style="height: 80px" placeholder="Detail"><?= isset($client) ? $client->keterangan : '' ?></textarea>
                     <label for="keterangan">Keterangan</label>
+                </div>
+                <div class="form-floating form-floating-outline mb-2">
+                    <input type="text"  id="eo" name="eo" class="form-control " placeholder="Event Organizer" value="<?= isset($client) ? $client->eo : '' ?>">
+                    <label for="eo">Event Organizer</label>
+                </div>
+                <div class="form-floating form-floating-outline mb-2">
+                    <input type="text"  id="katering" name="katering" class="form-control" placeholder="Katering" value="<?= isset($client) ? $client->katering : '' ?>">
+                    <label for="katering">Katering</label>
                 </div>
             </div>
             <div class="col-md-12 mb-2">

@@ -254,8 +254,14 @@ $breadcrumb_items = [
         <!-- Harga Deal -->
             <div class="col-md-6 mb-2">
                 <div class="form-floating form-floating-outline">
-                    <input type="number" step="0.01" id="hargadeal" name="hargadeal" class="form-control" placeholder="Harga Deal">
+                    <input type="number" step="1" id="hargadeal" name="hargadeal" class="form-control" placeholder="Harga Deal">
                     <label for="hargadeal">Harga Deal</label>
+                </div>
+            </div> 
+             <div class="col-md-6 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="number" step="1" id="lainlain" name="lainlain" class="form-control" placeholder="Lain-lain">
+                    <label for="lainlain">Lain-lain</label>
                 </div>
             </div>    
         </div>

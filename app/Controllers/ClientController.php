@@ -27,7 +27,7 @@ class ClientController extends BaseController
     public function show($id) {
         $this->data['client'] = model(Client::class)
         ->select('client_m.*, booking_t.tanggal, booking_t.sesi, booking_t.status, booking_t.keterangan, booking_t.paketfk, paket_m.paket,
-        booking_t.hargaasli, booking_t.hargadeal, booking_t.kursi,booking_t.id as bookingid,booking_t.eo,booking_t.katering')
+        booking_t.hargaasli, booking_t.hargadeal, booking_t.kursi,booking_t.id as bookingid,booking_t.eo,booking_t.katering,booking_t.lainlain')
         ->where('booking_t.id', $id)
         ->join('booking_t','booking_t.clientfk = client_m.id')
         ->join('paket_m', 'booking_t.paketfk = paket_m.id','left')
@@ -74,6 +74,7 @@ class ClientController extends BaseController
         $transaksi['hargadeal'] = $this->request->getPost('hargadeal');
         $transaksi['status'] = $this->request->getPost('status');
         $transaksi['eo'] = $this->request->getPost('eo');
+        $transaksi['lainlain'] = $this->request->getPost('lainlain');
         $transaksi['katering'] = $this->request->getPost('katering');
         $transaksi['kodebooking'] = $kodebooking;
         model(Booking::class)->insert($transaksi);
@@ -121,6 +122,7 @@ class ClientController extends BaseController
         $transaksi['status'] = $this->request->getPost('status');
         $transaksi['eo'] = $this->request->getPost('eo');
         $transaksi['katering'] = $this->request->getPost('katering');
+        $transaksi['lainlain'] = $this->request->getPost('lainlain');
         $transaksi['id'] = $id;
         model(Booking::class)->save($transaksi);        
 

@@ -17,19 +17,8 @@ $breadcrumb_items = [
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
             <span class="card-label fw-bolder fs-3 mb-1">Laporan</span>
-            <span class="text-muted mt-1 fw-bold fs-7">Data Laporan</span>
-        </h3>
-        <div class="card-toolbar">            
-            <a href="!#" id='btn_create' class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#laporan_modal">
-            <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-            <span class="svg-icon svg-icon-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                </svg>
-            </span>
-            <!--end::Svg Icon-->Tambah Laporan</a>            
-        </div>
+            <span class="text-muted mt-1 fw-bold fs-7">Laporan Pemakaian Pendopo</span>
+        </h3>        
         <div class="row card-header mx-0 px-2">
             <div class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto">
                 <h5 class="card-title mb-0">
@@ -39,28 +28,34 @@ $breadcrumb_items = [
             <div class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto">
                 <div class="dt-buttons btn-group flex-wrap"> 
                     <div class='form-group me-2'>
-                        <select id="kelas" name="kelasfk" class="form-control select2" style="width: 100%;">
-                            <option value="0">Pilih Kelas</option>
-                            <?php foreach($kelas as $row) {?>
-                            <option value="<?= $row->id; ?>"><?= $row->kelas; ?></option>
+                        <select id="tipe" name="tipefk" class="form-control select2" style="width: 100%;">
+                            <option value="0">Pilih Event</option>
+                            <?php foreach($tipe as $row) {?>
+                            <option value="<?= $row->id; ?>"><?= $row->tipeevent; ?></option>
                             <?php } ?>                            
                         </select>                      
                     </div>
                     <div class='form-group me-2'>
-                        <select id="kategori" name="kategorifk" class="form-control select2" style="width: 100%;">
-                            <option value="0">Pilih Kategori</option>
-                            <?php foreach($kategori as $row) {?>
-                            <option value="<?= $row->id; ?>"><?= $row->namakategori; ?></option>
+                        <select id="paket" name="paketfk" class="form-control select2" style="width: 100%;">
+                            <option value="0">Pilih Paket</option>
+                            <?php foreach($paket as $row) {?>
+                            <option value="<?= $row->id; ?>"><?= $row->paket; ?></option>
                             <?php } ?>                            
                         </select>                        
+                    </div>
+                    <div class='form-group me-2'>                        
+                        <input type="month" class="form-control" id="bulan" name="monthYear">                    
                     </div>
                     <div class='form-group me-2'>
                         <input type="text" class="form-control" placeholder="Keywords" id="keywords"/>                       
                     </div>
                     <div class="btn-group">
-                        <input type="text" class="form-control" placeholder="Masukkan nilai" id="numrows" value="50" />
+                        <input type="text" class="form-control" placeholder="Masukkan nilai" id="numrows" value="50" style="width: 70px;" />
                         <button class="btn btn-outline-success btn-primary waves-effect waves-light" type="button" id="cari">
                             <svg class="aa-SubmitIcon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.041 15.856c-0.034 0.026-0.067 0.055-0.099 0.087s-0.060 0.064-0.087 0.099c-1.258 1.213-2.969 1.958-4.855 1.958-1.933 0-3.682-0.782-4.95-2.050s-2.050-3.017-2.050-4.95 0.782-3.682 2.050-4.95 3.017-2.050 4.95-2.050 3.682 0.782 4.95 2.050 2.050 3.017 2.050 4.95c0 1.886-0.745 3.597-1.959 4.856zM21.707 20.293l-3.675-3.675c1.231-1.54 1.968-3.493 1.968-5.618 0-2.485-1.008-4.736-2.636-6.364s-3.879-2.636-6.364-2.636-4.736 1.008-6.364 2.636-2.636 3.879-2.636 6.364 1.008 4.736 2.636 6.364 3.879 2.636 6.364 2.636c2.125 0 4.078-0.737 5.618-1.968l3.675 3.675c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path></svg>
+                        </button>
+                        <button class="btn btn-outline-success btn-primary waves-effect waves-light" type="button" id="export">
+                            <i class="icon-base ri ri-file-excel-line"></i>
                         </button>
                     </div>                     
                 </div>
@@ -78,16 +73,14 @@ $breadcrumb_items = [
                 <thead>
                     <tr>
                     <th>No</th>            
-                    <th>Nama</th>            
-                    <th>Usia</th>                    
-                    <th>Nama Ortu</th>                    
-                    <th>Kategori</th>
-                    <th>Kelas</th>
-                    <th>Pilihan Jadwal</th>
-                    <th>Planning</th>
-                    <th>Mulai</th>
-                    <th>Jumlah Checkin</th>
-                    <th>Action</th>
+                    <th>Hari & Tanggal</th>            
+                    <th>Jml Tamu</th>            
+                    <th>Katering</th>                    
+                    <th>EO</th>                    
+                    <th>Harga Deal</th>
+                    <th>Lain-lain</th>
+                    <th>Total Pendapatan</th>
+                    <th>Penyewa</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0"> 
@@ -102,85 +95,7 @@ $breadcrumb_items = [
     <!--begin::Body-->
 </div>
 <!--end::Tables Widget 11-->
-<div class="modal fade" id="laporan_modal" tabindex="-1" aria-modal="true" role="dialog">
-    <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="modal_title">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-        <form id="laporan_form" class="form" >
-        <div class="row">
-            <div class="col mb-6 mt-2">
-            <div class="form-floating form-floating-outline">
-                <input type="hidden" name="id" id="id">
-                <select class="form-control" name="kelasfk">                    
-                    <?php foreach($kelas as $row) {?>
-                        <option value="<?= $row->id; ?>"><?= $row->kelas; ?></option>
-                    <?php } ?> 
-                </select>
-                <label for="kelas">Kelas</label>
-            </div>
-            </div>
-        </div>
-        <div class="row g-4">
-            <div class="col mb-2">
-            <div class="form-floating form-floating-outline">
-                <input type="text" id="namalaporan" name="namalaporan" class="form-control" placeholder="Enter Name">
-                <label for="namalaporan">Laporan</label>
-            </div>
-            </div>            
-        </div>
-        <div class="row g-4">
-            <div class="col mb-2">
-                <div class="form-floating form-floating-outline">                    
-                    <label class="form-label" style="padding-left: 0px!important;">Warna</label><br><p>
-                    <div id="picker"></div>
-                    <input type="hidden" id="warna" name="warna" value="#000000">                    
-                </div>
-            </div>                               
-        </div>
-        <div class="row g-4">
-            <div class="col-md-6 mb-2">
-                <div class="form-floating form-floating-outline">
-                    <input type="number" step="0.1" id="usiaawal" name="usiaawal" class="form-control" placeholder="Enter Name">
-                    <label for="usiaawal">Usia Awal</label>
-                </div>
-            </div>            
-            <div class="col-md-6 mb-2">
-                <div class="form-floating form-floating-outline">
-                    <input type="number" step="0.1" id="usiaakhir" name="usiaakhir" class="form-control" placeholder="Enter Name">
-                    <label for="usiaakhir">Usia Akhir</label>
-                </div>
-            </div>            
-        </div>
-        <div class="row g-4">
-            <div class="col mb-2">
-                <div class="form-floating form-floating-outline">
-                    <input type="text" id="durasi" name="durasi" class="form-control" placeholder="Durasi">
-                    <label for="durasi">Durasi</label>
-                </div>
-            </div>                               
-        </div>
-        <div class="row g-4">
-            <div class="col mb-2">
-                <div class="form-floating form-floating-outline">
-                    <input type="text" id="kapasitas" name="kapasitas" class="form-control" placeholder="Kapasitas">
-                    <label for="kapasitas">Kapasitas</label>
-                </div>
-            </div>                               
-        </div>        
-        
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan</button>
-        </div>
-        </form>
-    </div>
-    </div>
-</div>
+
 <!-- /.content -->
 <?= $this->endSection(); ?>
 
@@ -189,49 +104,41 @@ $breadcrumb_items = [
 
 <script>
     $(document).ready(function() {
-        //$("#laporan_table").DataTable();
+        $("#laporan_table").DataTable();
         init();
 
        
     });
 
-    const pickr = Pickr.create({
-            el: '#picker',
-            theme: 'classic',
-            default: '#000000',
-            components: {
-                preview: true,
-                opacity: true,
-                hue: true,
-                interaction: {
-                hex: true,
-                rgba: true,
-                input: true,
-                save: true
-                }
-            }
-            });
-
-            // kalau mau update saat selesai klik di luar (close dialog)
-            pickr.on('hide', (instance) => {
-            let hexa = instance.getColor().toHEXA().toString();
-            $('#warna').val(hexa);
-            });
 
     $("#cari").click(function() {
         init();
     });
 
+    $("#export").click(function() {
+        var bulan  = $("#bulan").val()  && $("#bulan").val() != "0" ? "&bulan=" + $("#bulan").val() : "";
+        var tipe   = $("#tipe").val()   && $("#tipe").val() != "0"  ? "&tipe=" + $("#tipe").val()  : "";
+        var paket = $("#paket").val() && $("#paket").val() != "0" ? "&paket=" + $("#paket").val() : "";
+
+        // download langsung
+        window.location.href = "<?= route_to('laporan.export') ?>"+ `?1=1${tipe}${paket}${bulan}`;
+    });
+
     function init() {
 
-        var kelas = "";
-        if ($("#kelas").val() && $("#kelas").val() != "0") {
-            kelas = "&kelas=" + $("#kelas").val();
+        var bulan = "";
+        if ($("#bulan").val() && $("#bulan").val() != "0") {
+            bulan = "&bulan=" + $("#bulan").val();
         }
 
-        var kategori = "";
-        if ($("#kategori").val() && $("#kategori").val() != "0") {
-            kategori = "&kategori=" + $("#kategori").val();
+        var tipe = "";
+        if ($("#tipe").val() && $("#tipe").val() != "0") {
+            tipe = "&tipe=" + $("#tipe").val();
+        }
+
+        var paket = "";
+        if ($("#paket").val() && $("#paket").val() != "0") {
+            paket = "&paket=" + $("#paket").val();
         }
 
         var numrows = "0";
@@ -253,7 +160,7 @@ $breadcrumb_items = [
             "lengthChange": false,
             ajax: {
                 type: "GET",
-                url: "<?= route_to('laporan.datatable') ?>"+ `?numrows=${numrows}${kelas}${kategori}${keywords}`,
+                url: "<?= route_to('laporan.datatable') ?>"+ `?numrows=${numrows}${tipe}${paket}${keywords}${bulan}`,
                 dataType: 'JSON',
                 error: function(e) {
                     alert(e);
@@ -267,70 +174,95 @@ $breadcrumb_items = [
                         return meta.row + 1; // nomor urut dimulai dari 1
                     }
                 },
+                // {
+                //     name: "Nama",
+                //     data: "nama",
+                //     render: function (data, type, row) {
+                //     if (row.jeniskelamin === 'L') {
+                //         return `<span class="badge rounded-pill bg-label-danger">${data}</span>`;
+                //     } else if (row.jeniskelamin === 'P') {
+                //         return `<span class="badge rounded-pill bg-label-info">${data}</span>`;
+                //     } else {
+                //         return data; // fallback, kalau kosong/tidak ada
+                //     }
+                //     }
+                // },
                 {
-                    name: "Nama",
-                    data: "nama",
+                    name: "Hari & Tanggal",
+                    data: "tanggal",
+                    render: function (data) {
+
+                        if (!data) return "-";
+
+                        // daftar nama hari & bulan Indonesia
+                        const namaHari = [
+                            "Minggu", "Senin", "Selasa", "Rabu",
+                            "Kamis", "Jumat", "Sabtu"
+                        ];
+
+                        const namaBulan = [
+                            "Januari", "Februari", "Maret", "April",
+                            "Mei", "Juni", "Juli", "Agustus",
+                            "September", "Oktober", "November", "Desember"
+                        ];
+
+                        // ubah string tanggal ke object Date
+                        const d = new Date(data);
+
+                        // ambil hari, tanggal, bulan, tahun
+                        const hari = namaHari[d.getDay()];
+                        const tanggal = d.getDate();
+                        const bulan = namaBulan[d.getMonth()];
+                        const tahun = d.getFullYear();
+
+                        return `${hari}, ${tanggal} ${bulan} ${tahun}`;
+                    }
+                },
+                {
+                    name: "Jml Tamu",
+                    data: "kursi"
+                },
+                {
+                    name: "Katering",
+                    data: "katering"
+                },
+                {
+                    name: "Event Organizer",
+                    data: "eo"
+                },           
+                {
+                    name: "Harga Deal",
+                    data: "hargadeal",
                     render: function (data, type, row) {
-                    if (row.jeniskelamin === 'L') {
-                        return `<span class="badge rounded-pill bg-label-danger">${data}</span>`;
-                    } else if (row.jeniskelamin === 'P') {
-                        return `<span class="badge rounded-pill bg-label-info">${data}</span>`;
-                    } else {
-                        return data; // fallback, kalau kosong/tidak ada
-                    }
+                        return rupiah(data) ? rupiah(data) : '0';
                     }
                 },
                 {
-                    name: "Tgl Lahir",
-                    data: "tgllahir",
+                    name: "Lain-lain",
+                    data: "lainlain",
                     render: function (data, type, row) {
-                    if (!data) return "-";
-
-                    // parsing tanggal
-                    const dob = new Date(data); // data harus format YYYY-MM-DD dari server
-                    const day = String(dob.getDate()).padStart(2, '0');
-                    const month = String(dob.getMonth() + 1).padStart(2, '0');
-                    const year = dob.getFullYear();
-
-                    // hitung umur
-                    const today = new Date();
-                    let age = today.getFullYear() - year;
-                    const m = today.getMonth() - dob.getMonth();
-                    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-                        age--;
+                        return rupiah(data) ? rupiah(data) : '0';
                     }
+                },           
+                {
+                    name: "Total Pendapatan",
+                    data: null,
+                    render: function (data, type, row) {
 
-                    return `${day}-${month}-${year} (${age} Tahun)`;
+                        // ubah ke angka (hindari NaN jika null / kosong)
+                        const hargaDeal   = parseInt(row.hargadeal)  || 0;
+                        const lainLain    = parseInt(row.lainlain)   || 0;
+
+                        const total = hargaDeal + lainLain;
+
+                        // Format rupiah
+                        return rupiah(total);
                     }
-                },
-                {
-                    name: "Nama Ortu",
-                    data: "namaortu"
-                },
-                {
-                    name: "Kategori",
-                    data: "namakategori"
-                },
-                {
-                    name: "Kelas",
-                    data: "kelas"
                 },           
                 {
-                    name: "Pilihan Jadwal",
-                    data: "pilihanjadwal"
-                },           
-                {
-                    name: "Planning",
-                    data: "planning"
-                },           
-                {
-                    name: "Mulai",
-                    data: "mulai"
-                },           
-                {
-                    name: "Jumlah Checkin",
-                    data: "jumlahcheckin"
-                },           
+                    name: "Penyewa",
+                    data: "pemesan"
+                }        
                 // {
                 //     name: "Checkin",
                 //     data: "",
@@ -342,142 +274,29 @@ $breadcrumb_items = [
                 //         }
                 //     }
                 // },           
-                {
-                    width: "10%",
-                    sortable: false,
-                    render: function(data, type, row, meta) {
-                        return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
-                                    <i class="icon-base ri ri-edit-box-line icon-22px"></i>
-                                </button>
-                                <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit delete" id="delete">
-                                    <i class="icon-base ri ri-delete-bin-fill icon-22px"></i>
-                                </button>
-                                `;
-                    }
-                },
+                // {
+                //     width: "10%",
+                //     sortable: false,
+                //     render: function(data, type, row, meta) {
+                //         return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
+                //                     <i class="icon-base ri ri-edit-box-line icon-22px"></i>
+                //                 </button>
+                //                 <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit delete" id="delete">
+                //                     <i class="icon-base ri ri-delete-bin-fill icon-22px"></i>
+                //                 </button>
+                //                 `;
+                //     }
+                // },
             ]
         })
 
     }
 
-    const showLaporan = () => {
-        // const columns = [
-        //     {
-        //         width: "10%",
-        //         sortable: false,
-        //         render: function(data, type, row, meta) {
-        //             return `<div class="form-check form-check-sm form-check-custom form-check-solid">
-        //                         <input class="form-check-input widget-13-check" type="checkbox" value="${row.id}">
-        //                     </div>`;
-        //         }
-        //     },
-        //     {
-        //         name: "Nama",
-        //         data: "nama",
-        //         render: function (data, type, row) {
-        //         if (row.jeniskelamin === 'L') {
-        //             return `<span class="badge rounded-pill bg-label-danger">${data}</span>`;
-        //         } else if (row.jeniskelamin === 'P') {
-        //             return `<span class="badge rounded-pill bg-label-info">${data}</span>`;
-        //         } else {
-        //             return data; // fallback, kalau kosong/tidak ada
-        //         }
-        //         }
-        //     },
-        //     {
-        //         name: "Tgl Lahir",
-        //         data: "tgllahir",
-        //         render: function (data, type, row) {
-        //         if (!data) return "-";
-
-        //         // parsing tanggal
-        //         const dob = new Date(data); // data harus format YYYY-MM-DD dari server
-        //         const day = String(dob.getDate()).padStart(2, '0');
-        //         const month = String(dob.getMonth() + 1).padStart(2, '0');
-        //         const year = dob.getFullYear();
-
-        //         // hitung umur
-        //         const today = new Date();
-        //         let age = today.getFullYear() - year;
-        //         const m = today.getMonth() - dob.getMonth();
-        //         if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-        //             age--;
-        //         }
-
-        //         return `${day}-${month}-${year} (${age} Tahun)`;
-        //         }
-        //     },
-        //     {
-        //         name: "Kategori",
-        //         data: "namakategori"
-        //     },
-        //     {
-        //         name: "Kelas",
-        //         data: "kelas"
-        //     },           
-        //     {
-        //         name: "Checkin",
-        //         data: "",
-        //         render: function(data,type,row,meta){
-        //             if(row.checkin == 1){
-        //                 return ` <span class="badge rounded-pill  bg-label-success">Sudah</span>`;
-        //             }else{
-        //                 return ` <span class="badge rounded-pill  bg-label-warning">Belum</span>`;
-        //             }
-        //         }
-        //     },           
-        //     {
-        //         width: "10%",
-        //         sortable: false,
-        //         render: function(data, type, row, meta) {
-        //             return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
-        //                         <i class="icon-base ri ri-edit-box-line icon-22px"></i>
-        //                     </button>
-        //                     <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit delete" id="delete">
-        //                         <i class="icon-base ri ri-delete-bin-fill icon-22px"></i>
-        //                     </button>
-        //                     `;
-        //         }
-        //     },
-            
-        // ];
-        
-        // var kelas = "";
-        // if ($("#kelas").val() && $("#kelas").val() != "0") {
-        //     kelas = "&kelas=" + $("#kelas").val();
-        // }
-
-        // var kategori = "";
-        // if ($("#kategori").val() && $("#kategori").val() != "0") {
-        //     kategori = "&kategori=" + $("#kategori").val();
-        // }
-
-        // var numrows = "0";
-        // if ($("#numrows").val()) {
-        //     numrows = $("#numrows").val();
-        // }
-
-        // var table = $('#laporan_table').DataTable({
-        //     searching: true,
-        //     destroy: true,
-        //     lengthChange: false,
-        //     ajax: {
-        //         url: "<?= route_to('laporan.datatable') ?>"+ `?numrows=${numrows}${kelas}`,
-        //     },
-        //     columns: columns,
-        //     "dom":
-        //         "<'row'" +
-        //         "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
-        //         "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
-        //         ">" +
-
-        //         "<'table-responsive'tr>" +
-
-        //         "<'row'" +
-        //         "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
-        //         "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
-        //         ">"
-        // });
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
     }
 
     $('#btn_create').on('click', function() {
