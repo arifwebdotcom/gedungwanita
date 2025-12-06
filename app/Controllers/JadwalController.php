@@ -80,7 +80,7 @@ class JadwalController extends BaseController
     
     public function datatablelist() {
         $model = model(Booking::class)
-        ->select('booking_t.id as id,client_m.pemesan,booking_t.tipefk as idtipe,tipe_m.color,tipe_m.tipeevent,booking_t.tanggal,booking_t.sesi,booking_t.status') 
+        ->select('booking_t.id as id,client_m.nohp,client_m.email,client_m.cpp,client_m.cpw,client_m.pemesan,booking_t.tipefk as idtipe,tipe_m.color,tipe_m.tipeevent,booking_t.tanggal,booking_t.sesi,booking_t.status') 
         ->join('client_m','client_m.id=booking_t.clientfk') 
         ->join('tipe_m','tipe_m.id=booking_t.tipefk')
         ->where('booking_t.deleted_at',null); 
@@ -110,7 +110,9 @@ class JadwalController extends BaseController
                 'color'    => $statusColor,
                 'status'   => $row->status,
                 'tipe_id'  => $row->idtipe,
-            ];
+                'nohp'  => $row->nohp,
+                'email'  => $row->email,
+                'couple'  => $row->cpp." & ".$row->cpw,        ];
         }
 
 

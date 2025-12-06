@@ -267,7 +267,12 @@ $breadcrumb_items = [
   var calendarEl = document.getElementById('calendar');
 
   // ambil semua id kategori dari PHP (default semua dipilih)  
-  var selectedPaket = <?= json_encode(array_map('intval', array_column($tipe, 'id'))); ?>;
+  var selectedStatus = [];
+
+    // ambil semua status yg checked
+    $(".input-filter:checked").each(function () {
+        selectedStatus.push($(this).data("value").toLowerCase());
+    });
 
 
   // Set warna awal checkbox sesuai data-color
@@ -346,116 +351,46 @@ $breadcrumb_items = [
     slotLabelInterval: "00:30:00", // interval label ditampilkan
     eventClick: function (info) {
         var pasien = info.event.title;
+        var couple = info.event.extendedProps.couple || '-';
         var totip = info.event.extendedProps.tooltip;
+        var status = info.event.extendedProps.status;
+        var sesi = info.event.extendedProps.sesi;
+        var nohp = info.event.extendedProps.nohp;
+        var email = info.event.extendedProps.email || '-';
         var waktu = info.event.start.toLocaleString();
 
-        let checkinDefault = info.event.extendedProps.checkin == "1";
-        let kelasDefault = info.event.extendedProps.kelas;
-        let kategoriDefault = info.event.extendedProps.kategori_id;
 
         // format default value untuk datetime-local (yyyy-MM-ddTHH:mm)        
         let start = info.event.start;
         let year = start.getFullYear();
         let month = String(start.getMonth() + 1).padStart(2, '0'); 
         let day = String(start.getDate()).padStart(2, '0');
-        let hours = String(start.getHours()).padStart(2, '0');
-        let minutes = String(start.getMinutes()).padStart(2, '0');
 
-        let defaultTanggal = `${year}-${month}-${day}T${hours}:${minutes}`;
+        let defaultTanggal = `${year}-${month}-${day}`;
 
         Swal.fire({
             title: totip,
             html: `
             <div class="text-start">
-                <p><strong>Jadwal:</strong> ${waktu}</p>
-                
-                <div class="mb-3">
-                    <label for="checkin" class="form-label">Checkin</label>
-                    <input type="checkbox" id="checkin" class="form-check-input" ${checkinDefault ? 'checked' : ''}/>
-                </div>
-
-                
-                <div class="mb-3">
-                    <label for="tanggal" class="form-label">Ubah Tanggal</label>
-                    <input type="datetime-local" id="tanggal" class="form-control" value="${defaultTanggal}">
-                </div>
+                <p><strong>Jadwal:</strong> ${pasien}</p>  
+                <small class="card-text text-uppercase text-body-secondary small">${waktu}</small>              
+                <ul class="list-unstyled my-3 py-1">
+                    <li class="d-flex align-items-center mb-4"><i class="icon-base ri ri-group-3-line icon-24px"></i><span class="fw-medium mx-2">Pasangan:</span> <span>${couple}</span></li>
+                    <li class="d-flex align-items-center mb-4"><i class="icon-base ri ri-check-line icon-24px"></i><span class="fw-medium mx-2">Status:</span> <span>${status}</span></li>
+                    <li class="d-flex align-items-center mb-4"><i class="icon-base ri ri-calendar-check-line icon-24px"></i><span class="fw-medium mx-2">Tanggal:</span> <span>${defaultTanggal}</span></li>
+                    <li class="d-flex align-items-center mb-4"><i class="icon-base ri ri-timer-2-line icon-24px"></i><span class="fw-medium mx-2">Sesi:</span> <span>${sesi}</span></li>
+                    <li class="d-flex align-items-center mb-4"><i class="icon-base ri ri-whatsapp-line icon-24px"></i><span class="fw-medium mx-2">No HP:</span> <span>${nohp}</span></li>
+                    <li class="d-flex align-items-center mb-2"><i class="icon-base ri ri-mail-ai-line icon-24px"></i><span class="fw-medium mx-2">Email:</span> <span>${email}</span></li>
+                </ul>
             </div>
             `,
+            showConfirmButton: false,
             showCancelButton: true,
-            showDenyButton: true,
-            confirmButtonText: 'Simpan',
             cancelButtonText: 'Batal',
-            denyButtonText: 'Hapus',
             customClass: {
-                confirmButton: 'btn btn-primary',
-                cancelButton: 'btn btn-secondary ms-2',
-                denyButton: 'btn btn-danger ms-2'
+                cancelButton: 'btn btn-secondary ms-2'
             },
-            buttonsStyling: false,
-            preConfirm: () => {
-                const popup = Swal.getPopup();
-                return {
-                    checkin: popup.querySelector('#checkin').checked ? 1 : 0,
-                    kelasfk: popup.querySelector('#kelas').value,
-                    kategorifk: popup.querySelector('#kategori').value,
-                    tanggal: popup.querySelector('#tanggal').value
-                }
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                let data = {
-                    id: info.event.id,
-                    checkin: result.value.checkin,
-                    kelasfk: result.value.kelasfk,
-                    kategorifk: result.value.kategorifk,
-                    tanggal: result.value.tanggal // dikirim ke backend
-                };
-
-                $.ajax({
-                    url: '/jadwal/jadwalpendaftaran',
-                    method: 'POST',
-                    data: data,
-                    success: function(res) {
-                        Swal.fire('Tersimpan!', 'Data berhasil diperbarui.', 'success');
-                        calendar.removeAllEvents();
-                        calendar.refetchEvents();
-
-                    },
-                    error: function() {
-                        Swal.fire('Error', 'Gagal menyimpan data', 'error');
-                    }
-                });
-            } else if (result.isDenied) {
-                // Hapus
-                Swal.fire({
-                    title: 'Yakin hapus?',
-                    text: 'Data jadwal akan dihapus permanen.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Ya, hapus',
-                    cancelButtonText: 'Batal',
-                    customClass: {
-                        confirmButton: 'btn btn-danger',
-                        cancelButton: 'btn btn-secondary ms-2'
-                    },
-                    buttonsStyling: false
-                }).then((confirmDelete) => {
-                    if (confirmDelete.isConfirmed) {
-                        $.ajax({
-                            url: '/jadwal/hapus',
-                            method: 'POST',
-                            data: { id: info.event.id },
-                            success: function() {
-                                Swal.fire('Dihapus!', 'Jadwal berhasil dihapus.', 'success');
-                                calendar.refetchEvents();
-                            },
-                            error: function() {
-                                Swal.fire('Error', 'Gagal menghapus data', 'error');
-                            }
-                        });
-                    }
-                });
-            }
+            buttonsStyling: false
         });
     },
     events: function(fetchInfo, successCallback, failureCallback) {
@@ -464,7 +399,8 @@ $breadcrumb_items = [
         url: url,
         dataType: 'json',
         success: function(response) {
-          let filtered = response.filter(ev => selectedPaket.includes(parseInt(ev.tipe_id)));
+          let filtered = response.filter(ev => selectedStatus.includes(ev.status.toLowerCase()));
+          console.log(filtered);
           successCallback(filtered);
         },
         error: function() {
@@ -503,19 +439,19 @@ $breadcrumb_items = [
   // Checkbox filter handler
   $('.input-filter').on('change', function() {
     var $this = $(this);
-    var value = parseInt($this.data('value'));
+    var value = $(this).data("value").toLowerCase();
     var color = $this.data('color') || '#ffffff';
 
     if ($this.is(':checked')) {
-      if (!selectedPaket.includes(value)) {
-        selectedPaket.push(value);
+      if (!selectedStatus.includes(value)) {
+        selectedStatus.push(value);
       }
       $this.css({
         'background-color': color,
         'border-color': color
       });
     } else {
-      selectedPaket = selectedPaket.filter(id => id !== value);
+      selectedStatus = selectedStatus.filter(id => id !== value);
       $this.css({
         'background-color': '#ffffff',
         'border-color': '#dee2e6'
@@ -542,7 +478,7 @@ $breadcrumb_items = [
     if ($(this).is(':checked')) {
       $('.input-filter').each(function() {
         var $this = $(this);
-        var value = parseInt($this.data('value'));
+        var value = $(this).data("value").toLowerCase();
         var color = $this.data('color');
 
         $this.prop('checked', true).css({
@@ -550,21 +486,21 @@ $breadcrumb_items = [
           'border-color': color
         });
 
-        if (!selectedPaket.includes(value)) {
-          selectedPaket.push(value);
+        if (!selectedStatus.includes(value)) {
+          selectedStatus.push(value);
         }
       });
     } else {
       $('.input-filter').each(function() {
         var $this = $(this);
-        var value = parseInt($this.data('value'));
+        var value = $(this).data("value").toLowerCase();
 
         $this.prop('checked', false).css({
           'background-color': '#ffffff',
           'border-color': '#dee2e6'
         });
 
-        selectedPaket = selectedPaket.filter(id => id !== value);
+        selectedStatus = selectedStatus.filter(id => id !== value);
       });
     }
 
@@ -574,34 +510,6 @@ $breadcrumb_items = [
   
 });
 
-
-    $('#jadwal_form').on('submit', function(e) {
-        e.preventDefault()
-        var form_data = $(this).serializeArray();
-        let id = $('#jadwal_form #id').val();
-        let route = (id != '') ?
-            `<?= base_url() ?>jadwal/${id}/edit` :
-            "<?= route_to('jadwal.store') ?>";
-        
-        $.ajax({
-            url: route,
-            type: 'post',
-            dataType: 'json',
-            data: form_data,
-            success: function(response) {                
-                if (response.status) {
-                    $("#jadwal_modal").modal("hide");                    
-                    toastr.success(response.messages,"Sukses");
-                    location.reload();
-                } else {
-                    toastr.error("Gagal!","Error");
-                }
-            },
-            error: function(err) {
-                toastr.error(err,"Error");
-            }
-        });    
-    });
 
 </script>
 
