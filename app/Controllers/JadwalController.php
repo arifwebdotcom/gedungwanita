@@ -134,8 +134,14 @@ class JadwalController extends BaseController
     public function index()
     {
         $this->data['tipe'] = model(Tipe::class)->findAll();
-        $this->data['client'] = model(Client::class)->findAll();        
-        $this->data['paket'] = model(Paket::class)->findAll();        
+        $this->data['client'] = model(Client::class)->findAll();
+        $this->data['paket'] = model(Paket::class)->findAll();
+        $this->data['statusList'] = [
+            'KEEP'  => '#ff0000',
+            'DP'    => '#ff8800',
+            '50%'   => '#007bff',
+            'LUNAS' => '#28a745',
+        ];
 
         // print_r(json_encode(compact('data')));
         return view('master/jadwal/index',$this->data);

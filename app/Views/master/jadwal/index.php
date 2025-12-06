@@ -56,20 +56,20 @@ $breadcrumb_items = [
                     <label class="form-check-label" for="selectAll">View All</label>
                 </div>
                 <div class="app-calendar-events-filter text-heading">
-                    <?php foreach($tipe as $row){ ?>
-                    <div class="form-check mb-5 ms-2">
-                        <input class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-<?= $row->id ?>"
-                            data-value="<?= $row->id ?>"
-                            data-color="<?= $row->color ?>"
-                            checked
-                            style="background-color: <?= $row->color ?>; border-color: <?= $row->color ?>;">
-                        <label class="form-check-label" for="select-<?= $row->id ?>">
-                        <?= $row->tipeevent ?>
-                        </label>
-                    </div>
-                    <?php } ?>      
+                    <?php foreach ($statusList as $status => $color) { ?>
+                        <div class="form-check mb-5 ms-2">
+                            <input class="form-check-input input-filter"
+                                type="checkbox"
+                                id="filter-<?= $status ?>"
+                                data-value="<?= $status ?>"
+                                data-color="<?= $color ?>"
+                                checked
+                                style="background-color: <?= $color ?>; border-color: <?= $color ?>;">
+                            <label class="form-check-label" for="filter-<?= $status ?>">
+                                <?= strtoupper($status) ?>
+                            </label>
+                        </div>
+                    <?php } ?>
                 </div>
         </div>
         <div class="col app-calendar-content col-12 col-md-10" >
