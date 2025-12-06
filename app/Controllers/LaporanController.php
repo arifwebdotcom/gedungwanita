@@ -96,7 +96,7 @@ class LaporanController extends BaseController
             $totalPendapatan = $hargaDeal + $lainLain;
 
             $sheet->setCellValue('A' . $rowNumber, $i++);
-            $sheet->setCellValue('B' . $rowNumber, $tanggalIndo);
+            $sheet->setCellValue('B' . $rowNumber, $tanggalIndo." ".$d->sesi );
             $sheet->setCellValue('C' . $rowNumber, $d->kursi);
             $sheet->setCellValue('D' . $rowNumber, $d->katering);
             $sheet->setCellValue('E' . $rowNumber, $d->eo);
