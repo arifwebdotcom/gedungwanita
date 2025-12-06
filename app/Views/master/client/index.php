@@ -205,6 +205,13 @@ $breadcrumb_items = [
                 </div>
             </div>
 
+            <div class="col-md-12 mb-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="number" step="1" id="kursi" name="kursi" class="form-control" placeholder="Kursi">
+                    <label for="kursi">Jumlah Kursi</label>
+                </div>
+            </div>
+
         <!-- Detail -->
         <div class="col-md-12 mb-2">
             <div class="form-floating form-floating-outline">

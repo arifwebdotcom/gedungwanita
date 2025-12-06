@@ -31,6 +31,14 @@ $breadcrumb_items = [
             <form id="client_form" class="form row">
             <!--begin::Table-->
             <div class="col-md-4 mb-2">
+                <div class="form-floating form-floating-outline mb-2">
+                    <select id="tipefk" name="tipefk" class="form-select">
+                        <?php foreach($tipe as $t): ?>
+                            <option value="<?= $t->id ?>"><?= $t->tipeevent ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <label for="tipefk">Tipe Event</label>
+                </div>
                 <div class="form-floating form-floating-outline mb-2">                
                     <input type="hidden" id="idclient" name="idclient" class="form-control" value="<?= isset($client) ? $client->id : '' ?>">
                     <input type="hidden" id="bookingfk" name="bookingfk" class="form-control" value="<?= isset($client) ? $client->bookingid : '' ?>">
@@ -73,11 +81,11 @@ $breadcrumb_items = [
                     <label for="igcpw">IG CPW</label>
                 </div>
                 <div class="form-floating form-floating-outline mb-2">
-                    <input type="text" step="1" id="hargaasli" name="hargaasli" class="form-control rupiah" placeholder="Harga Asli" value="<?= isset($client) ? $client->hargaasli : '' ?>">
+                    <input type="text"  id="hargaasli" name="hargaasli" class="form-control rupiah" placeholder="Harga Asli" value="<?= isset($client) ? $client->hargaasli : '' ?>">
                     <label for="hargaasli">Harga Asli</label>
                 </div>
                 <div class="form-floating form-floating-outline mb-2">
-                    <input type="text" step="0.01" id="hargadeal" name="hargadeal" class="form-control rupiah" placeholder="Harga Deal" value="<?= isset($client) ? $client->hargadeal : '' ?>">
+                    <input type="text"  id="hargadeal" name="hargadeal" class="form-control rupiah" placeholder="Harga Deal" value="<?= isset($client) ? $client->hargadeal : '' ?>">
                     <label for="hargadeal">Harga Deal</label>
                 </div>
             </div>
@@ -110,6 +118,10 @@ $breadcrumb_items = [
                         <?php endforeach; ?>
                     </select>
                     <label for="paket">Paket</label>
+                </div>
+                <div class="form-floating form-floating-outline mb-2">
+                    <input type="text"  id="kursi" name="kursi" class="form-control" placeholder="Kursi" value="<?= isset($client) ? $client->kursi : '' ?>">
+                    <label for="kursi">Jumlah Kursi</label>
                 </div>
                 <div class="form-floating form-floating-outline">
                     <textarea id="keterangan" name="keterangan" class="form-control" style="height: 120px" placeholder="Detail"><?= isset($client) ? $client->keterangan : '' ?></textarea>
@@ -150,7 +162,9 @@ $breadcrumb_items = [
 
             ?>
             <ul class="timeline card-timeline mb-0">
-                <?php foreach ($transaksi as $t): ?>
+                <?php 
+                if($transaksi && count($transaksi) > 0) {
+                foreach ($transaksi as $t): ?>
 
                     <?php 
                         $tipe = $t->status;  
@@ -173,7 +187,17 @@ $breadcrumb_items = [
                         </div>
                     </li>
 
-                <?php endforeach ?>
+                <?php endforeach;
+                }else{
+                    echo '<li class="timeline-item timeline-item-transparent">
+                        <span class="timeline-point timeline-point-warning"></span>
+                        <div class="timeline-event">
+                            <div class="timeline-header mb-3">
+                                <h6 class="mb-0">Belum ada transaksi</h6>
+                            </div>
+                        </div>
+                    </li>';
+                } ?>
             </ul>
         </div>
         <?php
@@ -189,26 +213,55 @@ $breadcrumb_items = [
             $remainingDays = 0;
         }
 
+        $status = $client->status;
+
+        // Tentukan class width progres
+        $progressClass = match($status) {
+            'DP'     => 'w-25',
+            '50%'    => 'w-50',
+            'LUNAS'  => 'w-100',
+            default  => 'w-0',
+        };
         ?>
+
         <div class="col-md-6">
-            <div class="alert alert-warning mb-6 alert-dismissible" role="alert">
-            <h5 class="alert-heading mb-1 d-flex align-items-center">
-                <span class="alert-icon rounded"><i class="icon-base ri ri-alert-line icon-22px"></i></span>
-                <span>We need your attention!</span>
-            </h5>
-            <span class="ms-11">Your plan requires update</span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-            </div>
-            <div class="plan-statistics">
-            <div class="d-flex justify-content-between">
-                <h6 class="mb-1"><?= $remainingDays ?></h6>
-                <h6 class="mb-1">Days Remaining</h6>
-            </div>
-            <div class="progress rounded bg-label-primary mb-1">
-                <div class="progress-bar w-75 rounded" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <small>18 days remaining until your plan requires update</small>
-            </div>
+            <?php if($client->status != 'LUNAS'): ?>
+                <div class="alert alert-warning mb-6 alert-dismissible" role="alert">
+                    <h5 class="alert-heading mb-1 d-flex align-items-center">
+                        <span class="alert-icon rounded"><i class="icon-base ri ri-alert-line icon-22px"></i></span>
+                        <span>Transaksi belum lunas!</span>
+                    </h5>            
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                    <div class="plan-statistics">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="mb-1"><?= $remainingDays ?></h6>
+                        <h6 class="mb-1">Days Remaining</h6>
+                    </div>
+                    <div class="progress rounded bg-label-primary mb-1">
+                        <div class="progress-bar <?= $progressClass ?> rounded" role="progressbar" aria-valuenow="<?= str_replace('%', '', $status) ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <small><?= $remainingDays ?> hari sebelum acara</small>
+                </div>
+            <?php else: ?>
+                <div class="alert alert-success mb-6 alert-dismissible" role="alert">
+                    <h5 class="alert-heading mb-1 d-flex align-items-center">
+                        <span class="alert-icon rounded"><i class="icon-base ri ri-alert-line icon-22px"></i></span>
+                        <span>Transaksi sudah lunas!</span>
+                    </h5>            
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                    <div class="plan-statistics">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="mb-1"><?= $remainingDays ?></h6>
+                        <h6 class="mb-1">Days Remaining</h6>
+                    </div>
+                    <div class="progress rounded bg-label-primary mb-1">
+                        <div class="progress-bar <?= $progressClass ?> rounded" role="progressbar" aria-valuenow="<?= str_replace('%', '', $status) ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <small><?= $remainingDays ?> hari sebelum acara</small>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="col-12 d-flex gap-2 mt-6 flex-wrap">
             <button class="btn btn-primary me-2 waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#pricingModal">Tambah Cicilan</button>            
@@ -312,7 +365,7 @@ $breadcrumb_items = [
             $(this).val(angka);
         });
         var form_data = $(this).serializeArray();
-        let id = $('#client_form #id').val();
+        let id = $('#client_form #bookingfk').val();
         let route = (id != '') ?
             `<?= base_url() ?>client/${id}/edit` :
             "<?= route_to('client.store') ?>";
@@ -325,7 +378,7 @@ $breadcrumb_items = [
             success: function(response) {                
                 if (response.status) {
                     toastr.success(response.messages,"Sukses");
-                    location.reload();
+                    //location.reload();
                 } else {
                     toastr.error("Gagal!","Error");
                 }

@@ -72,7 +72,7 @@ class ClientController extends BaseController
         $transaksi['kursi'] = $this->request->getPost('kursi');
         $transaksi['hargaasli'] = $this->request->getPost('hargaasli');
         $transaksi['hargadeal'] = $this->request->getPost('hargadeal');
-        $transaksi['status'] = "KEEP";
+        $transaksi['status'] = $this->request->getPost('status');
         $transaksi['kodebooking'] = $kodebooking;
         model(Booking::class)->insert($transaksi);
 
@@ -98,15 +98,21 @@ class ClientController extends BaseController
         $request['cpw'] = $this->request->getPost('cpw');
         $request['igcpw'] = $this->request->getPost('igcpw');
         $request['nohpsaudara'] = $this->request->getPost('nohpsaudara');
-        $request['tanggal'] = date("Y-m-d",strtotime($this->request->getPost('tanggal')));
-        $request['sesi'] = $this->request->getPost('sesi');
-        $request['status'] = $this->request->getPost('status');
-        $request['paket'] = $this->request->getPost('paket');
-        $request['detail'] = $this->request->getPost('detail');
-        $request['hargaasli'] = $this->request->getPost('hargaasli');
-        $request['hargadeal'] = $this->request->getPost('hargadeal');
-        $request['id'] = $id;
-        model(Client::class)->save($request);
+        $request['id'] = $this->request->getPost('idclient');
+        $clientfk = model(Client::class)->save($request);
+
+        $transaksi['tipefk'] = $this->request->getPost('tipefk');
+        $transaksi['clientfk'] = $this->request->getPost('idclient');
+        $transaksi['paketfk'] = $this->request->getPost('paket');
+        $transaksi['tanggal'] = date("Y-m-d",strtotime($this->request->getPost('tanggal')));
+        $transaksi['sesi'] = $this->request->getPost('sesi');
+        $transaksi['keterangan'] = $this->request->getPost('keterangan');
+        $transaksi['kursi'] = $this->request->getPost('kursi');
+        $transaksi['hargaasli'] = $this->request->getPost('hargaasli');
+        $transaksi['hargadeal'] = $this->request->getPost('hargadeal');
+        $transaksi['status'] = $this->request->getPost('status');
+        $transaksi['id'] = $id;
+        model(Booking::class)->save($transaksi);        
 
         return $this->respondUpdated([
             'status' => true,
@@ -134,7 +140,7 @@ class ClientController extends BaseController
         model(Client::class)->where('id', $id)->delete();
         return $this->respondUpdated([
             'status' => true,
-            'messages' => 'Data client berhasil diubah.',
+            'messages' => 'Data client berhasil dihapus.',
         ]);
     }
 }
