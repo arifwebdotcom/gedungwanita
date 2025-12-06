@@ -47,8 +47,13 @@ class IndexController extends BaseController
             //booking
             $reqbooking['tipefk'] = $this->request->getPost('tipefk');
             $reqbooking['clientfk'] = $clientfk;
-            $reqbooking['paketfk'] = $this->request->getPost('paketfk');
-            $reqbooking['tanggal'] = date("Y-m-d", strtotime($this->request->getPost('tanggal')));
+            $reqbooking['paketfk'] = $this->request->getPost('paketfk');if($this->request->getPost('sesi') == 'PAGI'){
+            $transaksi['tanggal'] = date("Y-m-d 10:00",strtotime($this->request->getPost('tanggal')));
+            }elseif ($this->request->getPost('sesi') == 'SIANG') {
+                $transaksi['tanggal'] = date("Y-m-d 13:00",strtotime($this->request->getPost('tanggal')));
+            }elseif ($this->request->getPost('sesi') == 'MALAM') {
+                $transaksi['tanggal'] = date("Y-m-d 19:00",strtotime($this->request->getPost('tanggal')));
+            }
             $reqbooking['sesi'] = $this->request->getPost('sesi');
             $reqbooking['keterangan'] = $this->request->getPost('keterangan');
             $reqbooking['status'] = "KEEP";

@@ -104,7 +104,13 @@ class ClientController extends BaseController
         $transaksi['tipefk'] = $this->request->getPost('tipefk');
         $transaksi['clientfk'] = $this->request->getPost('idclient');
         $transaksi['paketfk'] = $this->request->getPost('paket');
-        $transaksi['tanggal'] = date("Y-m-d",strtotime($this->request->getPost('tanggal')));
+        if($this->request->getPost('sesi') == 'PAGI'){
+            $transaksi['tanggal'] = date("Y-m-d 10:00",strtotime($this->request->getPost('tanggal')));
+        }elseif ($this->request->getPost('sesi') == 'SIANG') {
+            $transaksi['tanggal'] = date("Y-m-d 13:00",strtotime($this->request->getPost('tanggal')));
+        }elseif ($this->request->getPost('sesi') == 'MALAM') {
+            $transaksi['tanggal'] = date("Y-m-d 19:00",strtotime($this->request->getPost('tanggal')));
+        }
         $transaksi['sesi'] = $this->request->getPost('sesi');
         $transaksi['keterangan'] = $this->request->getPost('keterangan');
         $transaksi['kursi'] = $this->request->getPost('kursi');
