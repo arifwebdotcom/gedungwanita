@@ -18,7 +18,7 @@
 
             <div class="card-body mt-1">
               <h4 class="mb-1">Welcome to Sasana Krida Kusuma! 👋🏻</h4>
-              <p class="mb-5">Please sign-in to your account and start the adventure</p>
+              <p class="mb-5">Please sign-in to your account</p>
              <?= view('Myth\Auth\Views\_message_block') ?>
               <form id="formAuthentication" novalidate="novalidate" class="mb-5" action="<?= url_to('login') ?>" method="POST">
                 <div class="form-floating form-floating-outline mb-5 form-control-validation">
@@ -50,26 +50,11 @@
                     </div>
                   </div>
                 </div>
-                <div class="mb-5 pb-2 d-flex justify-content-between pt-2 align-items-center">
-                  <div class="form-check mb-0">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                    <label class="form-check-label" for="remember-me"> Remember Me </label>
-                  </div>
-                  <a href="auth-forgot-password-basic.html" class="float-end mb-1">
-                    <span>Forgot Password?</span>
-                  </a>
-                </div>
+                
                 <div class="mb-5">
                   <button class="btn btn-primary d-grid w-100" type="submit">login</button>
                 </div>
-              </form>
-
-              <p class="text-center mb-5">
-                <span>New on our platform?</span>
-                <a href="auth-register-basic.html">
-                  <span>Create an account</span>
-                </a>
-              </p>
+              </form>             
             </div>
           </div>
           <!-- /Login -->

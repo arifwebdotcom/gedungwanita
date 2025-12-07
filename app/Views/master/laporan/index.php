@@ -81,6 +81,7 @@ $breadcrumb_items = [
                     <th>Lain-lain</th>
                     <th>Total Pendapatan</th>
                     <th>Penyewa</th>
+                    <th>Action</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0"> 
@@ -262,7 +263,17 @@ $breadcrumb_items = [
                 {
                     name: "Penyewa",
                     data: "pemesan"
-                }        
+                },
+                {
+                    width: "10%",
+                    sortable: false,
+                    render: function(data, type, row, meta) {
+                        return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
+                                    <i class="icon-base ri ri-folder-open-line icon-22px"></i>
+                                </button>
+                                `;
+                    }
+                },
                 // {
                 //     name: "Checkin",
                 //     data: "",
@@ -306,17 +317,8 @@ $breadcrumb_items = [
 
     $('#laporan_table tbody').on('click', '#edit', function() {
         var data = $('#laporan_table').DataTable().row($(this).parents('tr')).data();
-        $("#laporan_modal #namalaporan").val(data.namalaporan);
-        $("#laporan_modal #usiaawal").val(data.usiaawal);
-        $("#laporan_modal #usiaakhir").val(data.usiaakhir);
-        $("#laporan_modal #durasi").val(data.durasi);
-        $("#laporan_modal #kapasitas").val(data.kapasitas);
-        let color = data.color; // ambil dari atribut data-color
-        pickr.setColor(color); // set default sesuai warna row
-        //pickr.show();
-        $("#laporan_modal #id").val(data.id);
-        $("#laporan_modal #modal_title").text("Edit Laporan");
-        $("#laporan_modal").modal("show");
+        let id = data.bookingid;
+        window.location.href = "<?= base_url('client/show') ?>/" + id;
     });
 
     $('#laporan_table tbody').on('click', '#delete', function() {

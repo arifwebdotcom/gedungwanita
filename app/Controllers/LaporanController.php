@@ -128,43 +128,127 @@ class LaporanController extends BaseController
         return $this->response->download($filename, null)->setFileName($filename);
     }    
 
-    public function datatablepembayaran() {
+    public function exportpembayaran() {
+
         $kategori = $this->request->getVar('kategori');
+        $keywords = $this->request->getVar('keywords');
         $kelas = $this->request->getVar('kelas');
         $numrows = $this->request->getVar('numrows');
-        $data = model(Pendaftaran::class)->getDaftarTransaksiPembayaran($kategori,$kelas, $numrows);
+        $bulan = $this->request->getVar('bulan');
+        $data = model(Client::class)->getDaftarTransaksiPembayaran($kategori,$kelas, $numrows, $keywords,$bulan);
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // ========== HEADER ==========
+        $headers = [
+            'A1' => 'No',
+            'B1' => 'Hari & Tanggal',
+            'C1' => 'Jml Tamu',
+            'D1' => 'Harga Deal',
+            'E1' => 'Lain-lain',
+            'F1' => 'Total Pendapatan',
+            'G1' => 'Sudah Bayar',
+            'H1' => 'Piutang',
+            'I1' => 'Penyewa'
+        ];
+
+        foreach ($headers as $col => $text) {
+            $sheet->setCellValue($col, $text);
+        }
+
+        // ========== DATA ==========
+        $rowNumber = 2;
+
+        $namaHari = [
+            "Minggu", "Senin", "Selasa", "Rabu",
+            "Kamis", "Jumat", "Sabtu"
+        ];
+
+        $namaBulan = [
+            "Januari", "Februari", "Maret", "April",
+            "Mei", "Juni", "Juli", "Agustus",
+            "September", "Oktober", "November", "Desember"
+        ];
+
+        $i = 1;
+        foreach ($data as $d) {
+
+            $dateObj = strtotime($d->tanggal);
+            $hari  = $namaHari[date('w', $dateObj)];
+            $tanggal = date('j', $dateObj);
+            $bulan = $namaBulan[date('n', $dateObj) - 1];
+            $tahun = date('Y', $dateObj);
+
+            $tanggalIndo = "$hari, $tanggal $bulan $tahun";
+
+            // Hitung Total Pendapatan
+            $hargaDeal  = (int) $d->hargadeal;
+            $lainLain   = (int) $d->lainlain;
+            $totalPendapatan = $hargaDeal + $lainLain;
+
+            $sheet->setCellValue('A' . $rowNumber, $i++);
+            $sheet->setCellValue('B' . $rowNumber, $tanggalIndo." ".$d->sesi );
+            $sheet->setCellValue('C' . $rowNumber, $d->kursi);
+            $sheet->setCellValue('D' . $rowNumber, $hargaDeal);
+            $sheet->setCellValue('E' . $rowNumber, $lainLain);
+            $sheet->setCellValue('F' . $rowNumber, $totalPendapatan);
+            $sheet->setCellValue('G' . $rowNumber, $d->total_bayar);
+            $sheet->setCellValue('H' . $rowNumber, $d->piutang);
+            $sheet->setCellValue('I' . $rowNumber, $d->pemesan);
+
+            $sheet->getStyle('D'.$rowNumber)
+                ->getNumberFormat()
+                ->setFormatCode('#,##0');
+
+            $sheet->getStyle('E'.$rowNumber)
+                ->getNumberFormat()
+                ->setFormatCode('#,##0');
+
+            $sheet->getStyle('F'.$rowNumber)
+                ->getNumberFormat()
+                ->setFormatCode('#,##0');
+
+            $sheet->getStyle('G'.$rowNumber)
+                ->getNumberFormat()
+                ->setFormatCode('#,##0');
+
+            $sheet->getStyle('H'.$rowNumber)
+                ->getNumberFormat()
+                ->setFormatCode('#,##0');
+            $rowNumber++;
+
+        }
+
+        // Simpan file
+        $filename = 'laporan_pembayaran_' . $bulan . '.xlsx';
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($filename);
+
+        return $this->response->download($filename, null)->setFileName($filename);
+    }    
+
+    public function datatablepembayaran() {
+        $kategori = $this->request->getVar('kategori');
+        $keywords = $this->request->getVar('keywords');
+        $kelas = $this->request->getVar('kelas');
+        $numrows = $this->request->getVar('numrows');
+        $bulan = $this->request->getVar('bulan');
+        $data = model(Client::class)->getDaftarTransaksiPembayaran($kategori,$kelas, $numrows, $keywords,$bulan);
+
 
         return json_encode(compact('data'));
     }    
 
     public function pembayaran()
     {
-        $this->data['laporan'] = model(JadwalPendaftaran::class)->findAll();
-        $this->data['kategori'] = model(Kategori::class)->findAll();
-        $this->data['kelas'] = model(Kelas::class)->findAll();
+        $this->data['tipe'] = model(name: Tipe::class)->findAll();
+        $this->data['paket'] = model(Paket::class)->findAll();
 
         // print_r(json_encode(compact('data')));
         return view('master/laporan/pembayaran',$this->data);
     }
 
-    public function datatablekelas() {
-        $kategori = $this->request->getVar('kategori');
-        $kelas = $this->request->getVar('kelas');
-        $bulan = $this->request->getVar('bulan');
-        $data = model(JadwalPendaftaran::class)->getDaftarTransaksiKelas($kategori,$kelas,$bulan);
-
-        return json_encode(compact('data'));
-    }    
-
-    public function kelas()
-    {
-        $this->data['laporan'] = model(JadwalPendaftaran::class)->findAll();
-        $this->data['kategori'] = model(Kategori::class)->findAll();
-        $this->data['kelas'] = model(Kelas::class)->findAll();
-
-        // print_r(json_encode(compact('data')));
-        return view('master/laporan/kelas',$this->data);
-    }
 
     public function datatablevendor() {
         $status = $this->request->getVar('status');

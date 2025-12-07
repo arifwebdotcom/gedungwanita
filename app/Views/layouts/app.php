@@ -100,12 +100,7 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
-            <li class="menu-item <?= url_is('jadwal*') ? 'active' : '' ?>">
-              <a href="<?= route_to('jadwal.index') ?>" class="menu-link ">
-                <i class="menu-icon icon-base ri ri-calendar-check-line"></i>
-                <div data-i18n="Kalender">Kalender</div>
-              </a>              
-            </li>
+           
             <!-- Apps & Pages -->
             <li class="menu-header mt-7">
               <span class="menu-header-text">Master Data</span>
@@ -147,6 +142,12 @@
                 <div data-i18n="Dashboards">Dashboards</div>
               </a>              
             </li>
+             <li class="menu-item <?= url_is('jadwal*') ? 'active' : '' ?>">
+              <a href="<?= route_to('jadwal.index') ?>" class="menu-link ">
+                <i class="menu-icon icon-base ri ri-calendar-check-line"></i>
+                <div data-i18n="Kalender">Kalender</div>
+              </a>              
+            </li>
              <li class="menu-header mt-7">
               <span class="menu-header-text">Laporan</span>
             </li>
@@ -158,9 +159,9 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="<?= route_to('laporan.kelas') ?>" class="menu-link">
+              <a href="<?= route_to('laporan.pembayaran') ?>" class="menu-link">
                 <i class="menu-icon icon-base ri ri-dossier-line"></i>
-                <div data-i18n="Email">Laporan Kelas</div>
+                <div data-i18n="Email">Laporan Pembayaran</div>
                 <!-- <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div> -->
               </a>
             </li>           

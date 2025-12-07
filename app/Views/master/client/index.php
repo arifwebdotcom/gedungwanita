@@ -340,7 +340,7 @@ $breadcrumb_items = [
                 sortable: false,
                 render: function(data, type, row, meta) {
                     return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
-                                <i class="icon-base ri ri-edit-box-line icon-22px"></i>
+                                <i class="icon-base ri ri-folder-open-line icon-22px"></i>
                             </button>
                             <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit delete" id="delete">
                                 <i class="icon-base ri ri-delete-bin-fill icon-22px"></i>

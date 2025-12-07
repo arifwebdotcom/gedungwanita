@@ -80,15 +80,7 @@ $routes->group('faq', ['filter' => 'login'],function ($routes) {
     $routes->post('delete/(:num)', [FaqController::class, 'delete'], ['as' => 'faq.delete']);
 });
 
-$routes->group('laporan', ['filter' => 'login'],function ($routes) {
-    $routes->get('/', [LaporanController::class, 'index'], ['as' => 'laporan.index']);
-    $routes->get('terbesar', [LaporanController::class, 'terbesar'], ['as' => 'laporan.terbesar']);    
-    $routes->get('datatable', [LaporanController::class, 'datatable'], ['as' => 'laporan.datatable']);
-    $routes->get('datatablemember', [LaporanController::class, 'datatablemember'], ['as' => 'laporan.datatablemember']);
-    $routes->get('export', [LaporanController::class, 'export'], ['as' => 'laporan.export']);
-    $routes->get('detailmember/(:num)', [LaporanController::class, 'detailmember'], ['as' => 'laporan.detailmember']);
-   // $routes->get('get-dataPengajuan', [PengajuanController::class, 'getPengajuan'], ['as' => 'pengajuan_get']);
-});
+
 
 $routes->group('periode', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [PeriodeController::class, 'index'], ['as' => 'periode.index']);
@@ -157,11 +149,12 @@ $routes->group('jadwal', ['filter' => 'login'],function ($routes) {
 
 $routes->group('laporan', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [LaporanController::class, 'index'], ['as' => 'laporan.index']);
-    $routes->get('kelas', [LaporanController::class, 'kelas'], ['as' => 'laporan.kelas']);
     $routes->get('pembayaran', [LaporanController::class, 'pembayaran'], ['as' => 'laporan.pembayaran']);
     $routes->get('vendor', [LaporanController::class, 'vendor'], ['as' => 'laporan.vendor']);
     $routes->get('biayaadmin', [LaporanController::class, 'biayaadmin'], ['as' => 'laporan.biayaadmin']);
     $routes->post('store', [LaporanController::class, 'store'], ['as' => 'laporan.store']);
+    $routes->get('export', [LaporanController::class, 'export'], ['as' => 'laporan.export']);
+    $routes->get('exportpembayaran', [LaporanController::class, 'exportpembayaran'], ['as' => 'laporan.exportpembayaran']);
     $routes->get('datatable', [LaporanController::class, 'datatable'], ['as' => 'laporan.datatable']);
     $routes->get('datatablekelas', [LaporanController::class, 'datatablekelas'], ['as' => 'laporan.datatablekelas']);
     $routes->get('datatablepembayaran', [LaporanController::class, 'datatablepembayaran'], ['as' => 'laporan.datatablepembayaran']);
@@ -170,6 +163,10 @@ $routes->group('laporan', ['filter' => 'login'],function ($routes) {
     $routes->post('(:num)/edit', [LaporanController::class, 'update'], ['as' => 'laporan.update']);
     $routes->post('(:num)/editpembayaran', [LaporanController::class, 'updatepembayaran'], ['as' => 'laporan.updatepembayaran']);
     $routes->post('delete/(:num)', [LaporanController::class, 'delete'], ['as' => 'laporan.delete']);
+    $routes->get('terbesar', [LaporanController::class, 'terbesar'], ['as' => 'laporan.terbesar']);    
+    $routes->get('datatable', [LaporanController::class, 'datatable'], ['as' => 'laporan.datatable']);
+    $routes->get('datatablemember', [LaporanController::class, 'datatablemember'], ['as' => 'laporan.datatablemember']);    
+    $routes->get('detailmember/(:num)', [LaporanController::class, 'detailmember'], ['as' => 'laporan.detailmember']);
 });
 
 $routes->group('paket', ['filter' => 'login'],function ($routes) {
