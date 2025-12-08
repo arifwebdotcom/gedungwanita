@@ -55,6 +55,12 @@ $routes->group('', [], static function ($routes) {
 $routes->get('/', 'IndexController::index', );
 $routes->post('/booking/submit', 'IndexController::bookingStore', ['as' => 'booking.store'] );
 $routes->get('/booking', 'IndexController::booking', );
+$routes->post('/cekavailable', 'IndexController::cekavailable', );
+$routes->get('/datacalendar', 'IndexController::datacalendar', );
+$routes->get('/captcha', 'IndexController::captcha', );
+$routes->post('/sendwa', 'IndexController::sendWa', );
+$routes->post('/cekkode', 'IndexController::cekKode', );
+$routes->get('/cekjadwal', 'IndexController::cekjadwal', );
 $routes->get('/login', 'IndexController::index', ['filter' => 'login','as' => 'home']);
 
 $routes->group('profile', ['filter' => 'login'],function ($routes) {

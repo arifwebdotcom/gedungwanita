@@ -159,7 +159,7 @@
           <i class="icon-base ri ri-menu-fill icon-lg align-middle text-heading fw-medium"></i>
         </button>
         <!-- Mobile menu toggle: End-->
-        <a href="landing-page.html" class="app-brand-link">
+        <a href="<?= base_url() ?>" class="app-brand-link">
          <img src="https://www.sasanakridakusuma.com/wp-content/uploads/2023/10/FooterLogo.png" alt="Logo Sasana Krida Kusuma" class="app-brand-logo demo logo scaleX-n1-rtl" style="width: 35px;">
           <span class="app-brand-text demo menu-text fw-semibold ms-2 ps-1">Sasana Krida Kusuma</span>
         </a>
@@ -172,22 +172,16 @@
         </button>
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link fw-medium" aria-current="page" href="landing-page.html#landingHero">Home</a>
+            <a class="nav-link fw-medium" aria-current="page" href="<?= base_url() ?>">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fw-medium" href="landing-page.html#landingFeatures">Features</a>
+            <a class="nav-link fw-medium" href="<?= base_url() ?>#landingPricing">Harga Paket</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fw-medium" href="landing-page.html#landingTeam">Team</a>
+            <a class="nav-link fw-medium" href="<?= base_url() ?>#landingFAQ">FAQ</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fw-medium" href="landing-page.html#landingFAQ">FAQ</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-medium active" href="landing-page.html#landingContact">Contact us</a>
-          </li>          
-          <li class="nav-item">
-            <a class="nav-link fw-medium" href="../vertical-menu-template/index.html" target="_blank">Admin</a>
+            <a class="nav-link fw-medium" href="<?= base_url() ?>cekjadwal">Check Jadwal</a>
           </li>
         </ul>
       </div>
@@ -197,7 +191,7 @@
       <ul class="navbar-nav flex-row align-items-center ms-auto">
         
         <li>
-          <a href="<?= base_url("login");?>" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4 waves-effect waves-light" target="_blank"> <span class="icon-base ri ri-user-line me-md-1 icon-18px"></span><span class="d-none d-md-block">Login/Register</span></a>
+          <a href="<?= base_url() ?>booking" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4 waves-effect waves-light" target="_blank"> <span class="icon-base ri ri-shopping-cart-2-line me-md-1 icon-18px"></span><span class="d-none d-md-block">BOOKING</span></a>
         </li>
         <!-- navbar button: End -->
       </ul>

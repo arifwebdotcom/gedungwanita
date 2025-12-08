@@ -20,6 +20,109 @@ class IndexController extends BaseController
         return view('index',$this->data);
     }
 
+    public function cekjadwal(): string
+    {               
+        $this->data['paket'] = '-';
+        return view('cekjadwal',$this->data);
+    }
+
+    public function captcha()
+    {
+        helper('captcha');
+
+        $vals = [
+            'img_path'   => WRITEPATH . 'captcha/',
+            'img_url'    => base_url('writable/captcha/'),
+            'img_width'  => 150,
+            'img_height' => 50,
+            'expiration' => 300
+        ];
+
+        $cap = create_captcha_ci4($vals);
+
+        session()->set('captcha_answer', $cap['word']);
+
+        return $this->response->setJSON([
+            'image' => $cap['image']
+        ]);
+    }
+
+    public function sendWa()
+    {
+        $number   = $this->request->getPost('number');
+        $captcha  = $this->request->getPost('captcha');
+
+        if ($captcha !== session()->get('captcha_answer')) {
+            return $this->response->setJSON([
+                'status' => false,
+                'message' => 'Captcha salah!'
+            ]);
+        }
+
+        // PROSES KIRIM WA — contoh sederhana (ganti dgn API kamu)
+        // ------------------------------------------
+        // panggil service WA
+        // ------------------------------------------
+
+        return $this->response->setJSON([
+            'status' => true,
+            'message' => 'Kode berhasil dikirim ke WhatsApp!'
+        ]);
+    }
+
+    public function cekKode()
+    {
+        $kode   = $this->request->getPost('kode');
+
+        // PROSES KIRIM WA — contoh sederhana (ganti dgn API kamu)
+        // ------------------------------------------
+        // panggil service WA
+        // ------------------------------------------
+
+        return $this->response->setJSON([
+            'status' => true,
+            'message' => 'Kode berhasil dikirim ke WhatsApp!'
+        ]);
+    }
+
+    public function datacalendar() {
+        $model = model(Booking::class)
+        ->select('booking_t.id as id,client_m.nohp,client_m.email,client_m.cpp,client_m.cpw,client_m.pemesan,booking_t.tipefk as idtipe,tipe_m.color,tipe_m.tipeevent,booking_t.tanggal,booking_t.sesi,booking_t.status') 
+        ->join('client_m','client_m.id=booking_t.clientfk') 
+        ->join('tipe_m','tipe_m.id=booking_t.tipefk')
+        ->where('booking_t.deleted_at',null); 
+        //$model = new Pendaftaran(); 
+        
+        $data = $model->findAll();
+
+        $events = [];
+
+        foreach ($data as $row) {
+
+            // Mapping warna berdasarkan status
+            $statusColor = match (strtolower($row->status)) {
+                'keep'  => '#ff0000',
+                'dp'    => '#ff8800',
+                '50%'   => '#007bff',
+                'lunas' => '#28a745',
+                default => '#6c757d', // abu-abu jika tidak diketahui
+            };
+
+            $events[] = [
+                'id'       => $row->id,
+                'title'    => $row->sesi,
+                'tooltip'  => $row->sesi,
+                'start'    => date('c', strtotime($row->tanggal)),
+                'sesi'     => $row->sesi,
+                'color'    => $statusColor,
+                'status'   => $row->status,
+                'tipe_id'  => $row->idtipe,       ];
+        }
+
+
+        return $this->response->setJSON($events);
+    }
+
     public function booking(): string
     {               
         $this->data['paket'] = model(Paket::class)->findAll();
@@ -72,9 +175,57 @@ class IndexController extends BaseController
                 'messages' => 'Terjadi kesalahan pada server: '.$e->getMessage(),
             ]);
         }
-        
+    
+    }
 
-        
+    function cekavailable() {
+        $tanggal = date("Y-m-d",strtotime($this->request->getVar('tanggal')));
+        $sesi    = $this->request->getVar('sesi');
+
+        // Ambil semua sesi yg terisi di tanggal itu
+        $booked = model(Booking::class)
+            ->select('sesi')
+            ->where('DATE(tanggal)', $tanggal)
+            ->findAll();
+
+        $filled = array_column($booked, 'sesi'); // contoh: ['PAGI']
+
+
+        // ❗ Jika sesi yang dipilih sudah terisi → langsung false
+        if (in_array($sesi, $filled)) {
+            return $this->respond([
+                'status' => false,
+                'messages' => 'Tanggal dan sesi tidak tersedia (sudah terisi).'
+            ]);
+        }
+
+
+        // Tentukan sesi yang tidak boleh dipilih berdasarkan aturan
+        $notAvailable = [];
+
+        if (in_array('SIANG', $filled)) {
+            // Jika SIANG terisi → PAGI & MALAM tidak boleh
+            $notAvailable = ['PAGI', 'MALAM'];
+        } else {
+            // Jika PAGI atau MALAM terisi → SIANG tidak boleh
+            if (in_array('PAGI', $filled) || in_array('MALAM', $filled)) {
+                $notAvailable[] = 'SIANG';
+            }
+        }
+
+        // Cek sesi yang diminta user
+        if (in_array($sesi, $notAvailable)) {
+            return $this->respond([
+                'status' => false,
+                'messages' => 'Tanggal dan sesi tidak tersedia.'
+            ]);
+        }
+
+        return $this->respond([
+            'status' => true,
+            'messages' => 'Tanggal dan sesi tersedia.'
+        ]);
+        // Implementasi cek ketersediaan
     }
 
     function generateKodeBookingTanggal($prefix = 'SKK', $length = 3) {
