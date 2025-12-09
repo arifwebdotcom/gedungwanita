@@ -55,6 +55,7 @@ $routes->group('', [], static function ($routes) {
 $routes->get('/', 'IndexController::index', );
 $routes->post('/booking/submit', 'IndexController::bookingStore', ['as' => 'booking.store'] );
 $routes->get('/booking', 'IndexController::booking', );
+$routes->get('/terimakasih/(:any)', 'IndexController::terimakasih/$1', );
 $routes->post('/cekavailable', 'IndexController::cekavailable', );
 $routes->get('/datacalendar', 'IndexController::datacalendar', );
 $routes->get('/captcha', 'IndexController::captcha', );

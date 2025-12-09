@@ -252,8 +252,9 @@
             success: function(response) {                
                 if (response.status) {                    
                     toastr.success(response.messages,"Sukses");
+                    window.location.href = "/terimakasih/" + response.kodebooking;
                 } else {
-                    toastr.error("Gagal!","Error");
+                    toastr.error(response.messages,"Gagal!");
                 }
             },
             error: function(err) {

@@ -58,6 +58,8 @@
     <!-- Page CSS -->
     
   <link rel="stylesheet" href="../assets/vendor/css/front-page-landing.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
 
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script><style type="text/css">
@@ -297,9 +299,12 @@
     <script src="../../assets/js/front-page-landing.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../assets/vendor/js/floating-wpp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script src="../assets/js/ui-modals.js"></script>
     <script src="../assets/js/ui-toasts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 
     <?= $this->renderSection('script'); ?>
     <script>

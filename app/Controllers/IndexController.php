@@ -222,6 +222,18 @@ class IndexController extends BaseController
         return view('booking',$this->data);
     }
 
+    public function terimakasih($kode): string
+    {               
+        $this->data['booking'] =  model(Client::class)
+        ->select('client_m.*, booking_t.tanggal, booking_t.sesi, booking_t.status, booking_t.keterangan, booking_t.paketfk, paket_m.paket,
+        booking_t.hargaasli, booking_t.hargadeal, booking_t.kursi,booking_t.id as bookingid,booking_t.eo,booking_t.katering,booking_t.lainlain,booking_t.kodebooking')
+        ->where('booking_t.kodebooking', $kode)
+        ->join('booking_t','booking_t.clientfk = client_m.id')
+        ->join('paket_m', 'booking_t.paketfk = paket_m.id','left')
+        ->first();
+        return view('terimakasih',$this->data);
+    }
+
     public function bookingStore(){
         //client
 
@@ -257,11 +269,12 @@ class IndexController extends BaseController
             model(Booking::class)->insert($reqbooking);
 
             $this->sendMessage("Ada pesanan baru dari \n Nama : ".$request['pemesan']." \n Tanggal : ".$tanggalsesi.". \n Kode Booking : ".$kodebooking." \n Cek di admin panel ya!");
-            sendWa(normalize_phone($this->request->getPost('nohp')), "Terimakasih ".$this->request->getPost('pemesan')." pesanan anda sudah kami terima, \n Kode Booking Anda: *".$kodebooking."* \nAnda akan segera dihubungi oleh tim marketing");
+            sendWa(normalize_phone($this->request->getPost('nohp')), "Terimakasih ".$this->request->getPost('pemesan')." pesanan anda untuk tanggal ".$this->request->getPost('tanggal').", Sesi ".$this->request->getPost('sesi')." Sudah kami terima, \n Kode Booking Anda: *".$kodebooking."* \nAnda akan segera dihubungi oleh tim marketing");
 
             return $this->respondCreated([
                 'status' => true,
                 'messages' => 'Data pesanan berhasil disimpan.',
+                'kodebooking' => $kodebooking
             ]);
         }catch(\Exception $e){
             return $this->respondCreated([
@@ -269,7 +282,6 @@ class IndexController extends BaseController
                 'messages' => 'Terjadi kesalahan pada server: '.$e->getMessage(),
             ]);
         }
-    
     }
 
     function cekavailable() {
