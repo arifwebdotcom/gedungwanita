@@ -9,6 +9,7 @@ use App\Models\Tipe;
 use App\Models\Booking;
 use App\Models\BookingTransaksi;
 use CodeIgniter\API\ResponseTrait;
+use Dompdf\Dompdf;
 
 class ClientController extends BaseController
 {
@@ -154,5 +155,32 @@ class ClientController extends BaseController
             'status' => true,
             'messages' => 'Data client berhasil dihapus.',
         ]);
+    }
+
+    public function cetakdepan()
+    {
+        // Data yang akan dikirim ke view PDF
+         $data = [
+            'penyewa'         => 'Nama Penyewa',
+            'penanggung'      => 'Nama Penanggung Jawab',
+            'alamat'          => 'Alamat lengkap...',
+            'telepon'         => '08123456789',
+            'acara'           => 'Pernikahan',
+            'tanggal'         => '2025-12-06',
+            'tempat'          => 'Gedung Sasana Krida Kusuma',
+            'waktu'           => '19.00 - Selesai',
+            'tarif'           => 'Rp 5.000.000',
+            'resepsi'         => 'Rp 2.000.000',
+            'tamu'            => '500 orang',
+            'lainlain'        => 'Dekorasi, kursi 500, meja 10',
+            'perincian'       => 'Rincian biaya dan fasilitas...'
+        ];
+        // Load HTML view
+        $html = view('master/client/cetakdepan', $data);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        return $dompdf->stream('function-depan.pdf', ["Attachment" => false]);
     }
 }

@@ -87,7 +87,7 @@
             <div class="dropdown-divider my-1"></div>
         </li>
         <li>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="<?= route_to('profile.index') ?>">
             <i class="icon-base ri ri-user-line icon-md me-3"></i>
             <span>My Profile</span>
             </a>

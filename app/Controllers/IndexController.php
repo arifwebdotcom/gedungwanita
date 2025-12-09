@@ -8,6 +8,7 @@ use App\Models\Faq;
 use App\Models\Client;
 use App\Models\Booking;
 use App\Models\BookingTransaksi;
+use App\Models\CekKode;
 use CodeIgniter\API\ResponseTrait;
 
 class IndexController extends BaseController
@@ -106,6 +107,13 @@ class IndexController extends BaseController
             ]);
         }
 
+        $request['nowa'] = $number ;        
+        $request['kode'] = $this->generateKode4Huruf();
+        $request['status'] = 0;
+        $request['logwa'] = "";
+        $clientModel = model(CekKode::class);
+        $clientModel->insert($request);
+
         // PROSES KIRIM WA — contoh sederhana (ganti dgn API kamu)
         // ------------------------------------------
         // panggil service WA
@@ -128,8 +136,10 @@ class IndexController extends BaseController
                 'message' => 'Akses tidak valid.'
             ]);
         }
-        
+
         $kode   = $this->request->getPost('kode');
+
+        
 
         // PROSES KIRIM WA — contoh sederhana (ganti dgn API kamu)
         // ------------------------------------------
@@ -283,6 +293,17 @@ class IndexController extends BaseController
             'messages' => 'Tanggal dan sesi tersedia.'
         ]);
         // Implementasi cek ketersediaan
+    }
+
+    function generateKode4Huruf() {
+        $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $kode = '';
+
+        for ($i = 0; $i < 4; $i++) {
+            $kode .= $letters[rand(0, strlen($letters) - 1)];
+        }
+
+        return $kode;
     }
 
     function generateKodeBookingTanggal($prefix = 'SKK', $length = 3) {

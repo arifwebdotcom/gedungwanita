@@ -229,17 +229,7 @@
               });
           }
       });
-     $('#whatsappnot').floatingWhatsApp({
-        phone: '62895343619616',     // nomor WA kamu (pakai format internasional)
-        popupMessage: 'Ada yang bisa dibantu?', 
-        showPopup: true,             // tampilkan popup chat
-        position: 'right',           // left atau right
-        message: 'Halo, saya mau tanya...', 
-        headerTitle: 'Chat dengan Kami',
-        size: '60px',
-        backgroundColor: '#25d366',  // warna tombol
-        showOnIE: false
-    });
+    
 
     const rupiah = (number) => {
         return new Intl.NumberFormat("id-ID", {
