@@ -7,6 +7,7 @@ use App\Models\Paket;
 use App\Models\Faq;
 use App\Models\Client;
 use App\Models\Booking;
+use App\Models\BookingTransaksi;
 use CodeIgniter\API\ResponseTrait;
 
 class IndexController extends BaseController
@@ -24,6 +25,52 @@ class IndexController extends BaseController
     {               
         $this->data['paket'] = '-';
         return view('cekjadwal',$this->data);
+    }
+
+    public function cari()
+    {
+        $allowedDomain = base_url();
+        $referer = $this->request->getHeaderLine('Referer');
+
+        if (strpos($referer, $allowedDomain) !== 0) {
+            return $this->response->setStatusCode(403)->setJSON([
+                'status' => 'forbidden',
+                'message' => 'Akses tidak valid.'
+            ]);
+        }
+
+        $kode = $this->request->getPost('kode');
+
+        $booking =  model(Client::class)
+        ->select('client_m.*, booking_t.tanggal, booking_t.sesi, booking_t.status, booking_t.keterangan, booking_t.paketfk, paket_m.paket,
+        booking_t.hargaasli, booking_t.hargadeal, booking_t.kursi,booking_t.id as bookingid,booking_t.eo,booking_t.katering,booking_t.lainlain')
+        ->where('booking_t.kodebooking', $kode)
+        ->join('booking_t','booking_t.clientfk = client_m.id')
+        ->join('paket_m', 'booking_t.paketfk = paket_m.id','left')
+        ->first();
+
+        if (!$booking) {
+            return $this->response->setJSON([
+                'status' => 'fail',
+                'message' => 'Kode booking tidak ditemukan'
+            ]);
+        }
+
+        // ambil transaksi
+        $transaksi = model(BookingTransaksi::class)
+            ->where('bookingfk', $booking->id)
+            ->findAll();
+
+        // render view partial
+        $html = view('hasil_pencarian', [
+            'booking' => $booking,
+            'transaksi' => $transaksi
+        ]);
+
+        return $this->response->setJSON([
+            'status' => 'ok',
+            'html' => $html
+        ]);
     }
 
     public function captcha()
@@ -72,6 +119,16 @@ class IndexController extends BaseController
 
     public function cekKode()
     {
+        $allowedDomain = base_url();
+        $referer = $this->request->getHeaderLine('Referer');
+
+        if (strpos($referer, $allowedDomain) !== 0) {
+            return $this->response->setStatusCode(403)->setJSON([
+                'status' => 'forbidden',
+                'message' => 'Akses tidak valid.'
+            ]);
+        }
+        
         $kode   = $this->request->getPost('kode');
 
         // PROSES KIRIM WA — contoh sederhana (ganti dgn API kamu)

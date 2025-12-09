@@ -188,10 +188,12 @@
       <div class="landing-menu-overlay d-lg-none"></div>
       <!-- Menu wrapper: End -->
       <!-- Toolbar: Start -->
-      <ul class="navbar-nav flex-row align-items-center ms-auto">
-        
+      <ul class="navbar-nav flex-row align-items-center ms-auto">        
         <li>
-          <a href="<?= base_url() ?>booking" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4 waves-effect waves-light" target="_blank"> <span class="icon-base ri ri-shopping-cart-2-line me-md-1 icon-18px"></span><span class="d-none d-md-block">BOOKING</span></a>
+          <button class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4 waves-effect waves-light me-2" data-bs-toggle="modal" data-bs-target="#cek_modal"> <span class="icon-base ri ri-seo-line me-md-1 icon-18px"></span><span class="d-none d-md-block">CEK BOOKING</span></button>
+        </li>
+        <li>
+          <a href="<?= base_url() ?>booking" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4 waves-effect waves-light"> <span class="icon-base ri ri-shopping-cart-2-line me-md-1 icon-18px"></span><span class="d-none d-md-block">BOOKING</span></a>
         </li>
         <!-- navbar button: End -->
       </ul>
@@ -243,6 +245,45 @@
     © 2025 Gedung Wanita — All Rights Reserved.
   </div>
 </footer>
+<div class="modal fade" id="cek_modal" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header">
+                <!--begin::Modal title-->
+                <h5 class="modal-title" id="modal_title">Cek Kode Booking Anda</h5>
+                <!--end::Modal title-->
+                <!--begin::Close-->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!--end::Close-->
+            </div>
+            <!--end::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                <!--begin::Form-->
+                <form id="user_form" class="form" >
+                    <!--begin::Input group-->
+                    <div class="col-md-12 mb-2">
+                        <label class="form-label" for="kode">Masukkan Kode Booking</label>
+                        <div class="input-group">                                
+                            <input type="text" id="kode" class="form-control" placeholder="Masukkan Kode Booking" aria-label="Cari" aria-describedby="buka-detail">
+                            <button class="btn btn-outline-primary waves-effect" type="button" id="buka-detail">Cari</button>
+                        </div>
+                        <div class="row" id="hasil">                          
+                        </div>
+                    </div>                  
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+
     <div id="whatsappnot" class="floating-wpp" style="left: auto; right: 15px;"></div>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>    
@@ -251,13 +292,54 @@
     <script src="../assets/js/front-main.js"></script>
     
 
+    <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;"></div>
     <!-- Page JS -->
     <script src="../../assets/js/front-page-landing.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../assets/vendor/js/floating-wpp.min.js"></script>
+    
+    <script src="../assets/js/ui-modals.js"></script>
+    <script src="../assets/js/ui-toasts.js"></script>
 
     <?= $this->renderSection('script'); ?>
     <script>
+
+      $(document).ready(function () {
+
+        $("#buka-detail").on("click", function () {
+            let kode = $("#kode").val().trim();
+
+            if (kode === "") {
+                alert("Masukkan kode booking terlebih dahulu");
+                return;
+            }
+
+            // Tampilkan loading
+            $("#hasil").html("<p>Sedang mencari...</p>");
+
+            $.ajax({
+                url: "<?= base_url('cari'); ?>",   // endpoint CI4
+                type: "POST",
+                data: { kode: kode },
+                dataType: "json",
+
+                success: function (res) {
+                    if (res.status === "ok") {
+                        $("#hasil").html(res.html);  // tampilkan HTML hasil
+                    } else {
+                        $("#hasil").html("<p class='text-danger'>"+res.message+"</p>");
+                    }
+                },
+
+                error: function () {
+                    $("#hasil").html("<p class='text-danger'>Terjadi kesalahan saat mengambil data</p>");
+                }
+            });
+
+        });
+
+    });
+
      $('#whatsappnot').floatingWhatsApp({
         phone: '62895343619616',     // nomor WA kamu (pakai format internasional)
         popupMessage: 'Ada yang bisa dibantu?', 

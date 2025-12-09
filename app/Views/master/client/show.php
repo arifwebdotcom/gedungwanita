@@ -154,7 +154,7 @@ $breadcrumb_items = [
 
 <div class="card mb-6">
     <!-- Current Plan -->
-    <h5 class="card-header">Current Plan</h5>
+    <h5 class="card-header">Daftar Pembayaran</h5>
     <div class="card-body pt-1">
         <div class="row">
         <div class="col-md-6 mb-1">

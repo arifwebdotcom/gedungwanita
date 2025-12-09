@@ -61,6 +61,7 @@ $routes->get('/captcha', 'IndexController::captcha', );
 $routes->post('/sendwa', 'IndexController::sendWa', );
 $routes->post('/cekkode', 'IndexController::cekKode', );
 $routes->get('/cekjadwal', 'IndexController::cekjadwal', );
+$routes->post('/cari', 'IndexController::cari', );
 $routes->get('/login', 'IndexController::index', ['filter' => 'login','as' => 'home']);
 
 $routes->group('profile', ['filter' => 'login'],function ($routes) {
