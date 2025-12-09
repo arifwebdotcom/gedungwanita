@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\UserModels;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\Setting;
+use Myth\Auth\Password;
 
 class ProfileController extends BaseController
 {
@@ -26,10 +27,29 @@ class ProfileController extends BaseController
         return view('profile/index',$this->data);
     }
 
+    public function ubahpassword ()
+    {
+        $this->data['profile'] = model(UserModels::class)->select('users.*')->where('users.id', user_id())->first();      
+        return view('profile/ubahpassword',$this->data);
+    }
+
+    public function updateprofil()
+    {
+        $userId = user_id();
+        $data = [
+            'email'         => $this->request->getPost('email'),
+            'username'      => $this->request->getPost('username'),
+            'password_hash' => Password::hash($this->request->getPost('password'))
+        ];
+
+        model(UserModels::class)->update($userId, $data);
+        return redirect()->to(site_url('profile/ubahpassword'));
+    }
+
     public function update() {
-        $whatsappaktif = $this->request->getPost('whatsappaktif');        
-        $telegramaktif = $this->request->getPost('telegramaktif');        
-        $emailaktif = $this->request->getPost('emailaktif');        
+        $whatsappaktif = $this->request->getPost('whatsappaktif')? 'on' : 'off';        
+        $telegramaktif = $this->request->getPost('telegramaktif')? 'on' : 'off';        
+        $emailaktif = $this->request->getPost('emailaktif') ? 'on' : 'off';     
         $settings = [
             'whatsappaktif' => $whatsappaktif,
             'telegramaktif' => $telegramaktif,
@@ -43,10 +63,9 @@ class ProfileController extends BaseController
         $settingModel = model(Setting::class);
 
         foreach ($settings as $param => $value) {
-            $settingModel->save([
-                'param' => $param,
-                'value' => $value
-            ]);
+            $settingModel->where('param', $param)
+                        ->set(['value' => $value])
+                        ->update();
         }
 
         return redirect()->to(site_url('profile/'));

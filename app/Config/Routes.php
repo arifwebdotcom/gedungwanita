@@ -67,7 +67,9 @@ $routes->get('/login', 'IndexController::index', ['filter' => 'login','as' => 'h
 
 $routes->group('profile', ['filter' => 'login'],function ($routes) {
     $routes->get('/', [ProfileController::class, 'index'], ['as' => 'profile.index']);
-    $routes->post('/update', [ProfileController::class, 'update'], ['as' => 'profile.update']);    
+    $routes->get('ubahpassword', [ProfileController::class, 'ubahpassword'], ['as' => 'profile.ubahpassword']);
+    $routes->post('update', [ProfileController::class, 'update'], ['as' => 'profile.update']);    
+    $routes->post('updateprofil', [ProfileController::class, 'updateprofil'], ['as' => 'profile.updateprofil']);    
 });
 
 $routes->group('client', ['filter' => 'login'],function ($routes) {

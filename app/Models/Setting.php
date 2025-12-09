@@ -12,8 +12,7 @@ class Setting extends Model
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
-    protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'param', 'value'];
+    protected $protectFields    = false;
 
     // Dates
     protected $useTimestamps = true;

@@ -9,11 +9,13 @@
                 <div class="nav-align-top">
                     <ul class="nav nav-pills flex-column flex-md-row mb-6 gap-2 gap-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="pages-account-settings-account.html"><i class="icon-base ri ri-group-line icon-sm me-1_5"></i> Profile</a>
+                        <a class="nav-link waves-effect waves-light" href="<?= route_to('profile.ubahpassword') ?>"><i class="icon-base ri ri-group-line icon-sm me-1_5"></i> Profile</a>
                     </li>
+                    <?php if(user()->role == '1'){ ?>
                     <li class="nav-item">
-                        <a class="nav-link active waves-effect waves-light" href="javascript:void(0);"><i class="icon-base ri ri-notification-4-line icon-sm me-1_5"></i> Notifikasi</a>
+                        <a class="nav-link waves-effect waves-light" href="<?= route_to('profile.index') ?>"><i class="icon-base ri ri-notification-4-line icon-sm me-1_5"></i> Notifikasi</a>
                     </li>
+                    <?php } ?>
                     </ul>
                 </div>
                 <div class="card">
@@ -36,7 +38,7 @@
                             </div>
                             <div class="text-end">
                                 <div class="form-check form-switch mb-0">
-                                <input type="checkbox" class="form-check-input" name="whatsappaktif" <?= ($whatsappaktif == 'true') ? 'checked' : '' ?>>
+                                <input type="checkbox" class="form-check-input" name="whatsappaktif" <?= ($whatsappaktif == 'on') ? 'checked' : '' ?>>
                                 </div>
                             </div>
                             </div>
@@ -60,7 +62,7 @@
                             </div>
                             <div class="text-end">
                                 <div class="form-check form-switch mb-0">
-                                <input type="checkbox" class="form-check-input" name="telegramaktif" <?= ($telegramaktif == 'true') ? 'checked' : '' ?>>
+                                <input type="checkbox" class="form-check-input" name="telegramaktif" <?= ($telegramaktif == 'on') ? 'checked' : '' ?>>
                                 </div>
                             </div>
                             </div>
@@ -84,7 +86,7 @@
                             </div>
                             <div class="text-end">
                                 <div class="form-check form-switch mb-0">
-                                <input type="checkbox" class="form-check-input" name="emailaktif" <?= ($emailaktif == 'true') ? 'checked' : '' ?>>
+                                <input type="checkbox" class="form-check-input" name="emailaktif" <?= ($emailaktif == 'on') ? 'checked' : '' ?>>
                                 </div>
                             </div>
                             </div>

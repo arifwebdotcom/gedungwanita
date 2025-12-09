@@ -106,7 +106,14 @@ if (!function_exists('sendWa')) {
         return $result;
     }
 
-
+    function role($id){
+        $array = array(
+            '1'=> "Super Admin",
+            '2'=> "Marketing",
+            '3'=> "Keuangan",
+        );
+        return $array[$id];
+    }
     function normalize_phone($nohp)
     {
         $nohp = trim($nohp);

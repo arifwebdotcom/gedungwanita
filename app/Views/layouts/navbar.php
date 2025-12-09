@@ -78,7 +78,7 @@
                 </div>
                 <div class="flex-grow-1">
                 <h6 class="mb-0"><?= user()->username; ?></h6>
-                <small class="text-body-secondary"><?= user()->role; ?></small>
+                <small class="text-body-secondary"><?= role(user()->role); ?></small>
                 </div>
             </div>
             </a>
@@ -87,17 +87,19 @@
             <div class="dropdown-divider my-1"></div>
         </li>
         <li>
-            <a class="dropdown-item" href="<?= route_to('profile.index') ?>">
+            <a class="dropdown-item" href="<?= route_to('profile.ubahpassword') ?>">
             <i class="icon-base ri ri-user-line icon-md me-3"></i>
             <span>My Profile</span>
             </a>
         </li>
+        <?php if(user()->role == '1'){ ?>
         <li>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="<?= route_to('profile.index') ?>">
             <i class="icon-base ri ri-settings-4-line icon-md me-3"></i>
-            <span>Settings</span>
+            <span>Settings Notif</span>
             </a>
-        </li>                   
+        </li>             
+        <?php } ?>      
         <li>
             <div class="dropdown-divider my-1"></div>
         </li>
