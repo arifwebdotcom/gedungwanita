@@ -107,22 +107,33 @@ class IndexController extends BaseController
             ]);
         }
 
+        $kode =  $this->generateKode4Huruf();
+
+        $res = sendWa(normalize_phone($number), "Kode verifikasi Anda: *".$kode."* \nAnda dapat menggunakanya untuk melihat jadwal");
+
         $request['nowa'] = $number ;        
-        $request['kode'] = $this->generateKode4Huruf();
+        $request['kode'] = $kode;
         $request['status'] = 0;
-        $request['logwa'] = "";
+        $request['terkirim'] = !empty($res['status']) && $res['status'] === true ? 1 : 0;
+        $request['logwa'] = json_encode($res);
         $clientModel = model(CekKode::class);
         $clientModel->insert($request);
 
-        // PROSES KIRIM WA — contoh sederhana (ganti dgn API kamu)
-        // ------------------------------------------
-        // panggil service WA
-        // ------------------------------------------
-
-        return $this->response->setJSON([
-            'status' => true,
-            'message' => 'Kode berhasil dikirim ke WhatsApp!'
-        ]);
+        
+        if (!empty($res['status']) && $res['status'] === '200') {
+            return $this->response->setJSON([
+                'status' => true,
+                'message' => 'Kode berhasil dikirim ke WhatsApp!'
+            ]);
+        } else {    
+            $errorMessage = isset($res['message']) ? $res['message'] : 'Tidak ada pesan kesalahan dari API.';
+            return $this->response->setJSON([
+                'status' => false,
+                'message' => 'Kode gagal dikirim ke WhatsApp! '. $errorMessage,
+                'res' => $res
+            ]);
+        }
+        
     }
 
     public function cekKode()
@@ -139,17 +150,32 @@ class IndexController extends BaseController
 
         $kode   = $this->request->getPost('kode');
 
+        $limitTime = date('Y-m-d H:i:s', strtotime('-3 hours'));
+
+        $booking =  model(CekKode::class)      
+        ->where('kode', $kode)
+        ->where('status', 0)
+        ->where('created_at >=', $limitTime)
+        ->first();
         
+        if (!empty($booking)) {
+            return $this->response->setJSON([
+                'status' => true,
+                'message' => 'Kode berhasil digunakan hingga '.date("d-m-Y H:i:s",strtotime($limitTime)),
+            ]);
+        }else{
+            return $this->response->setJSON([
+                'status' => false,
+                'message' => 'Kode salah / telah expired silahkan ajukan kode baru!',
+            ]);
+        }
 
         // PROSES KIRIM WA — contoh sederhana (ganti dgn API kamu)
         // ------------------------------------------
         // panggil service WA
         // ------------------------------------------
 
-        return $this->response->setJSON([
-            'status' => true,
-            'message' => 'Kode berhasil dikirim ke WhatsApp!'
-        ]);
+        
     }
 
     public function datacalendar() {
@@ -231,6 +257,7 @@ class IndexController extends BaseController
             model(Booking::class)->insert($reqbooking);
 
             $this->sendMessage("Ada pesanan baru dari \n Nama : ".$request['pemesan']." \n Tanggal : ".$tanggalsesi.". \n Kode Booking : ".$kodebooking." \n Cek di admin panel ya!");
+            sendWa(normalize_phone($this->request->getPost('nohp')), "Terimakasih ".$this->request->getPost('pemesan')." pesanan anda sudah kami terima, \n Kode Booking Anda: *".$kodebooking."* \nAnda akan segera dihubungi oleh tim marketing");
 
             return $this->respondCreated([
                 'status' => true,

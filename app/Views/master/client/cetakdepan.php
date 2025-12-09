@@ -76,7 +76,7 @@
     <!-- HEADER -->
     <div class="top-section">
         <div class="logo">
-            <!-- <img src="<?= base_url('/assets/img/logo.png') ?>" alt="Logo"> -->
+            <img src="<?= base_url('/assets/img/logo.png') ?>" alt="Logo">
         </div>
         <div class="header-text">
             YAYASAN DHARMA KUSUMA <br>

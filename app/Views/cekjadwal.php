@@ -17,7 +17,7 @@
                         <div class="col-md-6 row">
                             <div class="col-md-6">
                                 <label class="form-label" for="nowa">Masukkan No WhatsApp</label>
-                                <input type="text" id="nowa" class="form-control" placeholder="08xxxxxxxxxx">
+                                <input type="text" id="nowa" class="form-control" placeholder="628xxxxxxxxxx">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label" for="nowa">Masukkan Captcha</label>
@@ -103,7 +103,6 @@
                         icon: "error",
                         title: "Error !",
                         text: res.message,
-                        timer: 1500,
                         showConfirmButton: true
                     });                    
                     return;
@@ -112,8 +111,7 @@
                 Swal.fire({
                               icon: "success",
                               title: "Berhasil membuka jadwal",
-                              text: "Jika anda merefresh halaman maka data akan hilang!",
-                              timer: 1500,
+                              text: res.message,
                               showConfirmButton: false
                           });
             },
@@ -164,7 +162,6 @@
                         icon: "error",
                         title: "Error !",
                         text: res.message,
-                        timer: 1500,
                         showConfirmButton: true
                     });
                     //alert(res.message);
@@ -175,7 +172,6 @@
                               icon: "success",
                               title: "Tersedia",
                               text: "Kode berhasil dikirim!",
-                              timer: 1500,
                               showConfirmButton: false
                           });
             },

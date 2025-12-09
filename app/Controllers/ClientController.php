@@ -177,7 +177,10 @@ class ClientController extends BaseController
         ];
         // Load HTML view
         $html = view('master/client/cetakdepan', $data);
-        $dompdf = new Dompdf();
+        $dompdf = new Dompdf([
+            'isRemoteEnabled' => true
+        ]);
+
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
