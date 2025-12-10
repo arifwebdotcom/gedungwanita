@@ -62,6 +62,7 @@ $routes->get('/captcha', 'IndexController::captcha', );
 $routes->post('/sendwa', 'IndexController::sendWa', );
 $routes->post('/cekkode', 'IndexController::cekKode', );
 $routes->get('/cekjadwal', 'IndexController::cekjadwal', );
+$routes->get('/notifaniv', 'IndexController::notifaniv', );
 $routes->post('/cari', 'IndexController::cari', );
 $routes->get('/login', 'IndexController::index', ['filter' => 'login','as' => 'home']);
 
@@ -77,7 +78,7 @@ $routes->group('client', ['filter' => 'login'],function ($routes) {
     $routes->post('store', [ClientController::class, 'store'], ['as' => 'client.store']);
     $routes->get('datatable', [ClientController::class, 'datatable'], ['as' => 'client.datatable']);
     $routes->get('show/(:num)', [ClientController::class, 'show'], ['as' => 'client.show']);
-    $routes->get('cetakdepan/(:num)', [ClientController::class, 'cetakdepan'], ['as' => 'client.cetakdepan']);
+    $routes->get('persetujuan/(:num)', [ClientController::class, 'persetujuan'], ['as' => 'client.persetujuan']);
     $routes->get('syaratketentuan/(:num)', [ClientController::class, 'syaratketentuan'], ['as' => 'client.syaratketentuan']);
     $routes->post('(:num)/edit', [ClientController::class, 'update'], ['as' => 'faq.update']);
     $routes->post('addcicilan/(:num)', [ClientController::class, 'addCicilan'], ['as' => 'client.addCicilan']);
