@@ -75,13 +75,13 @@
         <td style="width:50%;">
             PENYEWA
             <br><br><br><br>
-            <span style="border-top: 1px dotted #000; padding-top:5px; display:inline-block; width:70%;"></span>
+            <span style="border-bottom: 1px dotted #000;  display:inline-block; width:70%;"><?= $client->pemesan ?></span>
         </td>
 
         <td style="width:50%;">
             MANAGEMENT GEDUNG SKK
             <br><br><br><br>
-            <span style="border-top: 1px dotted #000; padding-top:5px; display:inline-block; width:70%;"></span>
+            <span style="border-bottom: 1px dotted #000; padding-top:5px; display:inline-block; width:70%;">&nbsp;</span>
         </td>
     </tr>
 </table>

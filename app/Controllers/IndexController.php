@@ -222,6 +222,35 @@ class IndexController extends BaseController
         return view('booking',$this->data);
     }
 
+    public function notifaniv() :string 
+    {
+        $tahunLalu = date('Y-m-d', strtotime('-1 year'));
+
+        $data = model( Booking::class)
+            ->select('booking_t.id as id, client_m.*,
+                 booking_t.tipefk as idtipe,
+                    tipe_m.color, tipe_m.tipeevent, booking_t.tanggal,
+                    booking_t.sesi, booking_t.status')
+            ->join('client_m','client_m.id = booking_t.clientfk')
+            ->join('tipe_m','tipe_m.id=booking_t.tipefk')
+            ->where('booking_t.deleted_at', null)
+            ->where('DATE(booking_t.tanggal)', $tahunLalu)
+            ->findAll();
+        $ada = false;
+        foreach ($data as $row) {
+            $message_text = "Hari Ini Setahun yang lalu menggunakan gedung wanita \n Details :  \n Nama Pemesan: ".$row->pemesan."  \n Nama CPP: ".$row->cpp." \n Nama CPW: ".$row->cpw."  \n email: ".$row->email." \n whatsapp: ".$row->nohp." \n  \n IG PP: ".$row->igcpp." \n IG PW: ".$row->igcpw." ";
+
+            $kirim = $this->sendMessage($message_text);
+            if( $kirim ) {
+                $ada = true;
+            }
+        }
+        if( $ada ) {    
+            return json_encode(["status"=> "success","message"=>$kirim]); 
+        }else{
+            return json_encode(["status"=> "false"]); 
+        }
+    }
     public function terimakasih($kode): string
     {               
         $this->data['booking'] =  model(Client::class)
@@ -366,7 +395,6 @@ class IndexController extends BaseController
 		            CURLOPT_URL => $url,
 
 		            CURLOPT_RETURNTRANSFER => true
-
 		    );
 
 		    curl_setopt_array($ch, $optArray);

@@ -157,26 +157,14 @@ class ClientController extends BaseController
         ]);
     }
 
-    public function cetakdepan($id)
+    public function persetujuan($id)
     {
         // Data yang akan dikirim ke view PDF
-         $data = [
-            'penyewa'         => 'Nama Penyewa',
-            'penanggung'      => 'Nama Penanggung Jawab',
-            'alamat'          => 'Alamat lengkap...',
-            'telepon'         => '08123456789',
-            'acara'           => 'Pernikahan',
-            'tanggal'         => '2025-12-06',
+         $datas = [            
             'tempat'          => 'Gedung Sasana Krida Kusuma',
-            'waktu'           => '19.00 - Selesai',
-            'tarif'           => 'Rp 5.000.000',
-            'resepsi'         => 'Rp 2.000.000',
-            'tamu'            => '500 orang',
-            'lainlain'        => 'Dekorasi, kursi 500, meja 10',
-            'perincian'       => 'Rincian biaya dan fasilitas...'
         ];
 
-        $data['client'] = model(Client::class)
+        $datas['client'] = model(Client::class)
         ->select('client_m.*, booking_t.tanggal, booking_t.sesi, booking_t.status, booking_t.keterangan, booking_t.paketfk, paket_m.paket,
         booking_t.hargaasli, booking_t.hargadeal, booking_t.kursi,booking_t.id as bookingid,booking_t.eo,booking_t.katering,booking_t.lainlain,tipe_m.tipeevent')
         ->where('booking_t.id', $id)
@@ -185,7 +173,7 @@ class ClientController extends BaseController
         ->join('tipe_m', 'booking_t.tipefk = tipe_m.id','left')
         ->first();
         // Load HTML view
-        $html = view('master/client/cetakdepan', $data);
+        $html = view('master/client/cetakdepan', $datas);
         $dompdf = new Dompdf([
             'isRemoteEnabled' => true
         ]);
@@ -193,10 +181,10 @@ class ClientController extends BaseController
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        return $dompdf->stream('function-depan.pdf', ["Attachment" => false]);
+        return $dompdf->stream('Persetujuan.pdf', ["Attachment" => false]);
     }
 
-    public function syaratketentuan()
+    public function syaratketentuan($id)
     {
         // Data yang akan dikirim ke view PDF
         $data = [
@@ -204,6 +192,11 @@ class ClientController extends BaseController
             "tanggal" => date("d F Y"),
             "penyewa" => "Nama Penyewa",
         ];
+        $data['client'] = model(Client::class)
+        ->where('booking_t.id', $id)
+        ->join('booking_t','booking_t.clientfk = client_m.id')
+        ->first();
+
 
         $html = view('master/client/syaratketentuan', $data);
 

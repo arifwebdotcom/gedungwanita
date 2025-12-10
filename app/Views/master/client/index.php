@@ -342,6 +342,12 @@ $breadcrumb_items = [
                     return `<button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit edit" id="edit">
                                 <i class="icon-base ri ri-folder-open-line icon-22px"></i>
                             </button>
+                            <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit print" id="printsyarat">
+                                <i class="icon-base ri ri-printer-line icon-22px"></i>
+                            </button>
+                            <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit print" id="printpersetujuan">
+                                <i class="icon-base ri ri-printer-cloud-line icon-22px"></i>
+                            </button>
                             <button class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit delete" id="delete">
                                 <i class="icon-base ri ri-delete-bin-fill icon-22px"></i>
                             </button>
@@ -378,6 +384,20 @@ $breadcrumb_items = [
     $('#btn_create').on('click', function() {
         $("#client_modal #modal_title").text("Tambah Client");
         $("#client_modal").modal("show");
+    });
+
+    $('#client_table tbody').on('click', '#printpersetujuan', function() {
+        var data = $('#client_table').DataTable().row($(this).parents('tr')).data();
+        let id = data.bookingid;
+
+        window.open(`http://localhost:8080/client/persetujuan/${id}`, '_blank');
+    });
+
+    $('#client_table tbody').on('click', '#printsyarat', function() {
+        var data = $('#client_table').DataTable().row($(this).parents('tr')).data();
+        let id = data.bookingid;
+
+        window.open(`http://localhost:8080/client/syaratketentuan/${id}`, '_blank');
     });
 
     $('#client_table tbody').on('click', '#edit', function() {

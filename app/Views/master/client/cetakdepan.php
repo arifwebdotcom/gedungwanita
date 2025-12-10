@@ -73,19 +73,23 @@
 <div class="wrapper">
 
     <!-- HEADER -->
-    <div class="top-section">
-        <div class="logo">
-            <img src="<?= base_url('/assets/img/logo.png') ?>" alt="Logo">
-        </div>
-        <div class="header-text">
-            YAYASAN DHARMA KUSUMA <br>
-            BADAN PENGELOLA <br>
-            SASANA KRIDA KUSUMA <br>
-            JL. MENTERI SUPENO NO. 1 – MANAHAN <br>
-            TELP. (0271) 717508 – 717508 – 717338 <br>
-            SURAKARTA – 57139
-        </div>
-    </div>
+    <table width="100%" style="border-bottom:2px solid #000; margin-bottom:10px;">
+        <tr>
+            <td style="width:130px; text-align:left;">
+                <img src="https://www.sasanakridakusuma.com/wp-content/uploads/2023/10/Logo-150x150.jpg" 
+                    style="width:120px;">
+            </td>
+
+            <td style="text-align:center; font-weight:bold; line-height:1.3; font-size:14px;">
+                YAYASAN DHARMA KUSUMA <br>
+                BADAN PENGELOLA <br>
+                SASANA KRIDA KUSUMA <br>
+                JL. MENTERI SUPENO NO. 1 – MANAHAN <br>
+                TELP. (0271) 717508 – 717508 – 717338 <br>
+                SURAKARTA – 57139
+            </td>
+        </tr>
+    </table>
 
     <!-- TITLE -->
     <div class="judul">
@@ -107,7 +111,7 @@
     <table>
         <tr>
             <td width="25%">PENANGGUNG JAWAB</td>
-            <td colspan="5">: <?= $penanggung ?></td>
+            <td colspan="5">: </td>
         </tr>
         <tr>
             <td>ALAMAT</td>
@@ -162,10 +166,10 @@
             <td width="50%" class="col-title">PERINCIAN</td>
         </tr>
         <tr>
-            <td style="height: 490px; vertical-align: top; padding:10px; border-right:1px solid #000;">
+            <td style="height: 450px; vertical-align: top; padding:10px; border-right:1px solid #000;">
                 <?= $client->keterangan ?>
             </td>
-            <td style="height: 490px; vertical-align: top; padding:10px;">
+            <td style="height: 450px; vertical-align: top; padding:10px;">
             </td>
         </tr>
     </table>
