@@ -12,7 +12,6 @@
     .wrapper {
         width: 100%;
         border: 2px solid #000;
-        padding: 15px;
     }
 
     .top-section {
@@ -64,7 +63,7 @@
         text-align: center;
         font-weight: bold;
         padding: 5px;
-        border-bottom: 1px solid black;
+        border-top: 1px solid black;
     }
 
 </style>
@@ -98,7 +97,7 @@
     <table>
         <tr>
             <td width="20%">DENGAN</td>
-            <td class="bordered" width="60%">: <?= $penyewa ?></td>
+            <td class="bordered" width="60%">: <?= $client->pemesan ?></td>
             <td width="20%" style="text-align:right;">(PIHAK PENYEWA)</td>
         </tr>
     </table>
@@ -107,37 +106,66 @@
 
     <table>
         <tr>
-            <td width="20%">PENANGGUNG JAWAB</td>
-            <td>: <?= $penanggung ?></td>
-            <td width="20%">NO TELEPON</td>
-            <td>: <?= $telepon ?></td>
+            <td width="25%">PENANGGUNG JAWAB</td>
+            <td colspan="5">: <?= $penanggung ?></td>
         </tr>
         <tr>
             <td>ALAMAT</td>
-            <td colspan="3">: <?= $alamat ?></td>
+            <td colspan="3">: <?= $client->alamat ?></td>
+            <td width="20%">NO TELEPON</td>
+            <td>: <?= $client->nohp ?></td>
         </tr>
     </table>
 
-    <br><br>
-
     <!-- DETAIL ACARA -->
-    <table class="bordered">
+    <table class="bordered" style="width:100%;heigt:100%; border:1px solid #000; border-collapse: collapse;margin-bottom: -31px;">
         <tr>
-            <td width="50%">
+            <td width="50%" style="border-right:1px solid #000;">
                 <table width="100%">
-                    <tr><td>ACARA</td><td>: <?= $acara ?></td></tr>
+                    <tr><td>ACARA</td><td>: <?= $client->tipeevent ?></td></tr>
                     <tr><td>TEMPAT</td><td>: <?= $tempat ?></td></tr>
-                    <tr><td>TARIF SEWA</td><td>: <?= $tarif ?></td></tr>
-                    <tr><td>JUMLAH TAMU</td><td>: <?= $tamu ?></td></tr>
+                    <tr><td>TARIF SEWA</td><td>: <?= rupiah($client->hargadeal) ?></td></tr>
+                    <tr><td>JUMLAH TAMU</td><td>: </td></tr>
                 </table>
             </td>
+            <?php 
+
+            $tanggal = $client->tanggal; // contoh: 2025-12-06 00:00:00
+
+            $hari = [
+                'Sunday'    => 'Minggu',
+                'Monday'    => 'Senin',
+                'Tuesday'   => 'Selasa',
+                'Wednesday' => 'Rabu',
+                'Thursday'  => 'Kamis',
+                'Friday'    => 'Jumat',
+                'Saturday'  => 'Sabtu'
+            ];
+
+            $dt = new DateTime($tanggal);
+
+            $namaHari = $hari[$dt->format('l')];
+            $formatTgl = $dt->format('d-m-Y');
+
+            ?>
 
             <td width="50%">
                 <table width="100%">
-                    <tr><td>HARI/TANGGAL</td><td>: <?= $tanggal ?></td></tr>
-                    <tr><td>WAKTU</td><td>: <?= $waktu ?></td></tr>
-                    <tr><td>RESEPSI</td><td>: <?= $resepsi ?></td></tr>
+                    <tr><td>HARI/TANGGAL</td><td>: <?= $namaHari.", ".$formatTgl ?></td></tr>
+                    <tr><td>WAKTU</td><td>: <?= $client->sesi ?></td></tr>
+                    <tr><td>RESEPSI</td><td>: </td></tr>
                 </table>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%" class="col-title" style="border-right:1px solid #000;">LAIN LAIN</td>
+            <td width="50%" class="col-title">PERINCIAN</td>
+        </tr>
+        <tr>
+            <td style="height: 490px; vertical-align: top; padding:10px; border-right:1px solid #000;">
+                <?= $client->keterangan ?>
+            </td>
+            <td style="height: 490px; vertical-align: top; padding:10px;">
             </td>
         </tr>
     </table>
@@ -145,19 +173,8 @@
     <br>
 
     <!-- Lain lain & perincian -->
-    <table class="bordered">
-        <tr>
-            <td width="50%" class="col-title">LAIN LAIN</td>
-            <td width="50%" class="col-title">PERINCIAN</td>
-        </tr>
-        <tr>
-            <td style="height: 300px; vertical-align: top; padding:10px;">
-                <?= $lainlain ?>
-            </td>
-            <td style="height: 300px; vertical-align: top; padding:10px;">
-                <?= $perincian ?>
-            </td>
-        </tr>
+    <table class="bordered" style="width:100%; border:1px solid #000; border-collapse: collapse;">
+        
     </table>
 
 </div>

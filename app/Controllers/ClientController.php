@@ -157,7 +157,7 @@ class ClientController extends BaseController
         ]);
     }
 
-    public function cetakdepan()
+    public function cetakdepan($id)
     {
         // Data yang akan dikirim ke view PDF
          $data = [
@@ -175,6 +175,15 @@ class ClientController extends BaseController
             'lainlain'        => 'Dekorasi, kursi 500, meja 10',
             'perincian'       => 'Rincian biaya dan fasilitas...'
         ];
+
+        $data['client'] = model(Client::class)
+        ->select('client_m.*, booking_t.tanggal, booking_t.sesi, booking_t.status, booking_t.keterangan, booking_t.paketfk, paket_m.paket,
+        booking_t.hargaasli, booking_t.hargadeal, booking_t.kursi,booking_t.id as bookingid,booking_t.eo,booking_t.katering,booking_t.lainlain,tipe_m.tipeevent')
+        ->where('booking_t.id', $id)
+        ->join('booking_t','booking_t.clientfk = client_m.id')
+        ->join('paket_m', 'booking_t.paketfk = paket_m.id','left')
+        ->join('tipe_m', 'booking_t.tipefk = tipe_m.id','left')
+        ->first();
         // Load HTML view
         $html = view('master/client/cetakdepan', $data);
         $dompdf = new Dompdf([
@@ -185,5 +194,26 @@ class ClientController extends BaseController
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         return $dompdf->stream('function-depan.pdf', ["Attachment" => false]);
+    }
+
+    public function syaratketentuan()
+    {
+        // Data yang akan dikirim ke view PDF
+        $data = [
+            "kota" => "Surakarta",
+            "tanggal" => date("d F Y"),
+            "penyewa" => "Nama Penyewa",
+        ];
+
+        $html = view('master/client/syaratketentuan', $data);
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return $dompdf->stream("syarat-ketentuan.pdf", [
+            "Attachment" => false
+        ]);
     }
 }

@@ -78,6 +78,7 @@ $routes->group('client', ['filter' => 'login'],function ($routes) {
     $routes->get('datatable', [ClientController::class, 'datatable'], ['as' => 'client.datatable']);
     $routes->get('show/(:num)', [ClientController::class, 'show'], ['as' => 'client.show']);
     $routes->get('cetakdepan/(:num)', [ClientController::class, 'cetakdepan'], ['as' => 'client.cetakdepan']);
+    $routes->get('syaratketentuan/(:num)', [ClientController::class, 'syaratketentuan'], ['as' => 'client.syaratketentuan']);
     $routes->post('(:num)/edit', [ClientController::class, 'update'], ['as' => 'faq.update']);
     $routes->post('addcicilan/(:num)', [ClientController::class, 'addCicilan'], ['as' => 'client.addCicilan']);
     $routes->post('delete/(:num)', [ClientController::class, 'delete'], ['as' => 'client.delete']);
